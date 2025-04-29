@@ -1,0 +1,46 @@
+{
+  "name": "platform-business",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.esm.js",
+      "require": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "prepare": "yarn run clean && yarn run build",
+    "version:patch": "yarn version patch",
+    "version:minor": "yarn version minor",
+    "version:major": "yarn version major",
+    "prepublishOnly": "yarn clean && yarn build",
+    "publish:lib": "yarn publish --access public --no-git-tag-version",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "rimraf": "^5.0.0",
+    "rollup": "^4.0.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4"
+  },
+  "peerDependencies": {
+    "prettier": "^3.0.3",
+    "react": "^19",
+    "typescript": "^5.3.3"
+  }
+}
