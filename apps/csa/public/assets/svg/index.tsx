@@ -1,0 +1,10 @@
+import ListMenu from './list-menu.svg'
+import HomeIcon from './home-v2.svg'
+import ArrowDown from './arrow-down.svg'
+import Dot from './dot.svg'
+import LogOutIcon from './log-out.svg'
+import EyeOff from './eye-off-icon.svg'
+import Eye from './eye-icon.svg'
+import TrashIcon from './trash-icon.svg'
+
+export { ListMenu, Dot, LogOutIcon, ArrowDown, HomeIcon, Eye, EyeOff, TrashIcon }

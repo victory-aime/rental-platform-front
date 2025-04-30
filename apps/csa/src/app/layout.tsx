@@ -1,6 +1,6 @@
+import { ThemeProvider } from '_components/ui/provider'
 import type { Metadata } from 'next'
 import { Lato } from 'next/font/google'
-import { ThemeProvider } from '_components/ui/provider'
 
 const lato = Lato({
   variable: '--font-lato',
@@ -9,11 +9,11 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-  title: 'Platform',
-  description: 'rental platform app',
+  title: 'Shop Dashboad',
+  description: 'Simple dashboard for your app',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode

@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8070",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8070",
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "platform-shared": "*",
+    "platform-state-management": "*",
     "next": "15.3.1"
   },
   "devDependencies": {
