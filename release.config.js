@@ -12,13 +12,10 @@ module.exports = {
         message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
-    [
-      '@semantic-release/github',
-      {
-        failComment: false,
-        failTitle: false,
-        labels: ['release'],
-      },
-    ],
+    '@semantic-release/github',
   ],
+  tagFormat: 'v${version}',
+  prepare: {
+    changelog: true,
+  },
 }

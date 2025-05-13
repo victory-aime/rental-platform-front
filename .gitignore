@@ -1,1 +1,28 @@
-node_modules
+# .gitignore (root)
+
+# Node
+node_modules/
+**/node_modules/
+
+# Builds
+lib/
+**/lib/
+**/.next/
+.next/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Output binaries and tools
+**/.bin/
+**/.tsbuildinfo
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
