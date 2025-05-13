@@ -34,4 +34,5 @@ export interface ActionButtonTypes extends FlexProps {
   isLoading?: boolean
   onClick?: () => void
   onReload?: () => void
+  onToggleFilter?: () => void
 }

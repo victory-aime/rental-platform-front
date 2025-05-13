@@ -11,7 +11,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const isModuleRoot = pathname.split('/').length > 3
+  const isModuleRoot = pathname.split('/').length > 2
   const showBackButton = !isModuleRoot
 
   return (

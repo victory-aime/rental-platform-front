@@ -5,7 +5,7 @@ import { BoxContainer } from '_components/custom'
 import { BaseButton } from '_components/custom/button'
 import { BaseText } from '_components/custom/base-text/BaseText'
 import { TextVariant } from '_components/custom/base-text'
-import ThinkBoxModal from './components/ThinkBoxModal'
+import ThinkBoxModal from '_modules/components/ThinkBoxModal'
 
 export default function Dashboard() {
   const [openTinhBox, setOpenTinhBox] = useState(false)

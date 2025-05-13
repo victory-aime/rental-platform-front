@@ -16,6 +16,11 @@ export const MENU_BY_ROLE: Record<string, ILink[]> = {
       label: 'Voitures',
       icon: HomeIcon,
     },
+    {
+      path: MODULES_CARS_ROUTES.MANAGE_CARS,
+      label: 'Gestions Flotte',
+      icon: HomeIcon,
+    },
   ],
   ADMIN: [
     {

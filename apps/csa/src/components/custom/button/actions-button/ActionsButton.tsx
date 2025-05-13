@@ -3,7 +3,7 @@
 import { Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { FaPlus } from 'react-icons/fa'
+import { FaFilter, FaPlus } from 'react-icons/fa'
 import { GiCancel } from 'react-icons/gi'
 import { BaseButton } from '../base/baseButton'
 import { IoSave } from 'react-icons/io5'
@@ -27,6 +27,7 @@ export const ActionsButton = ({
     throw new Error('goBackUrl is missing')
   }
   const router = useRouter()
+
   return (
     <Flex gap={3} {...rest}>
       {cancelTitle && (
@@ -51,6 +52,11 @@ export const ActionsButton = ({
       {rest.onReload && (
         <BaseButton onClick={rest.onReload} px={'15px'} colorType={'primary'} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={<GoSync />}>
           {refreshTitle}
+        </BaseButton>
+      )}
+      {rest.onToggleFilter && (
+        <BaseButton px={'15px'} colorType={'secondary'} withGradient leftIcon={<FaFilter />} onClick={rest.onToggleFilter}>
+          Filtrer
         </BaseButton>
       )}
     </Flex>

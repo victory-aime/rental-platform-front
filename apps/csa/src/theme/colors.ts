@@ -10,6 +10,7 @@ export type Colors = {
   orange: ColorShades
   overlay: ColorShades
   neutral: ColorShades
+  lighter: ColorShades
 }
 
 const colors: Colors = {
@@ -45,6 +46,9 @@ const colors: Colors = {
   },
   neutral: {
     500: { value: '#ffffff' },
+  },
+  lighter: {
+    500: { value: '#C7C7D2' },
   },
   orange: {
     500: { value: '#f97316' },
