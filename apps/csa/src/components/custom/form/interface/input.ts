@@ -55,10 +55,17 @@ interface CheckBoxProps extends HTMLChakraProps<'label'> {
   label?: string | React.ReactNode
   validate?: any
   items?: {
-    id?: string
     name?: string
     value?: string
   }[]
 }
 
-export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps }
+interface SwitchProps extends HTMLChakraProps<'switch'> {
+  name: string
+  label?: string
+  validate?: any
+}
+
+interface FormColorPickerProps extends TextInputProps{}
+
+export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps,SwitchProps, FormColorPickerProps }

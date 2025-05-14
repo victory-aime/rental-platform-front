@@ -4,9 +4,13 @@ import { BaseText, BoxContainer, ColumnsDataTable, CustomFormatNumber, DataTable
 import { DisplayImage } from '../components/DisplayImage'
 import { Box } from '@chakra-ui/react'
 import React from 'react'
+import { TYPES } from 'platform-shared'
+import { useRouter } from 'next/navigation'
+import { MODULES_CARS_ROUTES } from '../routes'
 
 const ManageCarsPage = () => {
   const [toggle, setToggle] = React.useState(false)
+  const router = useRouter()
   const mockCars = [
     {
       id: 'car-001',
@@ -50,7 +54,7 @@ const ManageCarsPage = () => {
 
   const columns: ColumnsDataTable[] = [
     {
-      header: 'Image',
+      header: '',
       accessor: 'images',
       cell: (x) => {
         return <DisplayImage value={x} />
@@ -61,10 +65,10 @@ const ManageCarsPage = () => {
       accessor: 'name',
     },
     {
-      header: 'Prix',
+      header: 'Prix/Jour',
       accessor: 'price',
       cell: (x) => {
-        return <CustomFormatNumber value={x} />
+        return <CustomFormatNumber value={x} currencyCode={TYPES.ENUM.Currency.XAF} notation="standard" />
       },
     },
     {
@@ -99,7 +103,7 @@ const ManageCarsPage = () => {
         validateTitle: 'Ajouter un vehicule',
         validateColor: 'primary',
         onClick() {
-          console.log('add new car')
+          router.push(MODULES_CARS_ROUTES.ADD_CAR)
         },
       }}
       filterComponent={

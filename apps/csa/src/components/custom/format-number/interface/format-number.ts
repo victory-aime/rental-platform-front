@@ -1,3 +1,5 @@
+import { TYPES } from "platform-shared"
+
 type StyleNumberFormat = 'decimal' | 'percent' | 'currency'
 
 interface CustomFormatNumberProps {
@@ -6,8 +8,7 @@ interface CustomFormatNumberProps {
   minimumDigits?: number
   notation?: 'compact' | 'standard' | 'scientific' | 'engineering'
   style?: StyleNumberFormat
-  currencyCode?: string
-  isLocale?: boolean
+  currencyCode?:  TYPES.ENUM.Currency
 }
 
 export type { CustomFormatNumberProps }

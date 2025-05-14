@@ -21,6 +21,7 @@ export const ActionsButton = ({
   refreshTitle = 'Rafraichir les donnees',
   validateColor = 'success',
   onClick,
+  onToggleFilter,
   ...rest
 }: ActionButtonTypes) => {
   if (cancelTitle && !goBackUrl) {
@@ -29,7 +30,7 @@ export const ActionsButton = ({
   const router = useRouter()
 
   return (
-    <Flex gap={3} {...rest}>
+    <Flex {...rest} gap={3}>
       {cancelTitle && (
         <BaseButton
           px={'15px'}
@@ -54,8 +55,8 @@ export const ActionsButton = ({
           {refreshTitle}
         </BaseButton>
       )}
-      {rest.onToggleFilter && (
-        <BaseButton px={'15px'} colorType={'secondary'} withGradient leftIcon={<FaFilter />} onClick={rest.onToggleFilter}>
+      {onToggleFilter && (
+        <BaseButton px={'15px'} colorType={'secondary'} withGradient leftIcon={<FaFilter />} onClick={onToggleFilter}>
           Filtrer
         </BaseButton>
       )}

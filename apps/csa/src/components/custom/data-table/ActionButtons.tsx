@@ -14,7 +14,6 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
         const isShown = typeof action.isShown === 'function' ? action.isShown(item) : action.isShown !== false
         const isDisabled = action.isDisabled ? action.isDisabled(item) : false
         const label = typeof action.name === 'function' ? action.name(item) : action.name
-
         if (!isShown) return null
 
         switch (label) {

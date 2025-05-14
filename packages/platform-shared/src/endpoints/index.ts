@@ -70,5 +70,31 @@ export const APIS = (baseUrl?: string) => {
         UPDATE_USER: api({ path: '/user/update-info', method: 'PATCH' }),
       },
     },
+    COMMON:{
+      CARS: {
+        GET_CATEGORIES: api({
+          path:'/categories',
+          method: 'GET',
+          showResponse: false,
+        handleErrorManually:true        }),
+        GET_EQUIPMENTS:api({
+          path:'/equipments',
+          method:'GET',
+          showResponse:false,
+          handleErrorManually:true,
+        }),
+       
+      }
+    },
+    MODULES:{
+      CARS:{
+        ADD_CAR: api({
+          path:'/manage-cars/add',
+          method: 'POST',
+          showResponse: true,
+          handleErrorManually:true,
+        })
+      }
+    }
   }
 }

@@ -66,6 +66,7 @@ export const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false
         <HStack>
           <Button
             position={'relative'}
+            variant={rest.variant}
             bg={withGradient ? gradient : (bg ?? 'none')}
             color={textColor}
             _hover={{
@@ -90,6 +91,7 @@ export const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false
         <HStack>
           <Button
             position={'relative'}
+            variant={rest.variant}
             bg={withGradient ? gradient : (bg ?? 'none')}
             color={textColor}
             _hover={{

@@ -1,7 +1,10 @@
 import { JSX } from 'react'
 
+export type DataActionsButtonType = 'edit' | 'delete' | 'view'
+
+
 interface ActionProps<T = any> {
-  name: string | ((data: T) => string) // Nom ou fonction retournant un nom dynamique
+  name: DataActionsButtonType | ((data: T) => string) // Nom ou fonction retournant un nom dynamique
   title?: string // Titre de l'action pour affichage (ex. Tooltip)
   handleClick: (data: T) => void // Fonction exécutée lors du clic sur l'action
   isDisabled?: (data: T) => boolean // Désactive l'action selon certaines conditions
