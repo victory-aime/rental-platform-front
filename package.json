@@ -43,7 +43,7 @@
     "typescript": "^5"
   },
   "scripts": {
-    "build:libs": "lerna run build --stream",
+    "build:libs": "lerna run build --stream --ignore csa",
     "watch:libs": "lerna run watch --stream",
     "clean:libs": "lerna run clean --stream",
     "prepare:libs": "lerna run prepare --stream",

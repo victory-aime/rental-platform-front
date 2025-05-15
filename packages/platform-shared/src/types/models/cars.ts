@@ -1,45 +1,24 @@
-import { TYPES } from "../..";
+import { TYPES } from '../..'
 
 export interface ICreateCarDto {
-  id: string
+  id?: string
+  agencyId: string
+  agencyName?: string
+  name: string
   brand: string
-
-  agenceId: string;
-
-   name: string;
-
-
-   model: string;
-
-   plateNumber: string;
-
-   dailyPrice: number;
-
-  
-   weeklyPrice?: number;
-  discountType?: TYPES.ENUM.DiscountType;
-   discountValue?: number;
-
-  
-
-  
-  
-  color?: string;
-
-  
-   transmission?: TYPES.ENUM.TransmissionType;
-
-  
-   fuelType?: TYPES.ENUM.FuelType;
-
-  
-  doors?: number;
-
-  
-  seats?: number;
-
-  
-  carCategoryId?: string;
- available?: boolean;
-  equipmentIds?: TYPES.MODELS.COMMON.CarEquipments[];
+  model: string
+  plateNumber: string
+  dailyPrice: number
+  rentalPriceDiscounted?: number
+  discountType?: string
+  discountValue?: number
+  carImages: string[]
+  transmission: string
+  fuelType: string
+  doors?: number
+  seats?: number
+  carCategoryId?: string
+  available?: boolean
+  equipmentIds?: TYPES.MODELS.COMMON.CarEquipments[]
+  status?: string
 }

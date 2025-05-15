@@ -23,7 +23,6 @@ const FormTextInput = ({
   accept,
   height,
   validate,
-  value,
   onChangeFunction,
   useFullAmountMask,
   toolTipInfo,
@@ -92,7 +91,7 @@ const FormTextInput = ({
             field?.onBlur(e)
             onBlur?.(e)
           }}
-          value={value ?? field?.value}
+          value={field?.value}
           placeholder={placeholder ?? ''}
           borderRadius={customRadius ?? '7px'}
           border={'1px solid'}

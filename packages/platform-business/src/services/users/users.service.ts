@@ -15,5 +15,4 @@ export class UsersService extends BaseApi {
   whoAmI(userId?: { userId: string }): Promise<any> {
     return this.apiService.invoke(this.applicationContext.getApiConfig().USERS.PRIVATE.ME, userId)
   }
-
 }

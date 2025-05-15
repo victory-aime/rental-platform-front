@@ -1,5 +1,5 @@
-import { HTMLChakraProps, ListCollection, CheckboxRootProps } from '@chakra-ui/react'
-import React, { HTMLInputTypeAttribute, ReactNode } from 'react'
+import { HTMLChakraProps, ListCollection } from '@chakra-ui/react'
+import React, { HTMLInputTypeAttribute } from 'react'
 
 interface TextInputProps extends HTMLChakraProps<'input'> {
   name: string
@@ -54,6 +54,7 @@ interface CheckBoxProps extends HTMLChakraProps<'label'> {
   name: string
   label?: string | React.ReactNode
   validate?: any
+  itemsPerRow?: number
   items?: {
     name?: string
     value?: string
@@ -66,6 +67,6 @@ interface SwitchProps extends HTMLChakraProps<'switch'> {
   validate?: any
 }
 
-interface FormColorPickerProps extends TextInputProps{}
+interface FormColorPickerProps extends TextInputProps {}
 
-export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps,SwitchProps, FormColorPickerProps }
+export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps, SwitchProps, FormColorPickerProps }

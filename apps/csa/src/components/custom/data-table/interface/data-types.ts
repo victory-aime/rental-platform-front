@@ -2,7 +2,6 @@ import { JSX } from 'react'
 
 export type DataActionsButtonType = 'edit' | 'delete' | 'view'
 
-
 interface ActionProps<T = any> {
   name: DataActionsButtonType | ((data: T) => string) // Nom ou fonction retournant un nom dynamique
   title?: string // Titre de l'action pour affichage (ex. Tooltip)

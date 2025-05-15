@@ -5,15 +5,15 @@ export const DiscountedPriceCalculator = () => {
   const { values, setFieldValue } = useFormikContext<any>()
 
   useEffect(() => {
-    const { rentalPricePerDay, discount, hasDiscount } = values
+    const { dailyPrice, discountValue, hasDiscount } = values
 
-    if (hasDiscount && rentalPricePerDay && discount >= 0) {
-      const finalPrice = rentalPricePerDay - (rentalPricePerDay * discount) / 100
-      setFieldValue('finalRentalPricePerDay', finalPrice.toFixed(2))
+    if (hasDiscount && dailyPrice && discountValue >= 0) {
+      const finalPrice = dailyPrice - (dailyPrice * discountValue) / 100
+      setFieldValue('rentalPriceDiscounted', finalPrice.toFixed(2))
     } else {
-      setFieldValue('finalRentalPricePerDay', '')
+      setFieldValue('rentalPriceDiscounted', '')
     }
-  }, [values.rentalPricePerDay, values.discount, values.hasDiscount, setFieldValue])
+  }, [values.dailyPrice, values.discountValue, values.hasDiscount, setFieldValue])
 
   return null
 }

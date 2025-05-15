@@ -22,8 +22,10 @@ import { LuUpload } from 'react-icons/lu'
 import { ACCEPTED_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB, MAX_FILES } from './constant/constants'
 import { UTILS } from 'platform-shared'
 import { Avatar } from '_components/ui/avatar'
+import { BaseText, TextVariant } from '../base-text'
+import { VariablesColors } from '_theme/variables'
 
-const FileImageList = ({ getFilesUploaded, base64Images }: { getFilesUploaded: (files: File[]) => void; base64Images?: string[] }) => {
+const FileImageList = ({ getFilesUploaded }: { getFilesUploaded: (files: File[]) => void }) => {
   const fileUpload = useFileUploadContext()
   const [error, setError] = useState<string | null>(null)
   const [errorType, setErrorType] = useState<'size' | 'max_file' | 'type' | null>(null)
@@ -68,24 +70,17 @@ const FileImageList = ({ getFilesUploaded, base64Images }: { getFilesUploaded: (
     }
   }, [error])
 
-  useEffect(() => {
-    if (base64Images && base64Images.length > 0 && fileUpload.acceptedFiles.length === 0) {
-      const convertedFiles = base64Images?.map((base64, index) => UTILS.base64ToFile(base64, `image-${index}.jpg`))
-      fileUpload.setFiles([...convertedFiles, ...fileUpload.acceptedFiles])
-    }
-  }, [base64Images])
-
   return (
     <Box mt={6} w={'full'}>
-      <HStack justifyContent={'center'} wrap="wrap" gap="3">
+      <HStack width={'full'} justifyContent={'flex-start'} wrap="wrap" gap="3">
         {fileUpload.acceptedFiles.map((file) => (
           <FileUpload.Item p="2" width="auto" key={file.name} file={file} pos="relative">
-            <Float color={'white'}>
+            <Float>
               <FileUpload.ItemDeleteTrigger p="0.5" rounded="l1" bg="red.500" borderWidth="1px">
-                <HiX />
+                <HiX color={VariablesColors.white} />
               </FileUpload.ItemDeleteTrigger>
             </Float>
-            <FileUploadItemPreviewImage boxSize="100px" objectFit="cover" />
+            <FileUploadItemPreviewImage boxSize="300px" objectFit="cover" />
           </FileUpload.Item>
         ))}
       </HStack>
@@ -102,20 +97,22 @@ const FileImageList = ({ getFilesUploaded, base64Images }: { getFilesUploaded: (
   )
 }
 
-export const CustomDragDropZone = ({ getFilesUploaded, base64Images }: { getFilesUploaded: (files: File[]) => void; base64Images?: string[] }) => {
+export const CustomDragDropZone = ({ getFilesUploaded }: { getFilesUploaded: (files: File[]) => void }) => {
   const { getRootProps } = useFileUpload()
 
   return (
     <FileUpload.Root {...getRootProps()} maxFiles={MAX_FILES} maxFileSize={MAX_FILE_SIZE} alignItems="stretch" accept={ACCEPTED_TYPES} _dragging={{ borderColor: 'primary.500' }}>
       <FileUpload.HiddenInput />
-      <FileImageList getFilesUploaded={getFilesUploaded} base64Images={base64Images} />
+      <FileImageList getFilesUploaded={getFilesUploaded} />
       <FileUploadDropzone>
         <Icon fontSize="xl" color="fg.muted">
           <LuUpload />
         </Icon>
         <FileUploadDropzoneContent>
-          <div>{'Glissez-déposez des fichiers ici, ou cliquez pour sélectionner'}</div>
-          <Text color="fg.muted">.png, .jpg jusqu'à {MAX_FILE_SIZE_MB}MB</Text>
+          <BaseText color={'fg.muted'} variant={TextVariant.S}>
+            Glissez-déposez des fichiers ici, ou cliquez pour sélectionner
+          </BaseText>
+          <BaseText color="fg.subtle">.png, .jpg jusqu'à {MAX_FILE_SIZE_MB}MB</BaseText>
         </FileUploadDropzoneContent>
       </FileUploadDropzone>
     </FileUpload.Root>
@@ -155,13 +152,6 @@ const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploa
       return () => clearTimeout(timer)
     }
   }, [error])
-
-  useEffect(() => {
-    if (avatarImage && fileUpload.acceptedFiles.length === 0) {
-      const convertedFile = UTILS.base64ToFile(avatarImage, `image-user.jpg`)
-      fileUpload.setFiles([convertedFile])
-    }
-  }, [avatarImage])
 
   return (
     <Center flexDir={'column'}>

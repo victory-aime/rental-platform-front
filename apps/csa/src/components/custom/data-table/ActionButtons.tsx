@@ -20,13 +20,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
           case 'delete':
             return (
               <CustomToolTip message={'Supprimer'} key={index}>
-                <IconButton
-                  aria-label="Supprimer"
-                  colorPalette="red"
-                  size="sm"
-                  onClick={() => action.handleClick(item)}
-                  disabled={isDisabled}
-                >
+                <IconButton aria-label="Supprimer" colorPalette="red" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <FaTrashAlt />
                 </IconButton>
               </CustomToolTip>
@@ -34,13 +28,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
           case 'edit':
             return (
               <CustomToolTip message={'Modifier'} key={index}>
-                <IconButton
-                  aria-label="Modifier"
-                  colorPalette="blue"
-                  size="sm"
-                  onClick={() => action.handleClick(item)}
-                  disabled={isDisabled}
-                >
+                <IconButton aria-label="Modifier" colorPalette="blue" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <MdEdit />
                 </IconButton>
               </CustomToolTip>
@@ -48,13 +36,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
           case 'view':
             return (
               <CustomToolTip message={'Voir Details'} key={index}>
-                <IconButton
-                  aria-label="Voir"
-                  colorPalette="green"
-                  size="sm"
-                  onClick={() => action.handleClick(item)}
-                  disabled={isDisabled}
-                >
+                <IconButton aria-label="Voir" colorPalette="green" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <IoNewspaperOutline />
                 </IconButton>
               </CustomToolTip>
@@ -62,13 +44,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
           case 'restore':
             return (
               <CustomToolTip message={'Restore'} key={index}>
-                <IconButton
-                  aria-label="restore"
-                  colorPalette="blue"
-                  size="sm"
-                  onClick={() => action.handleClick(item)}
-                  disabled={isDisabled}
-                >
+                <IconButton aria-label="restore" colorPalette="blue" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <TbRestore />
                 </IconButton>
               </CustomToolTip>

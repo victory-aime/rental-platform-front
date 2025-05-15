@@ -7,7 +7,6 @@ export const useSessionRefresh = (interval = 25 * 60 * 1000) => {
   useEffect(() => {
     const id = setInterval(() => {
       update().catch((e) => {
-       
         signIn('keycloak')
       })
     }, interval)

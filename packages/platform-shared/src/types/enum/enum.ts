@@ -1,21 +1,20 @@
-enum CommonStatus  {
-    ACTIVE ='ACTIVE',
-    PENDING ='PENDING',
-    CANCELED ='CANCELED',
-    EXPIRED ='EXPIRED'
-  }
-  
-  enum EtablissementType {
-    HOTEL ='HOTEL',
-    AGENCE='AGENCE',
-  }
-  
-  
+enum CommonStatus {
+  ACTIVE = 'ACTIVE',
+  PENDING = 'PENDING',
+  CANCELED = 'CANCELED',
+  EXPIRED = 'EXPIRED',
+}
+
+enum EstablishmentType {
+  HOTEL = 'HOTEL',
+  AGENCY = 'AGENCY',
+}
+
 enum PlanType {
-    BASIC ='BASIC',
-    STANDARD ='STANDARD',
-    PRO='PRO'
-  }
+  BASIC = 'BASIC',
+  STANDARD = 'STANDARD',
+  PRO = 'PRO',
+}
 
 enum Currency {
   USD = 'USD',
@@ -43,9 +42,16 @@ enum TransmissionType {
 
 export enum VehicleStatus {
   AVAILABLE = 'AVAILABLE',
-  RENTED = 'RENTED',
   MAINTENANCE = 'MAINTENANCE',
   UNAVAILABLE = 'UNAVAILABLE',
 }
 
-export  { Currency,CommonStatus, EtablissementType, PlanType, DiscountType, FuelType, TransmissionType}
+export {
+  Currency,
+  CommonStatus,
+  EstablishmentType,
+  PlanType,
+  DiscountType,
+  FuelType,
+  TransmissionType,
+}

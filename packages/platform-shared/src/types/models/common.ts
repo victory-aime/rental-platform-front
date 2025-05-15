@@ -1,7 +1,9 @@
 export interface CarCategory {
-    id?:string, name: string
+  id?: string
+  name: string
 }
 
 export interface CarEquipments {
-    id?:string, name: string
+  id?: string
+  name: string
 }

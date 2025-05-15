@@ -17,7 +17,7 @@ export const FormSwitch: FC<SwitchProps> = ({ name, validate, label }) => {
   }
 
   return (
-    <Fieldset.Root id={name} invalid={isError}>
+    <Fieldset.Root id={name} invalid={isError} width={'fit-content'} alignItems={'center'}>
       <Switch.Root name={name} checked={field.value} onCheckedChange={handleCheckedChange} colorPalette={'green'} size={'lg'}>
         <Switch.Label>{label}</Switch.Label>
         <Switch.HiddenInput />

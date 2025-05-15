@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 import { Configuration } from 'webpack'
-
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -19,6 +18,6 @@ const nextConfig: NextConfig = {
     })
     return config
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

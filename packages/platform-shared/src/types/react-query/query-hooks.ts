@@ -8,7 +8,7 @@ import {
 import { AxiosError } from 'axios'
 
 /**
- * Hook personnalisé pour useQuery
+ * Custom hook from UseQuery
  */
 type UseCustomQueryProps<TData, TError = AxiosError> = {
   queryKey: QueryKey
@@ -30,7 +30,7 @@ export const useCustomQuery = <TData, TError = AxiosError>({
 }
 
 /**
- * Hook personnalisé pour useMutation
+ * Custom hook for useMutation
  */
 type UseCustomMutationProps<TPayload, TResult, TError = AxiosError> = {
   mutationKey?: QueryKey

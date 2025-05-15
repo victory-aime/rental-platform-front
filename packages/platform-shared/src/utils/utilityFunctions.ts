@@ -208,10 +208,10 @@ export const convertToCreatedUpdatedInfo = <
 
 export const compressImagesFiles = async (file: File) => {
   const options = {
-    fileType: 'image/webp', // Convertir en WebP
-    maxSizeMB: 1, // Limiter à 1MB pour un bon compromis taille/qualité
-    maxWidthOrHeight: 1920, // Limite la résolution à du Full HD
-    initialQuality: 0.8, // Compression légère (1 = qualité max)
+    fileType: 'image/webp', // Convert to WebP
+    maxSizeMB: 1, // Limiter à 1MB
+    maxWidthOrHeight: 1920, // Limit la résolution à du Full HD
+    initialQuality: 0.8, // Compression (1 = quality max)
     useWebWorker: true,
   }
   return await imageCompression(file, options)

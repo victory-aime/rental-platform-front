@@ -56,7 +56,7 @@ const FormSelect: FC<FullSelectProps> = ({
         width={width}
       >
         {label && (
-          <SelectLabel display={'flex'} gap={'6px'} fontSize={{ base: '14px', md: '16px' }}>
+          <SelectLabel display={'flex'} gap={'6px'} mb={'4px'} fontSize={{ base: '14px', md: '16px' }}>
             {label}
             {required && <BaseText color={'red'}> * </BaseText>}
           </SelectLabel>

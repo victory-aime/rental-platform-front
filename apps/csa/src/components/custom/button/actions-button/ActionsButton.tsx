@@ -14,7 +14,6 @@ import { GoSync } from 'react-icons/go'
 export const ActionsButton = ({
   cancelTitle,
   validateTitle,
-  goBackUrl,
   requestId,
   isLoading = false,
   cancelColor = 'danger',
@@ -24,23 +23,12 @@ export const ActionsButton = ({
   onToggleFilter,
   ...rest
 }: ActionButtonTypes) => {
-  if (cancelTitle && !goBackUrl) {
-    throw new Error('goBackUrl is missing')
-  }
   const router = useRouter()
 
   return (
     <Flex {...rest} gap={3}>
       {cancelTitle && (
-        <BaseButton
-          px={'15px'}
-          withGradient
-          colorType={cancelColor}
-          leftIcon={cancelColor === 'danger' ? <GiCancel /> : <IoIosArrowDropleftCircle />}
-          onClick={() => {
-            router.push(goBackUrl ?? '')
-          }}
-        >
+        <BaseButton px={'15px'} withGradient colorType={cancelColor} leftIcon={cancelColor === 'danger' ? <GiCancel /> : <IoIosArrowDropleftCircle />} onClick={() => router?.back()}>
           {cancelTitle}
         </BaseButton>
       )}

@@ -1,4 +1,4 @@
-import { TYPES } from "../.."
+import { TYPES } from '../..'
 
 export interface Establishment {
   id: string
@@ -11,7 +11,7 @@ export interface Establishment {
   phone: string
   subscription: {
     id: string
-    etablissementId: string
+    establishment: string
     planId: string
     startDate: string
     endDate: string
@@ -21,9 +21,9 @@ export interface Establishment {
       id: string
       name: TYPES.ENUM.PlanType
       price: number
-      duration: number      
-      maxListings: number     
-       maxImagesPerListing: number
+      duration: number
+      maxListings: number
+      maxImagesPerListing: number
       maxReservationsPerMonth: number
       canUseDiscounts: true
       canAccessAnalytics: true
@@ -38,5 +38,5 @@ export interface IUser {
   id: string
   name: string
   email: string
-  etablissement: Establishment
+  establishment: Establishment
 }

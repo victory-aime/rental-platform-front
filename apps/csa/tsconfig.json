@@ -28,7 +28,6 @@
       "_hooks/*": ["./src/app/hooks/*"],
       "_modules/*": ["./src/app/modules/*"],
       "_context/*": ["./src/app/context/*"]
-
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

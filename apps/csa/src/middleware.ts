@@ -7,7 +7,6 @@ import { NextResponse } from 'next/server'
 const protectedRoutes: Record<string, string[]> = {
   '/cars/dashboard/:path*': ['AUTOMOBILISTE'],
   '/hotel/dashboard/:path*': ['HOTELIER'],
-
 }
 
 /**
