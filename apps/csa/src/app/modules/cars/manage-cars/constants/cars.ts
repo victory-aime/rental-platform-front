@@ -1,5 +1,5 @@
 import { createListCollection } from '@chakra-ui/react'
-import { TYPES } from 'platform-shared'
+import { TYPES } from 'rental-platform-shared-lib'
 
 const categoryList = (categories: { name: string; id: string }[] = []) => {
   return createListCollection({

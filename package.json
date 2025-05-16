@@ -2,8 +2,8 @@
   "name": "rental-platform",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/bvginnovation/rental-platform",
-  "author": "bvg-innovation",
+  "repository": "https://github.com/victory-aime/rental-platform-front",
+  "author": "victory-aime",
   "license": "MIT",
   "private": true,
   "dependencies": {

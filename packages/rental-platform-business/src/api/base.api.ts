@@ -1,5 +1,5 @@
 import { ApiService } from '.'
-import { IApplicationContext } from 'platform-state-management'
+import { IApplicationContext } from 'rental-platform-state'
 
 /**
  * Base API class to be extended by all service classes.

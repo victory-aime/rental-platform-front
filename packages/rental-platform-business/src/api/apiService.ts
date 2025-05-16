@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { APIObjectType } from 'platform-shared'
-import { IApplicationContext } from 'platform-state-management'
+import { APIObjectType } from 'rental-platform-shared'
+import { IApplicationContext } from 'rental-platform-state'
 import { InvokeOptions } from './types'
 
 /**

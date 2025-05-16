@@ -7,7 +7,7 @@ import { FormTextInput, FormSelect, CustomDragDropZone, ActionsButton, BaseText,
 import { Formik } from 'formik'
 import { LuBadgeDollarSign, LuBadgePercent } from 'react-icons/lu'
 import { CarsModule, UserModule } from 'platform-state-management'
-import { TYPES, UTILS } from 'platform-shared'
+import { TYPES, UTILS } from 'rental-platform-shared-lib'
 import { FormContainer } from '../../components/FormContainer'
 import { fuelList, transmissionList, categoryList, statusList, equipmentsList } from '../constants/cars'
 import { DiscountedPriceCalculator } from '_modules/cars/hooks/DiscountPriceCalculator'

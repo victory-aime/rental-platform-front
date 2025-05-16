@@ -11,8 +11,8 @@
     "prettier:fix": "prettier --write ."
   },
   "dependencies": {
-    "platform-shared": "*",
-    "platform-state-management": "*",
+    "rental-platform-shared": "*",
+    "rental-platform-state": "*",
     "next": "15.3.1"
   },
   "devDependencies": {

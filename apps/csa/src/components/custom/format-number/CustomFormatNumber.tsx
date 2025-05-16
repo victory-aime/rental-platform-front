@@ -1,7 +1,7 @@
 import { FormatNumber } from '@chakra-ui/react'
 import { FC, useEffect, useState } from 'react'
 import { CustomFormatNumberProps } from './interface/format-number'
-import { TYPES } from 'platform-shared'
+import { TYPES } from 'rental-platform-shared-lib'
 import { ModalComponent } from '../modal'
 import { CiWarning } from 'react-icons/ci'
 import { VariablesColors } from '_theme/variables'

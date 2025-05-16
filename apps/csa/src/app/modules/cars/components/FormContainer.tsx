@@ -3,7 +3,7 @@ import { BoxContainer, CustomToolTip, BaseText, TextVariant, TextWeight } from '
 import React from 'react'
 import { HiInformationCircle } from 'react-icons/hi'
 
-export const FormContainer = ({ children, title, tooltip }: { children: React.ReactNode; title: string; tooltip?: string; withBadge?: boolean; type?: 'button' | 'badge'; onClick?: () => void }) => {
+export const FormContainer = ({ children, title, tooltip }: { children: React.ReactNode; title: string; tooltip?: string; onClick?: () => void }) => {
   return (
     <BoxContainer width={'full'} p={'24px'}>
       <Flex width={'full'} gap={4} alignItems={'center'} justifyContent={'flex-start'}>

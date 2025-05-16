@@ -1,4 +1,4 @@
-import { APIS } from 'platform-shared'
+import { APIS } from 'rental-platform-shared-lib'
 import { ApplicationContext } from 'platform-state-management'
 import { handleApiError } from '_utils/handleApiError'
 import { handleApiSuccess } from '_utils/handleApiSuccess'

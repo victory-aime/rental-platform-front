@@ -1,6 +1,6 @@
 {
-  "name": "platform-shared",
-  "version": "1.0.0",
+  "name": "rental-platform-state",
+  "version": "1.1.0-alpha.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -29,20 +29,20 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "axios": "^1.6.2"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.2",
-    "prettier": "^3.0.3",
+    "rental-platform-business": "^1.1.0-alpha.0",
+    "rental-platform-shared": "^1.1.0-alpha.0",
     "rimraf": "^5.0.0",
     "rollup": "^4.0.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^5.3.3"
   },
-  "dependencies": {
-    "browser-image-compression": "^2.0.2",
-    "dayjs": "^1.11.13",
-    "yup": "^1.6.1"
-  }
+  "gitHead": "24bd12f509e1783b3d58fb2d4b4de4a7b0d93d37"
 }

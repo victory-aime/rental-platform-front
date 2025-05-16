@@ -1,6 +1,6 @@
 import * as Constants from './constants'
 import { carsServiceInstance } from './cars.service-instance'
-import { TYPES } from 'platform-shared'
+import { TYPES } from 'rental-platform-shared'
 import { AxiosError } from 'axios'
 
 const getCarsCategoriesQueries = (args: TYPES.QUERIES.QueryPayload<any, any>) => {

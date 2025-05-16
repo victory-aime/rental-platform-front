@@ -1,6 +1,6 @@
 import * as Constants from './constants'
 import { usersServiceInstance } from './users.service-instance'
-import { TYPES } from 'platform-shared'
+import { TYPES } from 'rental-platform-shared'
 import { AxiosError } from 'axios'
 
 export const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: string }, any>) => {

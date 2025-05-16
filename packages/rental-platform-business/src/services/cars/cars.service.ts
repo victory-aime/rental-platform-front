@@ -1,4 +1,4 @@
-import { TYPES } from 'platform-shared'
+import { TYPES } from 'rental-platform-shared'
 import { BaseApi } from '../../api'
 
 /**

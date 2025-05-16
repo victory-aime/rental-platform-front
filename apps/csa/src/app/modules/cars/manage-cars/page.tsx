@@ -4,7 +4,7 @@ import { BaseText, BoxContainer, ColumnsDataTable, CustomFormatNumber, DataTable
 import { DisplayImage } from '../components/DisplayImage'
 import { Box } from '@chakra-ui/react'
 import React from 'react'
-import { TYPES } from 'platform-shared'
+import { TYPES } from 'rental-platform-shared-lib'
 import { useRouter } from 'next/navigation'
 import { MODULES_CARS_ROUTES } from '../routes'
 import { CarsModule, UserModule } from 'platform-state-management'

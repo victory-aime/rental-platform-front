@@ -1,6 +1,6 @@
 {
-  "name": "platform-business",
-  "version": "1.0.0",
+  "name": "rental-platform-business",
+  "version": "1.1.0-alpha.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -33,8 +33,8 @@
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.2",
-    "platform-shared": "*",
-    "platform-state-management": "*",
+    "rental-platform-shared": "^1.1.0-alpha.0",
+    "rental-platform-state": "^1.1.0-alpha.0",
     "rimraf": "^5.0.0",
     "rollup": "^4.0.0",
     "rollup-plugin-dts": "^6.1.0",
@@ -44,5 +44,6 @@
     "prettier": "^3.0.3",
     "react": "^19",
     "typescript": "^5.3.3"
-  }
+  },
+  "gitHead": "24bd12f509e1783b3d58fb2d4b4de4a7b0d93d37"
 }
