@@ -16,7 +16,7 @@ export interface Establishment {
     startDate: string
     endDate: string
     canceledAt: string | null
-    status: TYPES.ENUM.CommonStatus
+    status: TYPES.ENUM.SubscriptionStatus
     plan: {
       id: string
       name: TYPES.ENUM.PlanType

@@ -9,7 +9,7 @@ import { Formik, FormikHelpers, FormikValues } from 'formik'
 import React, { FC, useState } from 'react'
 import { FcIdea } from 'react-icons/fc'
 import axios from 'axios'
-import { UserModule } from 'platform-state-management'
+import { UserModule } from 'rental-platform-state'
 export interface InitialFormValues {
   subject: string
   message: string

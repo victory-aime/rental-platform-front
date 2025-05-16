@@ -9,7 +9,6 @@ import {
   FileUploadItemPreviewImage,
   Float,
   HStack,
-  Text,
   Icon,
   useFileUpload,
   useFileUploadContext,
@@ -20,12 +19,12 @@ import { useEffect, useState } from 'react'
 import { HiUpload, HiX } from 'react-icons/hi'
 import { LuUpload } from 'react-icons/lu'
 import { ACCEPTED_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB, MAX_FILES } from './constant/constants'
-import { UTILS } from 'rental-platform-shared-lib'
+import { UTILS } from 'rental-platform-shared'
 import { Avatar } from '_components/ui/avatar'
 import { BaseText, TextVariant } from '../base-text'
 import { VariablesColors } from '_theme/variables'
 
-const FileImageList = ({ getFilesUploaded }: { getFilesUploaded: (files: File[]) => void }) => {
+const FileImageList = ({ getFilesUploaded, initialImageUrls }: { getFilesUploaded: (files: File[]) => void; initialImageUrls?: string[] }) => {
   const fileUpload = useFileUploadContext()
   const [error, setError] = useState<string | null>(null)
   const [errorType, setErrorType] = useState<'size' | 'max_file' | 'type' | null>(null)
@@ -58,6 +57,14 @@ const FileImageList = ({ getFilesUploaded }: { getFilesUploaded: (files: File[])
     // 🔥 Mise à jour des fichiers téléversés pour le parent
     getFilesUploaded(fileUpload.acceptedFiles)
   }, [fileUpload])
+
+  useEffect(() => {
+    if (initialImageUrls && initialImageUrls.length > 0 && fileUpload.acceptedFiles.length === 0) {
+      UTILS.convertUrlsToFiles(initialImageUrls).then((files) => {
+        fileUpload.setFiles([...files])
+      })
+    }
+  }, [initialImageUrls])
 
   useEffect(() => {
     if (error) {
@@ -97,13 +104,15 @@ const FileImageList = ({ getFilesUploaded }: { getFilesUploaded: (files: File[])
   )
 }
 
-export const CustomDragDropZone = ({ getFilesUploaded }: { getFilesUploaded: (files: File[]) => void }) => {
+export const CustomDragDropZone = ({ getFilesUploaded, initialImageUrls }: { getFilesUploaded: (files: File[]) => void; initialImageUrls: string[] }) => {
   const { getRootProps } = useFileUpload()
+
+  console.log('image set', initialImageUrls)
 
   return (
     <FileUpload.Root {...getRootProps()} maxFiles={MAX_FILES} maxFileSize={MAX_FILE_SIZE} alignItems="stretch" accept={ACCEPTED_TYPES} _dragging={{ borderColor: 'primary.500' }}>
       <FileUpload.HiddenInput />
-      <FileImageList getFilesUploaded={getFilesUploaded} />
+      <FileImageList getFilesUploaded={getFilesUploaded} initialImageUrls={initialImageUrls} />
       <FileUploadDropzone>
         <Icon fontSize="xl" color="fg.muted">
           <LuUpload />

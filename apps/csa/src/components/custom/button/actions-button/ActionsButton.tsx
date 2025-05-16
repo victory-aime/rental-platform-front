@@ -21,6 +21,7 @@ export const ActionsButton = ({
   validateColor = 'success',
   onClick,
   onToggleFilter,
+  onReload,
   ...rest
 }: ActionButtonTypes) => {
   const router = useRouter()
@@ -38,8 +39,8 @@ export const ActionsButton = ({
           {validateTitle}
         </BaseButton>
       )}
-      {rest.onReload && (
-        <BaseButton onClick={rest.onReload} px={'15px'} colorType={'primary'} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={<GoSync />}>
+      {onReload && (
+        <BaseButton onClick={onReload} px={'15px'} colorType={'primary'} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={<GoSync />}>
           {refreshTitle}
         </BaseButton>
       )}

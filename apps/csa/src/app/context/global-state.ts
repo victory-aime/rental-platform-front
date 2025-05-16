@@ -1,6 +1,6 @@
 'use client'
 
-import { applicationInstance } from 'platform-state-management'
+import { applicationInstance } from 'rental-platform-state'
 import { GlobalApplicationContext } from './applicationContext'
 
 /**

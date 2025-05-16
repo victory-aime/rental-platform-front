@@ -34,6 +34,14 @@ const getVariantStyles: any = (colorType: variantColorType): VariantColorStyle =
         hover: 'linear-gradient(to right, rgb(23, 206, 173), rgb(0, 165, 79))',
         textColor: 'white',
       }
+    case 'warning':
+      return {
+        bg: 'rgb(255, 193, 7)',
+        gradient: 'linear-gradient(to right, rgb(255, 193, 7), rgb(255, 152, 0))',
+        hover: 'linear-gradient(to right, rgb(255, 214, 10), rgb(255, 167, 38))',
+        textColor: 'white',
+      }
+
     default:
       return {
         bg: 'rgb(0, 0, 0)',
@@ -44,21 +52,8 @@ const getVariantStyles: any = (colorType: variantColorType): VariantColorStyle =
   }
 }
 
-const getVariantFromStatus = (status?: string): variantColorType | undefined => {
-  switch (status) {
-    case 'active':
-      return 'success'
-    case 'inactive':
-      return 'danger'
-    default:
-      return 'success'
-  }
-}
-
-export const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false, rightIcon, colorType, status, animation, isLoading = false, leftIcon, ...rest }) => {
-  const resolvedVariant: variantColorType = status ? getVariantFromStatus(status) || 'none' : colorType || 'none'
-
-  const { bg, gradient, hover, textColor } = getVariantStyles(resolvedVariant || 'none')
+const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false, rightIcon, colorType, status, animation, isLoading = false, leftIcon, ...rest }) => {
+  const { bg, gradient, hover, textColor } = getVariantStyles(colorType || 'none')
 
   return (
     <>
@@ -137,3 +132,5 @@ export const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false
     </>
   )
 }
+
+export { getVariantStyles, BaseButton }

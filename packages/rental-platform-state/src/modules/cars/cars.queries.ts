@@ -24,7 +24,7 @@ const getAllCarsQueries = (args: TYPES.QUERIES.QueryPayload<{ establishment: str
   const { payload, queryOptions } = args
   return TYPES.QUERIES.useCustomQuery<any, AxiosError>({
     queryKey: [Constants.CARS_KEYS.ALL_CARS],
-    queryFn: () => carsServiceInstance().fetchAllCars(payload),
+    queryFn: () => carsServiceInstance().fetchAllCars({ establishment: payload.establishment }),
     options: queryOptions,
   })
 }
@@ -39,4 +39,14 @@ const createCarsMutation = (
   })
 }
 
-export { getCarsCategoriesQueries, getCarsEquipmentsQueries, createCarsMutation, getAllCarsQueries }
+const updateCarsMutation = (
+  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.CARS.ICreateCarDto>
+) => {
+  return TYPES.QUERIES.useCustomMutation<TYPES.MODELS.CARS.ICreateCarDto, any, AxiosError>({
+    mutationKey: [Constants.CARS_KEYS.UPDATE_CAR],
+    mutationFn: (data) => carsServiceInstance().updateCar(data),
+    options: args,
+  })
+}
+
+export { getCarsCategoriesQueries, getCarsEquipmentsQueries, createCarsMutation, getAllCarsQueries, updateCarsMutation }

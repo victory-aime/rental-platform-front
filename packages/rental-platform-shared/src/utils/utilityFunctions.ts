@@ -245,3 +245,24 @@ export const base64ToFile = (base64: string, filename: string): File => {
   }
   return new File([u8arr], filename, { type: mime })
 }
+/**
+ * function to fetch and extract file name
+ * in cloudinary server
+ * @param urls
+ * @returns
+ */
+export const convertUrlsToFiles = async (urls: string[]): Promise<File[]> => {
+  const results = await Promise.all(
+    urls?.map(async (url, index) => {
+      try {
+        const response = await fetch(url)
+        const data = await response.blob()
+        const filename = url.split('/').pop() || `image-${index}.jpg`
+        return new File([data], filename, { type: data.type })
+      } catch {
+        return null
+      }
+    })
+  )
+  return results.filter((f): f is File => !!f)
+}

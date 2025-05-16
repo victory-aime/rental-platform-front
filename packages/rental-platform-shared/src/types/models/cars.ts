@@ -2,23 +2,24 @@ import { TYPES } from '../..'
 
 export interface ICreateCarDto {
   id?: string
-  agencyId: string
+  agencyId?: string
   agencyName?: string
   name: string
   brand: string
   model: string
   plateNumber: string
-  dailyPrice: number
+  dailyPrice?: number
   rentalPriceDiscounted?: number
   discountType?: string
   discountValue?: number
-  carImages: string[]
-  transmission: string
-  fuelType: string
+  carImages?: string[]
+  transmission?: string
+  fuelType?: string
   doors?: number
   seats?: number
   carCategoryId?: string
   available?: boolean
   equipmentIds?: TYPES.MODELS.COMMON.CarEquipments[]
   status?: string
+  booking?: TYPES.MODELS.BOOKING.IBooking[]
 }

@@ -1,4 +1,11 @@
-enum CommonStatus {
+enum CommonBookingStatus {
+  ACTIVE = 'ACTIVE',
+  PENDING = 'PENDING',
+  CANCELED = 'CANCELED',
+  EXPIRED = 'EXPIRED',
+}
+
+enum SubscriptionStatus {
   ACTIVE = 'ACTIVE',
   PENDING = 'PENDING',
   CANCELED = 'CANCELED',
@@ -48,7 +55,8 @@ export enum VehicleStatus {
 
 export {
   Currency,
-  CommonStatus,
+  CommonBookingStatus,
+  SubscriptionStatus,
   EstablishmentType,
   PlanType,
   DiscountType,

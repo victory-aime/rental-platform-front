@@ -1,4 +1,4 @@
-import { CheckboxGroup, Fieldset, Flex, SimpleGrid } from '@chakra-ui/react'
+import { CheckboxGroup, Fieldset, SimpleGrid } from '@chakra-ui/react'
 import { Checkbox } from '_components/ui/checkbox'
 import { useField } from 'formik'
 import React, { FC } from 'react'
@@ -23,7 +23,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items, itemsPe
         >
           <Fieldset.Content>
             {itemsPerRow ? (
-              <SimpleGrid columns={itemsPerRow} gap={8} width={'full'}>
+              <SimpleGrid columns={{ base: 1, sm: 2, lgOnly: itemsPerRow }} gap={8} width={'full'}>
                 {items?.map((item, index) => (
                   <Checkbox key={index} value={item.name} size={'lg'}>
                     {item.name}

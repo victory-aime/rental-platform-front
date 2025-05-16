@@ -5,7 +5,7 @@ import { IoIosCloseCircle } from 'react-icons/io'
 import { SwitchColorMode, BaseButton } from '_components/custom'
 import { IMobileSidebar } from '../types'
 import { RenderLinks } from './RenderLinks'
-import { UserModule } from 'platform-state-management'
+import { UserModule } from 'rental-platform-state'
 
 export const MobileSidebar = ({ isOpen, onClose, handleLogout, links }: IMobileSidebar) => {
   const cachedUser = UserModule.UserCache.getUser()
@@ -16,7 +16,7 @@ export const MobileSidebar = ({ isOpen, onClose, handleLogout, links }: IMobileS
       <DrawerContent height={'full'} bgColor={'#06524c'}>
         <DrawerHeader display={'flex'} alignItems={'center'} justifyContent={'space-between'} p={5}>
           <DrawerTitle color={'white'} fontSize={'2xl'}>
-            {cachedUser?.etablissement?.name}
+            {cachedUser?.establishment?.name}
           </DrawerTitle>
           <DrawerActionTrigger asChild>
             <IconButton aria-label="close-drawer" boxSize={'35px'} bgColor={'primary.500'} color={'white'} onClick={onClose}>

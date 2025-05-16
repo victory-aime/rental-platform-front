@@ -40,4 +40,16 @@ export class CarsServices extends BaseApi {
       establishment
     )
   }
+
+  /**
+   * Update cars
+   * @params {data} data - The object required to update car
+   * @returns {Promise<{message:string}>} - A promise that resolves to the message
+   */
+  updateCar(data: TYPES.MODELS.CARS.ICreateCarDto) {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().MODULES.CARS.UPDATE_CAR,
+      data
+    )
+  }
 }

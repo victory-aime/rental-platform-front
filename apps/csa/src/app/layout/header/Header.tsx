@@ -2,7 +2,7 @@ import { Box, Flex, HStack, Image } from '@chakra-ui/react'
 import { ListMenu } from '_assets/svg'
 import { SideBarProps } from '../sidebar/types'
 import { BaseText, CustomSkeletonLoader } from '_components/custom'
-import { UserModule } from 'platform-state-management'
+import { UserModule } from 'rental-platform-state'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const cachedUser = UserModule.UserCache.getUser()

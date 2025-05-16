@@ -100,6 +100,10 @@ export const APIS = (baseUrl?: string) => {
           showResponse: false,
           handleErrorManually: true,
         }),
+        UPDATE_CAR: api({
+          path: '/manage-cars/update-car',
+          method: 'PATCH',
+        }),
       },
     },
   }

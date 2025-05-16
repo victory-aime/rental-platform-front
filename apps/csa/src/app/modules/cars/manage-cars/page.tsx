@@ -1,19 +1,23 @@
 'use client'
 
-import { BaseText, BoxContainer, ColumnsDataTable, CustomFormatNumber, DataTableContainer } from '_components/custom'
+import { BaseBadge, BaseText, BoxContainer, ColumnsDataTable, CustomFormatNumber, DataTableContainer } from '_components/custom'
 import { DisplayImage } from '../components/DisplayImage'
 import { Box } from '@chakra-ui/react'
 import React from 'react'
-import { TYPES } from 'rental-platform-shared-lib'
+import { TYPES } from 'rental-platform-shared'
 import { useRouter } from 'next/navigation'
 import { MODULES_CARS_ROUTES } from '../routes'
-import { CarsModule, UserModule } from 'platform-state-management'
+import { CarsModule, UserModule } from 'rental-platform-state'
 
 const ManageCarsPage = () => {
   const [toggle, setToggle] = React.useState(false)
   const router = useRouter()
   const currentUser = UserModule.UserCache.getUser()
-  const { data: cars } = CarsModule.getAllCarsQueries({
+  const {
+    data: cars,
+    isLoading,
+    refetch,
+  } = CarsModule.getAllCarsQueries({
     payload: {
       establishment: currentUser?.establishment?.id ?? '',
     },
@@ -45,8 +49,15 @@ const ManageCarsPage = () => {
     {
       header: 'Prix/Jour',
       accessor: 'dailyPrice',
-      cell: (x) => {
-        return <CustomFormatNumber value={x} currencyCode={TYPES.ENUM.Currency.XAF} notation="standard" />
+      cell: (price) => {
+        return <CustomFormatNumber value={price} currencyCode={TYPES.ENUM.Currency.XAF} notation="standard" />
+      },
+    },
+    {
+      header: 'Status',
+      accessor: 'status',
+      cell: (status) => {
+        return <BaseBadge status={status} />
       },
     },
     {
@@ -55,7 +66,9 @@ const ManageCarsPage = () => {
       actions: [
         {
           name: 'edit',
-          handleClick: () => {},
+          handleClick: (value) => {
+            router.push(`${MODULES_CARS_ROUTES.ADD_CAR}?requestId=${value?.id}`)
+          },
         },
         {
           name: 'view',
@@ -83,15 +96,14 @@ const ManageCarsPage = () => {
         onClick() {
           router.push(MODULES_CARS_ROUTES.ADD_CAR)
         },
+        onReload() {
+          refetch()
+        },
       }}
-      filterComponent={
-        <BaseText>
-          <BaseText>Texte all</BaseText>
-        </BaseText>
-      }
+      filterComponent={<BaseText>Texte all</BaseText>}
     >
       <Box mt={'30px'}>
-        <DataTableContainer data={cars} columns={columns} />
+        <DataTableContainer data={cars} columns={columns} isLoading={isLoading} hidePagination />
       </Box>
     </BoxContainer>
   )
