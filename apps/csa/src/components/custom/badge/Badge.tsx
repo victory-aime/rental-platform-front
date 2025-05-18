@@ -4,28 +4,30 @@ import { Props } from './interface/badge'
 import { BaseText, TextVariant } from '../base-text'
 import { variantColorType, getVariantStyles } from '../button'
 import { TYPES } from 'rental-platform-shared'
+import { useTranslation } from 'react-i18next'
 const getBadgeContent = (status?: string, type?: string): { variant: variantColorType; label: string } => {
+  const { t } = useTranslation()
   if (type === 'cars') {
     switch (status) {
       case TYPES.ENUM.VehicleStatus.AVAILABLE:
-        return { variant: 'success', label: 'Disponible' }
+        return { variant: 'success', label: t(`VEHICLE_STATUS.AVAILABLE`) }
       case TYPES.ENUM.VehicleStatus.MAINTENANCE:
-        return { variant: 'warning', label: 'En maintenance' }
+        return { variant: 'warning', label: t(`VEHICLE_STATUS.MAINTENANCE`) }
       case TYPES.ENUM.VehicleStatus.UNAVAILABLE:
-        return { variant: 'danger', label: 'Indisponible' }
+        return { variant: 'danger', label: t(`VEHICLE_STATUS.UNAVAILABLE`) }
       default:
         return { variant: 'none', label: 'Inconnu' }
     }
   } else {
     switch (status) {
       case TYPES.ENUM.CommonBookingStatus.ACTIVE:
-        return { variant: 'success', label: 'Actif' }
+        return { variant: 'success', label: t('COMMON.STATUS.ACTIVE') }
       case TYPES.ENUM.CommonBookingStatus.PENDING:
-        return { variant: 'warning', label: 'En attente' }
+        return { variant: 'warning', label: t('COMMON.STATUS.PENDING') }
       case TYPES.ENUM.CommonBookingStatus.EXPIRED:
-        return { variant: 'none', label: 'Expiré' }
+        return { variant: 'none', label: t('COMMON.STATUS.EXPIRED') }
       case TYPES.ENUM.CommonBookingStatus.CANCELED:
-        return { variant: 'danger', label: 'Annulé' }
+        return { variant: 'danger', label: t('COMMON.STATUS.CANCELED') }
       default:
         return { variant: 'warning', label: 'Inconnu' }
     }

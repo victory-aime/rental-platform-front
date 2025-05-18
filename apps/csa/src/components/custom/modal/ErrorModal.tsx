@@ -6,12 +6,12 @@ import { PiWarningBold } from 'react-icons/pi'
 import { BaseText, ModalComponent } from '_components/custom'
 import { hexToRGB } from '_theme/colors'
 import { Session } from 'next-auth'
-import { useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 
 export const SessionErrorModal = ({ session }: { session: Session | null }) => {
-  const [showSessionError, setShowSessionError] = useState(false)
-  const router = useRouter()
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
+  const [showSessionError, setShowSessionError] = useState(false)
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -31,8 +31,8 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
       open={showSessionError}
       icon={<PiWarningBold size={22} color="#f97316" />}
       iconBackroungColor={hexToRGB('orange', 0.4)}
-      title={'Session Expire'}
-      buttonSaveTitle="Se reconnecter"
+      title={'SESSION_EXPIRE'}
+      buttonSaveTitle={'COMMON.LOGIN'}
       colorSaveButton={'primary'}
       ignoreFooter={false}
       closeOnEscape={false}
@@ -42,7 +42,7 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
       showCloseButton={false}
       onClick={handleReconnect}
     >
-      <BaseText>Votre session a expiré. Veuillez vous reconnecter pour continuer.</BaseText>
+      <BaseText>{t('SESSEION_MESSAGE')}</BaseText>
     </ModalComponent>
   )
 }

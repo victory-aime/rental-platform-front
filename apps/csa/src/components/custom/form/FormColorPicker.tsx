@@ -7,7 +7,7 @@ import { useField, useFormikContext } from 'formik'
 import { FormColorPickerProps } from './interface/input'
 import { BaseText } from '../base-text'
 import { HiOutlineInformationCircle } from 'react-icons/hi2'
-import { CustomToolTip } from '../tooltip'
+import { BaseTooltip } from '../tooltip'
 import { BaseButton } from '../button'
 import { IoSave } from 'react-icons/io5'
 import { IoIosArrowDropleftCircle } from 'react-icons/io'
@@ -70,9 +70,9 @@ export const FormColorPicker: FC<FormColorPickerProps> = ({ name, label, validat
               <>
                 {toolTipInfo && (
                   <Flex mt={'5px'} pr={'5px'} alignItems={'center'} justifyContent={'center'}>
-                    <CustomToolTip message={toolTipInfo}>
+                    <BaseTooltip message={toolTipInfo}>
                       <HiOutlineInformationCircle size={18} />
-                    </CustomToolTip>
+                    </BaseTooltip>
                   </Flex>
                 )}
               </>

@@ -1,0 +1,110 @@
+{
+  "SIDE_BAR": {
+    "DASHBOARD": "Tableau de bord",
+    "MANAGE_CARS": "Gestion véhicules",
+    "MANAGE_PARCS": "Mes parkings"
+  },
+  "WELCOME": "Bonjour {{username}}",
+  "LOGOUT_MESSAGE": "Vous vous êtes déconnecté avec succès. Merci d'avoir utilisé notre service. Pour vous reconnecter, veuillez cliquer sur le bouton ci-dessous.",
+  "SESSION_EXPIRE": "Session expirée",
+  "SESSEION_MESSAGE": "Votre session a expiré. Veuillez vous reconnecter pour continuer.",
+  "HELP_MESSAGE": "Pour améliorer votre expérience, nous vous invitons à nous faire part de vos suggestions et de vos commentaires. Nous sommes impatients de vous entendre et de travailler ensemble pour rendre notre application encore meilleure ! Appuyez sur ce bouton pour nous faire part de vos suggestions.",
+  "IDEA_TEXT": "J'ai une idée",
+  "INFO_GEN_TITLE": "Informations Generales",
+  "TARIF_DISPO_GEN": "Tarifications & Disponibilite",
+  "SELECT_LANGUAGES": "Choisissez votre langue",
+  "SELECT_LANGUAGES_DESC": "Veuillez selectionner la langue de l'application",
+  "STATUS": "Statut",
+  "THINK_BOX": {
+    "TITLE": "Boîte à suggestions",
+    "FORM_TITLE": "Votre sujet",
+    "MESSAGE": "Votre message"
+  },
+  "COMMON": {
+    "FRENCH": "Francais",
+    "ENGLISH": "Anglais",
+    "LOGIN": "Se connecter",
+    "LOGOUT": "Déconnexion",
+    "LOADING_TEXT": "Patientez",
+    "SEND": "Envoyer",
+    "CANCEL": "Annuler",
+    "VALIDATE": "Valider",
+    "EDIT": "Modifier",
+    "DETAIL":"Voir details",
+    "DELETE":"Supprimer",
+    "REFRESH": "Rafraichir les données",
+    "FILTER": "Filtrer",
+    "REMISE": "Appliquer une Remise ?",
+    "STATUS": {
+      "ACTIVE": "Actif",
+      "PENDING": "En attente",
+      "CANCELED": "Annulee",
+      "EXPIRED": "Expiree"
+    }
+  },
+  "VEHICLE_STATUS": {
+    "AVAILABLE": "Disponible",
+    "MAINTENANCE": "Maintenance",
+    "UNAVAILABLE": "Indisponible"
+  },
+  "FUEL": {
+    "GASOLINE": "Gasoil",
+    "DIESEL": "Diesel",
+    "ELECTRIC": "Electrique",
+    "HYBRID": "Hybride"
+  },
+  "TRANSMISSION": {
+    "MANUAL": "Manuelle",
+    "AUTOMATIC": "Automatique"
+  },
+  "CARS": {
+    "LIST_DESC": "Retrouvez ici tous vos véhicules enregistrés. Gardez une vue d’ensemble claire, gérez leur disponibilité en temps réel, et optimisez vos performances en mettant régulièrement à jour les fiches les plus consultées.",
+    "ADD_CARS": "Ajouter un véhicule",
+    "EDIT_CARS": "Modifier un véhicule",
+    "EDIT_DESC": "Mettez à jour les informations de votre véhicule pour garantir des données fiables et attractives. Une fiche bien entretenue reflète votre sérieux et augmente vos chances de réservation.",
+    "ADD_DESC": "Mettez en valeur votre véhicule en renseignant ses caractéristiques principales. Plus votre fiche est complète et précise, plus elle inspire confiance et attire les clients. Commencez dès maintenant à booster votre visibilité.",
+    "FORMS": {
+      "NAME": "Nom",
+      "BRAND": "Marque",
+      "MODELS": "Modèle",
+      "PLATE_NUMBER": "Numéro d'immatriculation",
+      "FUEL": "Type de carburant",
+      "TRANSMISSION": "Transmission",
+      "DOORS": "Nombre de portes",
+      "SEATS": "Nombre de sièges",
+      "DAILY_PRICE": "Prix journalier",
+      "DISCOUNT_VALUE": "Valeur de la remise",
+      "DISCOUNT": "Prix remisé",
+      "PARKING": "Adresse de stationnement",
+      "CATEGORY": "Catégorie",
+      "STATUS": "Statut",
+      "EQUIPMENTS": "Équipements",
+      "IMAGE": "Images",
+      "INFO": {
+        "TITLE": "Les informations générales que vous saisissez ici sont essentielles pour capter l’attention de vos futurs clients. En détaillant le modèle, la marque, le type de carburant ou encore la transmission, vous renforcez la confiance et facilitez la prise de décision. Une fiche bien renseignée, c’est une meilleure visibilité, plus de clics, et plus de réservations.",
+        "DISCOUNT_VALUE": "Indiquez la remise appliquée (%)",
+        "DISCOUNT": "Prix après remise",
+        "EQUIPMENTS": "Sélectionnez les équipements disponibles pour ce véhicule",
+        "IMAGES": "Ajoutez des images du véhicule",
+        "PRICE": "Un tarif clair et compétitif attire davantage de réservations. Indiquez le prix journalier pour valoriser votre véhicule tout en restant attractif.",
+        "STATUS": "La disponibilité du véhicule est essentielle pour la prise de décision des clients. Assurez-vous qu’elle soit toujours à jour pour éviter toute confusion ou réservation manquée."
+      }
+    }
+  },
+
+  "DRAG_DROP": {
+    "TITLE": "Glissez-déposez des fichiers ici, ou cliquez pour sélectionner",
+    "DESC": "Formats acceptés : .png, .jpg jusqu'à {{max_size}}MB",
+    "ERROR": {
+      "MAX_FILES": "Vous ne pouvez pas télécharger plus de {{max_files}} fichiers.",
+      "MAX_SIZES": "Certains fichiers dépassent la taille maximale de {{max_sizes}} MB.",
+      "TYPE_FILES": "Certains fichiers ont un format non supporté. Formats acceptés : {{type_files}}",
+      "MAX_FILES_TITLE": "Trop de fichiers",
+      "MAX_SIZES_TITLE": "Fichiers trop volumineux",
+      "TYPE_FILES_TITLE": "Format non supporté"
+    }
+  },
+  "PROFILE": {
+    "PREFERRED_LANGUAGE": "La langue a été mise à jour avec succès"
+  }
+}

@@ -8,10 +8,12 @@ import { TYPES } from 'rental-platform-shared'
 import { useRouter } from 'next/navigation'
 import { MODULES_CARS_ROUTES } from '../routes'
 import { CarsModule, UserModule } from 'rental-platform-state'
+import { useTranslation } from 'react-i18next'
 
 const ManageCarsPage = () => {
-  const [toggle, setToggle] = React.useState(false)
+  const { t } = useTranslation()
   const router = useRouter()
+  const [toggle, setToggle] = React.useState(false)
   const currentUser = UserModule.UserCache.getUser()
   const {
     data: cars,
@@ -35,26 +37,26 @@ const ManageCarsPage = () => {
       },
     },
     {
-      header: 'Nom',
+      header: 'CARS.FORMS.NAME',
       accessor: 'name',
     },
     {
-      header: 'Marque',
+      header: 'CARS.FORMS.BRAND',
       accessor: 'brand',
     },
     {
-      header: 'Modele',
+      header: 'CARS.FORMS.MODELS',
       accessor: 'model',
     },
     {
-      header: 'Prix/Jour',
+      header: 'CARS.FORMS.DAILY_PRICE',
       accessor: 'dailyPrice',
       cell: (price) => {
         return <CustomFormatNumber value={price} currencyCode={TYPES.ENUM.Currency.XAF} notation="standard" />
       },
     },
     {
-      header: 'Status',
+      header: 'STATUS',
       accessor: 'status',
       cell: (status) => {
         return <BaseBadge status={status} />
@@ -84,14 +86,14 @@ const ManageCarsPage = () => {
 
   return (
     <BoxContainer
-      title={'Gestion de la flotte'}
-      description={'Gerer votre flotte de vehicules'}
+      title={'SIDE_BAR.MANAGE_CARS'}
+      description={'CARS.LIST_DESC'}
       border={'none'}
       withActionButtons
       isFilterActive={toggle}
       onToggleFilter={() => setToggle(!toggle)}
       actionsButtonProps={{
-        validateTitle: 'Ajouter un vehicule',
+        validateTitle: 'CARS.ADD_CARS',
         validateColor: 'primary',
         onClick() {
           router.push(MODULES_CARS_ROUTES.ADD_CAR)
@@ -102,7 +104,7 @@ const ManageCarsPage = () => {
       }}
       filterComponent={<BaseText>Texte all</BaseText>}
     >
-      <Box mt={'30px'}>
+      <Box mt={'80px'}>
         <DataTableContainer data={cars} columns={columns} isLoading={isLoading} hidePagination />
       </Box>
     </BoxContainer>

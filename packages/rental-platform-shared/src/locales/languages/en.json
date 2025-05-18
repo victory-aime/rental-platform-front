@@ -1,0 +1,109 @@
+{
+  "SIDE_BAR": {
+    "DASHBOARD": "Dashboard",
+    "MANAGE_CARS": "Vehicle Management",
+    "MANAGE_PARCS": "My Parking"
+  },
+  "WELCOME": "Hello {{username}}",
+  "LOGOUT_MESSAGE": "You have successfully logged out. Thank you for using our service. To log in again, please click the button below.",
+  "SESSION_EXPIRE": "Session expired",
+  "SESSEION_MESSAGE": "Your session has expired. Please log in again to continue",
+  "SELECT_LANGUAGES": "Choose your language",
+  "SELECT_LANGUAGES_DESC": "Please select the application language",
+  "HELP_MESSAGE": "To improve your experience, we invite you to share your suggestions and feedback. We look forward to hearing from you and working together to make our app even better! Tap this button to share your ideas.",
+  "IDEA_TEXT": "I have an idea",
+  "INFO_GEN_TITLE": "General Information",
+  "TARIF_DISPO_GEN": "Pricing & Availability",
+  "STATUS": "Status",
+  "THINK_BOX": {
+    "TITLE": "Suggestion Box",
+    "FORM_TITLE": "Your Topic",
+    "MESSAGE": "Your Message"
+  },
+  "COMMON": {
+    "FRENCH": "French",
+    "ENGLISH": "English",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "LOADING_TEXT": "Please wait",
+    "SEND": "Send",
+    "CANCEL": "Cancel",
+    "VALIDATE": "Validate",
+    "EDIT": "Edit",
+    "DETAIL": "View details",
+    "DELETE": "Delete",
+    "REFRESH": "Refresh Data",
+    "FILTER": "Filter",
+    "REMISE": "Apply a Discount?",
+    "STATUS": {
+      "ACTIVE": "Active",
+      "PENDING": "Pending",
+      "CANCELED": "Canceled",
+      "EXPIRED": "Expired"
+    }
+  },
+  "VEHICLE_STATUS": {
+    "AVAILABLE": "Available",
+    "MAINTENANCE": "Maintenance",
+    "UNAVAILABLE": "Unavailable"
+  },
+  "FUEL": {
+    "GASOLINE": "Gasoline",
+    "DIESEL": "Diesel",
+    "ELECTRIC": "Electric",
+    "HYBRID": "Hybrid"
+  },
+  "TRANSMISSION": {
+    "MANUAL": "Manual",
+    "AUTOMATIC": "Automatic"
+  },
+  "CARS": {
+    "LIST_DESC": "Here you’ll find all your registered vehicles. Keep a clear overview, manage availability in real-time, and boost performance by updating your most viewed listings regularly.",
+    "ADD_CARS": "Add a Vehicle",
+    "EDIT_CARS": "Edit a Vehicle",
+    "EDIT_DESC": "Update your vehicle’s details to ensure accurate and attractive listings. A well-maintained profile shows professionalism and increases booking potential.",
+    "ADD_DESC": "Showcase your vehicle by providing its key features. The more complete and accurate your listing is, the more trust and attention it will generate. Start now to boost your visibility.",
+    "FORMS": {
+      "NAME": "Name",
+      "BRAND": "Brand",
+      "MODELS": "Model",
+      "PLATE_NUMBER": "License Plate Number",
+      "FUEL": "Fuel Type",
+      "TRANSMISSION": "Transmission",
+      "DOORS": "Number of Doors",
+      "SEATS": "Number of Seats",
+      "DAILY_PRICE": "Daily Price",
+      "DISCOUNT_VALUE": "Discount Percentage",
+      "DISCOUNT": "Discounted Price",
+      "PARKING": "Parking Address",
+      "CATEGORY": "Category",
+      "STATUS": "Status",
+      "EQUIPMENTS": "Equipments",
+      "IMAGE": "Images",
+      "INFO": {
+        "TITLE": "The general information you enter here is crucial for capturing potential customers' attention. By detailing the model, brand, fuel type, and transmission, you build trust and help with decision-making. A well-detailed listing means better visibility, more clicks, and more bookings.",
+        "DISCOUNT_VALUE": "Enter the applied discount (%)",
+        "DISCOUNT": "Price after discount",
+        "EQUIPMENTS": "Select the available equipment for this vehicle",
+        "IMAGES": "Add images of the vehicle",
+        "PRICE": "A clear and competitive price attracts more bookings. Enter the daily rate to showcase your vehicle while remaining appealing.",
+        "STATUS": "Vehicle availability is key to customer decision-making. Always keep it up to date to avoid confusion or missed bookings."
+      }
+    }
+  },
+  "DRAG_DROP": {
+    "TITLE": "Drag and drop files here, or click to select",
+    "DESC": "Accepted formats: .png, .jpg up to {{max_size}}MB",
+    "ERROR": {
+      "MAX_FILES": "You cannot upload more than {{max_files}} files.",
+      "MAX_SIZES": "Some files exceed the maximum size of {{max_sizes}} MB.",
+      "TYPE_FILES": "Some files have unsupported formats. Accepted formats: {{type_files}}",
+      "MAX_FILES_TITLE": "Too Many Files",
+      "MAX_SIZES_TITLE": "Files Too Large",
+      "TYPE_FILES_TITLE": "Unsupported Format"
+    }
+  },
+  "PROFILE": {
+    "PREFERRED_LANGUAGE": "The language has been successfully updated"
+  }
+}

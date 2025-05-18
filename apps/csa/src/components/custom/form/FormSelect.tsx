@@ -4,6 +4,9 @@ import React, { FC } from 'react'
 import { FullSelectProps } from './interface/input'
 import { useField } from 'formik'
 import { BaseText } from '../base-text'
+import { useTranslation } from 'react-i18next'
+import { HiOutlineInformationCircle } from 'react-icons/hi2'
+import { BaseTooltip } from '../tooltip'
 
 const FormSelect: FC<FullSelectProps> = ({
   listItems,
@@ -19,10 +22,12 @@ const FormSelect: FC<FullSelectProps> = ({
   isDisabled = false,
   isClearable = true,
   showDropdownIcon = true,
+  tooltipInfo = '',
   onChangeFunc,
   setFieldValue,
   customRenderSelected,
 }) => {
+  const { t } = useTranslation()
   const fieldHookConfig = {
     name,
     validate,
@@ -57,8 +62,13 @@ const FormSelect: FC<FullSelectProps> = ({
       >
         {label && (
           <SelectLabel display={'flex'} gap={'6px'} mb={'4px'} fontSize={{ base: '14px', md: '16px' }}>
-            {label}
+            {t(label)}
             {required && <BaseText color={'red'}> * </BaseText>}
+            {tooltipInfo && (
+              <BaseTooltip message={tooltipInfo}>
+                <HiOutlineInformationCircle size={18} />
+              </BaseTooltip>
+            )}
           </SelectLabel>
         )}
 
@@ -71,7 +81,7 @@ const FormSelect: FC<FullSelectProps> = ({
               })
             )
           ) : (
-            <SelectValueText pl={3} placeholder={placeholder} />
+            <SelectValueText placeholder={t(placeholder)} />
           )}
         </SelectTrigger>
 

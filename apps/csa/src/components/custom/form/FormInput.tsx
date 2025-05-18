@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { useField } from 'formik'
-import { Input, Text, Field, Flex } from '@chakra-ui/react'
+import { Input, Text, Field, Flex, useBreakpointValue } from '@chakra-ui/react'
 import { TextInputProps } from './interface/input'
 import { InputGroup } from '_components/ui/input-group'
 import { TbLockBitcoin } from 'react-icons/tb'
 import { HiOutlineInformationCircle } from 'react-icons/hi'
-import { CustomToolTip } from '_components/custom'
+import { BaseTooltip } from '_components/custom'
 import { RiEyeOffLine, RiEyeLine } from 'react-icons/ri'
+import { useTranslation } from 'react-i18next'
 
 const FormTextInput = ({
   name,
   label,
   type = 'text',
-  placeholder,
+  placeholder = '',
   localErrorMsg = '',
   required = false,
   isReadOnly = false,
@@ -29,6 +30,7 @@ const FormTextInput = ({
   onBlur,
   ...rest
 }: TextInputProps) => {
+  const { t } = useTranslation()
   const fieldHookConfig = {
     name,
     validate,
@@ -42,7 +44,7 @@ const FormTextInput = ({
     <Field.Root id={name} invalid={isError}>
       {label && (
         <Field.Label display={'flex'} gap={'6px'} fontSize={{ base: '14px', md: '16px' }}>
-          {label}
+          {t(label)}
           {required && <Text color={'red'}> * </Text>}
         </Field.Label>
       )}
@@ -70,9 +72,9 @@ const FormTextInput = ({
             </Flex>
           ) : toolTipInfo ? (
             <>
-              <CustomToolTip message={toolTipInfo}>
+              <BaseTooltip message={toolTipInfo}>
                 <HiOutlineInformationCircle size={18} />
-              </CustomToolTip>
+              </BaseTooltip>
             </>
           ) : (
             rightAccessory && (
@@ -92,7 +94,7 @@ const FormTextInput = ({
             onBlur?.(e)
           }}
           value={field?.value}
-          placeholder={placeholder ?? ''}
+          placeholder={t(placeholder)}
           borderRadius={customRadius ?? '7px'}
           border={'1px solid'}
           borderColor={isError ? 'red.500' : 'bg.muted'}

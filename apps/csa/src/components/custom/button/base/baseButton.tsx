@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { ButtonBaseProps, VariantColorStyle, variantColorType } from '_components/custom'
 import { HStack } from '@chakra-ui/react'
 import { LoadingDots } from '../animation/loadingDots'
+import { useTranslation } from 'react-i18next'
 
 const getVariantStyles: any = (colorType: variantColorType): VariantColorStyle => {
   switch (colorType) {
@@ -53,6 +54,7 @@ const getVariantStyles: any = (colorType: variantColorType): VariantColorStyle =
 }
 
 const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false, rightIcon, colorType, status, animation, isLoading = false, leftIcon, ...rest }) => {
+  const { t } = useTranslation()
   const { bg, gradient, hover, textColor } = getVariantStyles(colorType || 'none')
 
   return (
@@ -73,7 +75,7 @@ const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false, right
             padding={'20px'}
             loading={isLoading}
             disabled={isLoading}
-            loadingText={'patientez'}
+            loadingText={t('LOADING_TEXT.LOADING_TEXT')}
             spinner={<LoadingDots />}
             spinnerPlacement={'end'}
             {...rest}
@@ -98,7 +100,7 @@ const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false, right
             padding={'20px'}
             loading={isLoading}
             disabled={isLoading}
-            loadingText={'patientez'}
+            loadingText={t('COMMON.LOADING_TEXT')}
             spinner={<LoadingDots />}
             spinnerPlacement={'end'}
             {...rest}
@@ -121,7 +123,7 @@ const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false, right
           borderRadius="7px"
           loading={isLoading}
           disabled={isLoading}
-          loadingText="patientez"
+          loadingText={t('COMMON.LOADING_TEXT')}
           spinner={<LoadingDots />}
           spinnerPlacement="end"
           {...rest}

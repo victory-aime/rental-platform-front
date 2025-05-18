@@ -13,8 +13,10 @@ import { SideBarProps } from './types'
 import { useState } from 'react'
 import { CiShop } from 'react-icons/ci'
 import { APP_ROUTES } from '_config/routes'
+import { useTranslation } from 'react-i18next'
 
 export const Sidebar = ({ sideToggled, onShowSidebar, session }: SideBarProps) => {
+  const { t } = useTranslation()
   const { toggledSideBarStyle } = useSideBarStyle({
     sideToggled,
   })
@@ -43,7 +45,7 @@ export const Sidebar = ({ sideToggled, onShowSidebar, session }: SideBarProps) =
               <CiShop color={'white'} size={40} />
             )}
           </Box>
-          <VStack align="stretch" height="65%" overflow="auto">
+          <VStack align="stretch" height="65%" overflow="auto" mt={8}>
             <RenderLinks links={sidebarLinks ?? []} sideToggled={sideToggled} onShowSidebar={onShowSidebar} />
           </VStack>
 
@@ -60,7 +62,7 @@ export const Sidebar = ({ sideToggled, onShowSidebar, session }: SideBarProps) =
               isLoading={loader}
               leftIcon={<LogOutIcon width="18px" height="18px" fill={VariablesColors.white} />}
             >
-              {sideToggled ? 'Deconnexion' : null}
+              {sideToggled ? t('COMMON.LOGOUT') : null}
             </BaseButton>
           </Box>
         </Box>

@@ -23,8 +23,9 @@ import { UTILS } from 'rental-platform-shared'
 import { Avatar } from '_components/ui/avatar'
 import { BaseText, TextVariant } from '../base-text'
 import { VariablesColors } from '_theme/variables'
+import { useTranslation } from 'react-i18next'
 
-const FileImageList = ({ getFilesUploaded, initialImageUrls }: { getFilesUploaded: (files: File[]) => void; initialImageUrls?: string[] }) => {
+const FileImageList = ({ getFilesUploaded, initialImageUrls, t }: { getFilesUploaded: (files: File[]) => void; initialImageUrls?: string[]; t: any }) => {
   const fileUpload = useFileUploadContext()
   const [error, setError] = useState<string | null>(null)
   const [errorType, setErrorType] = useState<'size' | 'max_file' | 'type' | null>(null)
@@ -32,7 +33,7 @@ const FileImageList = ({ getFilesUploaded, initialImageUrls }: { getFilesUploade
   useEffect(() => {
     if (fileUpload.acceptedFiles.length > MAX_FILES) {
       setErrorType('max_file')
-      setError(`Vous ne pouvez pas télécharger plus de ${MAX_FILES} fichiers.`)
+      setError(t('DRAG_DROP.ERROR.MAX_FILES', { max_files: MAX_FILES }))
     } else if (fileUpload.rejectedFiles.length > 0) {
       const oversizedFiles = fileUpload.rejectedFiles.filter((file) => file.errors.includes('FILE_TOO_LARGE'))
 
@@ -42,19 +43,19 @@ const FileImageList = ({ getFilesUploaded, initialImageUrls }: { getFilesUploade
 
       if (oversizedFiles.length > 0) {
         setErrorType('size')
-        setError(`Certains fichiers dépassent la taille maximale de ${MAX_FILE_SIZE / (1024 * 1024)} MB.`)
+        setError(t('DRAG_DROP.ERROR.MAX_SIZES', { max_sizes: MAX_FILE_SIZE / (1024 * 1024) }))
       } else if (invalidTypeFiles.length > 0) {
         setErrorType('type')
-        setError('Certains fichiers ont un format non supporté. Formats acceptés : .png, .jpg, .jpeg')
+        setError(t('DRAG_DROP.ERROR.TYPE_FILES', { type_files: ACCEPTED_TYPES }))
       } else if (limitFiles.length > 0) {
         setErrorType('max_file')
-        setError(`Vous ne pouvez pas télécharger plus de ${MAX_FILES} fichiers.`)
+
+        setError(t('DRAG_DROP.ERROR.MAX_FILES', { max_files: MAX_FILES }))
       } else {
         setError(null)
         setErrorType(null)
       }
     }
-    // 🔥 Mise à jour des fichiers téléversés pour le parent
     getFilesUploaded(fileUpload.acceptedFiles)
   }, [fileUpload])
 
@@ -95,7 +96,9 @@ const FileImageList = ({ getFilesUploaded, initialImageUrls }: { getFilesUploade
         <Alert.Root status="error" mt={5} p={4} width={'fit-content'}>
           <Alert.Indicator />
           <Alert.Content>
-            <Alert.Title>{errorType === 'max_file' ? 'Nombre de fichiers atteint' : errorType === 'size' ? 'Taille limite dépassée' : 'Format non accepté'}</Alert.Title>
+            <Alert.Title>
+              {errorType === 'max_file' ? t('DRAG_DROP.ERROR.MAX_FILES_TITLE') : errorType === 'size' ? t('DRAG_DROP.ERROR.MAX_SIZES_TITLE') : t('DRAG_DROP.ERROR.TYPE_FILES_TITLE')}
+            </Alert.Title>
             <Alert.Description>{error}</Alert.Description>
           </Alert.Content>
         </Alert.Root>
@@ -106,22 +109,21 @@ const FileImageList = ({ getFilesUploaded, initialImageUrls }: { getFilesUploade
 
 export const CustomDragDropZone = ({ getFilesUploaded, initialImageUrls }: { getFilesUploaded: (files: File[]) => void; initialImageUrls: string[] }) => {
   const { getRootProps } = useFileUpload()
-
-  console.log('image set', initialImageUrls)
+  const { t } = useTranslation()
 
   return (
     <FileUpload.Root {...getRootProps()} maxFiles={MAX_FILES} maxFileSize={MAX_FILE_SIZE} alignItems="stretch" accept={ACCEPTED_TYPES} _dragging={{ borderColor: 'primary.500' }}>
       <FileUpload.HiddenInput />
-      <FileImageList getFilesUploaded={getFilesUploaded} initialImageUrls={initialImageUrls} />
+      <FileImageList getFilesUploaded={getFilesUploaded} initialImageUrls={initialImageUrls} t={t} />
       <FileUploadDropzone>
         <Icon fontSize="xl" color="fg.muted">
           <LuUpload />
         </Icon>
         <FileUploadDropzoneContent>
           <BaseText color={'fg.muted'} variant={TextVariant.S}>
-            Glissez-déposez des fichiers ici, ou cliquez pour sélectionner
+            {t('DRAG_DROP.TITLE')}
           </BaseText>
-          <BaseText color="fg.subtle">.png, .jpg jusqu'à {MAX_FILE_SIZE_MB}MB</BaseText>
+          <BaseText color="fg.subtle">{t('DRAG_DROP.DESC', { max_size: MAX_FILE_SIZE_MB })}</BaseText>
         </FileUploadDropzoneContent>
       </FileUploadDropzone>
     </FileUpload.Root>

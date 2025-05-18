@@ -1,6 +1,7 @@
 'use client'
 
 import { Toaster as ChakraToaster, Portal, Spinner, Stack, Toast, createToaster } from '@chakra-ui/react'
+import { VariablesColors } from '_theme/variables'
 
 export const toaster = createToaster({
   placement: 'top',
@@ -15,7 +16,7 @@ export const Toaster = () => {
     <Portal>
       <ChakraToaster toaster={toaster} insetInline={{ mdDown: '4' }}>
         {(toast) => (
-          <Toast.Root bgColor={toast.type === 'info' ? 'blue.500' : toast.type === 'success' ? 'primary.500' : ''} width={{ md: 'sm' }} p={4}>
+          <Toast.Root bgColor={toast.type === 'info' ? 'blue.500' : toast.type === 'success' ? VariablesColors.green : ''} width={{ md: 'sm' }} p={4}>
             {toast.type === 'loading' ? <Spinner size="sm" color="blue.solid" /> : <Toast.Indicator colorPalette={'gray'} />}
             <Stack gap="1" flex="1" maxWidth="100%">
               {toast.title && <Toast.Title>{toast.title}</Toast.Title>}

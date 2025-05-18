@@ -1,21 +1,21 @@
 'use client'
 
-import { Box, Flex, VStack, useBreakpointValue, Center, ListCollection, Stack } from '@chakra-ui/react'
+import { Box, Flex, VStack, ListCollection, Stack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { FormTextInput, FormSelect, CustomDragDropZone, ActionsButton, BaseText, CheckBoxFom, FormSwitch, TextVariant, TextWeight } from '_components/custom'
+import { FormTextInput, FormSelect, CustomDragDropZone, CheckBoxFom, FormSwitch, BoxContainer } from '_components/custom'
 import { Formik } from 'formik'
 import { LuBadgeDollarSign, LuBadgePercent } from 'react-icons/lu'
 import { CarsModule, UserModule } from 'rental-platform-state'
 import { TYPES, UTILS } from 'rental-platform-shared'
-import { FormContainer } from '../../components/FormContainer'
 import { fuelList, transmissionList, categoryList, statusList, equipmentsList } from '../constants/cars'
 import { DiscountedPriceCalculator } from '_modules/cars/hooks/DiscountPriceCalculator'
+import { useTranslation } from 'react-i18next'
 
 const AddCarsPage = () => {
+  const { t } = useTranslation()
   const router = useRouter()
   const requestId = useSearchParams()?.get('requestId')
-  const responsiveMode = useBreakpointValue({ base: false, md: true })
   const [initialValues, setInitialValues] = useState(TYPES.VALIDATION_SCHEMA.CARS.initialCarsValues)
   const [images, setImages] = useState<File[]>([])
   const [getCarsImages, setGetCarsImages] = useState<string[]>([])
@@ -113,42 +113,44 @@ const AddCarsPage = () => {
       onSubmit={submitForm}
     >
       {({ values, setFieldValue, handleSubmit }) => (
-        <Box w={'full'} mt={'30px'}>
-          <Flex alignItems={'center'} justifyContent={'space-between'} flexDirection={{ base: 'column', md: 'row' }} gap={4}>
-            <Stack gap={2}>
-              <BaseText variant={TextVariant.H3} weight={TextWeight.Bold}>
-                {!requestId ? 'Ajouter un vehicule' : 'Modifier les informations de ce vehicule'}
-              </BaseText>
-              <BaseText color={'fg.muted'}>Saisissez toutes les informations relatives a l'ajout de votre vehicule</BaseText>
-            </Stack>
-
-            {responsiveMode ? (
-              <ActionsButton cancelTitle={'Annuler'} validateTitle={requestId ? 'Valider' : 'Ajouter'} requestId={requestId ?? ''} isLoading={createPending || updatePending} onClick={handleSubmit} />
-            ) : null}
-          </Flex>
+        <BoxContainer
+          border={'none'}
+          p={{ base: 0, md: '3' }}
+          title={!requestId ? 'CARS.ADD_CARS' : 'CARS.EDIT_CARS'}
+          description={!requestId ? 'CARS.ADD_DESC' : 'CARS.EDIT_DESC'}
+          withActionButtons
+          actionsButtonProps={{
+            isLoading: createPending || updatePending,
+            cancelTitle: 'COMMON.CANCEL',
+            validateTitle: requestId ? 'COMMON.EDIT' : 'COMMON.VALIDATE',
+            onClick() {
+              handleSubmit()
+            },
+          }}
+        >
           <Box alignItems={'flex-start'} justifyContent={'flex-start'} flexDirection={{ base: 'column', md: 'row' }} mt={'50px'} gap={4}>
             <Flex width={'full'} gap={8}>
-              <FormContainer title={'Informations Generales'} tooltip={'Saisir les informations generales du produit'}>
-                <VStack mt={10} gap={4} align="stretch" width="100%">
+              <BoxContainer title={'INFO_GEN_TITLE'} tooltip={'CARS.FORMS.INFO.TITLE'}>
+                <VStack mt={10} gap={4} mb={4} align="stretch" width="100%">
                   <Stack width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
                     <FormTextInput
                       name="name"
-                      label="Nom du véhicule"
-                      placeholder="Ex: Mini Cooper"
+                      label={'CARS.FORMS.NAME'}
+                      placeholder={'CARS.FORMS.NAME'}
                       value={values?.name}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
                     <FormTextInput
                       name="brand"
-                      label="Marque du véhicule"
-                      placeholder="Ex: Toyota"
+                      label={'CARS.FORMS.BRAND'}
+                      placeholder={'CARS.FORMS.BRAND'}
                       value={values?.brand}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
                     <FormTextInput
                       name="model"
-                      label="Modèle du véhicule"
-                      placeholder="Ex: Corolla 2022"
+                      label={'CARS.FORMS.MODELS'}
+                      placeholder={'CARS.FORMS.MODELS'}
                       value={values?.model}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
@@ -156,16 +158,16 @@ const AddCarsPage = () => {
                   <Stack width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
                     <FormTextInput
                       name="plateNumber"
-                      label="Numéro d'immatriculation"
-                      placeholder="Ex: AA-123-BB"
+                      label={'CARS.FORMS.PLATE_NUMBER'}
+                      placeholder={'CARS.FORMS.PLATE_NUMBER'}
                       value={values?.plateNumber}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
                     <FormSelect
                       name="fuelType"
-                      label="Type de carburant"
-                      placeholder="Ex: Essence, Diesel, Hybride"
-                      listItems={fuelList}
+                      label={'CARS.FORMS.FUEL'}
+                      placeholder={'CARS.FORMS.FUEL'}
+                      listItems={fuelList(t)}
                       setFieldValue={setFieldValue}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
@@ -173,47 +175,47 @@ const AddCarsPage = () => {
                   <Stack width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
                     <FormSelect
                       name="transmission"
-                      label="Transmission"
-                      placeholder="Ex: Manuelle, Automatique"
-                      listItems={transmissionList}
+                      label={'CARS.FORMS.TRANSMISSION'}
+                      placeholder={'CARS.FORMS.TRANSMISSION'}
+                      listItems={transmissionList(t)}
                       setFieldValue={setFieldValue}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
                     <FormTextInput
                       name="doors"
-                      label="Nombre de portières"
-                      placeholder="EX: 2"
+                      label={'CARS.FORMS.DOORS'}
+                      placeholder={'CARS.FORMS.DOORS'}
                       type="number"
                       value={values?.doors}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
                     <FormTextInput
                       name="seats"
-                      label="Nombre de places"
-                      placeholder="Ex: 5"
+                      label={'CARS.FORMS.SEATS'}
+                      placeholder={'CARS.FORMS.SEATS'}
                       type="number"
                       value={values?.seats}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
                   </Stack>
                 </VStack>
-              </FormContainer>
+              </BoxContainer>
             </Flex>
-            <Flex width={'full'} gap={8}>
-              <FormContainer title="Tarification & Disponibilite" tooltip="Saisir les informations de tarification du produit">
-                <VStack mt={10} gap={4} align="stretch" width="100%">
+            <Flex width={'full'} gap={8} flexDir={{ base: 'column', md: 'row' }}>
+              <BoxContainer title={'TARIF_DISPO_GEN'} tooltip={'CARS.FORMS.INFO.PRICE'}>
+                <VStack mt={10} gap={4} mb={4} align="stretch" width="100%">
                   <Stack width="full" gap={4} direction={{ base: 'column', md: 'row' }}>
                     <FormTextInput
                       name="dailyPrice"
                       type="number"
                       leftAccessory={<LuBadgeDollarSign />}
-                      label="Prix de location par jour"
-                      placeholder="Ex: 75.00"
+                      label={'CARS.FORMS.DAILY_PRICE'}
+                      placeholder={'CARS.FORMS.DAILY_PRICE'}
                       value={values?.dailyPrice}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
                   </Stack>
-                  {currentUser?.establishment?.subscription?.plan?.canUseDiscounts && <FormSwitch name="hasDiscount" label="Appliquer une remise ?" />}
+                  {currentUser?.establishment?.subscription?.plan?.canUseDiscounts && <FormSwitch name="hasDiscount" label="COMMON.REMISE" />}
 
                   {values?.hasDiscount && bookingStatus !== (TYPES.ENUM.CommonBookingStatus.ACTIVE || TYPES.ENUM.CommonBookingStatus.PENDING) && (
                     <Stack gap={4} direction={{ base: 'column', md: 'row' }}>
@@ -221,9 +223,9 @@ const AddCarsPage = () => {
                         name="discountValue"
                         type="number"
                         leftAccessory={<LuBadgePercent />}
-                        label="Remise (%)"
-                        placeholder="Ex: 10"
-                        toolTipInfo="Appliquer une remise en pourcentage sur le tarif."
+                        label="CARS.FORMS.DISCOUNT_VALUE"
+                        placeholder={'CARS.FORMS.DISCOUNT_VALUE'}
+                        toolTipInfo="CARS.FORMS.INFO.DISCOUNT_VALUE"
                         value={values?.discountValue}
                         isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                       />
@@ -232,55 +234,52 @@ const AddCarsPage = () => {
                         type="number"
                         isDisabled
                         leftAccessory={<LuBadgeDollarSign />}
-                        label="Prix final / jour"
+                        label="CARS.FORMS.DISCOUNT"
                         placeholder="0.00"
-                        toolTipInfo="Prix après application de la remise."
+                        toolTipInfo="CARS.FORMS.INFO.DISCOUNT"
                         value={values?.rentalPriceDiscounted}
                       />
                     </Stack>
                   )}
                 </VStack>
-                <VStack mt={10} gap={4} align="stretch" width="100%">
-                  <Stack alignItems={'center'} justifyContent={'center'} width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
-                    <FormTextInput name="parkingAddress" label={'Lieu de stationnement'} placeholder="Ex: Parking A" />
+                <VStack mt={10} gap={4} mb={4} align="stretch" width="100%">
+                  <Stack mb={4} alignItems={'center'} justifyContent={'center'} width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
+                    <FormTextInput name="parkingAddress" label={'CARS.FORMS.PARKING'} placeholder={'CARS.FORMS.PARKING'} />
                     <FormSelect
                       name="carCategoryId"
-                      label="Type de voiture"
+                      label={'CARS.FORMS.CATEGORY'}
                       setFieldValue={setFieldValue}
                       listItems={categoryList(categories) as ListCollection}
-                      placeholder="Choisissez une categorie"
+                      placeholder={'CARS.FORMS.CATEGORY'}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />
                   </Stack>
+
                   <FormSelect
-                    listItems={statusList}
+                    listItems={statusList(t)}
                     isClearable={false}
                     setFieldValue={setFieldValue}
                     name="status"
-                    placeholder="Choisissez un status"
-                    label="Status du vehicule"
+                    placeholder={'CARS.FORMS.STATUS'}
+                    label={'CARS.FORMS.STATUS'}
+                    tooltipInfo={'CARS.FORMS.INFO.STATUS'}
                     isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                   />
                 </VStack>
-              </FormContainer>
-              <FormContainer title={'Equipements'} tooltip={'Saisir les informations de tarification du produit'}>
-                <Box mt={10} width={'fit-content'}>
+              </BoxContainer>
+              <BoxContainer title={'CARS.FORMS.EQUIPMENTS'} tooltip={'CARS.FORMS.INFO.EQUIPMENTS'}>
+                <Box mt={10} mb={4} width={'fit-content'}>
                   <CheckBoxFom name="equipmentIds" items={equipmentsList(equipments)} itemsPerRow={3} />
                 </Box>
-              </FormContainer>
+              </BoxContainer>
             </Flex>
 
-            <FormContainer title={'Images'} tooltip={'Ajouter des images du produit'}>
+            <BoxContainer title={'CARS.FORMS.IMAGE'} tooltip={'CARS.FORMS.INFO.IMAGES'}>
               <CustomDragDropZone getFilesUploaded={setFilesUploaded} initialImageUrls={getCarsImages} />
-            </FormContainer>
+            </BoxContainer>
           </Box>
-          {!responsiveMode && (
-            <Center>
-              <ActionsButton cancelTitle={'Annuler'} validateTitle={requestId ? 'Valider' : 'Ajouter'} requestId={requestId ?? ''} isLoading={createPending || updatePending} onClick={handleSubmit} />
-            </Center>
-          )}
           <DiscountedPriceCalculator />
-        </Box>
+        </BoxContainer>
       )}
     </Formik>
   )

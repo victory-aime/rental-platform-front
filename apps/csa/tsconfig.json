@@ -21,6 +21,7 @@
     "paths": {
       "_assets/*": ["./public/assets/*"],
       "_components/*": ["./src/components/*"],
+      "_constants/*": ["./src/app/constants/*"],
       "_theme/*": ["./src/theme/*"],
       "_authOptions/*": ["./src/app/api/*"],
       "_utils/*": ["./src/utils/*"],

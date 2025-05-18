@@ -1,13 +1,15 @@
-import { Box, Flex, Stack } from '@chakra-ui/react'
+import { Box, Center, Flex, Stack } from '@chakra-ui/react'
 import { boxStyle } from './style'
 import { BaseText, TextVariant } from '../base-text'
 import { ActionsButton } from '../button'
-import { CustomSkeletonLoader, IBoxProps } from '_components/custom'
+import { BaseTooltip, CustomSkeletonLoader, IBoxProps } from '_components/custom'
 import { hexToRGB } from '_theme/colors'
+import { useTranslation } from 'react-i18next'
+import { HiInformationCircle } from 'react-icons/hi2'
 
 export const BoxContainer = ({
-  title,
-  description,
+  title = '',
+  description = '',
   withActionButtons = false,
   isFilterActive = false,
   onToggleFilter,
@@ -15,9 +17,12 @@ export const BoxContainer = ({
   children,
   loader = false,
   numberOfLines = 3,
+  tooltip = '',
   filterComponent,
   ...rest
 }: IBoxProps) => {
+  const { t } = useTranslation()
+
   if (withActionButtons && !actionsButtonProps) {
     throw new Error('Lorsque vous utiliser withActionButtons, actionsButtonProps est requis')
   }
@@ -34,12 +39,33 @@ export const BoxContainer = ({
             <CustomSkeletonLoader type="TEXT" width={'500px'} numberOfLines={numberOfLines} />
           ) : (
             <>
-              <BaseText variant={TextVariant.H3}>{title}</BaseText>
-              <BaseText variant={TextVariant.M}>{description}</BaseText>
+              {tooltip ? (
+                <Flex width={'full'} gap={4} alignItems={'center'} justifyContent={'flex-start'}>
+                  <BaseText variant={TextVariant.H3}>{t(title)}</BaseText>
+                  {tooltip && (
+                    <BaseTooltip message={tooltip}>
+                      <HiInformationCircle size={18} />
+                    </BaseTooltip>
+                  )}
+                </Flex>
+              ) : (
+                <BaseText variant={TextVariant.H3}>{t(title)}</BaseText>
+              )}
+              <BaseText variant={TextVariant.M}>{t(description)}</BaseText>
             </>
           )}
         </Stack>
-        {loader && withActionButtons ? <CustomSkeletonLoader type={'BUTTON'} width={'150px'} colorButton={'success'} /> : <>{withActionButtons && <ActionsButton {...mergedActionsButtonProps} />}</>}
+        {loader && withActionButtons ? (
+          <CustomSkeletonLoader type={'BUTTON'} width={'150px'} colorButton={'success'} />
+        ) : (
+          <>
+            {withActionButtons && (
+              <Center mt={{ base: '30px', md: '0' }}>
+                <ActionsButton {...mergedActionsButtonProps} />
+              </Center>
+            )}
+          </>
+        )}
       </Flex>
       {isFilterActive && filterComponent && (
         <Box mt={'30px'} mb={'30px'} bgColor={hexToRGB('lighter', 0.1)} p={15} borderRadius={'7px'} animation={'slideIn'}>

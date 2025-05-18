@@ -2,8 +2,10 @@ import { Fieldset, Switch } from '@chakra-ui/react'
 import { useField } from 'formik'
 import React, { FC } from 'react'
 import { SwitchProps } from './interface/input'
+import { useTranslation } from 'react-i18next'
 
-export const FormSwitch: FC<SwitchProps> = ({ name, validate, label }) => {
+export const FormSwitch: FC<SwitchProps> = ({ name, validate, label = '' }) => {
+  const { t } = useTranslation()
   const fieldHookConfig = {
     name,
     validate,
@@ -17,9 +19,9 @@ export const FormSwitch: FC<SwitchProps> = ({ name, validate, label }) => {
   }
 
   return (
-    <Fieldset.Root id={name} invalid={isError} width={'fit-content'} alignItems={'center'}>
+    <Fieldset.Root id={name} invalid={isError} width={'fit-content'} alignItems={'center'} mb={4}>
       <Switch.Root name={name} checked={field.value} onCheckedChange={handleCheckedChange} colorPalette={'green'} size={'lg'}>
-        <Switch.Label>{label}</Switch.Label>
+        <Switch.Label>{t(label)}</Switch.Label>
         <Switch.HiddenInput />
         <Switch.Control>
           <Switch.Thumb />

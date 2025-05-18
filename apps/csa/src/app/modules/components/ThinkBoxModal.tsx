@@ -10,12 +10,14 @@ import React, { FC, useState } from 'react'
 import { FcIdea } from 'react-icons/fc'
 import axios from 'axios'
 import { UserModule } from 'rental-platform-state'
+import { useTranslation } from 'react-i18next'
 export interface InitialFormValues {
   subject: string
   message: string
 }
 
 const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => {} }) => {
+  const { t } = useTranslation()
   const cachedUser = UserModule.UserCache.getUser()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -69,18 +71,18 @@ const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => 
         <ModalComponent
           open={isOpen}
           onChange={() => onChange(!isOpen)}
-          title="Boite a suggestions"
+          title={t('THINK_BOX.TITLE')}
           icon={<FcIdea size={18} />}
           iconBackroungColor={hexToRGB('orange', 0.3)}
           ignoreFooter={false}
           isLoading={isLoading}
-          buttonSaveTitle={'Envoyer mon idee'}
-          colorSaveButton={'primary'}
+          buttonSaveTitle={t('COMMON.SEND')}
+          colorSaveButton={'success'}
           onClick={handleSubmit}
         >
           <VStack gap={4}>
-            <FormTextInput name="subject" label="Titre" placeholder="Mettez un titre" />
-            <FormTextArea name="message" label="Votre message" placeholder="Ecrivez ce que vous pensez" onChangeFunction={(e: any) => setFieldValue('message', e?.target.value)} />
+            <FormTextInput name="subject" label={t('THINK_BOX.FORM_TITLE')} placeholder={t('THINK_BOX.FORM_TITLE')} />
+            <FormTextArea name="message" label={t('THINK_BOX.MESSAGE')} placeholder={t('THINK_BOX.MESSAGE')} onChangeFunction={(e: any) => setFieldValue('message', e?.target.value)} />
           </VStack>
         </ModalComponent>
       )}

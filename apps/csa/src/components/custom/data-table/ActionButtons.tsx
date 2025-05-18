@@ -5,7 +5,7 @@ import { MdEdit } from 'react-icons/md'
 import { BaseButton } from '../button'
 import { ActionButtonsProps } from './interface/data-types'
 import { TbRestore } from 'react-icons/tb'
-import { CustomToolTip } from '_components/custom'
+import { BaseTooltip } from '_components/custom'
 
 export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   return (
@@ -19,35 +19,35 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
         switch (label) {
           case 'delete':
             return (
-              <CustomToolTip message={'Supprimer'} key={index}>
+              <BaseTooltip message={'COMMON.DELETE'} key={index}>
                 <IconButton aria-label="Supprimer" colorPalette="red" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <FaTrashAlt />
                 </IconButton>
-              </CustomToolTip>
+              </BaseTooltip>
             )
           case 'edit':
             return (
-              <CustomToolTip message={'Modifier'} key={index}>
+              <BaseTooltip message={'COMMON.EDIT'} key={index}>
                 <IconButton aria-label="Modifier" colorPalette="blue" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <MdEdit />
                 </IconButton>
-              </CustomToolTip>
+              </BaseTooltip>
             )
           case 'view':
             return (
-              <CustomToolTip message={'Voir Details'} key={index}>
+              <BaseTooltip message={'COMMON.DETAIL'} key={index}>
                 <IconButton aria-label="Voir" colorPalette="green" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <IoNewspaperOutline />
                 </IconButton>
-              </CustomToolTip>
+              </BaseTooltip>
             )
           case 'restore':
             return (
-              <CustomToolTip message={'Restore'} key={index}>
+              <BaseTooltip message={'COMMON.RESTORE'} key={index}>
                 <IconButton aria-label="restore" colorPalette="blue" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <TbRestore />
                 </IconButton>
-              </CustomToolTip>
+              </BaseTooltip>
             )
           default:
             return (

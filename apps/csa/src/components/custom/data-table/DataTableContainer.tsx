@@ -7,6 +7,7 @@ import { ActionButtons } from './ActionButtons'
 //import { NoDataFoundLottieAnimation, TrashLottieAnimationV2 } from '_lottie/animations/LottieAnimation'
 import { CustomSkeletonLoader } from '_components/custom'
 import { BaseText, TextVariant } from '../base-text'
+import { useTranslation } from 'react-i18next'
 
 export const DataTableContainer: FC<TableProps> = ({
   data,
@@ -21,6 +22,7 @@ export const DataTableContainer: FC<TableProps> = ({
   lazy = false,
   animationType = 'folder',
 }) => {
+  const { t } = useTranslation()
   const [selection, setSelection] = useState<number[]>([])
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [sortConfig, setSortConfig] = useState<{
@@ -113,7 +115,7 @@ export const DataTableContainer: FC<TableProps> = ({
                   <Checkbox aria-label="Select all rows" checked={indeterminate ? 'indeterminate' : selection.length > 0} onCheckedChange={(changes) => handleSelectAll(!!changes.checked)} />
                 ) : (
                   <>
-                    {col.header} {sortConfig?.key === col.accessor && (sortConfig.direction === 'asc' ? '⬆' : '⬇')}
+                    {t(col.header)} {sortConfig?.key === col.accessor && (sortConfig.direction === 'asc' ? '⬆' : '⬇')}
                   </>
                 )}
               </Table.ColumnHeader>

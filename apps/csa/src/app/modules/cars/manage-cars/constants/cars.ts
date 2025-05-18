@@ -16,25 +16,31 @@ const equipmentsList = (equipments: { name: string; id: string }[] = []) => {
     value: item.id,
   }))
 }
+const transmissionList: any = (t: any) => {
+  return createListCollection({
+    items: Object.values(TYPES.ENUM.TransmissionType).map((item) => ({
+      label: t(`TRANSMISSION.${item}`),
+      value: item,
+    })),
+  })
+}
 
-const transmissionList: any = createListCollection({
-  items: Object.values(TYPES.ENUM.TransmissionType).map((item) => ({
-    label: item,
-    value: item,
-  })),
-})
-const fuelList: any = createListCollection({
-  items: Object.values(TYPES.ENUM.FuelType).map((item) => ({
-    label: item,
-    value: item,
-  })),
-})
+const fuelList: any = (t: any) => {
+  return createListCollection({
+    items: Object.values(TYPES.ENUM.FuelType).map((item) => ({
+      label: t(`FUEL.${item}`),
+      value: item,
+    })),
+  })
+}
 
-const statusList: any = createListCollection({
-  items: Object.values(TYPES.ENUM.VehicleStatus).map((item) => ({
-    label: item,
-    value: item,
-  })),
-})
+const statusList: any = (t: any) => {
+  return createListCollection({
+    items: Object.values(TYPES.ENUM.VehicleStatus).map((item) => ({
+      label: t(`VEHICLE_STATUS.${item}`),
+      value: item,
+    })),
+  })
+}
 
 export { statusList, categoryList, equipmentsList, transmissionList, fuelList }

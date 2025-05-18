@@ -6,5 +6,7 @@ import LogOutIcon from './log-out.svg'
 import EyeOff from './eye-off-icon.svg'
 import Eye from './eye-icon.svg'
 import TrashIcon from './trash-icon.svg'
+import CarsIcon from './cars.svg'
+import ParkingIcon from './parking.svg'
 
-export { ListMenu, Dot, LogOutIcon, ArrowDown, HomeIcon, Eye, EyeOff, TrashIcon }
+export { ListMenu, Dot, LogOutIcon, ArrowDown, HomeIcon, Eye, EyeOff, TrashIcon, CarsIcon, ParkingIcon }

@@ -6,9 +6,11 @@ import { VariablesColors } from '_theme/variables'
 import { hexToRGB } from '_theme/colors'
 import useSideBarStyle from '../hooks/useSidebarStyle'
 import { ActiveMenuProps } from '../types'
+import { useTranslation } from 'react-i18next'
 
 export const ActiveMenu: FC<ActiveMenuProps> = ({ subLink, sideToggled, onShowSidebar, isActiveLink }) => {
   const navigate = useRouter()
+  const { t } = useTranslation()
   const { linkStyle, setMenuItemTextStyle, setMenuItemPointStyle } = useSideBarStyle({
     sideToggled,
   })
@@ -47,7 +49,7 @@ export const ActiveMenu: FC<ActiveMenuProps> = ({ subLink, sideToggled, onShowSi
           ) : (
             <Dot width="9px" height="9px" fill={setMenuItemPointStyle(subLink.path)} />
           )}
-          <Text {...setMenuItemTextStyle(subLink.path)}>{subLink?.label}</Text>
+          <Text {...setMenuItemTextStyle(subLink.path)}>{t(subLink?.label)}</Text>
         </Flex>
       </Box>
     </Link>

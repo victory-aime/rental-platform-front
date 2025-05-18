@@ -43,6 +43,7 @@ interface FullSelectProps {
   customRenderSelected?: (selectedItems: any[]) => React.ReactNode
   isClearable?: boolean
   showDropdownIcon?: boolean
+  tooltipInfo?: string
 }
 interface DefaultProps extends TextInputProps {
   isNumber?: boolean

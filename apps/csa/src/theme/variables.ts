@@ -5,6 +5,7 @@
 export const VariablesColors = {
   primary: '#38a2f9',
   secondary: '#a8934a',
+  green: '#1A9882',
   grayScale: '#64748B',
   red: '#ec2f4e',
   orange: '#f97316',

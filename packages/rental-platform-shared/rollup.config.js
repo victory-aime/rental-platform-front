@@ -1,4 +1,5 @@
 import typescript from '@rollup/plugin-typescript'
+import json from '@rollup/plugin-json'
 
 export default [
   {
@@ -7,7 +8,7 @@ export default [
       file: './lib/index.esm.js',
       format: 'esm',
     },
-    plugins: [typescript()],
+    plugins: [typescript(), json()],
   },
   {
     input: 'src/index.ts',
@@ -15,6 +16,6 @@ export default [
       file: './lib/index.js',
       format: 'cjs',
     },
-    plugins: [typescript()],
+    plugins: [typescript(), json()],
   },
 ]

@@ -6,9 +6,11 @@ import { APP_ROUTES } from '_config/routes'
 import { hexToRGB } from '_theme/colors'
 import { signIn } from 'next-auth/react'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FaCheck } from 'react-icons/fa'
 
 export const SignOut = () => {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
 
   const redirectToKeycloak = () => {
@@ -23,10 +25,10 @@ export const SignOut = () => {
           <FaCheck size={24} color={'blue'} />
         </Flex>
         <BaseText maxW={'800px'} textAlign={'center'}>
-          Déconnexion réussie Vous vous êtes déconnecté avec succès. Merci d'avoir utilisé notre service. Pour vous reconnecter, veuillez cliquer sur le bouton ci-dessous.
+          {t('LOGOUT_MESSAGE')}
         </BaseText>
         <BaseButton isLoading={loading} withGradient colorType={'primary'} onClick={redirectToKeycloak}>
-          Se reconnecter
+          {t('COMMON.LOGIN')}
         </BaseButton>
       </Flex>
     </Center>

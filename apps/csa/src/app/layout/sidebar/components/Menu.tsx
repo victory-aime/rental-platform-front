@@ -7,8 +7,10 @@ import { BaseText } from '_components/custom/base-text'
 import useIsActive from '../hooks/useIsActive'
 import useSideBarStyle from '../hooks/useSidebarStyle'
 import { MenuProps } from '../types'
+import { useTranslation } from 'react-i18next'
 
 export const Menu: FC<MenuProps> = ({ openedMenu, sideToggled, link, conditionsSubMenu }) => {
+  const { t } = useTranslation()
   const { itHasActiveChildLink } = useIsActive()
   const { setMenuTextStyle } = useSideBarStyle({
     sideToggled,
@@ -52,7 +54,7 @@ export const Menu: FC<MenuProps> = ({ openedMenu, sideToggled, link, conditionsS
         <link.icon width="22px" height="22px" color={itHasActiveChildLink(link.subItems) ? VariablesColors.white : VariablesColors.grayScale} />
 
         <Box display={!sideToggled ? { lg: 'none' } : { base: 'block', lg: 'block' }} width={'full'} ms="1rem">
-          <BaseText {...setMenuTextStyle(link.subItems)}>{link.label}</BaseText>
+          <BaseText {...setMenuTextStyle(link.subItems)}>{t(link.label)}</BaseText>
         </Box>
 
         {sideToggled ? (

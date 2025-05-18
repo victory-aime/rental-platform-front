@@ -14,4 +14,5 @@ export interface IBoxProps extends BoxProps {
   actionsButtonProps?: ActionButtonTypes
   filterComponent?: ReactNode
   numberOfLines?: number
+  tooltip?: string
 }

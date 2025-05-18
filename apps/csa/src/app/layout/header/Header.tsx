@@ -3,8 +3,17 @@ import { ListMenu } from '_assets/svg'
 import { SideBarProps } from '../sidebar/types'
 import { BaseText, CustomSkeletonLoader } from '_components/custom'
 import { UserModule } from 'rental-platform-state'
+import { useTranslation } from 'react-i18next'
+import { StorageKey } from '_constants/StorageKeys'
+import { SelectLanguages } from '_modules/components/SelectLanguages'
+import { useState } from 'react'
+import { FlagImagesIcon } from '_modules/components/flag/FlagImages'
+import { FlagKeys } from '_assets/images/flag'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
+  const { t } = useTranslation()
+  const getPreferedLanguage = localStorage.getItem(StorageKey.LANGUAGE)
+  const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
   const cachedUser = UserModule.UserCache.getUser()
   const { data: user, isLoading } = UserModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
@@ -12,6 +21,8 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
       enabled: !cachedUser,
     },
   })
+
+  console.log('getPreferedLanguage', getPreferedLanguage)
 
   return (
     <Flex as="header" p={4} justify={'space-between'} alignItems="center" boxShadow={'0 0 35px black.50'} position={'relative'} h={{ base: '100px', md: 'auto' }}>
@@ -27,15 +38,19 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
         {isLoading ? (
           <CustomSkeletonLoader numberOfLines={1} type="TEXT_IMAGE" height={'45px'} width={'200px'} direction={{ base: 'row-reverse', md: 'row' } as any} />
         ) : (
-          <Flex alignItems={{ base: 'center', md: 'flex-start' }} justifyContent={'flex-end'} flexDir={{ base: 'row', md: 'row-reverse' }} gap={3} width={'100%'}>
-            <HStack truncate maxW={'250px'} flexWrap={'wrap'} color={'gray.400'}>
-              <BaseText>Bonjour,</BaseText>
-              <BaseText> {user?.name}</BaseText>
-            </HStack>
-            <Image draggable="false" src={'https://avatar.iran.liara.run/public'} boxSize={'30px'} borderRadius={'7px'} fit="cover" objectPosition="center" alt="img-url" />
+          <Flex gap={8}>
+            <FlagImagesIcon countryImage={getPreferedLanguage?.toUpperCase() as FlagKeys} boxSize={'35px'} onClick={() => setOpenSelectLanguage(true)} />
+
+            <Flex alignItems={{ base: 'center', md: 'flex-start' }} justifyContent={'flex-end'} flexDir={{ base: 'row', md: 'row-reverse' }} gap={3} width={'100%'}>
+              <HStack truncate maxW={'250px'} flexWrap={'wrap'} color={'gray.400'}>
+                <BaseText> {t('WELCOME', { username: user?.name })} </BaseText>
+              </HStack>
+              <Image draggable="false" src={'https://avatar.iran.liara.run/public'} boxSize={'35px'} borderRadius={'7px'} fit="cover" objectPosition="center" alt="img-url" />
+            </Flex>
           </Flex>
         )}
       </Box>
+      <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} />
     </Flex>
   )
 }

@@ -4,6 +4,7 @@ import { BaseButton } from '../button'
 import { variantColorType } from '_components/custom/button'
 import { ModalProps } from './interface/modal'
 import { BoxIcon } from '../boxIcon'
+import { useTranslation } from 'react-i18next'
 
 const ModalComponent = ({
   isOpen = false,
@@ -11,8 +12,8 @@ const ModalComponent = ({
   onChange,
   title = 'Modal Title',
   colorSaveButton = 'success',
-  buttonSaveTitle = 'Save',
-  buttonCancelTitle = 'Annuler',
+  buttonSaveTitle = 'COMMON.VALIDATE',
+  buttonCancelTitle = 'COMMON.CANCEL',
   showCloseButton = true,
   isLoading,
   onClick,
@@ -23,6 +24,7 @@ const ModalComponent = ({
   children,
   ...rest
 }: ModalProps) => {
+  const { t } = useTranslation()
   return (
     <DialogRoot open={isOpen} lazyMount onOpenChange={(e) => onChange?.(e?.open)} placement={'center'} role={modalType} size={isFull ? 'full' : 'lg'} motionPreset="slide-in-top" {...rest}>
       <DialogContent width={'full'} padding={4}>
@@ -32,20 +34,20 @@ const ModalComponent = ({
               {icon}
             </BoxIcon>
           )}
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle>{t(title)}</DialogTitle>
         </DialogHeader>
-        <DialogBody mt={8}>{children}</DialogBody>
+        <DialogBody mt={4}>{children}</DialogBody>
         {!ignoreFooter ? (
           <DialogFooter mt={8}>
             {buttonCancelTitle && (
               <DialogActionTrigger asChild>
                 <BaseButton disabled={isLoading} onClick={onChange} variant="outline">
-                  {buttonCancelTitle}
+                  {t(buttonCancelTitle)}
                 </BaseButton>
               </DialogActionTrigger>
             )}
             <BaseButton withGradient onClick={() => onClick?.()} isLoading={isLoading} colorType={modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)}>
-              {buttonSaveTitle}
+              {t(buttonSaveTitle)}
             </BaseButton>
           </DialogFooter>
         ) : null}

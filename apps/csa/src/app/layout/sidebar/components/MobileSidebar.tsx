@@ -13,7 +13,7 @@ export const MobileSidebar = ({ isOpen, onClose, handleLogout, links }: IMobileS
   return (
     <DrawerRoot open={isOpen} onOpenChange={onClose} placement={'start'} size={'xs'} closeOnEscape>
       <DrawerBackdrop />
-      <DrawerContent height={'full'} bgColor={'#06524c'}>
+      <DrawerContent height={'full'} bgColor={'#1c58b1'}>
         <DrawerHeader display={'flex'} alignItems={'center'} justifyContent={'space-between'} p={5}>
           <DrawerTitle color={'white'} fontSize={'2xl'}>
             {cachedUser?.establishment?.name}
@@ -29,7 +29,7 @@ export const MobileSidebar = ({ isOpen, onClose, handleLogout, links }: IMobileS
             <RenderLinks links={links} sideToggled={isOpen} onShowSidebar={onClose} />
           </VStack>
         </DrawerBody>
-        <DrawerFooter display={'flex'} flexDir={'column'} alignItems={'flex-start'} justifyContent={'flex-start'} width={'full'} p={5}>
+        <DrawerFooter display={'flex'} flexDir={'column'} alignItems={'flex-start'} justifyContent={'flex-start'} width={'full'}>
           <Box mb={8}>
             <SwitchColorMode />
           </Box>

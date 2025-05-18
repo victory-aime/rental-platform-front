@@ -9,7 +9,7 @@ import { layoutStyle } from './styles'
 import { applicationContext } from '_context/global-state'
 import { Container } from './container/Container'
 import { AppContext } from '_context/app.context'
-import { AppAuthProvider } from '_context/auth-provider'
+import { AppAuthProvider } from '_context/provider/auth-provider'
 
 export const Layout: FunctionComponent<{
   children: React.ReactNode

@@ -5,8 +5,10 @@ import { hexToRGB } from '_theme/colors'
 import { BaseText } from '_components/custom/base-text'
 import useSideBarStyle from '../hooks/useSidebarStyle'
 import { SubMenuProps } from '../types'
+import { useTranslation } from 'react-i18next'
 
 const SubMenu: FC<SubMenuProps> = ({ sideToggled, redirectToPath, isActiveLink, link }) => {
+  const { t } = useTranslation()
   const { textStyle, linkStyle } = useSideBarStyle({
     sideToggled,
   })
@@ -60,7 +62,7 @@ const SubMenu: FC<SubMenuProps> = ({ sideToggled, redirectToPath, isActiveLink, 
         {link.icon && <link.icon width="20px" height="20px" fill={isActiveLink(link.path ?? '') ? VariablesColors.white : VariablesColors.grayScale} />}
 
         <Box display={!sideToggled ? { lg: 'none' } : { base: 'block', lg: 'block' }} width={'full'} ms="1rem">
-          <BaseText {...setTextStyle(link.path ?? '')}>{link.label}</BaseText>
+          <BaseText {...setTextStyle(link.path ?? '')}>{t(link.label)}</BaseText>
         </Box>
       </Flex>
     </Link>
