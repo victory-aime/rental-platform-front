@@ -1,4 +1,15 @@
-import { TYPES } from '../..'
+import { TYPES } from '../../../..'
+
+
+export interface CarCategory {
+  id?: string
+  name: string
+}
+
+export interface CarEquipments {
+  id?: string
+  name: string
+}
 
 export interface ICreateCarDto {
   id?: string
@@ -19,7 +30,7 @@ export interface ICreateCarDto {
   seats?: number
   carCategoryId?: string
   available?: boolean
-  equipmentIds?: TYPES.MODELS.COMMON.CarEquipments[]
+  equipmentIds?: CarEquipments[]
   status?: string
-  booking?: TYPES.MODELS.BOOKING.IBooking[]
+  booking?: TYPES.MODELS.COMMON.BOOKING.IBooking[]
 }

@@ -1,4 +1,4 @@
-import { TYPES } from '../..'
+import { TYPES } from '../../../..'
 
 export interface Establishment {
   id: string

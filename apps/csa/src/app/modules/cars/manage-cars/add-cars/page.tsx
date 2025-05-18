@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { FormTextInput, FormSelect, CustomDragDropZone, CheckBoxFom, FormSwitch, BoxContainer } from '_components/custom'
 import { Formik } from 'formik'
 import { LuBadgeDollarSign, LuBadgePercent } from 'react-icons/lu'
-import { CarsModule, UserModule } from 'rental-platform-state'
+import { CarsModule, CommonModule } from 'rental-platform-state'
 import { TYPES, UTILS } from 'rental-platform-shared'
 import { fuelList, transmissionList, categoryList, statusList, equipmentsList } from '../constants/cars'
 import { DiscountedPriceCalculator } from '_modules/cars/hooks/DiscountPriceCalculator'
@@ -22,7 +22,7 @@ const AddCarsPage = () => {
   const [filesUploaded, setFilesUploaded] = useState<File[]>([])
   const [bookingStatus, setBookingsStatus] = useState<string | null>(null)
 
-  const currentUser = UserModule.UserCache.getUser()
+  const currentUser = CommonModule.UserModule.UserCache.getUser()
   const carsCache = CarsModule.CarsCache.getCars()
   const existingCarsFiles = UTILS.findDynamicIdInList(requestId ?? '', carsCache)
   const {} = CarsModule.getAllCarsQueries({

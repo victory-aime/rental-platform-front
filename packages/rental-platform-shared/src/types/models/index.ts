@@ -1,4 +1,2 @@
-export * as USERS from './users'
-export * as COMMON from './common'
-export * as CARS from './cars'
-export * as BOOKING from './booking'
+export * as CARS from './modules/cars'
+export * as COMMON from './modules/common'

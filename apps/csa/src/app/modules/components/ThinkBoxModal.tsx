@@ -9,7 +9,7 @@ import { Formik, FormikHelpers, FormikValues } from 'formik'
 import React, { FC, useState } from 'react'
 import { FcIdea } from 'react-icons/fc'
 import axios from 'axios'
-import { UserModule } from 'rental-platform-state'
+import { CommonModule } from 'rental-platform-state'
 import { useTranslation } from 'react-i18next'
 export interface InitialFormValues {
   subject: string
@@ -18,7 +18,7 @@ export interface InitialFormValues {
 
 const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => {} }) => {
   const { t } = useTranslation()
-  const cachedUser = UserModule.UserCache.getUser()
+  const cachedUser = CommonModule.UserModule.UserCache.getUser()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmitForm = async (values: FormikValues, { resetForm }: FormikHelpers<InitialFormValues>) => {

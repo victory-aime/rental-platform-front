@@ -1,4 +1,4 @@
-import { applicationInstance } from '../../context'
+import { applicationInstance } from '../../../context'
 import { CarsModule } from 'rental-platform-business'
 
 export const carsServiceInstance = () => {

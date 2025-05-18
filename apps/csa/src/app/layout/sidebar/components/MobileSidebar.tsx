@@ -5,10 +5,10 @@ import { IoIosCloseCircle } from 'react-icons/io'
 import { SwitchColorMode, BaseButton } from '_components/custom'
 import { IMobileSidebar } from '../types'
 import { RenderLinks } from './RenderLinks'
-import { UserModule } from 'rental-platform-state'
+import { CommonModule } from 'rental-platform-state'
 
 export const MobileSidebar = ({ isOpen, onClose, handleLogout, links }: IMobileSidebar) => {
-  const cachedUser = UserModule.UserCache.getUser()
+  const cachedUser = CommonModule.UserModule.UserCache.getUser()
 
   return (
     <DrawerRoot open={isOpen} onOpenChange={onClose} placement={'start'} size={'xs'} closeOnEscape>

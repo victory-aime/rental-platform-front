@@ -2,7 +2,7 @@ import { Box, Flex, HStack, Image } from '@chakra-ui/react'
 import { ListMenu } from '_assets/svg'
 import { SideBarProps } from '../sidebar/types'
 import { BaseText, CustomSkeletonLoader } from '_components/custom'
-import { UserModule } from 'rental-platform-state'
+import { CommonModule } from 'rental-platform-state'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
 import { SelectLanguages } from '_modules/components/SelectLanguages'
@@ -14,8 +14,8 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
   const getPreferedLanguage = localStorage.getItem(StorageKey.LANGUAGE)
   const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
-  const cachedUser = UserModule.UserCache.getUser()
-  const { data: user, isLoading } = UserModule.userInfoQueries({
+  const cachedUser = CommonModule.UserModule.UserCache.getUser()
+  const { data: user, isLoading } = CommonModule.UserModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
     queryOptions: {
       enabled: !cachedUser,

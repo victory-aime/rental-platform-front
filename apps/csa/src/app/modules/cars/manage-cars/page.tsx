@@ -7,14 +7,12 @@ import React from 'react'
 import { TYPES } from 'rental-platform-shared'
 import { useRouter } from 'next/navigation'
 import { MODULES_CARS_ROUTES } from '../routes'
-import { CarsModule, UserModule } from 'rental-platform-state'
-import { useTranslation } from 'react-i18next'
+import { CarsModule, CommonModule } from 'rental-platform-state'
 
 const ManageCarsPage = () => {
-  const { t } = useTranslation()
   const router = useRouter()
   const [toggle, setToggle] = React.useState(false)
-  const currentUser = UserModule.UserCache.getUser()
+  const currentUser = CommonModule.UserModule.UserCache.getUser()
   const {
     data: cars,
     isLoading,

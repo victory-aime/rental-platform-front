@@ -1,4 +1,4 @@
-import { BaseApi } from '../../api'
+import { BaseApi } from '../../../api'
 
 /**
  * HotelServices provides methods to manage hotels.

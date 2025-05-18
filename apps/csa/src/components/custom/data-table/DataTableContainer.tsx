@@ -1,3 +1,4 @@
+'use client'
 import { Box, Button, Center, Flex, Table } from '@chakra-ui/react'
 import React, { useEffect, useState, FC } from 'react'
 import { Checkbox } from '_components/ui/checkbox'

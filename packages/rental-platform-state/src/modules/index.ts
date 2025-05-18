@@ -1,2 +1,2 @@
-export * as CarsModule from './cars'
-export * as UserModule from './users'
+export * as CarsModule from './cars-management'
+export * as CommonModule from './common'

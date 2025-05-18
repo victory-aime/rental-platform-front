@@ -1,4 +1,4 @@
-import { BaseApi } from '../../api'
+import { BaseApi } from '../../../../api'
 
 /**
  * UsersService provides methods for retrieving and updating user information

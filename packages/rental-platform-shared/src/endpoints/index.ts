@@ -104,6 +104,23 @@ export const APIS = (baseUrl?: string) => {
           path: '/manage-cars/update-car',
           method: 'PATCH',
         }),
+        PARC_LIST: api({
+          path: '/manage-parcs/list',
+          method: 'GET',
+          showResponse: false,
+        }),
+        ADD_PARC: api({
+          path: '/manage-parcs/create-parc',
+          method: 'POST',
+        }),
+        UPDATE_PARC: api({
+          path: '/manage-parcs/update-parc',
+          method: 'POST',
+        }),
+        DELETE_PARC: api({
+          path: '/manage-parcs/delete-parc',
+          method: 'DELETE',
+        }),
       },
     },
   }
