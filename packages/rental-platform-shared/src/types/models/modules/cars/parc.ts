@@ -9,6 +9,8 @@ export interface ParcDto {
 }
 export interface ParcListDto {
   agencyId?: string
+  name?: string
+  carsNumber?: number
   page?: number
   limit?: number
 }

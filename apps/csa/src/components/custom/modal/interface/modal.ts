@@ -14,7 +14,7 @@ export interface ModalProps extends DialogRootProps {
   colorSaveButton?: variantColorType
   isFull?: boolean | undefined
   icon?: ReactNode
-  iconBackroungColor?: string
+  iconBackgroundColor?: string
   onClick?: () => void
   isLoading?: boolean
   children: ReactNode

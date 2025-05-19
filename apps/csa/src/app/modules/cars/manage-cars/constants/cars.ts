@@ -10,6 +10,15 @@ const categoryList = (categories: { name: string; id: string }[] = []) => {
   })
 }
 
+const parcList = (parcs: TYPES.MODELS.CARS.ParcDto[] = []) => {
+  return createListCollection({
+    items: parcs?.map((item) => ({
+      label: item.name,
+      value: item.id,
+    })),
+  })
+}
+
 const equipmentsList = (equipments: { name: string; id: string }[] = []) => {
   return equipments.map((item) => ({
     name: item.name,
@@ -43,4 +52,4 @@ const statusList: any = (t: any) => {
   })
 }
 
-export { statusList, categoryList, equipmentsList, transmissionList, fuelList }
+export { statusList, categoryList, equipmentsList, transmissionList, fuelList, parcList }

@@ -7,13 +7,13 @@
   "WELCOME": "Hello {{username}}",
   "LOGOUT_MESSAGE": "You have successfully logged out. Thank you for using our service. To log in again, please click the button below.",
   "SESSION_EXPIRE": "Session expired",
-  "SESSEION_MESSAGE": "Your session has expired. Please log in again to continue",
+  "SESSION_MESSAGE": "Your session has expired. Please log in again to continue",
   "SELECT_LANGUAGES": "Choose your language",
   "SELECT_LANGUAGES_DESC": "Please select the application language",
   "HELP_MESSAGE": "To improve your experience, we invite you to share your suggestions and feedback. We look forward to hearing from you and working together to make our app even better! Tap this button to share your ideas.",
   "IDEA_TEXT": "I have an idea",
   "INFO_GEN_TITLE": "General Information",
-  "TARIF_DISPO_GEN": "Pricing & Availability",
+  "PRICE_INFO": "Pricing & Availability",
   "STATUS": "Status",
   "THINK_BOX": {
     "TITLE": "Suggestion Box",
@@ -35,6 +35,9 @@
     "REFRESH": "Refresh Data",
     "FILTER": "Filter",
     "REMISE": "Apply a Discount?",
+    "CLEAR": "Clear",
+    "SEARCH": "Search",
+    "NO_SELECT_OPTIONS": "No options found",
     "STATUS": {
       "ACTIVE": "Active",
       "PENDING": "Pending",
@@ -91,6 +94,17 @@
       }
     }
   },
+  "PARC": {
+    "TOTAL_CARS": "Total vehicles",
+    "ADD_TITLE": "Add park",
+    "EDIT_TITLE": "Edit park",
+    "DESC": "Park management involves organizing, controlling, and optimizing the use of parking spaces to ensure smooth vehicle flow and efficient use of available space.",
+    "FORMS": {
+      "NAME": "Park name",
+      "ADDRESS": "Location"
+    }
+  },
+
   "DRAG_DROP": {
     "TITLE": "Drag and drop files here, or click to select",
     "DESC": "Accepted formats: .png, .jpg up to {{max_size}}MB",

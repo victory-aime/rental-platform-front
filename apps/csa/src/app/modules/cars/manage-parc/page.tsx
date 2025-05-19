@@ -1,23 +1,33 @@
 'use client'
 
-import { Box } from '@chakra-ui/react'
 import { BaseText, BoxContainer, ColumnsDataTable, DataTableContainer } from '_components/custom'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TYPES } from 'rental-platform-shared'
 import { CarsModule, CommonModule } from 'rental-platform-state'
 import { ParcFormModal } from './components/FormModal'
+import { FilterParc } from '_modules/cars/manage-parc/components/FilterParc'
 
 const ManageParcPage = () => {
   const [openModal, setOpenModal] = useState(false)
   const [selectedParc, setSelectedParc] = useState<TYPES.MODELS.CARS.ParcDto | null>(null)
+  const [isFilterActive, setIsFilterActive] = useState<boolean>(false)
+  const [filters, setFilters] = useState<TYPES.MODELS.CARS.ParcListDto | null>(null)
   const currentUser = CommonModule.UserModule.UserCache.getUser()
+  const cachedParc = CarsModule.parcs.ParcsCache.getParcs()
+  const agencyId = currentUser?.establishment.id
+
   const {
     data: parc,
     refetch,
     isLoading,
   } = CarsModule.parcs.getParcsQueries({
     payload: {
-      agencyId: currentUser?.establishment.id,
+      agencyId,
+      ...filters,
+    },
+    queryOptions: {
+      enabled: !!agencyId && cachedParc?.content?.length === 0,
+      refetchOnMount: false,
     },
   })
 
@@ -25,7 +35,7 @@ const ManageParcPage = () => {
     onSuccess: () => {
       setOpenModal(false)
       setSelectedParc(null)
-      refetch()
+      refetch().then()
     },
   })
 
@@ -33,38 +43,55 @@ const ManageParcPage = () => {
     onSuccess: () => {
       setOpenModal(false)
       setSelectedParc(null)
-      refetch()
+      refetch().then()
     },
   })
 
   const handleSubmit = async (values: any) => {
     const request: TYPES.MODELS.CARS.ParcDto = {
-      agencyId: currentUser?.establishment.id,
+      agencyId,
       name: values?.name,
       address: values?.address,
     }
     if (selectedParc?.id) {
-      await updateParc({ id: selectedParc?.id, ...request })
+      await updateParc({ id: selectedParc.id, ...request })
     } else {
       await createParc(request)
     }
   }
 
+  const handleFilter = (values: TYPES.MODELS.CARS.ParcListDto | null) => {
+    const request: TYPES.MODELS.CARS.ParcListDto = {
+      name: values?.name,
+      carsNumber: values?.carsNumber,
+    }
+    setFilters(request)
+  }
+
+  const onReset = () => {
+    setFilters({})
+    refetch().then()
+  }
+
+  useEffect(() => {
+    if (filters) {
+      refetch().then((r) => r)
+    }
+  }, [filters])
+
   const columns: ColumnsDataTable[] = [
     {
-      header: 'Name',
+      header: 'PARC.FORMS.NAME',
       accessor: 'name',
     },
     {
-      header: 'Address',
+      header: 'PARC.FORMS.ADDRESS',
       accessor: 'address',
     },
     {
-      header: 'Nombre cars',
+      header: 'PARC.TOTAL_CARS',
       accessor: '_count',
-      cell(x) {
-        return <BaseText>{x?.listCar}</BaseText>
-      },
+      cell: (row) => <BaseText>{row?.listCar}</BaseText>,
     },
     {
       header: 'Actions',
@@ -72,18 +99,14 @@ const ManageParcPage = () => {
       actions: [
         {
           name: 'edit',
-          handleClick(data) {
+          handleClick: (data) => {
             setOpenModal(true)
             setSelectedParc(data)
           },
         },
         {
-          name: 'view',
-          handleClick(data) {},
-        },
-        {
           name: 'delete',
-          handleClick(data) {},
+          handleClick: () => {},
         },
       ],
     },
@@ -92,28 +115,35 @@ const ManageParcPage = () => {
   return (
     <BoxContainer
       title={'SIDE_BAR.MANAGE_PARCS'}
-      description={'gere mes parcs'}
-      border={'none'}
+      description={'PARC.DESC'}
+      border="none"
       withActionButtons
-      isFilterActive
-      onToggleFilter={() => {}}
-      filterComponent={<></>}
+      isFilterActive={isFilterActive}
+      onToggleFilter={() => setIsFilterActive(!isFilterActive)}
+      filterComponent={<FilterParc callback={handleFilter} onReset={onReset} />}
       actionsButtonProps={{
-        validateTitle: 'ajouter un parck',
+        validateTitle: 'PARC.ADD_TITLE',
         validateColor: 'primary',
         onClick() {
           setOpenModal(true)
           setSelectedParc(null)
         },
         onReload() {
-          refetch()
+          onReset()
         },
       }}
     >
-      <Box mt={'80px'}>
-        <DataTableContainer data={parc?.content ?? []} columns={columns} totalItems={parc?.totalPages} pageSize={parc?.totalDataPerPage} isLoading={isLoading} initialPage={parc?.currentPage} />
-      </Box>
-      <ParcFormModal isOpen={openModal} onChange={() => setOpenModal(!open)} data={selectedParc} isLoading={createPending || updatePending} callback={handleSubmit} />
+      <DataTableContainer
+        data={parc?.content ?? []}
+        columns={columns}
+        totalItems={parc?.totalPages}
+        pageSize={parc?.totalDataPerPage}
+        isLoading={isLoading}
+        initialPage={parc?.currentPage}
+        hidePagination
+      />
+
+      <ParcFormModal isOpen={openModal} onChange={() => setOpenModal(!openModal)} data={selectedParc} isLoading={createPending || updatePending} callback={handleSubmit} />
     </BoxContainer>
   )
 }

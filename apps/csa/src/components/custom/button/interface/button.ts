@@ -29,9 +29,12 @@ export interface ActionButtonTypes extends FlexProps {
   refreshTitle?: string
   cancelColor?: variantColorType
   validateColor?: variantColorType
+  icon?: ReactNode
+  cancelIcon?: ReactNode
   requestId?: string
   isLoading?: boolean
   onClick?: () => void
+  onCancel?: () => void
   onReload?: () => void
   onToggleFilter?: () => void
 }

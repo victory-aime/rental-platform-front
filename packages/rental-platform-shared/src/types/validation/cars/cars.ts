@@ -10,6 +10,7 @@ export const initialCarsValues: TYPES.MODELS.CARS.ICreateCarDto = {
   plateNumber: '',
   dailyPrice: 0,
   carCategoryId: '',
+  parkingCarId: '',
   rentalPriceDiscounted: 0,
   discountType: '',
   discountValue: 0,

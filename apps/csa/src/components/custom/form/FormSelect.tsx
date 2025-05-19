@@ -56,7 +56,7 @@ const FormSelect: FC<FullSelectProps> = ({
         onBlur={(e) => {
           field?.onBlur(e)
         }}
-        collection={listItems}
+        collection={listItems?.items?.length ? listItems : undefined}
         size={'lg'}
         width={width}
       >
@@ -86,11 +86,17 @@ const FormSelect: FC<FullSelectProps> = ({
         </SelectTrigger>
 
         <SelectContent borderRadius={7} p={3}>
-          {listItems?.items?.map((item: any) => (
-            <SelectItem _highlighted={{ color: 'primary.500' }} py={1} item={item.value} key={item.value}>
-              {item.label}
-            </SelectItem>
-          ))}
+          {listItems?.items?.length ? (
+            listItems?.items?.map((item: { id: string; label: string; value: string }) => (
+              <SelectItem _highlighted={{ color: 'primary.500' }} py={1} item={item.value} key={item.value}>
+                {item.label}
+              </SelectItem>
+            ))
+          ) : (
+            <BaseText fontSize="sm" color="gray.400" px={2} py={1}>
+              {t('COMMON.NO_SELECT_OPTIONS')}
+            </BaseText>
+          )}
         </SelectContent>
       </SelectRoot>
       {isError && (

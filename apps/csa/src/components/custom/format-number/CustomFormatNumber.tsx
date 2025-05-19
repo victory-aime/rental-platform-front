@@ -29,7 +29,7 @@ const CustomFormatNumber: FC<CustomFormatNumberProps> = ({ value, notation = 'co
         maximumFractionDigits={style === 'percent' ? maximumDigits : 0}
         minimumFractionDigits={style === 'percent' ? minimumDigits : 0}
       />
-      <ModalComponent title={'Attention'} icon={<CiWarning />} iconBackroungColor={VariablesColors.orange} open={isInValidCurrency} ignoreFooter>
+      <ModalComponent title={'Attention'} icon={<CiWarning />} iconBackgroundColor={VariablesColors.orange} open={isInValidCurrency} ignoreFooter>
         <BaseText variant={TextVariant.M}>Le code de la devise fournie n'est pas valide, veuillez utiliser l'un des codes de devise valides fournis par le système.</BaseText>
         <BaseText>Voici la liste des codes de devise valides: {Object.values(TYPES.ENUM.Currency).join(', ')}</BaseText>
         <BaseText>Devise fournie: {currencyCode}</BaseText>

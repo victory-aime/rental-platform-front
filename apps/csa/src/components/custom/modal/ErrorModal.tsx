@@ -30,7 +30,7 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
     <ModalComponent
       open={showSessionError}
       icon={<PiWarningBold size={22} color="#f97316" />}
-      iconBackroungColor={hexToRGB('orange', 0.4)}
+      iconBackgroundColor={hexToRGB('orange', 0.4)}
       title={'SESSION_EXPIRE'}
       buttonSaveTitle={'COMMON.LOGIN'}
       colorSaveButton={'primary'}
@@ -42,7 +42,7 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
       showCloseButton={false}
       onClick={handleReconnect}
     >
-      <BaseText>{t('SESSEION_MESSAGE')}</BaseText>
+      <BaseText>{t('SESSION_MESSAGE')}</BaseText>
     </ModalComponent>
   )
 }

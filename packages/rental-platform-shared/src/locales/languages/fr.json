@@ -2,16 +2,16 @@
   "SIDE_BAR": {
     "DASHBOARD": "Tableau de bord",
     "MANAGE_CARS": "Gestion véhicules",
-    "MANAGE_PARCS": "Mes parkings"
+    "MANAGE_PARCS": "Mes parcs"
   },
   "WELCOME": "Bonjour {{username}}",
   "LOGOUT_MESSAGE": "Vous vous êtes déconnecté avec succès. Merci d'avoir utilisé notre service. Pour vous reconnecter, veuillez cliquer sur le bouton ci-dessous.",
   "SESSION_EXPIRE": "Session expirée",
-  "SESSEION_MESSAGE": "Votre session a expiré. Veuillez vous reconnecter pour continuer.",
+  "SESSION_MESSAGE": "Votre session a expiré. Veuillez vous reconnecter pour continuer.",
   "HELP_MESSAGE": "Pour améliorer votre expérience, nous vous invitons à nous faire part de vos suggestions et de vos commentaires. Nous sommes impatients de vous entendre et de travailler ensemble pour rendre notre application encore meilleure ! Appuyez sur ce bouton pour nous faire part de vos suggestions.",
   "IDEA_TEXT": "J'ai une idée",
   "INFO_GEN_TITLE": "Informations Generales",
-  "TARIF_DISPO_GEN": "Tarifications & Disponibilite",
+  "PRICE_INFO": "Tarifications & Disponibilite",
   "SELECT_LANGUAGES": "Choisissez votre langue",
   "SELECT_LANGUAGES_DESC": "Veuillez selectionner la langue de l'application",
   "STATUS": "Statut",
@@ -35,6 +35,9 @@
     "REFRESH": "Rafraichir les données",
     "FILTER": "Filtrer",
     "REMISE": "Appliquer une Remise ?",
+    "CLEAR": "Effacer",
+    "SEARCH": "Rechercher",
+    "NO_SELECT_OPTIONS": "Aucune options trouvée",
     "STATUS": {
       "ACTIVE": "Actif",
       "PENDING": "En attente",
@@ -91,7 +94,16 @@
       }
     }
   },
-
+"PARC": {
+  "TOTAL_CARS": "Total de vehicule",
+  "ADD_TITLE": "Ajouter un parc",
+  "EDIT_TITLE": "Modifier un parc",
+  "DESC": "La gestion des parkings consiste à organiser, contrôler et optimiser l’utilisation des espaces de stationnement pour assurer un flux fluide des véhicules et une utilisation efficace de l’espace disponible.",
+  "FORMS": {
+    "NAME": "Nom du parc",
+    "ADDRESS": "Emplacement"
+  }
+},
   "DRAG_DROP": {
     "TITLE": "Glissez-déposez des fichiers ici, ou cliquez pour sélectionner",
     "DESC": "Formats acceptés : .png, .jpg jusqu'à {{max_size}}MB",

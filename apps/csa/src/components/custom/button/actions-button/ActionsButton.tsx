@@ -20,9 +20,12 @@ export const ActionsButton = ({
   cancelColor = 'danger',
   refreshTitle = 'COMMON.REFRESH',
   validateColor = 'success',
+  icon,
+  cancelIcon,
   onClick,
   onToggleFilter,
   onReload,
+  onCancel,
   ...rest
 }: ActionButtonTypes) => {
   const { t } = useTranslation()
@@ -31,20 +34,13 @@ export const ActionsButton = ({
   return (
     <Flex {...rest} gap={3}>
       {cancelTitle && (
-        <BaseButton
-          px={'15px'}
-          withGradient
-          disabled={isLoading}
-          colorType={cancelColor}
-          leftIcon={cancelColor === 'danger' ? <GiCancel /> : <IoIosArrowDropleftCircle />}
-          onClick={() => router?.back()}
-        >
+        <BaseButton px={'15px'} withGradient disabled={isLoading} colorType={cancelColor} leftIcon={cancelIcon ? cancelIcon : <GiCancel />} onClick={() => (onCancel ? onCancel?.() : router?.back())}>
           {t(cancelTitle)}
         </BaseButton>
       )}
 
       {validateTitle && (
-        <BaseButton onClick={onClick} px={'15px'} colorType={validateColor} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={requestId ? <IoSave /> : <FaPlus />}>
+        <BaseButton onClick={onClick} px={'15px'} colorType={validateColor} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={icon ? icon : requestId ? <IoSave /> : <FaPlus />}>
           {t(validateTitle)}
         </BaseButton>
       )}

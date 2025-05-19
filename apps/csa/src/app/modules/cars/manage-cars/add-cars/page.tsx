@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex, VStack, ListCollection, Stack } from '@chakra-ui/react'
+import { Box, Flex, VStack, Stack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { FormTextInput, FormSelect, CustomDragDropZone, CheckBoxFom, FormSwitch, BoxContainer } from '_components/custom'
@@ -8,7 +8,7 @@ import { Formik } from 'formik'
 import { LuBadgeDollarSign, LuBadgePercent } from 'react-icons/lu'
 import { CarsModule, CommonModule } from 'rental-platform-state'
 import { TYPES, UTILS } from 'rental-platform-shared'
-import { fuelList, transmissionList, categoryList, statusList, equipmentsList } from '../constants/cars'
+import { fuelList, transmissionList, categoryList, statusList, equipmentsList, parcList } from '../constants/cars'
 import { DiscountedPriceCalculator } from '_modules/cars/hooks/DiscountPriceCalculator'
 import { useTranslation } from 'react-i18next'
 
@@ -31,15 +31,25 @@ const AddCarsPage = () => {
   })
   const { data: categories } = CarsModule.getCarsCategoriesQueries({})
   const { data: equipments } = CarsModule.getCarsEquipmentsQueries({})
+  const { data: parcs } = CarsModule.parcs.getParcsQueries({
+    payload: {
+      agencyId: currentUser?.establishment?.id,
+    },
+    queryOptions: {
+      enabled: !!currentUser?.establishment?.id,
+    },
+  })
   const { mutateAsync: createCars, isPending: createPending } = CarsModule.createCarsMutation({
     onSuccess: () => {
       CarsModule.CarsCache.invalidateCars()
+      CarsModule.parcs.ParcsCache.invalidateParcs()
       router.back()
     },
   })
   const { mutateAsync: updateCars, isPending: updatePending } = CarsModule.updateCarsMutation({
     onSuccess: () => {
       CarsModule.CarsCache.invalidateCars()
+      CarsModule.parcs.ParcsCache.invalidateParcs()
       router.back()
     },
   })
@@ -70,6 +80,7 @@ const AddCarsPage = () => {
     formData.append('dailyPrice', String(values?.dailyPrice))
     formData.append('status', values?.status?.[0] ?? '')
     formData.append('carCategoryId', values?.carCategoryId?.[0] ?? '')
+    formData.append('parkingCarId', values?.parkingCarId?.[0] ?? '')
     values?.equipmentIds?.forEach((value) => formData.append('equipmentIds', String(value)))
     images.forEach((file) => {
       formData.append('carImages', file)
@@ -91,6 +102,7 @@ const AddCarsPage = () => {
         fuelType: existingCarsFiles?.fuelType && [existingCarsFiles.fuelType],
         transmission: existingCarsFiles?.transmission && [existingCarsFiles.transmission],
         carCategoryId: existingCarsFiles?.carCategoryId && [existingCarsFiles.carCategoryId],
+        parkingCarId: existingCarsFiles?.parkingCarId && [existingCarsFiles.parkingCarId],
         status: existingCarsFiles?.status && [existingCarsFiles.status],
         equipmentIds: existingCarsFiles?.equipments?.map((e: { name: string }) => e.name) ?? [],
       })
@@ -202,7 +214,7 @@ const AddCarsPage = () => {
               </BoxContainer>
             </Flex>
             <Flex width={'full'} gap={8} flexDir={{ base: 'column', md: 'row' }}>
-              <BoxContainer title={'TARIF_DISPO_GEN'} tooltip={'CARS.FORMS.INFO.PRICE'}>
+              <BoxContainer title={'PRICE_INFO'} tooltip={'CARS.FORMS.INFO.PRICE'}>
                 <VStack mt={10} gap={4} mb={4} align="stretch" width="100%">
                   <Stack width="full" gap={4} direction={{ base: 'column', md: 'row' }}>
                     <FormTextInput
@@ -244,12 +256,13 @@ const AddCarsPage = () => {
                 </VStack>
                 <VStack mt={10} gap={4} mb={4} align="stretch" width="100%">
                   <Stack mb={4} alignItems={'center'} justifyContent={'center'} width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
-                    <FormTextInput name="parkingAddress" label={'CARS.FORMS.PARKING'} placeholder={'CARS.FORMS.PARKING'} />
+                    <FormSelect name="parkingCarId" label={'CARS.FORMS.PARKING'} placeholder={'CARS.FORMS.PARKING'} setFieldValue={setFieldValue} listItems={parcList(parcs?.content)} />
+
                     <FormSelect
                       name="carCategoryId"
                       label={'CARS.FORMS.CATEGORY'}
                       setFieldValue={setFieldValue}
-                      listItems={categoryList(categories) as ListCollection}
+                      listItems={categoryList(categories)}
                       placeholder={'CARS.FORMS.CATEGORY'}
                       isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
                     />

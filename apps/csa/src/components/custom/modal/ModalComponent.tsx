@@ -20,7 +20,7 @@ const ModalComponent = ({
   isFull,
   modalType,
   icon,
-  iconBackroungColor = 'red',
+  iconBackgroundColor = 'red',
   children,
   ...rest
 }: ModalProps) => {
@@ -30,7 +30,7 @@ const ModalComponent = ({
       <DialogContent width={'full'} padding={4}>
         <DialogHeader alignItems={'center'} display={'flex'} gap={4}>
           {icon && (
-            <BoxIcon borderRadius={'7px'} color={iconBackroungColor}>
+            <BoxIcon borderRadius={'7px'} color={iconBackgroundColor}>
               {icon}
             </BoxIcon>
           )}

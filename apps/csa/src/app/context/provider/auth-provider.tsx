@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react'
 import { useSessionRefresh } from '_hooks/useSessionRefresh'
 import { useSyncTokensWithContext } from '_hooks/useSyncSession'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
 import { Loader } from '_components/custom'
@@ -21,16 +21,21 @@ export const AppAuthProvider = ({ children }: { children: React.ReactNode }) => 
 
   useEffect(() => {
     if (session?.access_token && session?.refresh_token) {
-      try {
-        setIsInitialized(true)
-      } catch (error) {
-        setIsInitialized(false)
-      }
+      setIsInitialized(true)
     } else {
       setIsInitialized(false)
     }
-    if (savedLang && savedLang !== i18n.language) {
-      i18n.changeLanguage(savedLang).finally(() => setReady(true))
+
+    const langToUse = savedLang ?? i18n.language
+
+    if (typeof window !== 'undefined') {
+      if (!savedLang) {
+        localStorage.setItem(StorageKey.LANGUAGE, langToUse)
+      }
+    }
+
+    if (i18n.language !== langToUse) {
+      i18n.changeLanguage(langToUse).finally(() => setReady(true))
     } else {
       setReady(true)
     }

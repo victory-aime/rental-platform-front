@@ -2,7 +2,6 @@
 
 import { BaseBadge, BaseText, BoxContainer, ColumnsDataTable, CustomFormatNumber, DataTableContainer } from '_components/custom'
 import { DisplayImage } from '../components/DisplayImage'
-import { Box } from '@chakra-ui/react'
 import React from 'react'
 import { TYPES } from 'rental-platform-shared'
 import { useRouter } from 'next/navigation'
@@ -102,9 +101,7 @@ const ManageCarsPage = () => {
       }}
       filterComponent={<BaseText>Texte all</BaseText>}
     >
-      <Box mt={'80px'}>
-        <DataTableContainer data={cars} columns={columns} isLoading={isLoading} hidePagination />
-      </Box>
+      <DataTableContainer data={cars} columns={columns} isLoading={isLoading} hidePagination />
     </BoxContainer>
   )
 }

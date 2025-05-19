@@ -29,7 +29,7 @@ interface FormTextAreaProps extends TextInputProps {
 interface FullSelectProps {
   name: string
   label?: string
-  listItems: ListCollection<unknown>
+  listItems: ListCollection<unknown> | any
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<any>
   placeholder?: string
   isDisabled?: boolean

@@ -12,7 +12,7 @@ import { FlagKeys } from '_assets/images/flag'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
-  const getPreferedLanguage = localStorage.getItem(StorageKey.LANGUAGE)
+  const getPreferredLanguage = localStorage.getItem(StorageKey.LANGUAGE)
   const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
   const cachedUser = CommonModule.UserModule.UserCache.getUser()
   const { data: user, isLoading } = CommonModule.UserModule.userInfoQueries({
@@ -21,8 +21,6 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
       enabled: !cachedUser,
     },
   })
-
-  console.log('getPreferedLanguage', getPreferedLanguage)
 
   return (
     <Flex as="header" p={4} justify={'space-between'} alignItems="center" boxShadow={'0 0 35px black.50'} position={'relative'} h={{ base: '100px', md: 'auto' }}>
@@ -39,7 +37,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
           <CustomSkeletonLoader numberOfLines={1} type="TEXT_IMAGE" height={'45px'} width={'200px'} direction={{ base: 'row-reverse', md: 'row' } as any} />
         ) : (
           <Flex gap={8}>
-            <FlagImagesIcon countryImage={getPreferedLanguage?.toUpperCase() as FlagKeys} boxSize={'35px'} onClick={() => setOpenSelectLanguage(true)} />
+            <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'35px'} onClick={() => setOpenSelectLanguage(true)} />
 
             <Flex alignItems={{ base: 'center', md: 'flex-start' }} justifyContent={'flex-end'} flexDir={{ base: 'row', md: 'row-reverse' }} gap={3} width={'100%'}>
               <HStack truncate maxW={'250px'} flexWrap={'wrap'} color={'gray.400'}>

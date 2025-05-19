@@ -21,8 +21,9 @@ export const ParcFormModal: FC<ModalOpenProps> = ({ isOpen, onChange, data, call
       {({ values, handleSubmit }) => (
         <ModalComponent
           icon={<FaParking />}
-          iconBackroungColor={hexToRGB('blue', 0.5)}
-          title={!data?.id ? 'Ajouter un parc' : 'Modifier le parc'}
+          iconBackgroundColor={hexToRGB('blue', 0.5)}
+          title={!data?.id ? 'PARC.ADD_TITLE' : 'PARC.EDIT_TITLE'}
+          buttonSaveTitle={data?.id ? 'COMMON.EDIT' : 'COMMON.VALIDATE'}
           open={isOpen}
           onChange={onChange}
           onClick={handleSubmit}
@@ -30,8 +31,8 @@ export const ParcFormModal: FC<ModalOpenProps> = ({ isOpen, onChange, data, call
           ignoreFooter={false}
         >
           <VStack gap={8}>
-            <FormTextInput name="name" label="Nom du parc" placeholder="nom du parc" value={values?.name} />
-            <FormTextInput name="address" label="Adresse du parc" placeholder="adresse du parc" value={values?.address} />
+            <FormTextInput name="name" label="PARC.FORMS.NAME" placeholder="PARC.FORMS.NAME" value={values?.name} />
+            <FormTextInput name="address" label="PARC.FORMS.ADDRESS" placeholder="PARC.FORMS.ADDRESS" value={values?.address} />
           </VStack>
         </ModalComponent>
       )}

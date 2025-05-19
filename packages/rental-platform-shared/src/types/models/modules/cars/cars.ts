@@ -1,6 +1,5 @@
 import { TYPES } from '../../../..'
 
-
 export interface CarCategory {
   id?: string
   name: string
@@ -29,6 +28,7 @@ export interface ICreateCarDto {
   doors?: number
   seats?: number
   carCategoryId?: string
+  parkingCarId?: string
   available?: boolean
   equipmentIds?: CarEquipments[]
   status?: string

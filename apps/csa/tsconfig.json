@@ -20,6 +20,7 @@
     ],
     "paths": {
       "_assets/*": ["./public/assets/*"],
+      "_lottie/*": ["./public/lottie/*"],
       "_components/*": ["./src/components/*"],
       "_constants/*": ["./src/app/constants/*"],
       "_theme/*": ["./src/theme/*"],

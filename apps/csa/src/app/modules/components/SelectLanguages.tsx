@@ -29,7 +29,7 @@ export const SelectLanguages: FC<ModalOpenProps> = ({ onChange, isOpen }) => {
         CustomToast({ description: t('PROFILE.PREFERRED_LANGUAGE') })
         onChange?.(!isOpen)
       } catch (error) {
-        console.error('Erreur changement de langue:', error)
+        CustomToast({ description: t('PROFILE.ERROR_LANGUAGE'), type: 'error' })
       } finally {
         setFallbackLoad(false)
         setLoading(false)
@@ -38,7 +38,7 @@ export const SelectLanguages: FC<ModalOpenProps> = ({ onChange, isOpen }) => {
   }
 
   return (
-    <ModalComponent iconBackroungColor={hexToRGB('lighter', 0.6)} icon={<ImFlag color={VariablesColors.grayScale} />} open={isOpen} title={'SELECT_LANGUAGES'} onChange={onChange}>
+    <ModalComponent iconBackgroundColor={hexToRGB('lighter', 0.6)} icon={<ImFlag color={VariablesColors.grayScale} />} open={isOpen} title={'SELECT_LANGUAGES'} onChange={onChange}>
       <VStack gap={5} alignItems={'flex-start'}>
         <BaseText>{t('SELECT_LANGUAGES_DESC')}</BaseText>
         <Flex gap={6} mt={6} width="full" alignItems="center" justifyContent="center" pointerEvents={loading ? 'none' : 'auto'} opacity={loading ? 0.6 : 1}>

@@ -73,7 +73,7 @@ const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => 
           onChange={() => onChange(!isOpen)}
           title={t('THINK_BOX.TITLE')}
           icon={<FcIdea size={18} />}
-          iconBackroungColor={hexToRGB('orange', 0.3)}
+          iconBackgroundColor={hexToRGB('orange', 0.3)}
           ignoreFooter={false}
           isLoading={isLoading}
           buttonSaveTitle={t('COMMON.SEND')}
