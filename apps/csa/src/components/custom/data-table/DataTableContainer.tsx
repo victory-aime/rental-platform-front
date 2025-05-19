@@ -5,7 +5,7 @@ import { Checkbox } from '_components/ui/checkbox'
 import { ActionBarRoot, ActionBarContent, ActionBarSelectionTrigger, ActionBarSeparator } from '_components/ui/action-bar'
 import { TableProps, PaginationDataTable } from '_components/custom'
 import { ActionButtons } from './ActionButtons'
-//import { NoDataFoundLottieAnimation, TrashLottieAnimationV2 } from '_lottie/animations/LottieAnimation'
+import { NoDataFoundLottieAnimation, TrashLottieAnimationV2 } from '_lottie/animations/LottieAnimation'
 import { CustomSkeletonLoader } from '_components/custom'
 import { BaseText, TextVariant } from '../base-text'
 import { useTranslation } from 'react-i18next'
@@ -76,11 +76,11 @@ export const DataTableContainer: FC<TableProps> = ({
         return (
           <Center flexDir={'column'} gap={4}>
             <Flex alignItems={'center'} justifyContent={'center'} width={{ base: 'full', lg: '500px' }} mt={10}>
-              {/*<NoDataFoundLottieAnimation />*/}
+              <NoDataFoundLottieAnimation />
             </Flex>
             <Flex flexDir={'column'} alignItems={'center'} gap={2}>
               <BaseText variant={TextVariant.M} color={'gray.700'}>
-                Aucun element
+                {t('COMMON.NO_DATA_FOUND')}
               </BaseText>
             </Flex>
           </Center>

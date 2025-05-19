@@ -102,7 +102,7 @@ const AddCarsPage = () => {
         fuelType: existingCarsFiles?.fuelType && [existingCarsFiles.fuelType],
         transmission: existingCarsFiles?.transmission && [existingCarsFiles.transmission],
         carCategoryId: existingCarsFiles?.carCategoryId && [existingCarsFiles.carCategoryId],
-        parkingCarId: existingCarsFiles?.parkingCarId && [existingCarsFiles.parkingCarId],
+        parkingCarId: existingCarsFiles?.parkingCarId ? [existingCarsFiles.parkingCarId] : '',
         status: existingCarsFiles?.status && [existingCarsFiles.status],
         equipmentIds: existingCarsFiles?.equipments?.map((e: { name: string }) => e.name) ?? [],
       })

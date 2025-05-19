@@ -38,6 +38,11 @@
     "CLEAR": "Clear",
     "SEARCH": "Search",
     "NO_SELECT_OPTIONS": "No options found",
+    "CONFIRM_TEXT": "To confirm, type <<{{value}}>> in the box below.",
+    "WARNING": {
+      "TITLE": "Caution",
+      "DESC": "this action is irreversible. Once deleted, this item cannot be restored. Are you sure you want to continue?"
+    },
     "STATUS": {
       "ACTIVE": "Active",
       "PENDING": "Pending",
@@ -98,6 +103,8 @@
     "TOTAL_CARS": "Total vehicles",
     "ADD_TITLE": "Add park",
     "EDIT_TITLE": "Edit park",
+    "DELETE_TITLE": "Delete a park",
+    "CONSENT_TITLE": "Yes, I want to delete this park",
     "DESC": "Park management involves organizing, controlling, and optimizing the use of parking spaces to ensure smooth vehicle flow and efficient use of available space.",
     "FORMS": {
       "NAME": "Park name",

@@ -6,9 +6,11 @@ import { TYPES } from 'rental-platform-shared'
 import { CarsModule, CommonModule } from 'rental-platform-state'
 import { ParcFormModal } from './components/FormModal'
 import { FilterParc } from '_modules/cars/manage-parc/components/FilterParc'
+import { DeleteParcModal } from './components/DeleteParcModal'
 
 const ManageParcPage = () => {
-  const [openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [selectedParc, setSelectedParc] = useState<TYPES.MODELS.CARS.ParcDto | null>(null)
   const [isFilterActive, setIsFilterActive] = useState<boolean>(false)
   const [filters, setFilters] = useState<TYPES.MODELS.CARS.ParcListDto | null>(null)
@@ -26,7 +28,7 @@ const ManageParcPage = () => {
       ...filters,
     },
     queryOptions: {
-      enabled: !!agencyId && cachedParc?.content?.length === 0,
+      enabled: !!agencyId,
       refetchOnMount: false,
     },
   })
@@ -46,6 +48,13 @@ const ManageParcPage = () => {
       refetch().then()
     },
   })
+  const { mutateAsync: deleteParc, isPending: deleteParcPending } = CarsModule.parcs.deleteParcMutation({
+    onSuccess: () => {
+      setDeleteModal(false)
+      setSelectedParc(null)
+      refetch().then()
+    },
+  })
 
   const handleSubmit = async (values: any) => {
     const request: TYPES.MODELS.CARS.ParcDto = {
@@ -58,6 +67,14 @@ const ManageParcPage = () => {
     } else {
       await createParc(request)
     }
+  }
+
+  const handleDelete = async () => {
+    const request: TYPES.MODELS.CARS.ParcDto = {
+      agencyId,
+      name: selectedParc?.name,
+    }
+    await deleteParc(request)
   }
 
   const handleFilter = (values: TYPES.MODELS.CARS.ParcListDto | null) => {
@@ -106,7 +123,10 @@ const ManageParcPage = () => {
         },
         {
           name: 'delete',
-          handleClick: () => {},
+          handleClick: (data) => {
+            setDeleteModal(true)
+            setSelectedParc(data)
+          },
         },
       ],
     },
@@ -144,6 +164,7 @@ const ManageParcPage = () => {
       />
 
       <ParcFormModal isOpen={openModal} onChange={() => setOpenModal(!openModal)} data={selectedParc} isLoading={createPending || updatePending} callback={handleSubmit} />
+      <DeleteParcModal onChange={() => setDeleteModal(!deleteModal)} isOpen={deleteModal} isLoading={deleteParcPending} callback={handleDelete} data={selectedParc} />
     </BoxContainer>
   )
 }

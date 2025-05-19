@@ -14,24 +14,27 @@ export const AppAuthProvider = ({ children }: { children: React.ReactNode }) => 
   const { i18n } = useTranslation()
   const [isInitialized, setIsInitialized] = useState(false)
   const [ready, setReady] = useState(false)
-  const savedLang = localStorage.getItem(StorageKey.LANGUAGE)
 
   useSessionRefresh()
   useSyncTokensWithContext()
 
   useEffect(() => {
+    const langToUse = (() => {
+      if (typeof window !== 'undefined') {
+        const savedLang = localStorage.getItem(StorageKey.LANGUAGE)
+        if (!savedLang) {
+          localStorage.setItem(StorageKey.LANGUAGE, i18n.language)
+          return i18n.language
+        }
+        return savedLang
+      }
+      return i18n.language
+    })()
+
     if (session?.access_token && session?.refresh_token) {
       setIsInitialized(true)
     } else {
       setIsInitialized(false)
-    }
-
-    const langToUse = savedLang ?? i18n.language
-
-    if (typeof window !== 'undefined') {
-      if (!savedLang) {
-        localStorage.setItem(StorageKey.LANGUAGE, langToUse)
-      }
     }
 
     if (i18n.language !== langToUse) {
@@ -39,7 +42,7 @@ export const AppAuthProvider = ({ children }: { children: React.ReactNode }) => 
     } else {
       setReady(true)
     }
-  }, [session, savedLang])
+  }, [session])
 
   if (!isInitialized || !ready) {
     return (

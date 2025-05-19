@@ -30,14 +30,19 @@
     "CANCEL": "Annuler",
     "VALIDATE": "Valider",
     "EDIT": "Modifier",
-    "DETAIL":"Voir details",
-    "DELETE":"Supprimer",
+    "DETAIL": "Voir details",
+    "DELETE": "Supprimer",
     "REFRESH": "Rafraichir les données",
     "FILTER": "Filtrer",
     "REMISE": "Appliquer une Remise ?",
     "CLEAR": "Effacer",
     "SEARCH": "Rechercher",
     "NO_SELECT_OPTIONS": "Aucune options trouvée",
+    "CONFIRM_TEXT": "Pour confirmer, tapez <<{{value}}>> dans la case ci-dessous.",
+    "WARNING": {
+      "TITLE": "Attention",
+      "DESC": "cette action est irréversible. Une fois supprimé, cet élément ne pourra pas être restauré. Êtes-vous sûr de vouloir continuer ?"
+    },
     "STATUS": {
       "ACTIVE": "Actif",
       "PENDING": "En attente",
@@ -94,16 +99,18 @@
       }
     }
   },
-"PARC": {
-  "TOTAL_CARS": "Total de vehicule",
-  "ADD_TITLE": "Ajouter un parc",
-  "EDIT_TITLE": "Modifier un parc",
-  "DESC": "La gestion des parkings consiste à organiser, contrôler et optimiser l’utilisation des espaces de stationnement pour assurer un flux fluide des véhicules et une utilisation efficace de l’espace disponible.",
-  "FORMS": {
-    "NAME": "Nom du parc",
-    "ADDRESS": "Emplacement"
-  }
-},
+  "PARC": {
+    "TOTAL_CARS": "Total de vehicule",
+    "ADD_TITLE": "Ajouter un parc",
+    "EDIT_TITLE": "Modifier un parc",
+    "DELETE_TITLE": "Supprimer un parc",
+    "DESC": "La gestion des parkings consiste à organiser, contrôler et optimiser l’utilisation des espaces de stationnement pour assurer un flux fluide des véhicules et une utilisation efficace de l’espace disponible.",
+    "CONSENT_TITLE": "Oui! Je veux supprimer ce parc",
+    "FORMS": {
+      "NAME": "Nom du parc",
+      "ADDRESS": "Emplacement"
+    }
+  },
   "DRAG_DROP": {
     "TITLE": "Glissez-déposez des fichiers ici, ou cliquez pour sélectionner",
     "DESC": "Formats acceptés : .png, .jpg jusqu'à {{max_size}}MB",
