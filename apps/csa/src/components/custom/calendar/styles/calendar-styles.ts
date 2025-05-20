@@ -1,4 +1,5 @@
 import { useColorModeValue } from '_components/ui/color-mode'
+import { VariablesColors } from '_theme/variables'
 import { UI } from 'react-day-picker'
 
 export const useCalendarStyles = () => {
@@ -6,8 +7,7 @@ export const useCalendarStyles = () => {
   const selectedColor = useColorModeValue('white', 'gray.900')
   const middleBg = useColorModeValue('#dbeafe', '#1e3a8a')
   const middleColor = useColorModeValue('black', 'white')
-const bookedBg = useColorModeValue('#fecaca', '#7f1d1d') // rouge clair ou sombre
-
+  const blockedBg = useColorModeValue('#FF2C00', VariablesColors.red)
 
   return {
     modifiersClassNames: {
@@ -40,11 +40,12 @@ const bookedBg = useColorModeValue('#fecaca', '#7f1d1d') // rouge clair ou sombr
         fontWeight: 'bold',
         border: `1px dashed ${selectedBg}`,
       },
-        booked: {
-            backgroundColor: bookedBg,
-            color: 'white',
-            cursor: 'not-allowed',
-          },
+      booked: {
+        backgroundColor: blockedBg,
+        borderRadius: '0',
+        color: 'white',
+        cursor: 'not-allowed',
+      },
     },
     styles: {
       [UI.Day]: {
@@ -62,9 +63,11 @@ const bookedBg = useColorModeValue('#fecaca', '#7f1d1d') // rouge clair ou sombr
         fontSize: '13px',
         color: '#888',
         textAlign: 'center' as const,
+        padding: '1rem',
       },
       [UI.Nav]: {
         marginBottom: '1rem',
+        color: 'yellow',
       },
       [UI.Root]: {
         padding: '1rem',
@@ -74,5 +77,3 @@ const bookedBg = useColorModeValue('#fecaca', '#7f1d1d') // rouge clair ou sombr
     },
   }
 }
-
-

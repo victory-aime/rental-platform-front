@@ -6,29 +6,42 @@ import { useCalendarStyles } from './styles/calendar-styles'
 import { useColorModeValue } from '_components/ui/color-mode'
 import { FC } from 'react'
 import { format } from 'date-fns'
+import { SwitchColorMode } from '../switch-color'
 
 interface SingleProps {
   mode: 'single'
   selected?: Date
   onSelect?: (date: Date | undefined) => void
-  blockedDates?: Date[]
+  blockedDates?: (
+    | Date
+    | {
+        from: Date
+        to: Date
+      }
+  )[]
 }
 
 interface RangeProps {
   mode: 'range'
   selected?: DateRange
   onSelect?: (range: DateRange | undefined) => void
-  blockedDates?: Date[]
+  blockedDates?: (
+    | Date
+    | {
+        from: Date
+        to: Date
+      }
+  )[]
 }
 
 type CustomCalendarProps = SingleProps | RangeProps
 
-export const CustomCalendar: FC<CustomCalendarProps> = (props) => {
+export const BaseCalendar: FC<CustomCalendarProps> = (props) => {
   const calendarStyles = useCalendarStyles()
   const sharedProps = {
     weekStartsOn: 1 as 0 | 1 | 2 | 3 | 4 | 5 | 6,
-    showOutsideDays: true,
-    numberOfMonths: 1,
+    showOutsideDays: false,
+    numberOfMonths: props.mode === 'single' ? 1 : 2,
     navLayout: 'around' as const,
     modifiersClassNames: calendarStyles.modifiersClassNames,
     modifiersStyles: calendarStyles.modifiersStyles,
@@ -38,7 +51,8 @@ export const CustomCalendar: FC<CustomCalendarProps> = (props) => {
   const { mode, selected, onSelect } = props
 
   return (
-    <Box p={4} borderRadius="xl" borderWidth="1px" boxShadow="lg" bg={useColorModeValue('white', 'gray.800')}>
+    <Box width={'full'} p={4} borderRadius="xl" borderWidth="1px" boxShadow="lg" bg={useColorModeValue('white', 'gray.800')}>
+      <SwitchColorMode />
       {mode === 'single' && (
         <DayPicker
           locale={defaultLocale}
