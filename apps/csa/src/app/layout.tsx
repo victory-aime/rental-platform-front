@@ -1,6 +1,7 @@
 import { ThemeProvider } from '_components/ui/provider'
 import type { Metadata } from 'next'
 import { Lato } from 'next/font/google'
+import 'react-day-picker/dist/style.css'
 
 const lato = Lato({
   variable: '--font-lato',

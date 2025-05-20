@@ -955,6 +955,11 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
+"@date-fns/tz@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@date-fns/tz/-/tz-1.2.0.tgz#81cb3211693830babaf3b96aff51607e143030a6"
+  integrity sha512-LBrd7MiJZ9McsOgxqWX7AaxrDjcFVjWH/tIKJd7pnR7McaslGYOP1QmmiBXdJH/H/yLCT+rcQ7FaPBUxRGUtrg==
+
 "@emnapi/core@^1.1.0":
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/@emnapi/core/-/core-1.4.3.tgz#9ac52d2d5aea958f67e52c40a065f51de59b77d6"
@@ -1091,6 +1096,35 @@
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.9.tgz#50dea3616bc8191fb8e112283b49eaff03e78429"
   integrity sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==
+
+"@fullcalendar/core@^6.1.17":
+  version "6.1.17"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-6.1.17.tgz#faaffa100f020636a9b4c900462bdc6d652b58ef"
+  integrity sha512-0W7lnIrv18ruJ5zeWBeNZXO8qCWlzxDdp9COFEsZnyNjiEhUVnrW/dPbjRKYpL0edGG0/Lhs0ghp1z/5ekt8ZA==
+  dependencies:
+    preact "~10.12.1"
+
+"@fullcalendar/daygrid@^6.1.17", "@fullcalendar/daygrid@~6.1.17":
+  version "6.1.17"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/daygrid/-/daygrid-6.1.17.tgz#3ff9d8d99da872631b661bf9ca5a47ed849421cf"
+  integrity sha512-K7m+pd7oVJ9fW4h7CLDdDGJbc9szJ1xDU1DZ2ag+7oOo1aCNLv44CehzkkknM6r8EYlOOhgaelxQpKAI4glj7A==
+
+"@fullcalendar/interaction@^6.1.17":
+  version "6.1.17"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/interaction/-/interaction-6.1.17.tgz#f0d14cb6f6c3cb7e2b20299dfb39a866232e2976"
+  integrity sha512-AudvQvgmJP2FU89wpSulUUjeWv24SuyCx8FzH2WIPVaYg+vDGGYarI7K6PcM3TH7B/CyaBjm5Rqw9lXgnwt5YA==
+
+"@fullcalendar/react@^6.1.17":
+  version "6.1.17"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/react/-/react-6.1.17.tgz#30bf6e2da0d840bf432bcfd23b67dc3be71f6518"
+  integrity sha512-AA8soHhlfRH5dUeqHnfAtzDiXa2vrgWocJSK/F5qzw/pOxc9MqpuoS/nQBROWtHHg6yQUg3DoGqOOhi7dmylXQ==
+
+"@fullcalendar/timegrid@^6.1.17":
+  version "6.1.17"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/timegrid/-/timegrid-6.1.17.tgz#c88f19a1417ca314545d28a2fe23b33330e086dd"
+  integrity sha512-K4PlA3L3lclLOs3IX8cvddeiJI9ZVMD7RA9IqaWwbvac771971foc9tFze9YY+Pqesf6S+vhS2dWtEVlERaGlQ==
+  dependencies:
+    "@fullcalendar/daygrid" "~6.1.17"
 
 "@hutson/parse-repository-url@^3.0.0":
   version "3.0.2"
@@ -4003,7 +4037,12 @@ camelcase@^6.2.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caniuse-lite@^1.0.30001579, caniuse-lite@^1.0.30001688:
+caniuse-lite@^1.0.30001579:
+  version "1.0.30001718"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001718.tgz#dae13a9c80d517c30c6197515a96131c194d8f82"
+  integrity sha512-AflseV1ahcSunK53NfEs9gFWgOEmzr0f+kaMFA4xiLZlr9Hzt7HxcSpIFcnNCUkz6R6dWKa54rUz3HUmI3nVcw==
+
+caniuse-lite@^1.0.30001688:
   version "1.0.30001715"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001715.tgz#bd325a37ad366e3fe90827d74062807a34fbaeb2"
   integrity sha512-7ptkFGMm2OAOgvZpwgA4yjQ5SQbrNVGdRjzH0pBdy1Fasvcr+KAeECmbCAECzTuDuoX0FCY8KzUxjf9+9kfZEw==
@@ -4552,6 +4591,16 @@ dargs@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/dargs/-/dargs-7.0.0.tgz#04015c41de0bcb69ec84050f3d9be0caf8d6d5cc"
   integrity sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==
+
+date-fns-jalali@4.1.0-0:
+  version "4.1.0-0"
+  resolved "https://registry.yarnpkg.com/date-fns-jalali/-/date-fns-jalali-4.1.0-0.tgz#9c7fb286004fab267a300d3e9f1ada9f10b4b6b0"
+  integrity sha512-hTIP/z+t+qKwBDcmmsnmjWTduxCg+5KfdqWQvb2X/8C9+knYY6epN/pfxdDuyVlSVeFz0sM5eEfwIUQ70U4ckg==
+
+date-fns@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-4.1.0.tgz#64b3d83fff5aa80438f5b1a633c2e83b8a1c2d14"
+  integrity sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==
 
 dateformat@^3.0.3:
   version "3.0.3"
@@ -7892,6 +7941,11 @@ preact@^10.6.3:
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.26.5.tgz#7e1e998af178f139e4c7cb53f441bf2179f44ad2"
   integrity sha512-fmpDkgfGU6JYux9teDWLhj9mKN55tyepwYbxHgQuIxbWQzgFg5vk7Mrrtfx7xRxq798ynkY4DDDxZr235Kk+4w==
 
+preact@~10.12.1:
+  version "10.12.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.12.1.tgz#8f9cb5442f560e532729b7d23d42fd1161354a21"
+  integrity sha512-l8386ixSsBdbreOAkqtrwqHwdvR35ID8c3rKPa8lCWuO86dBi32QWHV4vfsZK1utLLFMvw+Z5Ad4XLkZzchscg==
+
 prettier@^3.0.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.3.tgz#4fc2ce0d657e7a02e602549f053b239cb7dfe1b5"
@@ -8053,6 +8107,15 @@ react-chartjs-2@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-5.3.0.tgz#2d3286339a742bc7f77b5829c33ebab215f714cc"
   integrity sha512-UfZZFnDsERI3c3CZGxzvNJd02SHjaSJ8kgW1djn65H1KK8rehwTjyrRKOG3VTMG8wtHZ5rgAO5oTHtHi9GCCmw==
+
+react-day-picker@^9.7.0:
+  version "9.7.0"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-9.7.0.tgz#8d8d90c0539a31be5b01fa3613d9341c05513485"
+  integrity sha512-urlK4C9XJZVpQ81tmVgd2O7lZ0VQldZeHzNejbwLWZSkzHH498KnArT0EHNfKBOWwKc935iMLGZdxXPRISzUxQ==
+  dependencies:
+    "@date-fns/tz" "1.2.0"
+    date-fns "4.1.0"
+    date-fns-jalali "4.1.0-0"
 
 react-dom@^19.0.0:
   version "19.1.0"
@@ -8275,15 +8338,19 @@ regjsparser@^0.12.0:
   dependencies:
     jsesc "~3.0.2"
 
-rental-platform-shared@*:
-  version "1.1.0-alpha.0"
+rental-platform-shared@1.1.1-alpha.0:
+  version "1.1.1-alpha.0"
+  resolved "https://registry.yarnpkg.com/rental-platform-shared/-/rental-platform-shared-1.1.1-alpha.0.tgz#f971aaceac5e1fa94a0744fa848aa892608a895e"
+  integrity sha512-lbc2Wbjkv4njAUcltN8W8VAlK37IvLffa1Hc4DUEQo4PEYwqvaNaIzJceEpt3TcspdMMpEn/dQ7IcZXMygfOsw==
   dependencies:
     browser-image-compression "^2.0.2"
     dayjs "^1.11.13"
     yup "^1.6.1"
 
-rental-platform-state@*:
-  version "1.1.0-alpha.0"
+rental-platform-state@1.1.1-alpha.0:
+  version "1.1.1-alpha.0"
+  resolved "https://registry.yarnpkg.com/rental-platform-state/-/rental-platform-state-1.1.1-alpha.0.tgz#10bf2728a1978bb9433d84c965588459aab47dab"
+  integrity sha512-y26tVC0ggMEueh1PHA/yysGQDVTYisublTH2/6VH4rZUgl/UPHjhSIhyy5Q+CcASSuL6YSLE0/5Soyd4kyQ1Cw==
   dependencies:
     axios "^1.6.2"
 
@@ -8509,12 +8576,12 @@ semver@^6.3.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.0.0, semver@^7.3.4, semver@^7.3.8:
+semver@^7.0.0, semver@^7.3.4, semver@^7.3.8, semver@^7.7.1:
   version "7.7.2"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.2.tgz#67d99fdcd35cec21e6f8b87a7fd515a33f982b58"
   integrity sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==
 
-semver@^7.1.1, semver@^7.1.2, semver@^7.3.2, semver@^7.3.5, semver@^7.3.7, semver@^7.5.2, semver@^7.5.3, semver@^7.6.3, semver@^7.7.1:
+semver@^7.1.1, semver@^7.1.2, semver@^7.3.2, semver@^7.3.5, semver@^7.3.7, semver@^7.5.2, semver@^7.5.3, semver@^7.6.3:
   version "7.7.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.1.tgz#abd5098d82b18c6c81f6074ff2647fd3e7220c9f"
   integrity sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==

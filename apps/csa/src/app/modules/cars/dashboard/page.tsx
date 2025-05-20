@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { BoxContainer, BaseButton, BaseText, TextVariant } from '_components/custom'
 import ThinkBoxModal from '_modules/components/ThinkBoxModal'
 import { useTranslation } from 'react-i18next'
+import ReservationCalendar from '_components/custom/agenda/FullCalendar'
+import { CustomCalendar } from '_components/custom/form/FormDatePicker'
 
 export default function Dashboard() {
   const { t } = useTranslation()
@@ -11,7 +13,7 @@ export default function Dashboard() {
 
   return (
     <BoxContainer border={'none'} title={t('SIDE_BAR.DASHBOARD')}>
-      <Center height={'1full'} width={'full'} mt={64} overflowY={'hidden'}>
+      <Center height={'1full'} width={'full'} overflowY={'hidden'}>
         <VStack gap={5} width={{ base: 'full', lg: '800px' }}>
           <BaseText variant={TextVariant.M} textAlign={'center'}>
             {t('HELP_MESSAGE')}
@@ -21,8 +23,8 @@ export default function Dashboard() {
           </BaseButton>
         </VStack>
       </Center>
-      <Flex gap={8} width={'full'} mt={'30px'} flexDir={{ base: 'column', md: 'row' }} overflowX={'auto'}></Flex>
       <ThinkBoxModal isOpen={openTinhBox} onChange={() => setOpenTinhBox(false)} />
+      {/* <ReservationCalendar /> */}
     </BoxContainer>
   )
 }

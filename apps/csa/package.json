@@ -11,9 +11,15 @@
     "prettier:fix": "prettier --write ."
   },
   "dependencies": {
-    "rental-platform-shared": "*",
-    "rental-platform-state": "*",
-    "next": "15.3.1"
+    "@fullcalendar/core": "^6.1.17",
+    "@fullcalendar/daygrid": "^6.1.17",
+    "@fullcalendar/interaction": "^6.1.17",
+    "@fullcalendar/react": "^6.1.17",
+    "@fullcalendar/timegrid": "^6.1.17",
+    "next": "15.3.1",
+    "react-day-picker": "^9.7.0",
+    "rental-platform-shared": "1.1.1-alpha.0",
+    "rental-platform-state": "1.1.1-alpha.0"
   },
   "devDependencies": {
     "typescript": "^5",
