@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios'
+
 /**
  * Represents the structure of application version information.
  */
@@ -33,7 +35,7 @@ export interface IApplicationContext {
    * Handles global errors.
    * @param response - The API response or error object.
    */
-  handleError(response: any): void
+  handleError(response: AxiosError): void
 
   /**
    * Handles information messages to display.

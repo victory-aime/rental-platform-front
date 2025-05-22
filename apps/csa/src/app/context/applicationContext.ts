@@ -2,6 +2,7 @@ import { APIS } from 'rental-platform-shared'
 import { ApplicationContext } from 'rental-platform-state'
 import { handleApiError } from '_utils/handleApiError'
 import { handleApiSuccess } from '_utils/handleApiSuccess'
+import { AxiosError } from 'axios'
 
 /**
  * @class GlobalApplicationContext
@@ -24,12 +25,20 @@ export class GlobalApplicationContext extends ApplicationContext {
     return APIS(this.baseUrl)
   }
 
-  handleError(response: { status: number; message: string }) {
-    if (response?.status === 401) {
+  handleError(response: AxiosError): void {
+    const statusCode = (response?.response?.data as { statusCode?: number })?.statusCode
+    const message = (response?.response?.data as { message?: string })?.message
+
+    if (statusCode === 401) {
       super.setRefreshToken('')
       super.setToken('')
       return
-    } else handleApiError(response)
+    } else {
+      handleApiError({
+        message: message ?? '',
+        status: statusCode ?? 400,
+      })
+    }
   }
 
   handleInfo(response: { data: any; status: number }) {

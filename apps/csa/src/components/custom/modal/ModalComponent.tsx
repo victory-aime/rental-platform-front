@@ -26,7 +26,7 @@ const ModalComponent = ({
   ...rest
 }: ModalProps) => {
   const { t } = useTranslation()
-  
+
   return (
     <DialogRoot open={isOpen} lazyMount onOpenChange={(e) => onChange?.(e?.open)} placement={'center'} role={modalType} size={isFull ? 'full' : 'lg'} motionPreset="slide-in-top" {...rest}>
       <DialogContent width={'full'} padding={4}>
@@ -38,7 +38,9 @@ const ModalComponent = ({
           )}
           <DialogTitle>{t(title)}</DialogTitle>
         </DialogHeader>
-        <DialogBody mt={4} ref={ref}>{children}</DialogBody>
+        <DialogBody mt={4} ref={ref}>
+          {children}
+        </DialogBody>
         {!ignoreFooter ? (
           <DialogFooter mt={8}>
             {buttonCancelTitle && (

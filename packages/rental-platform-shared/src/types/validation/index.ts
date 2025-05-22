@@ -1,1 +1,1 @@
-export * as CARS from './cars'
+export * from './modules/cars'

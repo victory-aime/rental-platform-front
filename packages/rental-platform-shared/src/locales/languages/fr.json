@@ -2,7 +2,9 @@
   "SIDE_BAR": {
     "DASHBOARD": "Tableau de bord",
     "MANAGE_CARS": "Gestion véhicules",
-    "MANAGE_PARCS": "Mes parcs"
+    "MANAGE_PARCS": "Mes parcs",
+    "MAINTENANCE": "Maintenance",
+    "AGENDA": "Mon Agenda"
   },
   "WELCOME": "Bonjour {{username}}",
   "LOGOUT_MESSAGE": "Vous vous êtes déconnecté avec succès. Merci d'avoir utilisé notre service. Pour vous reconnecter, veuillez cliquer sur le bouton ci-dessous.",
@@ -66,6 +68,7 @@
     "AUTOMATIC": "Automatique"
   },
   "CARS": {
+    "TITLE": "Vehicule",
     "LIST_DESC": "Retrouvez ici tous vos véhicules enregistrés. Gardez une vue d’ensemble claire, gérez leur disponibilité en temps réel, et optimisez vos performances en mettant régulièrement à jour les fiches les plus consultées.",
     "ADD_CARS": "Ajouter un véhicule",
     "EDIT_CARS": "Modifier un véhicule",
@@ -109,6 +112,27 @@
     "FORMS": {
       "NAME": "Nom du parc",
       "ADDRESS": "Emplacement"
+    }
+  },
+  "MAINTENANCE": {
+    "TITLE": "Titre",
+    "ADD": "Planifier une maintenance",
+    "EDIT": "Modifier la maintenance",
+    "DESC": "La maintenance en gestion automobile regroupe les actions visant à assurer la sécurité, la fiabilité et la performance des véhicules, qu’il s’agisse de réparations, de contrôles préventifs ou d’améliorations.",
+    "STATUS": {
+      "PLANNED": "Planifier",
+      "IN_PROGRESS": "En cours",
+      "COMPLETED": "Terminé",
+      "CANCELED": "Annuler"
+    },
+    "STATE": "Etat",
+    "PLANNED": "Dates prévues",
+    "FORMS": {
+      "TITLE": "Selectionner le titre",
+      "CAR": "Selectionner le vehicule",
+      "DATES": "Planifier les dates",
+      "COST": "Côut",
+      "DESC": "Description"
     }
   },
   "DRAG_DROP": {

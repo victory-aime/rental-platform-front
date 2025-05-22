@@ -2,6 +2,7 @@ import { HomeIcon, CarsIcon, ParkingIcon } from '_assets/svg'
 import { ILink } from '../types'
 import { MODULES_HOTEL_ROUTES, MODULES_CARS_ROUTES } from '_modules/routes'
 import { GiAutoRepair } from 'react-icons/gi'
+import { PiCalendarThin } from 'react-icons/pi'
 
 export const MENU_BY_ROLE: Record<string, ILink[]> = {
   HOTELIER: [
@@ -31,6 +32,11 @@ export const MENU_BY_ROLE: Record<string, ILink[]> = {
       path: MODULES_CARS_ROUTES.MAINTENANCE,
       label: 'SIDE_BAR.MAINTENANCE',
       icon: GiAutoRepair,
+    },
+    {
+      path: MODULES_CARS_ROUTES.AGENDA,
+      label: 'SIDE_BAR.AGENDA',
+      icon: PiCalendarThin,
     },
   ],
   ADMIN: [

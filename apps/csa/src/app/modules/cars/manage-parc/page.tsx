@@ -28,7 +28,7 @@ const ManageParcPage = () => {
       ...filters,
     },
     queryOptions: {
-      enabled: !!agencyId,
+      enabled: !!agencyId && !cachedParc?.content?.length,
       refetchOnMount: false,
     },
   })

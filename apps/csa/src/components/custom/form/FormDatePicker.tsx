@@ -10,9 +10,12 @@ import { BoxIcon } from '../boxIcon'
 import { IoIosClose } from 'react-icons/io'
 import { UTILS } from 'rental-platform-shared'
 import { FormDatePickerFieldProps } from './interface/input'
+import { BaseText } from '../base-text'
+import { useTranslation } from 'react-i18next'
 
-export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isDisabled }: FormDatePickerFieldProps) => {
+export const FormDatePicker = ({ name, label, mode, placeholder = '', isReadOnly, isDisabled, required }: FormDatePickerFieldProps) => {
   const id = useId()
+  const { t } = useTranslation()
   const [field, meta, helpers] = useField(name)
   const isError = isReadOnly ? !!meta.error : !!(meta.touched && meta.error)
   const [open, setOpen] = useState(false)
@@ -61,7 +64,12 @@ export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isD
 
   return (
     <Field.Root id={name} invalid={isError}>
-      {label && <Field.Label>{label}</Field.Label>}
+      {label && (
+        <Field.Label display={'flex'} gap={'6px'} fontSize={{ base: '14px', md: '16px' }}>
+          {t(label)}
+          {required && <BaseText color={'red'}> * </BaseText>}
+        </Field.Label>
+      )}
       <Popover.Root open={open} portalled={true} ids={{ trigger: id }} onPointerDownOutside={(e) => e.stopPropagation()} onInteractOutside={(e) => e.stopPropagation()} closeOnInteractOutside={false}>
         <Popover.Trigger asChild>
           <InputGroup
@@ -92,7 +100,7 @@ export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isD
               {...field}
               onBlur={(e) => field?.onBlur(e)}
               value={getDisplayValue()}
-              placeholder={placeholder}
+              placeholder={t(placeholder)}
               borderRadius={'7px'}
               border={'1px solid'}
               borderColor={isError ? 'red.500' : 'bg.muted'}

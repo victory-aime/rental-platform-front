@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { TYPES } from '../../..'
+import { TYPES } from '../../../..'
 
 export const createCarValidation = Yup.object().shape({})
 

@@ -21,9 +21,4 @@ enum VehicleStatus {
   UNAVAILABLE = 'UNAVAILABLE',
 }
 
-export {
-  DiscountType,
-  FuelType,
-  TransmissionType,
-  VehicleStatus
-}
+export { DiscountType, FuelType, TransmissionType, VehicleStatus }

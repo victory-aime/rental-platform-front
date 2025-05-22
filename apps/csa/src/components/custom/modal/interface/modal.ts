@@ -18,7 +18,7 @@ export interface ModalProps extends DialogRootProps {
   onClick?: () => void
   isLoading?: boolean
   children: ReactNode
-  ref?:  React.Ref<HTMLDivElement> | undefined
+  ref?: React.Ref<HTMLDivElement> | undefined
 }
 
 export interface ModalOpenProps {
@@ -27,5 +27,5 @@ export interface ModalOpenProps {
   isOpen: boolean | undefined
   isLoading?: boolean
   data?: any
-  isSuccess?:boolean
+  isSuccess?: boolean
 }

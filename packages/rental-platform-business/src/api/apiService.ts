@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { APIObjectType } from 'rental-platform-shared'
 import { IApplicationContext } from 'rental-platform-state'
 import { InvokeOptions } from './types'
@@ -55,7 +55,7 @@ export class ApiService {
         }
         return res.data as RS
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         if (endpoint.handleErrorManually !== false) {
           this.applicationContext.handleError(error)
         }

@@ -34,3 +34,33 @@ export interface ICreateCarDto {
   status?: string
   booking?: TYPES.MODELS.COMMON.BOOKING.IBooking[]
 }
+
+export interface IResponseCarsList {
+  id: string
+  agenceId: string
+  name: string
+  brand: string
+  model: string
+  plateNumber: string
+  dailyPrice: number
+  carImages: string[]
+  discountValue: number
+  rentalPriceDiscounted: number | null
+  transmission: TYPES.ENUM.CARS.TransmissionType
+  fuelType: TYPES.ENUM.CARS.FuelType
+  doors: number
+  seats: number
+  parkingCarId: null
+  status: TYPES.ENUM.CARS.VehicleStatus
+  discountType: TYPES.ENUM.CARS.DiscountType
+  carCategoryId: string
+  available: boolean
+  createdAt: string
+  updatedAt: string
+  bookings: []
+  equipments: {
+    id: string
+    name: string
+    description: string | null
+  }[]
+}

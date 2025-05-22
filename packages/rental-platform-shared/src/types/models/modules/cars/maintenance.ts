@@ -20,5 +20,20 @@ export interface FilterMaintenanceDto {
 }
 
 export interface UpdateMaintenanceDto extends CreateMaintenanceDto {
-  id:string
+  id: string
+}
+
+export interface IResponseMaintenace {
+  id: string
+  carId: string
+  agencyId: string
+  plannedDates: {
+    scheduledStartDate: string
+    scheduledEndDate: string
+  }
+
+  status: string
+  completedAt: string
+  createdAt: string
+  updatedAt: string
 }

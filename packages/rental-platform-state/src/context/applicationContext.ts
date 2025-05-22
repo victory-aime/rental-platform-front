@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { HandleAppVersionBody, IApplicationContext } from './types'
 
 /**
@@ -29,7 +30,7 @@ export class ApplicationContext implements IApplicationContext {
     return this.apiConfigs
   }
 
-  handleError(response: { status: number; message: string }): void {
+  handleError(response: AxiosError): void {
     console.log(response)
   }
 

@@ -2,7 +2,9 @@
   "SIDE_BAR": {
     "DASHBOARD": "Dashboard",
     "MANAGE_CARS": "Vehicle Management",
-    "MANAGE_PARCS": "My Parking"
+    "MANAGE_PARCS": "My Parking",
+    "MAINTENANCE": "Maintenance",
+    "AGENDA": "My Agenda"
   },
   "WELCOME": "Hello {{username}}",
   "LOGOUT_MESSAGE": "You have successfully logged out. Thank you for using our service. To log in again, please click the button below.",
@@ -66,6 +68,7 @@
     "AUTOMATIC": "Automatic"
   },
   "CARS": {
+    "TITLE": "Vehicle",
     "LIST_DESC": "Here you’ll find all your registered vehicles. Keep a clear overview, manage availability in real-time, and boost performance by updating your most viewed listings regularly.",
     "ADD_CARS": "Add a Vehicle",
     "EDIT_CARS": "Edit a Vehicle",
@@ -109,6 +112,28 @@
     "FORMS": {
       "NAME": "Park name",
       "ADDRESS": "Location"
+    }
+  },
+
+  "MAINTENANCE": {
+    "TITLE": "Title",
+    "ADD": "Schedule Maintenance",
+    "EDIT": "Edit Maintenance",
+    "DESC": "Vehicle management maintenance covers all actions aimed at ensuring the safety, reliability and performance of vehicles, whether through repairs, preventive checks or upgrades.",
+    "STATUS": {
+      "PLANNED": "Schedule",
+      "IN_PROGRESS": "In Progress",
+      "COMPLETED": "Completed",
+      "CANCELED": "Cancel"
+    },
+    "STATE": "Status",
+    "PLANNED": "Scheduled dates",
+    "FORMS": {
+      "TITLE": "Select title",
+      "CAR": "Select vehicle",
+      "DATES": "Schedule dates",
+      "COST": "Cost",
+      "DESC": "Description"
     }
   },
 

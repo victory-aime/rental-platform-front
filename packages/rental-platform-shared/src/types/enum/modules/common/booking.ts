@@ -5,5 +5,4 @@ enum CommonBookingStatus {
   EXPIRED = 'EXPIRED',
 }
 
-
-export {CommonBookingStatus}
+export { CommonBookingStatus }
