@@ -6,7 +6,7 @@ export const NoDataFound: FC<NoDataFoundProps> = ({ title = "Oooup's aucune donn
   return (
     <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" gap="1rem" width="100%" {...containerStyle}>
       <Image
-        width={{ base: '100%', md: '25%' }}
+        width={{ base: '100%', md: '45%' }}
         src={imageType === 'v1' ? '/assets/svg/no-data-found.svg' : '/assets/svg/no-data-found-V2.svg'}
         alt="no-data-found"
         transition={'filter 0.5s ease, opacity 0.5s ease'}

@@ -1,4 +1,3 @@
-
 'use client'
 
 import { Center, Flex } from '@chakra-ui/react'

@@ -1,15 +1,15 @@
 import { FormatNumber } from '@chakra-ui/react'
 import { FC, useEffect, useState } from 'react'
-import { CustomFormatNumberProps } from './interface/format-number'
+import { BaseFormatNumberProps } from './interface/format-number'
 import { TYPES } from 'rental-platform-shared'
 import { ModalComponent } from '../modal'
 import { CiWarning } from 'react-icons/ci'
 import { VariablesColors } from '_theme/variables'
 import { BaseText, TextVariant } from '../base-text'
 
-const CustomFormatNumber: FC<CustomFormatNumberProps> = ({ value, notation = 'compact', style = 'currency', currencyCode = TYPES.ENUM.Currency.USD, maximumDigits, minimumDigits }) => {
+export const BaseFormatNumber: FC<BaseFormatNumberProps> = ({ value, notation = 'standard', style = 'currency', currencyCode = TYPES.ENUM.COMMON.Currency.XAF, maximumDigits, minimumDigits }) => {
   const [isInValidCurrency, setIsInvalidCurrency] = useState(false)
-  const isCurrency = (value: any): value is TYPES.ENUM.Currency => Object.values(TYPES.ENUM.Currency).includes(value)
+  const isCurrency = (value: any): value is TYPES.ENUM.COMMON.Currency => Object.values(TYPES.ENUM.COMMON.Currency).includes(value)
 
   useEffect(() => {
     if (!isCurrency(currencyCode)) {
@@ -31,12 +31,10 @@ const CustomFormatNumber: FC<CustomFormatNumberProps> = ({ value, notation = 'co
       />
       <ModalComponent title={'Attention'} icon={<CiWarning />} iconBackgroundColor={VariablesColors.orange} open={isInValidCurrency} ignoreFooter>
         <BaseText variant={TextVariant.M}>Le code de la devise fournie n'est pas valide, veuillez utiliser l'un des codes de devise valides fournis par le système.</BaseText>
-        <BaseText>Voici la liste des codes de devise valides: {Object.values(TYPES.ENUM.Currency).join(', ')}</BaseText>
+        <BaseText>Voici la liste des codes de devise valides: {Object.values(TYPES.ENUM.COMMON.Currency).join(', ')}</BaseText>
         <BaseText>Devise fournie: {currencyCode}</BaseText>
         <BaseText>NB : Ce popup se fermera automatiquement lorsque vous aurez changer la devise</BaseText>
       </ModalComponent>
     </>
   )
 }
-
-export default CustomFormatNumber

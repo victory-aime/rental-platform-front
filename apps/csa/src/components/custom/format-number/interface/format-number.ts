@@ -2,13 +2,13 @@ import { TYPES } from 'rental-platform-shared-lib'
 
 type StyleNumberFormat = 'decimal' | 'percent' | 'currency'
 
-interface CustomFormatNumberProps {
+interface BaseFormatNumberProps {
   value: number
   maximumDigits?: number
   minimumDigits?: number
   notation?: 'compact' | 'standard' | 'scientific' | 'engineering'
   style?: StyleNumberFormat
-  currencyCode?: TYPES.ENUM.Currency
+  currencyCode?: TYPES.ENUM.COMMON.Currency
 }
 
-export type { CustomFormatNumberProps }
+export type { BaseFormatNumberProps }

@@ -1,11 +1,9 @@
 'use client'
-import { Center, Flex, VStack } from '@chakra-ui/react'
+import { Center, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { BoxContainer, BaseButton, BaseText, TextVariant } from '_components/custom'
 import ThinkBoxModal from '_modules/components/ThinkBoxModal'
 import { useTranslation } from 'react-i18next'
-import ReservationCalendar from '_components/custom/agenda/FullCalendar'
-import { CustomCalendar } from '_components/custom/form/FormDatePicker'
 
 export default function Dashboard() {
   const { t } = useTranslation()
@@ -24,7 +22,6 @@ export default function Dashboard() {
         </VStack>
       </Center>
       <ThinkBoxModal isOpen={openTinhBox} onChange={() => setOpenTinhBox(false)} />
-      {/* <ReservationCalendar /> */}
     </BoxContainer>
   )
 }

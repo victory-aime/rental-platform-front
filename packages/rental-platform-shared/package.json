@@ -6,7 +6,9 @@
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
   "type": "module",
-  "sideEffects": ["./src/locales/i18n.ts"],
+  "sideEffects": [
+    "./src/locales/i18n.ts"
+  ],
   "exports": {
     ".": {
       "import": "./lib/index.esm.js",

@@ -25,6 +25,7 @@ const FormSelect: FC<FullSelectProps> = ({
   tooltipInfo = '',
   onChangeFunc,
   setFieldValue,
+  ref,
   customRenderSelected,
 }) => {
   const { t } = useTranslation()
@@ -85,7 +86,7 @@ const FormSelect: FC<FullSelectProps> = ({
           )}
         </SelectTrigger>
 
-        <SelectContent borderRadius={7} p={3}>
+        <SelectContent borderRadius={7} p={3} portalRef={ref}>
           {listItems?.items?.length ? (
             listItems?.items?.map((item: { id: string; label: string; value: string }) => (
               <SelectItem _highlighted={{ color: 'primary.500' }} py={1} item={item.value} key={item.value}>

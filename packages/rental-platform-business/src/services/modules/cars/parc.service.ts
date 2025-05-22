@@ -7,47 +7,49 @@ import { BaseApi } from '../../../api'
  */
 export class ParcServices extends BaseApi {
   /**
-   * Fetches car categories
-   * @returns {Promise<any>} - A promise that resolves to the car categories
+   * Fetches the list of parcs.
+   * @param {TYPES.MODELS.CARS.ParcListDto} payload - The payload used to filter or paginate parcs.
+   * @returns {Promise<any>} A promise that resolves to the list of parcs.
    */
   fetchParcs(payload: TYPES.MODELS.CARS.ParcListDto) {
     return this.apiService.invoke(
-      this.applicationContext.getApiConfig().MODULES.CARS.PARC_LIST,
+      this.applicationContext.getApiConfig().MODULES.CARS.PARC.LIST,
       payload
     )
   }
+
   /**
-   * Adds a new car
-   * @param {Object} data - The data of the car to be added
-   * @returns {Promise<any>} - A promise that resolves to the response of the add car operation
+   * Adds a new parc.
+   * @param {TYPES.MODELS.CARS.ParcDto} data - The data of the parc to be added.
+   * @returns {Promise<any>} A promise that resolves to the response of the add operation.
    */
   createParc(data: TYPES.MODELS.CARS.ParcDto) {
     return this.apiService.invoke(
-      this.applicationContext.getApiConfig().MODULES.CARS.ADD_PARC,
+      this.applicationContext.getApiConfig().MODULES.CARS.PARC.ADD_PARC,
       data
     )
   }
 
   /**
-   * Update cars
-   * @params {data} data - The object required to update car
-   * @returns {Promise<{message:string}>} - A promise that resolves to the message
+   * Updates a parc.
+   * @param {TYPES.MODELS.CARS.ParcDto} data - The object containing updated parc data.
+   * @returns {Promise<{message: string}>} A promise that resolves to a confirmation message.
    */
   updateParc(data: TYPES.MODELS.CARS.ParcDto) {
     return this.apiService.invoke(
-      this.applicationContext.getApiConfig().MODULES.CARS.UPDATE_PARC,
+      this.applicationContext.getApiConfig().MODULES.CARS.PARC.UPDATE_PARC,
       data
     )
   }
 
   /**
-   * Update cars
-   * @params {data} data - The object required to update car
-   * @returns {Promise<{message:string}>} - A promise that resolves to the message
+   * Deletes a parc.
+   * @param {TYPES.MODELS.CARS.ParcDto} data - The object identifying the parc to delete.
+   * @returns {Promise<{message: string}>} A promise that resolves to a confirmation message.
    */
   deleteParc(data: TYPES.MODELS.CARS.ParcDto) {
     return this.apiService.invoke(
-      this.applicationContext.getApiConfig().MODULES.CARS.DELETE_PARC,
+      this.applicationContext.getApiConfig().MODULES.CARS.PARC.DELETE_PARC,
       data
     )
   }

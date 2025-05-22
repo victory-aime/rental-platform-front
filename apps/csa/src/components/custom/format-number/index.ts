@@ -1,2 +1,2 @@
-import CustomFormatNumber from '_components/custom/format-number/CustomFormatNumber'
-export { CustomFormatNumber }
+import {BaseFormatNumber} from './BaseFormatNumber'
+export { BaseFormatNumber }

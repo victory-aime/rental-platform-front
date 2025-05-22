@@ -27,7 +27,7 @@ const equipmentsList = (equipments: { name: string; id: string }[] = []) => {
 }
 const transmissionList: any = (t: any) => {
   return createListCollection({
-    items: Object.values(TYPES.ENUM.TransmissionType).map((item) => ({
+    items: Object.values(TYPES.ENUM.CARS.TransmissionType).map((item) => ({
       label: t(`TRANSMISSION.${item}`),
       value: item,
     })),
@@ -36,7 +36,7 @@ const transmissionList: any = (t: any) => {
 
 const fuelList: any = (t: any) => {
   return createListCollection({
-    items: Object.values(TYPES.ENUM.FuelType).map((item) => ({
+    items: Object.values(TYPES.ENUM.CARS.FuelType).map((item) => ({
       label: t(`FUEL.${item}`),
       value: item,
     })),
@@ -45,7 +45,7 @@ const fuelList: any = (t: any) => {
 
 const statusList: any = (t: any) => {
   return createListCollection({
-    items: Object.values(TYPES.ENUM.VehicleStatus).map((item) => ({
+    items: Object.values(TYPES.ENUM.CARS.VehicleStatus).map((item) => ({
       label: t(`VEHICLE_STATUS.${item}`),
       value: item,
     })),

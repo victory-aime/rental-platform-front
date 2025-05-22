@@ -3,7 +3,7 @@ import { Slider } from '_components/ui/slider'
 import { useField } from 'formik'
 import React, { FC } from 'react'
 import { DefaultProps } from './interface/input'
-import { CustomFormatNumber } from '../format-number'
+import { BaseFormatNumber } from '../format-number'
 
 const SliderForm: FC<DefaultProps> = ({ name, validate, label, required, isNumber, min = 10, max = 1000, onChangeFunction, ...rest }) => {
   const fieldHookConfig = {
@@ -23,9 +23,9 @@ const SliderForm: FC<DefaultProps> = ({ name, validate, label, required, isNumbe
             <Text color={'red'}> * </Text>
           ) : isNumber ? (
             <Flex ml={3} gap={2} alignItems={'center'}>
-              <CustomFormatNumber value={field?.value[0]} />
+              <BaseFormatNumber value={field?.value[0]} />
               -
-              <CustomFormatNumber value={field?.value[1]} />
+              <BaseFormatNumber value={field?.value[1]} />
             </Flex>
           ) : null}
         </Field.Label>

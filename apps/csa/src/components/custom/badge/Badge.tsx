@@ -9,24 +9,24 @@ const getBadgeContent = (status?: string, type?: string): { variant: variantColo
   const { t } = useTranslation()
   if (type === 'cars') {
     switch (status) {
-      case TYPES.ENUM.VehicleStatus.AVAILABLE:
+      case TYPES.ENUM.CARS.VehicleStatus.AVAILABLE:
         return { variant: 'success', label: t(`VEHICLE_STATUS.AVAILABLE`) }
-      case TYPES.ENUM.VehicleStatus.MAINTENANCE:
+      case TYPES.ENUM.CARS.VehicleStatus.MAINTENANCE:
         return { variant: 'warning', label: t(`VEHICLE_STATUS.MAINTENANCE`) }
-      case TYPES.ENUM.VehicleStatus.UNAVAILABLE:
+      case TYPES.ENUM.CARS.VehicleStatus.UNAVAILABLE:
         return { variant: 'danger', label: t(`VEHICLE_STATUS.UNAVAILABLE`) }
       default:
         return { variant: 'none', label: 'Inconnu' }
     }
   } else {
     switch (status) {
-      case TYPES.ENUM.CommonBookingStatus.ACTIVE:
+      case TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE:
         return { variant: 'success', label: t('COMMON.STATUS.ACTIVE') }
-      case TYPES.ENUM.CommonBookingStatus.PENDING:
+      case TYPES.ENUM.COMMON.CommonBookingStatus.PENDING:
         return { variant: 'warning', label: t('COMMON.STATUS.PENDING') }
-      case TYPES.ENUM.CommonBookingStatus.EXPIRED:
+      case TYPES.ENUM.COMMON.CommonBookingStatus.EXPIRED:
         return { variant: 'none', label: t('COMMON.STATUS.EXPIRED') }
-      case TYPES.ENUM.CommonBookingStatus.CANCELED:
+      case TYPES.ENUM.COMMON.CommonBookingStatus.CANCELED:
         return { variant: 'danger', label: t('COMMON.STATUS.CANCELED') }
       default:
         return { variant: 'warning', label: 'Inconnu' }

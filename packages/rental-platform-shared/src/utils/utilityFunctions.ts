@@ -5,9 +5,9 @@ import imageCompression from 'browser-image-compression'
 dayjs.extend(customParseFormat)
 dayjs.locale('fr')
 
-export const APP_DATE_FORMAT = 'DD/MM/YYYY' // Application date format
 export const APP_DATE_PATTERN = 'DD MMM YYYY' // Default date pattern e.g: 12 Dec 2025
-export const COMMON_FORMAT_DATE = 'dd/MM/yyyy' // Common date format
+export const COMMON_FORMAT_DATE = 'dd/MM/yyyy' // Application date format
+export const COMMON_FORMAT_DATE_HEADER = 'MMMM yyyy' // Common header calendar date display
 export const AMOUNT_DEFAULT_CURRENCY = '$' // Default currency (dollars)
 /**
  * Converts a date in a standard format (e.g., 'YYYY-MM-DD') to the application's specific format.
@@ -17,7 +17,7 @@ export const AMOUNT_DEFAULT_CURRENCY = '$' // Default currency (dollars)
  */
 export const convertDateFormat = (
   date: string | Date,
-  inputFormat: string = APP_DATE_FORMAT
+  inputFormat: string = COMMON_FORMAT_DATE
 ): string => {
   return dayjs(date).isValid() ? dayjs(date).format(inputFormat) : ''
 }
@@ -115,7 +115,7 @@ export const findDynamicIdInList = (id: string | undefined, list: any) => {
  */
 export const parseDateString = (
   date: Date | string | null | undefined,
-  inputFormat: string = APP_DATE_FORMAT
+  inputFormat: string = COMMON_FORMAT_DATE
 ): Date | null => {
   if (!date) return null
 
@@ -158,7 +158,7 @@ export const formatDisplayDate = (
  */
 export const getMonthFromDateString = (
   dateString: string,
-  inputFormat: string = APP_DATE_FORMAT,
+  inputFormat: string = COMMON_FORMAT_DATE,
   locale: string = 'fr'
 ): string | null => {
   if (!dateString) return null

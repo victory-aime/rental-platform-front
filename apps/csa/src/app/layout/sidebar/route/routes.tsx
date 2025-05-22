@@ -1,6 +1,7 @@
 import { HomeIcon, CarsIcon, ParkingIcon } from '_assets/svg'
 import { ILink } from '../types'
 import { MODULES_HOTEL_ROUTES, MODULES_CARS_ROUTES } from '_modules/routes'
+import { GiAutoRepair } from 'react-icons/gi'
 
 export const MENU_BY_ROLE: Record<string, ILink[]> = {
   HOTELIER: [
@@ -25,6 +26,11 @@ export const MENU_BY_ROLE: Record<string, ILink[]> = {
       path: MODULES_CARS_ROUTES.MANAGE_PARCS,
       label: 'SIDE_BAR.MANAGE_PARCS',
       icon: ParkingIcon,
+    },
+    {
+      path: MODULES_CARS_ROUTES.MAINTENANCE,
+      label: 'SIDE_BAR.MAINTENANCE',
+      icon: GiAutoRepair,
     },
   ],
   ADMIN: [

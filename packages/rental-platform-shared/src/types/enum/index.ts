@@ -1,2 +1,2 @@
-export * from './enum'
-export * from './languages'
+export * as CARS from './modules/car'
+export * as COMMON from './modules/common'

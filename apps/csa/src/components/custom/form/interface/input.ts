@@ -44,6 +44,7 @@ interface FullSelectProps {
   isClearable?: boolean
   showDropdownIcon?: boolean
   tooltipInfo?: string
+  ref?: any | undefined
 }
 interface DefaultProps extends TextInputProps {
   isNumber?: boolean
@@ -70,4 +71,8 @@ interface SwitchProps extends HTMLChakraProps<'switch'> {
 
 interface FormColorPickerProps extends TextInputProps {}
 
-export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps, SwitchProps, FormColorPickerProps }
+interface FormDatePickerFieldProps extends TextInputProps {
+  mode: 'single' | 'range'
+}
+
+export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps, SwitchProps, FormColorPickerProps, FormDatePickerFieldProps }

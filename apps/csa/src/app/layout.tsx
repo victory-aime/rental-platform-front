@@ -10,7 +10,7 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-  title: 'Shop Dashboad',
+  title: 'Rental Platform',
   description: 'Simple dashboard for your app',
 }
 

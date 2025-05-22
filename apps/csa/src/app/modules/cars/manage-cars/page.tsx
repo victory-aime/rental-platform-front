@@ -1,6 +1,6 @@
 'use client'
 
-import { BaseBadge, BaseText, BoxContainer, ColumnsDataTable, CustomFormatNumber, DataTableContainer } from '_components/custom'
+import { BaseBadge, BaseText, BoxContainer, ColumnsDataTable, BaseFormatNumber, DataTableContainer } from '_components/custom'
 import { DisplayImage } from '../components/DisplayImage'
 import React from 'react'
 import { TYPES } from 'rental-platform-shared'
@@ -49,7 +49,7 @@ const ManageCarsPage = () => {
       header: 'CARS.FORMS.DAILY_PRICE',
       accessor: 'dailyPrice',
       cell: (price) => {
-        return <CustomFormatNumber value={price} currencyCode={TYPES.ENUM.Currency.XAF} notation="standard" />
+        return <BaseFormatNumber value={price} currencyCode={TYPES.ENUM.COMMON.Currency.XAF} notation="standard" />
       },
     },
     {

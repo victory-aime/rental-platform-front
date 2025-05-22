@@ -8,7 +8,7 @@ import { Formik } from 'formik'
 import { LuBadgeDollarSign, LuBadgePercent } from 'react-icons/lu'
 import { CarsModule, CommonModule } from 'rental-platform-state'
 import { TYPES, UTILS } from 'rental-platform-shared'
-import { fuelList, transmissionList, categoryList, statusList, equipmentsList, parcList } from '../constants/cars'
+import { fuelList, transmissionList, categoryList, statusList, equipmentsList, parcList } from '../../constants/cars'
 import { DiscountedPriceCalculator } from '_modules/cars/hooks/DiscountPriceCalculator'
 import { useTranslation } from 'react-i18next'
 
@@ -74,7 +74,7 @@ const AddCarsPage = () => {
     formData.append('seats', String(values?.seats))
     formData.append('transmission', values?.transmission?.[0] ?? '')
     formData.append('fuelType', values?.fuelType?.[0] ?? '')
-    formData.append('discountType', TYPES.ENUM.DiscountType.PERCENTAGE)
+    formData.append('discountType', TYPES.ENUM.CARS.DiscountType.PERCENTAGE)
     formData.append('discountValue', String(values?.discountValue))
     formData.append('rentalPriceDiscounted', String(values?.rentalPriceDiscounted))
     formData.append('dailyPrice', String(values?.dailyPrice))
@@ -150,21 +150,21 @@ const AddCarsPage = () => {
                       label={'CARS.FORMS.NAME'}
                       placeholder={'CARS.FORMS.NAME'}
                       value={values?.name}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                     <FormTextInput
                       name="brand"
                       label={'CARS.FORMS.BRAND'}
                       placeholder={'CARS.FORMS.BRAND'}
                       value={values?.brand}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                     <FormTextInput
                       name="model"
                       label={'CARS.FORMS.MODELS'}
                       placeholder={'CARS.FORMS.MODELS'}
                       value={values?.model}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                   </Stack>
                   <Stack width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
@@ -173,7 +173,7 @@ const AddCarsPage = () => {
                       label={'CARS.FORMS.PLATE_NUMBER'}
                       placeholder={'CARS.FORMS.PLATE_NUMBER'}
                       value={values?.plateNumber}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                     <FormSelect
                       name="fuelType"
@@ -181,7 +181,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.FUEL'}
                       listItems={fuelList(t)}
                       setFieldValue={setFieldValue}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                   </Stack>
                   <Stack width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
@@ -191,7 +191,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.TRANSMISSION'}
                       listItems={transmissionList(t)}
                       setFieldValue={setFieldValue}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                     <FormTextInput
                       name="doors"
@@ -199,7 +199,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.DOORS'}
                       type="number"
                       value={values?.doors}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                     <FormTextInput
                       name="seats"
@@ -207,7 +207,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.SEATS'}
                       type="number"
                       value={values?.seats}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                   </Stack>
                 </VStack>
@@ -224,12 +224,12 @@ const AddCarsPage = () => {
                       label={'CARS.FORMS.DAILY_PRICE'}
                       placeholder={'CARS.FORMS.DAILY_PRICE'}
                       value={values?.dailyPrice}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                   </Stack>
                   {currentUser?.establishment?.subscription?.plan?.canUseDiscounts && <FormSwitch name="hasDiscount" label="COMMON.REMISE" />}
 
-                  {values?.hasDiscount && bookingStatus !== (TYPES.ENUM.CommonBookingStatus.ACTIVE || TYPES.ENUM.CommonBookingStatus.PENDING) && (
+                  {values?.hasDiscount && bookingStatus !== (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE || TYPES.ENUM.COMMON.CommonBookingStatus.PENDING) && (
                     <Stack gap={4} direction={{ base: 'column', md: 'row' }}>
                       <FormTextInput
                         name="discountValue"
@@ -239,7 +239,7 @@ const AddCarsPage = () => {
                         placeholder={'CARS.FORMS.DISCOUNT_VALUE'}
                         toolTipInfo="CARS.FORMS.INFO.DISCOUNT_VALUE"
                         value={values?.discountValue}
-                        isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                        isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                       />
                       <FormTextInput
                         name="rentalPriceDiscounted"
@@ -264,7 +264,7 @@ const AddCarsPage = () => {
                       setFieldValue={setFieldValue}
                       listItems={categoryList(categories)}
                       placeholder={'CARS.FORMS.CATEGORY'}
-                      isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                      isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                     />
                   </Stack>
 
@@ -276,12 +276,12 @@ const AddCarsPage = () => {
                     placeholder={'CARS.FORMS.STATUS'}
                     label={'CARS.FORMS.STATUS'}
                     tooltipInfo={'CARS.FORMS.INFO.STATUS'}
-                    isDisabled={bookingStatus === (TYPES.ENUM.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.CommonBookingStatus.ACTIVE)}
+                    isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                   />
                 </VStack>
               </BoxContainer>
               <BoxContainer title={'CARS.FORMS.EQUIPMENTS'} tooltip={'CARS.FORMS.INFO.EQUIPMENTS'}>
-                <Box mt={10} mb={4} width={'fit-content'}>
+                <Box mt={10} mb={4} width={'full'}>
                   <CheckBoxFom name="equipmentIds" items={equipmentsList(equipments)} itemsPerRow={3} />
                 </Box>
               </BoxContainer>

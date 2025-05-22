@@ -3,6 +3,7 @@ import { Checkbox } from '_components/ui/checkbox'
 import { useField } from 'formik'
 import React, { FC } from 'react'
 import { CheckBoxProps } from './interface/input'
+import { NoDataFound } from '../no-data-found'
 
 const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items, itemsPerRow }) => {
   const fieldHookConfig = { name, validate }
@@ -39,6 +40,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items, itemsPe
                 ))}
               </>
             )}
+            {items?.length === 0 && <NoDataFound containerStyle={{ alignItems: 'center', justifyContent: 'center', width: '100%' }} />}
           </Fieldset.Content>
         </CheckboxGroup>
       )}

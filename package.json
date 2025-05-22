@@ -5,7 +5,20 @@
   "repository": "https://github.com/victory-aime/rental-platform-front",
   "author": "victory-aime",
   "license": "MIT",
-  "private": true,
+  "private": true,  
+  "scripts": {
+    "build:libs": "lerna run build --stream --ignore csa",
+    "watch:libs": "lerna run watch --stream",
+    "clean:libs": "lerna run clean --stream",
+    "prepare:libs": "lerna run prepare --stream",
+    "publish:libs": "lerna publish --no-git-tag-version --no-push --yes",
+    "prettier:libs": "lerna run prettier --stream",
+    "prettier:fix:libs": "lerna run prettier:fix --stream",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
+  },
   "dependencies": {
     "@chakra-ui/react": "^3.16.0",
     "@emotion/react": "^11.14.0",
@@ -46,19 +59,7 @@
     "turbo": "^1.12.0",
     "typescript": "^5"
   },
-  "scripts": {
-    "build:libs": "lerna run build --stream --ignore csa",
-    "watch:libs": "lerna run watch --stream",
-    "clean:libs": "lerna run clean --stream",
-    "prepare:libs": "lerna run prepare --stream",
-    "publish:libs": "lerna publish --no-git-tag-version --no-push --yes",
-    "prettier:libs": "lerna run prettier --stream",
-    "prettier:fix:libs": "lerna run prettier:fix --stream",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write ."
-  },
+
   "workspaces": [
     "apps/*",
     "packages/*"

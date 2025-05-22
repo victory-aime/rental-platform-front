@@ -3,14 +3,14 @@
 import { Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { FaFilter, FaPlus } from 'react-icons/fa'
-import { GiCancel } from 'react-icons/gi'
+import { FaFilter } from 'react-icons/fa'
 import { BaseButton } from '../base/baseButton'
-import { IoSave } from 'react-icons/io5'
-import { IoIosArrowDropleftCircle } from 'react-icons/io'
+import { IoIosClose } from 'react-icons/io'
 import { ActionButtonTypes } from '_components/custom'
 import { GoSync } from 'react-icons/go'
 import { useTranslation } from 'react-i18next'
+import { HiMiniPlusSmall } from 'react-icons/hi2'
+import { CiSaveDown2, CiFilter } from 'react-icons/ci'
 
 export const ActionsButton = ({
   cancelTitle,
@@ -34,13 +34,28 @@ export const ActionsButton = ({
   return (
     <Flex {...rest} gap={3}>
       {cancelTitle && (
-        <BaseButton px={'15px'} withGradient disabled={isLoading} colorType={cancelColor} leftIcon={cancelIcon ? cancelIcon : <GiCancel />} onClick={() => (onCancel ? onCancel?.() : router?.back())}>
+        <BaseButton
+          px={'15px'}
+          withGradient
+          disabled={isLoading}
+          colorType={cancelColor}
+          leftIcon={cancelIcon ? cancelIcon : <IoIosClose />}
+          onClick={() => (onCancel ? onCancel?.() : router?.back())}
+        >
           {t(cancelTitle)}
         </BaseButton>
       )}
 
       {validateTitle && (
-        <BaseButton onClick={onClick} px={'15px'} colorType={validateColor} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={icon ? icon : requestId ? <IoSave /> : <FaPlus />}>
+        <BaseButton
+          onClick={onClick}
+          px={'15px'}
+          colorType={validateColor}
+          withGradient
+          isLoading={isLoading}
+          disabled={isLoading}
+          leftIcon={icon ? icon : requestId ? <CiSaveDown2 /> : <HiMiniPlusSmall />}
+        >
           {t(validateTitle)}
         </BaseButton>
       )}
@@ -50,7 +65,7 @@ export const ActionsButton = ({
         </BaseButton>
       )}
       {onToggleFilter && (
-        <BaseButton px={'15px'} colorType={'secondary'} withGradient leftIcon={<FaFilter />} onClick={onToggleFilter}>
+        <BaseButton px={'15px'} colorType={'secondary'} withGradient leftIcon={<CiFilter />} onClick={onToggleFilter}>
           {t('COMMON.FILTER')}
         </BaseButton>
       )}

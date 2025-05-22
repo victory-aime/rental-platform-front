@@ -4,23 +4,18 @@ import { useField } from 'formik'
 import { BaseCalendar } from '../calendar/BaseCalendar'
 import { DateRange } from 'react-day-picker'
 import { format } from 'date-fns'
-import { useRef, useState } from 'react'
+import { useId, useState } from 'react'
 import { PiCalendarThin } from 'react-icons/pi'
+import { BoxIcon } from '../boxIcon'
+import { IoIosClose } from 'react-icons/io'
+import { UTILS } from 'rental-platform-shared'
+import { FormDatePickerFieldProps } from './interface/input'
 
-interface BaseFieldProps {
-  name: string
-  label?: string
-  mode: 'single' | 'range'
-  placeholder?: string
-  isReadOnly?: boolean
-  isDisabled?: boolean
-}
-
-export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isDisabled }: BaseFieldProps) => {
+export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isDisabled }: FormDatePickerFieldProps) => {
+  const id = useId()
   const [field, meta, helpers] = useField(name)
   const isError = isReadOnly ? !!meta.error : !!(meta.touched && meta.error)
   const [open, setOpen] = useState(false)
-  const popoverRef = useRef<HTMLDivElement>(null)
 
   const handleChange = (value: Date | DateRange | Date[] | undefined) => {
     helpers.setValue(value)
@@ -31,10 +26,17 @@ export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isD
 
     if (mode === 'range') {
       const range = value as DateRange
-      if (range?.from && range?.to) {
+      const { from, to } = range || {}
+
+      if (from && to && from.getTime() !== to.getTime()) {
         setOpen(false)
       }
     }
+  }
+
+  const handleReset = () => {
+    helpers.setValue(undefined)
+    helpers.setTouched(true)
   }
 
   const getDisplayValue = (): string => {
@@ -42,14 +44,16 @@ export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isD
     if (!value) return ''
 
     if (mode === 'single' && value instanceof Date) {
-      return format(value, 'dd/MM/yyyy')
+      return format(value, UTILS.COMMON_FORMAT_DATE)
     }
 
     if (mode === 'range') {
       const { from, to } = value as DateRange
       if (!from) return ''
-      if (!to) return `Du ${format(from, 'dd/MM/yyyy')} au ...`
-      return `Du ${format(from, 'dd/MM/yyyy')} au ${format(to, 'dd/MM/yyyy')}`
+      if (!to || from.getTime() === to.getTime()) {
+        return `Du ${format(from, UTILS.COMMON_FORMAT_DATE)}`
+      }
+      return `Du ${format(from, UTILS.COMMON_FORMAT_DATE)} au ${format(to, UTILS.COMMON_FORMAT_DATE)}`
     }
 
     return ''
@@ -58,16 +62,30 @@ export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isD
   return (
     <Field.Root id={name} invalid={isError}>
       {label && <Field.Label>{label}</Field.Label>}
-      <Popover.Root open={open}>
+      <Popover.Root open={open} portalled={true} ids={{ trigger: id }} onPointerDownOutside={(e) => e.stopPropagation()} onInteractOutside={(e) => e.stopPropagation()} closeOnInteractOutside={false}>
         <Popover.Trigger asChild>
           <InputGroup
             flex={1}
             width={'full'}
             onClick={() => setOpen(true)}
             endElement={
-              <Flex mt={'5px'} pl={'10px'} alignItems={'center'} justifyContent={'center'}>
-                <PiCalendarThin />
-              </Flex>
+              !!field.value && !isReadOnly && !isDisabled ? (
+                <BoxIcon
+                  color={'red'}
+                  borderRadius={'full'}
+                  boxSize={'20px'}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleReset()
+                  }}
+                >
+                  <IoIosClose size={14} />
+                </BoxIcon>
+              ) : (
+                <Flex alignItems="center" justifyContent="center" mt="5px">
+                  <PiCalendarThin />
+                </Flex>
+              )
             }
           >
             <Input
@@ -95,20 +113,8 @@ export const FormDatePicker = ({ name, label, mode, placeholder, isReadOnly, isD
         </Popover.Trigger>
         <Portal>
           <Popover.Positioner>
-            <Popover.Content
-              width={'fit-content'}
-              ref={popoverRef}
-              onPointerDownOutside={(e) => {
-                const range = field.value as DateRange
-                if (mode === 'range' && (!range?.from || !range?.to)) {
-                  e.preventDefault()
-                } else {
-                  setOpen(false)
-                }
-              }}
-            >
-              <Popover.Arrow />
-              <BaseCalendar mode={mode} selected={field.value} onSelect={handleChange} />
+            <Popover.Content width={'fit-content'}>
+              <BaseCalendar mode={mode} selected={field.value} onSelect={handleChange} onCloseButton={() => setOpen(false)} />
             </Popover.Content>
           </Popover.Positioner>
         </Portal>

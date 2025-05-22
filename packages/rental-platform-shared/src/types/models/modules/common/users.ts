@@ -16,10 +16,10 @@ export interface Establishment {
     startDate: string
     endDate: string
     canceledAt: string | null
-    status: TYPES.ENUM.SubscriptionStatus
+    status: TYPES.ENUM.COMMON.SubscriptionStatus
     plan: {
       id: string
-      name: TYPES.ENUM.PlanType
+      name: TYPES.ENUM.COMMON.PlanType
       price: number
       duration: number
       maxListings: number
