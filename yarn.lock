@@ -1114,6 +1114,13 @@
   resolved "https://registry.yarnpkg.com/@fullcalendar/interaction/-/interaction-6.1.17.tgz#f0d14cb6f6c3cb7e2b20299dfb39a866232e2976"
   integrity sha512-AudvQvgmJP2FU89wpSulUUjeWv24SuyCx8FzH2WIPVaYg+vDGGYarI7K6PcM3TH7B/CyaBjm5Rqw9lXgnwt5YA==
 
+"@fullcalendar/multimonth@^6.1.17":
+  version "6.1.17"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/multimonth/-/multimonth-6.1.17.tgz#5a40e72a8b41ff365d54461d25893094a3733582"
+  integrity sha512-ZxA9mkTzKayCdxR5je9P9++qqhSeSbuvXmvZ6doZw6omv8K52cD7XJii+P7gvxATXxtI6hg4i+DuMyOHxP1E2g==
+  dependencies:
+    "@fullcalendar/daygrid" "~6.1.17"
+
 "@fullcalendar/react@^6.1.17":
   version "6.1.17"
   resolved "https://registry.yarnpkg.com/@fullcalendar/react/-/react-6.1.17.tgz#30bf6e2da0d840bf432bcfd23b67dc3be71f6518"
@@ -8338,19 +8345,24 @@ regjsparser@^0.12.0:
   dependencies:
     jsesc "~3.0.2"
 
-rental-platform-shared@1.1.1-alpha.0:
-  version "1.1.1-alpha.0"
-  resolved "https://registry.yarnpkg.com/rental-platform-shared/-/rental-platform-shared-1.1.1-alpha.0.tgz#f971aaceac5e1fa94a0744fa848aa892608a895e"
-  integrity sha512-lbc2Wbjkv4njAUcltN8W8VAlK37IvLffa1Hc4DUEQo4PEYwqvaNaIzJceEpt3TcspdMMpEn/dQ7IcZXMygfOsw==
+rental-platform-business@^1.2.0-alpha.0:
+  version "1.2.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/rental-platform-business/-/rental-platform-business-1.2.0-alpha.0.tgz#79e5cb580c77598bda4e853fed4a26b700208c59"
+  integrity sha512-FZJ2fd/AzTXTq9asMsarTxCwlaUBcf89a9MsROUMh8usafaHJdBIjARJCutexiIkcDkM6/hfQXrS9LsONKoiEA==
+
+rental-platform-shared@^1.2.0-alpha.0:
+  version "1.2.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/rental-platform-shared/-/rental-platform-shared-1.2.0-alpha.0.tgz#a2c4277657d72aa8cd01865e601d00732aff805c"
+  integrity sha512-QEhMCaWuMrevZ07zHUDGmg8JLCaTzJWhasHypplyPdwOIxiDa8PiyJL/KxSqqLGN1wMEG68I/WwXoqwourJw2Q==
   dependencies:
     browser-image-compression "^2.0.2"
     dayjs "^1.11.13"
     yup "^1.6.1"
 
-rental-platform-state@1.1.1-alpha.0:
-  version "1.1.1-alpha.0"
-  resolved "https://registry.yarnpkg.com/rental-platform-state/-/rental-platform-state-1.1.1-alpha.0.tgz#10bf2728a1978bb9433d84c965588459aab47dab"
-  integrity sha512-y26tVC0ggMEueh1PHA/yysGQDVTYisublTH2/6VH4rZUgl/UPHjhSIhyy5Q+CcASSuL6YSLE0/5Soyd4kyQ1Cw==
+rental-platform-state@^1.2.0-alpha.0:
+  version "1.2.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/rental-platform-state/-/rental-platform-state-1.2.0-alpha.0.tgz#fb8f6efa2d7d230422104daaba34238a00c77b05"
+  integrity sha512-OKywh77D0nrEKX3xwPhWnj/trK8LsPqbKFKI9jcO+ydJYBvsJbgry6eahmFtejLqbKFEg1px4S3oVUIa3diiHg==
   dependencies:
     axios "^1.6.2"
 

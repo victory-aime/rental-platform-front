@@ -5,7 +5,7 @@ import { CarsModule, CommonModule } from 'rental-platform-state'
 import { MaintenanceForm } from './components/MaintenanceForm'
 import { TYPES, UTILS } from 'rental-platform-shared'
 import { FormikValues } from 'formik'
-import { maintenanceList } from '../constants/maintenance'
+import { getCarsName, getTitle, maintenanceList } from '../constants/maintenance'
 import { useTranslation } from 'react-i18next'
 
 const MaintenancePage = () => {
@@ -77,14 +77,9 @@ const MaintenancePage = () => {
     }
   }
 
-  const getCarsName = (x: string) => {
-    const find = cars?.find((item: { id: string }) => item?.id === x)
-    return <BaseText> {find?.name} </BaseText>
-  }
-
-  const getTitle = (value: string) => {
-    const find = maintenanceList?.find((item: { value: string }) => item.value === value)
-    return <BaseText> {find?.label} </BaseText>
+  const findCarsName = (x: string) => {
+    const find = getCarsName(x, cars)
+    return <BaseText> {find} </BaseText>
   }
 
   const columns: ColumnsDataTable[] = [
@@ -92,7 +87,7 @@ const MaintenancePage = () => {
       header: 'CARS.TITLE',
       accessor: 'carId',
       cell(carId) {
-        return getCarsName(carId)
+        return findCarsName(carId)
       },
     },
     {

@@ -1,0 +1,230 @@
+/* === GLOBAL BASE STYLES === */
+.fc {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  font-size: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 0 25px 25px 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.fc .fc-toolbar {
+  padding: 12px 16px;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  border-bottom: none;
+}
+
+.fc .fc-button-group,
+.fc .fc-button {
+  display: none !important;
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 30px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.fc .fc-col-header-cell {
+  font-weight: 500;
+  padding: 10px 0;
+  border-bottom: none !important;
+}
+
+.fc .fc-daygrid-day {
+  background-color: transparent;
+  padding: 8px;
+  border-left: none !important;
+}
+
+.fc .fc-daygrid-day:hover {
+  cursor: pointer;
+}
+
+.fc .fc-daygrid-day-number {
+  display: block;
+  text-align: center;
+  padding: 8px;
+  font-weight: 500;
+  margin: 0 auto;
+}
+
+.fc .fc-day-today {
+  border-top: 3px solid;
+}
+
+.fc .fc-event {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+
+.fc .fc-event-title {
+  white-space: normal;
+}
+
+/* Scrollbar */
+.fc-scroller::-webkit-scrollbar {
+  width: 6px;
+}
+.fc-scroller::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0;
+  border-radius: 3px;
+}
+.fc-scroller::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* === TIME GRID (Day/Week View) === */
+.fc-timegrid {
+  background-color: #fdfdfd;
+  border: none !important;
+}
+
+.fc-timegrid-slot {
+  border: none !important;
+  padding: 6px 12px !important;
+}
+
+.fc-timegrid-slot-label {
+  font-weight: 600;
+  color: #888;
+  padding: 8px 12px !important;
+  background: none !important;
+  border: none !important;
+}
+
+.fc-timegrid-axis {
+  font-weight: 600;
+  color: #888;
+  background-color: #174ea6;
+  padding: 8px 12px;
+  border: none !important;
+}
+
+.fc-timegrid-event {
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 13px;
+  background-color: #3182ce;
+  color: white;
+}
+
+/* === LIGHT THEME === */
+.calendar-light .fc {
+  background-color: #fff;
+  color: #3c4043;
+}
+
+.calendar-light .fc-toolbar {
+  background-color: #f1f3f4;
+}
+
+.calendar-light .fc-toolbar-title {
+  color: #202124;
+}
+
+.calendar-light .fc-col-header-cell {
+  color: #5f6368;
+}
+
+.calendar-light .fc-daygrid-day-number {
+  color: #3c4043;
+}
+
+.calendar-light .fc-day-today {
+  border-top-color: #4285f4;
+  background: white;
+}
+
+.calendar-light .fc-button {
+  border-color: #dadce0;
+  color: #3c4043;
+}
+
+.calendar-light .fc-button:hover {
+  background-color: #e8f0fe;
+  border-color: #d2e3fc;
+  color: #1967d2;
+}
+
+.calendar-light .fc-button.fc-button-active {
+  background-color: #d2e3fc;
+  color: #174ea6;
+}
+
+.calendar-light .fc-event {
+  background-color: #3182ce;
+  color: white;
+}
+
+/* === DARK THEME === */
+.calendar-dark .fc {
+  background-color: transparent;
+  color: white;
+}
+
+.calendar-dark .fc-toolbar {
+  background-color: #2a2d2f;
+}
+
+.calendar-dark .fc-toolbar-title {
+  color: white;
+}
+
+.calendar-dark .fc-scrollgrid,
+.calendar-dark .fc-scrollgrid td,
+.calendar-dark .fc-scrollgrid th {
+  border-color: #333537;
+}
+
+.calendar-dark .fc-col-header-cell {
+  background-color: transparent;
+  color: white;
+}
+
+.calendar-dark .fc-daygrid-day-number {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.calendar-dark .fc-day-today {
+  border-top-color: #63b3ed;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.calendar-dark .fc-button {
+  border-color: #4a4d52;
+  color: white;
+}
+
+.calendar-dark .fc-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #63b3ed;
+}
+
+.calendar-dark .fc-button.fc-button-active {
+  background-color: #63b3ed;
+  color: black;
+}
+
+.calendar-dark .fc-event {
+  background-color: #63b3ed;
+  color: white;
+}
+
+.calendar-dark .fc-timegrid-axis {
+  background-color: #1a1a1a;
+  color: #bbb;
+}
+
+.calendar-dark .fc-timegrid-event {
+  background-color: #63b3ed;
+  color: #1a1a1a;
+}

@@ -1,4 +1,5 @@
 import { createListCollection } from '@chakra-ui/react'
+import { BaseText } from '_components/custom'
 import { TYPES } from 'rental-platform-shared'
 
 const typeList = (list: { label: string; value: string }[] = []) => {
@@ -36,4 +37,14 @@ const maintenanceList = [
   },
 ]
 
-export { maintenanceStatusList, typeList, maintenanceList }
+const getCarsName = (x: string, cars: any) => {
+  const find = cars?.find((item: { id: string }) => item?.id === x)
+  return find?.name
+}
+
+const getTitle = (value: string): string => {
+  const item = maintenanceList?.find((i) => i.value === value)
+  return item?.label ?? value
+}
+
+export { maintenanceStatusList, typeList, maintenanceList, getTitle, getCarsName }

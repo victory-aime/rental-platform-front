@@ -27,11 +27,14 @@ export interface IResponseMaintenace {
   id: string
   carId: string
   agencyId: string
+  title: string,
+  description: string,
+  cost: number,
+  type: string,
   plannedDates: {
     scheduledStartDate: string
     scheduledEndDate: string
   }
-
   status: string
   completedAt: string
   createdAt: string

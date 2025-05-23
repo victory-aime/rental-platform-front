@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Lato } from 'next/font/google'
 import { I18nProvider } from '_context/provider/i18n-provider'
 import 'react-day-picker/dist/style.css'
+import '_components/custom/agenda/index.css'
 
 const lato = Lato({
   variable: '--font-lato',
