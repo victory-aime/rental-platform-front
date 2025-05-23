@@ -1,6 +1,7 @@
 import { ThemeProvider } from '_components/ui/provider'
 import type { Metadata } from 'next'
 import { Lato } from 'next/font/google'
+import { I18nProvider } from '_context/provider/i18n-provider'
 import 'react-day-picker/dist/style.css'
 
 const lato = Lato({
@@ -22,7 +23,9 @@ export default async function RootLayout({
   return (
     <html className={`${lato.variable}`} suppressHydrationWarning>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <I18nProvider>{children}</I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
