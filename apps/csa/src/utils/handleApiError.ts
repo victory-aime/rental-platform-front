@@ -1,11 +1,6 @@
 import { CustomToast, ToastStatus } from '_components/custom/toast'
 
-export const handleApiError = (
-  response: {
-    status: number
-    message: string
-  }
-) => {
+export const handleApiError = (response: { status: number; message: string }) => {
   const statusCode = response?.status || 500
   const defaultMessage = 'Connection Error'
 

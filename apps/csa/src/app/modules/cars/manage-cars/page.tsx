@@ -101,7 +101,7 @@ const ManageCarsPage = () => {
       }}
       filterComponent={<BaseText>Texte all</BaseText>}
     >
-      <DataTableContainer data={cars} columns={columns} isLoading={isLoading} hidePagination />
+      <DataTableContainer data={cars ?? []} columns={columns} isLoading={isLoading} hidePagination />
     </BoxContainer>
   )
 }

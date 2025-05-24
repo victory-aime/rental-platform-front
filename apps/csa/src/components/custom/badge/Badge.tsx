@@ -5,18 +5,31 @@ import { BaseText, TextVariant } from '../base-text'
 import { variantColorType, getVariantStyles } from '../button'
 import { TYPES } from 'rental-platform-shared'
 import { useTranslation } from 'react-i18next'
-const getBadgeContent = (status?: string, type?: string): { variant: variantColorType; label: string } => {
-  const { t } = useTranslation()
+
+const getBadgeContent = (status?: string, type?: string, t?: (key: string) => string): { variant: variantColorType; label: string } => {
+  if (!t) return { variant: 'none', label: 'Inconnu' }
+
   if (type === 'cars') {
     switch (status) {
       case TYPES.ENUM.CARS.VehicleStatus.AVAILABLE:
-        return { variant: 'success', label: t(`VEHICLE_STATUS.AVAILABLE`) }
+        return { variant: 'success', label: t('VEHICLE_STATUS.AVAILABLE') }
       case TYPES.ENUM.CARS.VehicleStatus.MAINTENANCE:
-        return { variant: 'warning', label: t(`VEHICLE_STATUS.MAINTENANCE`) }
+        return { variant: 'warning', label: t('VEHICLE_STATUS.MAINTENANCE') }
       case TYPES.ENUM.CARS.VehicleStatus.UNAVAILABLE:
-        return { variant: 'danger', label: t(`VEHICLE_STATUS.UNAVAILABLE`) }
+        return { variant: 'danger', label: t('VEHICLE_STATUS.UNAVAILABLE') }
       default:
         return { variant: 'none', label: 'Inconnu' }
+    }
+  } else if (type === 'maintenance') {
+    switch (status) {
+      case TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus.PLANNED:
+        return { variant: 'warning', label: t('MAINTENANCE.STATUS.PLANNED') }
+      case TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus.COMPLETED:
+        return { variant: 'success', label: t('MAINTENANCE.STATUS.COMPLETED') }
+      case TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus.CANCELED:
+        return { variant: 'danger', label: t('MAINTENANCE.STATUS.CANCELED') }
+      default:
+        return { variant: 'primary', label: t('MAINTENANCE.STATUS.IN_PROGRESS') }
     }
   } else {
     switch (status) {
@@ -34,8 +47,9 @@ const getBadgeContent = (status?: string, type?: string): { variant: variantColo
   }
 }
 
-export const BaseBadge: FC<Props> = ({ children, variant = 'solid', label: customLabel, color = '', type = 'cars', status, ...props }) => {
-  const { variant: resolvedVariant, label: resolvedLabel } = getBadgeContent(status, type)
+export const BaseBadge: FC<Props> = ({ children, variant = 'solid', label: customLabel, color, type = 'cars', status, ...props }) => {
+  const { t } = useTranslation()
+  const { variant: resolvedVariant, label: resolvedLabel } = getBadgeContent(status, type, t)
   const { bg, gradient, hover, textColor } = getVariantStyles(resolvedVariant)
 
   return (
@@ -44,9 +58,9 @@ export const BaseBadge: FC<Props> = ({ children, variant = 'solid', label: custo
       variant={variant}
       size="lg"
       borderRadius="7px"
-      p={'10px'}
+      p={2.5}
       bg={gradient ?? bg ?? 'none'}
-      color={textColor}
+      color={color || textColor}
       _hover={{ background: hover ?? `${bg}CC` }}
       _active={{ background: hover ?? `${bg}AA` }}
       _disabled={{ background: 'gray.300', cursor: 'not-allowed' }}

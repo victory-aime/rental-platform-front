@@ -3,11 +3,14 @@
   font-family: 'Inter', 'Roboto', sans-serif;
   font-size: 14px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border-radius: 0 25px 25px 0;
+  border-radius: 25px;
   overflow: hidden;
   width: 100%;
+  height: 100vh;
 }
-
+.fc-theme-standard .fc-scrollgrid {
+  border: none !important;
+}
 .fc .fc-toolbar {
   padding: 12px 16px;
   border-radius: 12px 12px 0 0;
@@ -63,7 +66,6 @@
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  margin-bottom: 2px;
 }
 
 .fc .fc-event-title {
@@ -82,30 +84,52 @@
   background: transparent;
 }
 
-/* === TIME GRID (Day/Week View) === */
-.fc-timegrid {
-  background-color: #fdfdfd;
+.fc .fc-scrollgrid-section > * {
   border: none !important;
 }
 
+/* === TIME GRID (Day/Week View) === */
+.fc-timegrid {
+  background-color: transparent;
+}
+
+.fc-timegrid-now-indicator-arrow {
+  display: none;
+}
+.fc-timegrid-now-indicator-line {
+  border: 4px solid #e53e3e;
+  z-index: 10;
+  position: relative;
+}
+
+/* Cercle au début de la ligne */
+.fc-timegrid-now-indicator-line::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: red; /* Même rouge que la ligne */
+  border-radius: 50%;
+  z-index: 11;
+}
+
 .fc-timegrid-slot {
-  border: none !important;
+  background-color: transparent;
   padding: 6px 12px !important;
 }
 
 .fc-timegrid-slot-label {
   font-weight: 600;
   color: #888;
-  padding: 8px 12px !important;
-  background: none !important;
-  border: none !important;
+  padding: 8px;
+  background: transparent;
 }
 
 .fc-timegrid-axis {
   font-weight: 600;
   color: #888;
-  background-color: #174ea6;
-  padding: 8px 12px;
+  background-color: transparent;
   border: none !important;
 }
 
@@ -115,6 +139,57 @@
   font-size: 13px;
   background-color: #3182ce;
   color: white;
+}
+
+/* === Multimonths view === */
+.fc-multimonth {
+  border: none !important;
+}
+
+.fc-multimonth-header {
+  margin: 0 !important;
+}
+/* 1. Réduire les noms de jour à une lettre (L, M, M, J, V, S, D) */
+.fc-multimonth .fc-col-header-cell-cushion {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.fc-multimonth .fc-col-header-cell-cushion::after {
+  content: attr(data-letter);
+  display: inline;
+}
+
+.fc-multimonth .fc-col-header-cell-cushion {
+  visibility: hidden;
+  position: relative;
+}
+
+.fc-multimonth .fc-col-header-cell-cushion::after {
+  visibility: visible;
+  position: absolute;
+  border: none;
+  top: 0;
+  left: 0;
+}
+
+.fc .fc-multimonth-daygrid {
+  background: transparent;
+}
+
+.fc .fc-multimonth-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  padding: 1em 0px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.fc-multimonth-month td,
+.fc-multimonth-month th {
+  border: none !important;
+  padding: 14px !important;
+  margin: auto;
 }
 
 /* === LIGHT THEME === */
@@ -168,6 +243,7 @@
 /* === DARK THEME === */
 .calendar-dark .fc {
   background-color: transparent;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
   color: white;
 }
 
@@ -220,11 +296,21 @@
 }
 
 .calendar-dark .fc-timegrid-axis {
-  background-color: #1a1a1a;
+  background-color: transparent;
+  border-left: none !important;
   color: #bbb;
 }
 
 .calendar-dark .fc-timegrid-event {
   background-color: #63b3ed;
   color: #1a1a1a;
+}
+
+/* 3. Fond transparent en mode dark */
+.calendar-dark .fc-multimonth {
+  background-color: transparent !important;
+}
+
+.calendar-dark .fc-multimonth .fc-scrollgrid {
+  background-color: transparent !important;
 }

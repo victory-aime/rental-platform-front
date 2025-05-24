@@ -16,6 +16,7 @@ import { BaseText, TextVariant, TextWeight } from '../base-text'
 import { useColorMode } from '_components/ui/color-mode'
 import { BaseAgendaProps } from './interface/agenda'
 import { UTILS } from 'rental-platform-shared'
+import { IoIosClose } from 'react-icons/io'
 
 export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick, onDateSelect, showLegend = true }: BaseAgendaProps) => {
   const { colorMode } = useColorMode()
@@ -26,32 +27,34 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
   const calendarRef = useRef<FullCalendar | null>(null)
   const calendarApi = calendarRef.current?.getApi()
 
-  useEffect(() => {
-    if (calendarApi) {
-      setCurrentTitle(calendarApi.view.title)
-    }
-  }, [calendarApi, value])
-
-  // useEffect(() => {
-  //   if (calendarApi) {
-  //     const viewType = calendarApi.view.type
-  //     const calendarEl = calendarApi.el
-
-  //     if (calendarEl) {
-  //       if (viewType === 'timeGridDay') {
-  //         calendarEl.classList.add('fc-view-day')
-  //       } else {
-  //         calendarEl.classList.remove('fc-view-day')
-  //       }
-  //     }
-  //   }
-  // }, [value])
-
   const changeView = (viewName: string) => {
     const api = calendarRef.current?.getApi()
     api?.changeView(viewName)
-    setCurrentTitle(api?.view.title ?? '')
   }
+
+  const handleDatesSet = (arg: any) => {
+    setCurrentTitle(arg.view.title)
+  }
+  const handleDateClick = (arg: any) => {
+    const api = calendarRef.current?.getApi()
+    if (!api) return
+
+    const currentView = api.view.type
+    if (currentView === 'dayGridMonth') return // on ne fait rien si c'est la vue mois
+
+    api.gotoDate(arg.date) // se positionne sur la date
+    api.changeView('timeGridDay') // change la vue
+    setValue('timeGridDay') // met à jour le state pour garder le segment synchronisé
+  }
+
+  useEffect(() => {
+    const headers = document.querySelectorAll('.fc-multimonth .fc-col-header-cell-cushion')
+    const jours = ['L', 'M', 'M', 'J', 'V', 'S', 'D'] // ou ['L', 'M', 'M', 'J', 'V', 'S', 'D'] selon ton besoin
+
+    headers.forEach((el, idx) => {
+      ;(el as HTMLElement).setAttribute('data-letter', jours[idx % 7])
+    })
+  }, [value]) // ou déclenche aussi dans `datesSet` ou après le rendu de la vue
 
   const renderButtonsValue = [
     {
@@ -95,7 +98,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
     }
 
     return (
-      <Popover.Root open={openedPopoverId === eventInfo.event.id} ids={{ trigger: eventInfo.event.id }} closeOnEscape closeOnInteractOutside>
+      <Popover.Root open={openedPopoverId === eventInfo.event.id} ids={{ trigger: eventInfo.event.id }} closeOnEscape closeOnInteractOutside positioning={{ placement: 'top-start' }}>
         <Popover.Trigger asChild>
           <Box
             onClick={handleClick}
@@ -113,13 +116,21 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
         </Popover.Trigger>
         <Portal>
           <Popover.Positioner>
-            <Popover.Content width={'fit-content'} padding={8}>
-              <VStack align="start" gap={2}>
-                <BaseText variant={TextVariant.M} weight={TextWeight.Bold}>
-                  {eventInfo.event.title}
-                </BaseText>
-                <BaseText fontSize="sm">Début : {UTILS.formatDisplayDate(eventInfo.event.start)}</BaseText>
-                <BaseText fontSize="sm">Fin : {UTILS.formatDisplayDate(eventInfo.event.end)}</BaseText>
+            <Popover.Content width={'full'}>
+              <VStack alignItems={'flex-start'} gap={4} padding={4} width={'full'}>
+                <Flex gap={8} alignItems={'center'} justifyContent={'space-between'} width={'full'}>
+                  <BaseText variant={TextVariant.M} weight={TextWeight.Bold}>
+                    {eventInfo.event.title}
+                  </BaseText>
+                  <BoxIcon color={'red'} onClick={() => setOpenedPopoverId(null)} boxSize={'20px'} cursor={'pointer'}>
+                    <IoIosClose />
+                  </BoxIcon>
+                </Flex>
+                <HStack align="start">
+                  <BaseText fontSize="sm">
+                    Début : {UTILS.formatDisplayDate(eventInfo.event.start)} ~ {UTILS.formatDisplayDate(eventInfo.event.end)}{' '}
+                  </BaseText>
+                </HStack>
               </VStack>
             </Popover.Content>
           </Popover.Positioner>
@@ -209,7 +220,12 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, multiMonthPlugin]}
         headerToolbar={false}
+        datesSet={handleDatesSet}
         initialView={initialView}
+        nowIndicator
+        slotMinTime="08:00:00"
+        slotMaxTime="21:00:00"
+        slotDuration="00:30:00"
         editable={false}
         selectable={false}
         dragScroll={false}
@@ -220,6 +236,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
         select={onDateSelect}
         eventClick={onEventClick}
         eventContent={renderEventContent}
+        dateClick={handleDateClick}
       />
     </Box>
   )

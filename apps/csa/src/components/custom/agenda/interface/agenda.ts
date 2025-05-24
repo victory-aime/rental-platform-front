@@ -1,4 +1,4 @@
-import { DateSelectArg, EventClickArg, EventContentArg, EventInput } from "@fullcalendar/core/index.js"
+import { DateSelectArg, EventClickArg, EventContentArg, EventInput } from '@fullcalendar/core/index.js'
 
 export interface BaseAgendaProps {
   /**

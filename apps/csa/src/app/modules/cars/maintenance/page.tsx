@@ -1,17 +1,18 @@
 'use client'
-import { BaseText, BoxContainer, ColumnsDataTable, BaseFormatNumber, DataTableContainer } from '_components/custom'
+
+import { BaseText, BoxContainer, ColumnsDataTable, BaseFormatNumber, DataTableContainer, BaseBadge } from '_components/custom'
 import React, { useState } from 'react'
 import { CarsModule, CommonModule } from 'rental-platform-state'
 import { MaintenanceForm } from './components/MaintenanceForm'
 import { TYPES, UTILS } from 'rental-platform-shared'
 import { FormikValues } from 'formik'
-import { getCarsName, getTitle, maintenanceList } from '../constants/maintenance'
-import { useTranslation } from 'react-i18next'
+import { getCarsName, getTitle } from '../constants/maintenance'
+import { CloseMaintenanceForm } from './components/CloseMaintenanceForm'
 
 const MaintenancePage = () => {
-  const { t } = useTranslation()
   const [activeFilter, setActiveFilter] = useState<boolean>(false)
   const [openModalForm, setOpenModalForm] = useState<boolean>(false)
+  const [openCloseForm, setOpenCloseForm] = useState<boolean>(false)
   const [selectedItem, setSelectedItem] = useState<{ id: string } | null>({
     id: '',
   })
@@ -32,6 +33,9 @@ const MaintenancePage = () => {
       filters: {
         agencyId: currentUser?.establishment?.id,
       },
+    },
+    queryOptions: {
+      enabled: !!currentUser?.establishment?.id,
     },
   })
 
@@ -58,6 +62,14 @@ const MaintenancePage = () => {
     },
   })
 
+  const { mutateAsync: closeMutate, isPending: closePending } = CarsModule.maintenance.closeMaintenanceMutation({
+    onSuccess: () => {
+      setSelectedItem(null)
+      setOpenCloseForm(false)
+      CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+    },
+  })
+
   const submitForm = async (values: FormikValues) => {
     const request: TYPES.MODELS.CARS.MAINTENANCE.CreateMaintenanceDto = {
       carId: values?.carId && values?.carId?.[0],
@@ -77,9 +89,12 @@ const MaintenancePage = () => {
     }
   }
 
-  const findCarsName = (x: string) => {
-    const find = getCarsName(x, cars)
-    return <BaseText> {find} </BaseText>
+  const handleClose = async () => {
+    await closeMutate({ requestId: selectedItem?.id ?? '' })
+  }
+
+  const findCarsName = (carId: string) => {
+    return getCarsName(carId, cars)
   }
 
   const columns: ColumnsDataTable[] = [
@@ -123,7 +138,7 @@ const MaintenancePage = () => {
       header: 'CARS.FORMS.STATUS',
       accessor: 'status',
       cell(status) {
-        return t(`MAINTENANCE.STATUS.${status}`)
+        return <BaseBadge status={status} type="maintenance" />
       },
     },
     {
@@ -136,10 +151,15 @@ const MaintenancePage = () => {
             setOpenModalForm(true)
             setSelectedItem(data)
           },
+          isDisabled: (data) => data?.status === (TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus.COMPLETED || TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus.CANCELED),
         },
         {
           name: 'delete',
-          handleClick(data) {},
+          handleClick(data) {
+            setSelectedItem(data)
+            setOpenCloseForm(true)
+          },
+          isDisabled: (data) => data?.status === (TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus.COMPLETED || TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus.CANCELED),
         },
       ],
     },
@@ -172,6 +192,7 @@ const MaintenancePage = () => {
         data={selectedItem}
         isSuccess={createSuccess || updateSucess}
       />
+      <CloseMaintenanceForm isOpen={openCloseForm} onChange={() => setOpenCloseForm(!openCloseForm)} data={selectedItem} callback={handleClose} isLoading={closePending} />
     </BoxContainer>
   )
 }

@@ -3,8 +3,8 @@ import { TYPES } from 'rental-platform-shared'
 import React from 'react'
 import { variantColorType } from '_components/custom/button'
 
-type BadgeType = 'booking' | 'cars'
-type StatusType = TYPES.ENUM.CommonBookingStatus | TYPES.ENUM.VehicleStatus
+type BadgeType = 'booking' | 'cars' | 'maintenance'
+type StatusType = TYPES.ENUM.COMMON.CommonBookingStatus | TYPES.ENUM.CARS.VehicleStatus | TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus
 
 interface Props extends BadgeProps {
   label?: string

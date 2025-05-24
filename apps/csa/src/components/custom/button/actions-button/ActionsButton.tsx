@@ -3,7 +3,6 @@
 import { Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { FaFilter } from 'react-icons/fa'
 import { BaseButton } from '../base/baseButton'
 import { IoIosClose } from 'react-icons/io'
 import { ActionButtonTypes } from '_components/custom'

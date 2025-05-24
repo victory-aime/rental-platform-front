@@ -128,6 +128,7 @@ export const APIS = (baseUrl?: string) => {
           LIST: api({
             path: '/maintenances/list',
             method: 'GET',
+            showResponse: false,
           }),
           ADD: api({
             path: '/maintenances/add',

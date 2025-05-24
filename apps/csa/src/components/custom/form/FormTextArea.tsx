@@ -3,6 +3,7 @@ import { useField } from 'formik'
 import { Field, Flex, Text, Textarea } from '@chakra-ui/react'
 import { FormTextAreaProps } from './interface/input'
 import { HiOutlineInformationCircle } from 'react-icons/hi'
+import { useTranslation } from 'react-i18next'
 
 const FormTextArea: FC<FormTextAreaProps> = ({
   required = false,
@@ -10,7 +11,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
   value,
   onChangeFunction,
   name,
-  placeholder,
+  placeholder = '',
   width,
   localErrorMsg,
   isReadOnly,
@@ -20,6 +21,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
   helperMessage,
   autoresize = true,
 }) => {
+  const { t } = useTranslation()
   const fieldHookConfig = {
     name,
     validate,
@@ -32,7 +34,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
     <Field.Root id={name} invalid={isError}>
       {label && (
         <Field.Label display={'flex'} gap={'6px'}>
-          {label}
+          {t(label)}
           {required && <Text color={'red'}> * </Text>}
         </Field.Label>
       )}
@@ -44,7 +46,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
         borderColor={isError ? 'red.500' : 'bg.muted'}
         _focus={{ borderColor: 'primary.500' }}
         _placeholder={{ color: isError ? 'red.500' : 'gray.400' }}
-        placeholder={placeholder ?? ''}
+        placeholder={t(placeholder)}
         fontSize={'16px'}
         width={width}
         height={minHeight}
