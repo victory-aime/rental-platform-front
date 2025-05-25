@@ -43,7 +43,7 @@ interface FullSelectProps {
   customRenderSelected?: (selectedItems: any[]) => React.ReactNode
   isClearable?: boolean
   showDropdownIcon?: boolean
-  tooltipInfo?: string
+  toolTipInfo?: string
   ref?: any | undefined
 }
 interface DefaultProps extends TextInputProps {
@@ -75,4 +75,10 @@ interface FormDatePickerFieldProps extends TextInputProps {
   mode: 'single' | 'range'
 }
 
-export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps, SwitchProps, FormColorPickerProps, FormDatePickerFieldProps }
+
+interface TimeInputProps extends TextInputProps {
+  variant?: "outline" | "subtle" | "plain"
+
+}
+
+export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps, SwitchProps, FormColorPickerProps, FormDatePickerFieldProps, TimeInputProps }

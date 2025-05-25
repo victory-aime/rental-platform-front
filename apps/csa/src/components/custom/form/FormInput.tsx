@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useField } from 'formik'
-import { Input, Text, Field, Flex, useBreakpointValue } from '@chakra-ui/react'
+import { Input, Text, Field, Flex } from '@chakra-ui/react'
 import { TextInputProps } from './interface/input'
 import { InputGroup } from '_components/ui/input-group'
 import { TbLockBitcoin } from 'react-icons/tb'
@@ -114,7 +114,12 @@ const FormTextInput = ({
         />
       </InputGroup>
 
-      {isError && <Field.ErrorText>{error}</Field.ErrorText>}
+      {isError && (
+        <Flex gap={1} mt={1} alignItems={'center'}>
+          <Field.ErrorIcon width={4} height={4} color={'red.500'} />
+          <Field.ErrorText>{error}</Field.ErrorText>
+        </Flex>
+      )}
       {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
     </Field.Root>
   )

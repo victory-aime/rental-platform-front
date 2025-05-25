@@ -78,8 +78,8 @@ const MaintenancePage = () => {
       title: values?.title && values?.title?.[0],
       cost: parseFloat(values?.price),
       status: values?.status && values?.status?.[0],
-      scheduledStartDate: values?.plannedDate?.from,
-      scheduledEndDate: values?.plannedDate?.to,
+      scheduledStartDate: values?.scheduledStartDate,
+      scheduledEndDate: values?.scheduledEndDate,
     }
 
     if (selectedItem?.id) {

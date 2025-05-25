@@ -127,7 +127,12 @@ export const FormDatePicker = ({ name, label, mode, placeholder = '', isReadOnly
           </Popover.Positioner>
         </Portal>
       </Popover.Root>
-      {isError && <Field.ErrorText>{meta?.error}</Field.ErrorText>}
+      {isError && (
+        <Flex gap={1} mt={1} alignItems={'center'}>
+          <Field.ErrorIcon width={4} height={4} color={'red.500'} />
+          <Field.ErrorText>{meta?.error}</Field.ErrorText>
+        </Flex>
+      )}
     </Field.Root>
   )
 }

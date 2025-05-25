@@ -22,7 +22,7 @@ const FormSelect: FC<FullSelectProps> = ({
   isDisabled = false,
   isClearable = true,
   showDropdownIcon = true,
-  tooltipInfo = '',
+  toolTipInfo = '',
   onChangeFunc,
   setFieldValue,
   ref,
@@ -65,8 +65,8 @@ const FormSelect: FC<FullSelectProps> = ({
           <SelectLabel display={'flex'} gap={'6px'} mb={'4px'} fontSize={{ base: '14px', md: '16px' }}>
             {t(label)}
             {required && <BaseText color={'red'}> * </BaseText>}
-            {tooltipInfo && (
-              <BaseTooltip message={tooltipInfo}>
+            {toolTipInfo && (
+              <BaseTooltip message={toolTipInfo}>
                 <HiOutlineInformationCircle size={18} />
               </BaseTooltip>
             )}

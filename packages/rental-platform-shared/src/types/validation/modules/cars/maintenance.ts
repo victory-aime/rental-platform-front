@@ -7,6 +7,8 @@ export const initialMaintenanceValues: initialMaintenanceValues = {
   carId: '',
   price: '',
   status: '',
+  startTime: '',
+  endTime: ''
 }
 
 export interface initialMaintenanceValues {
@@ -16,4 +18,6 @@ export interface initialMaintenanceValues {
   carId: string
   price: string
   status: string
+  startTime:string, 
+  endTime:''
 }
