@@ -75,10 +75,8 @@ interface FormDatePickerFieldProps extends TextInputProps {
   mode: 'single' | 'range'
 }
 
-
 interface TimeInputProps extends TextInputProps {
-  variant?: "outline" | "subtle" | "plain"
-
+  variant?: 'outline' | 'subtle' | 'plain'
 }
 
 export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps, SwitchProps, FormColorPickerProps, FormDatePickerFieldProps, TimeInputProps }

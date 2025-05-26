@@ -22,7 +22,7 @@ const AddCarsPage = () => {
   const [filesUploaded, setFilesUploaded] = useState<File[]>([])
   const [bookingStatus, setBookingsStatus] = useState<string | null>(null)
 
-  const currentUser = CommonModule.UserModule.UserCache.getUser()
+  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
   const carsCache = CarsModule.CarsCache.getCars()
   const existingCarsFiles = UTILS.findDynamicIdInList(requestId ?? '', carsCache)
   const {} = CarsModule.getAllCarsQueries({
@@ -275,7 +275,7 @@ const AddCarsPage = () => {
                     name="status"
                     placeholder={'CARS.FORMS.STATUS'}
                     label={'CARS.FORMS.STATUS'}
-                    tooltipInfo={'CARS.FORMS.INFO.STATUS'}
+                    toolTipInfo={'CARS.FORMS.INFO.STATUS'}
                     isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
                   />
                 </VStack>

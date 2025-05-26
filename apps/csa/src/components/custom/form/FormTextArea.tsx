@@ -28,7 +28,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
   }
 
   const [field, { touched, error }] = useField(fieldHookConfig)
-  const isError = isReadOnly ? !!error : !!(touched && error)
+  const isError = isReadOnly ? Boolean(error) : !!(touched && Boolean(error))
 
   return (
     <Field.Root id={name} invalid={isError}>

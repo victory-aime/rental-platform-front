@@ -23,7 +23,7 @@ export const FormColorPicker: FC<FormColorPickerProps> = ({ name, label, validat
     validate,
   }
   const [field, { touched, error }] = useField(fieldHookConfig)
-  const isError = isReadOnly ? !!error : !!(touched && error)
+  const isError = isReadOnly ? Boolean(error) : !!(touched && Boolean(error))
   const [view, setView] = useState<'picker' | 'swatch'>('swatch')
   const [color, setColor] = useState(parseColor(field.value || '#000'))
   const [swatches, setSwatches] = useState<string[]>(DEFAULT_SWATCHES)

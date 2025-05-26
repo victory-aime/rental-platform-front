@@ -14,8 +14,7 @@ const ManageParcPage = () => {
   const [selectedParc, setSelectedParc] = useState<TYPES.MODELS.CARS.ParcDto | null>(null)
   const [isFilterActive, setIsFilterActive] = useState<boolean>(false)
   const [filters, setFilters] = useState<TYPES.MODELS.CARS.ParcListDto | null>(null)
-  const currentUser = CommonModule.UserModule.UserCache.getUser()
-  const cachedParc = CarsModule.parcs.ParcsCache.getParcs()
+  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
   const agencyId = currentUser?.establishment.id
 
   const {
@@ -28,7 +27,7 @@ const ManageParcPage = () => {
       ...filters,
     },
     queryOptions: {
-      enabled: !!agencyId && !cachedParc?.content?.length,
+      enabled: !!agencyId,
       refetchOnMount: false,
     },
   })
@@ -50,7 +49,6 @@ const ManageParcPage = () => {
   })
   const { mutateAsync: deleteParc, isPending: deleteParcPending } = CarsModule.parcs.deleteParcMutation({
     onSuccess: () => {
-      setDeleteModal(false)
       setSelectedParc(null)
       refetch().then()
     },

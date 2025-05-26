@@ -12,7 +12,7 @@ const SliderForm: FC<DefaultProps> = ({ name, validate, label, required, isNumbe
   }
   const [field, { touched, error }, helpers] = useField(fieldHookConfig)
   const { setValue } = helpers
-  const isError = !!error || !!(touched && error)
+  const isError = error ? Boolean(error) : !!(touched || Boolean(error))
 
   return (
     <Field.Root {...rest} id={name} invalid={isError}>

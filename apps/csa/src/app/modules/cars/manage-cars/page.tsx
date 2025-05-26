@@ -10,8 +10,12 @@ import { CarsModule, CommonModule } from 'rental-platform-state'
 
 const ManageCarsPage = () => {
   const router = useRouter()
-  const [toggle, setToggle] = React.useState(false)
-  const currentUser = CommonModule.UserModule.UserCache.getUser()
+  //const [toggle, setToggle] = React.useState(false)
+  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({
+    payload: { userId: '' },
+    queryOptions: { enabled: false },
+  })
+
   const {
     data: cars,
     isLoading,
@@ -29,8 +33,8 @@ const ManageCarsPage = () => {
     {
       header: '',
       accessor: 'carImages',
-      cell: (x) => {
-        return <DisplayImage value={x} />
+      cell: (images) => {
+        return <DisplayImage value={images} />
       },
     },
     {
@@ -69,14 +73,14 @@ const ManageCarsPage = () => {
             router.push(`${MODULES_CARS_ROUTES.ADD_CAR}?requestId=${value?.id}`)
           },
         },
-        {
-          name: 'view',
-          handleClick: () => {},
-        },
-        {
-          name: 'delete',
-          handleClick: () => {},
-        },
+        // {
+        //   name: 'view',
+        //   handleClick: () => {},
+        // },
+        // {
+        //   name: 'delete',
+        //   handleClick: () => {},
+        // },
       ],
     },
   ]
@@ -87,8 +91,8 @@ const ManageCarsPage = () => {
       description={'CARS.LIST_DESC'}
       border={'none'}
       withActionButtons
-      isFilterActive={toggle}
-      onToggleFilter={() => setToggle(!toggle)}
+      // isFilterActive={toggle}
+      // onToggleFilter={() => setToggle(!toggle)}
       actionsButtonProps={{
         validateTitle: 'CARS.ADD_CARS',
         validateColor: 'primary',

@@ -22,6 +22,13 @@
     "FORM_TITLE": "Votre sujet",
     "MESSAGE": "Votre message"
   },
+  "SEND": {
+    "DESC_SUCCESS": "Votre message a été envoyé avec succès. Nous vous remercions de votre contribution et nous vous répondrons dans les plus brefs délais.",
+    "ERROR_DESC": "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer plus tard.",
+    "SUCCESS_TITLE": "Message envoyé",
+    "ERROR_TITLE": "Erreur d'envoi",
+    "PROGRESS": "Envoi en cours..."
+  },
   "COMMON": {
     "FRENCH": "Francais",
     "ENGLISH": "Anglais",
@@ -40,6 +47,7 @@
     "CLEAR": "Effacer",
     "SEARCH": "Rechercher",
     "NO_SELECT_OPTIONS": "Aucune options trouvée",
+    "SELECT_OPTIONS": "Sélectionner une option",
     "CONFIRM_TEXT": "Pour confirmer, tapez <<{{value}}>> dans la case ci-dessous.",
     "WARNING": {
       "TITLE": "Attention",
@@ -50,7 +58,22 @@
       "PENDING": "En attente",
       "CANCELED": "Annulee",
       "EXPIRED": "Expiree"
-    }
+    },
+    "TODAY": "Aujourd'hui",
+    "MONTH": "Mois",
+    "YEAR": "Année",
+    "DAY": "Jour",
+    "WEEK": "Semane",
+    "LEGEND": {
+      "RESERVATIONS": "Nouvelle réservation",
+      "MAINTENANCE": "Maintenance planifiée",
+      "CANCELED": "Réservation annulée",
+      "UNAVAILABLE": "Véhicule indisponible"
+    },
+    "NO_DATA": "Aucune donnée disponible",
+    "PAGE_NOT_FOUND": "Page non trouvée",
+    "PAGE_NOT_FOUND_DESC": "La page que vous recherchez n'existe pas ou a été supprimée. Veuillez vérifier l'URL ou revenir à la page d'accueil.",
+    "BACK_TO_HOME": "Retour à l'accueil"
   },
   "VEHICLE_STATUS": {
     "AVAILABLE": "Disponible",
@@ -132,12 +155,33 @@
       "CAR": "Selectionner le vehicule",
       "DATES": "Planifier les dates",
       "COST": "Côut",
-      "DESC": "Description"
+      "DESC": "Description",
+      "START_TIME": "Heure de début",
+      "END_TIME": "Heure de fin"
+    },
+    "VALIDATION": {
+      "TITLE_REQUIRED": "Le titre est requis",
+      "CAR_REQUIRED": "La voiture est requise",
+      "DATE_FROM_REQUIRED": "La date de début est requise",
+      "DATE_TO_REQUIRED": "La date de fin est requise",
+      "DATES_REQUIRED": "Les dates sont requises",
+      "START_TIME_INVALID": "Heure de début invalide",
+      "START_TIME_REQUIRED": "Heure de début requise",
+      "END_TIME_INVALID": "Heure de fin invalide",
+      "END_TIME_REQUIRED": "Heure de fin requise",
+      "PRICE_TYPE": "Le prix doit être un nombre",
+      "PRICE_REQUIRED": "Le prix est requis",
+      "STATUS_REQUIRED": "Le statut est requis"
+    },
+    "CLOSE": {
+      "TITLE": "Clôturer la maintenance",
+      "DESC": "  Voulez vous vraiment terminer la maintenance de cette voiture {{carsName}} ? Elle est censée se clôturer le {{endDate}}"
     }
   },
   "DRAG_DROP": {
     "TITLE": "Glissez-déposez des fichiers ici, ou cliquez pour sélectionner",
-    "DESC": "Formats acceptés : .png, .jpg jusqu'à {{max_size}}MB",
+
+    "DESC": "Formati accettati: .png, .jpg fino a {{max_size}}MB",
     "ERROR": {
       "MAX_FILES": "Vous ne pouvez pas télécharger plus de {{max_files}} fichiers.",
       "MAX_SIZES": "Certains fichiers dépassent la taille maximale de {{max_sizes}} MB.",

@@ -32,7 +32,7 @@ const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => 
         message: values.message,
       }
       setIsLoading(true)
-      const promise = axios.post(`api/send-email`, emailDto, {
+      const promise = axios.post(`/api/send-email`, emailDto, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -41,14 +41,14 @@ const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => 
         asPromise: {
           promise,
           config: {
-            loading: { title: 'Envoi en cours...', description: 'Veuillez Patientez' },
+            loading: { title: t('SEND.PROGRESS'), description: t('COMMON.LOADING_TEXT') },
             success: {
-              title: 'Message envoye avec success!',
-              description: 'Votre idee a bien été envoyée',
+              title: t('SEND.EMAIL.SUCCESS'),
+              description: t('SEND.DESC_SUCCESS'),
             },
             error: {
-              title: "Erreur d'envoi",
-              description: "Une erreur est survenue lors de l'envoi de votre message",
+              title: t('SEND.ERROR_TITLE'),
+              description: t('SEND.ERROR_DESC'),
             },
             loader: () => {
               setIsLoading(false)
@@ -71,18 +71,18 @@ const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => 
         <ModalComponent
           open={isOpen}
           onChange={() => onChange(!isOpen)}
-          title={t('THINK_BOX.TITLE')}
+          title={'THINK_BOX.TITLE'}
           icon={<FcIdea size={18} />}
           iconBackgroundColor={hexToRGB('orange', 0.3)}
           ignoreFooter={false}
           isLoading={isLoading}
-          buttonSaveTitle={t('COMMON.SEND')}
+          buttonSaveTitle={'COMMON.SEND'}
           colorSaveButton={'success'}
           onClick={handleSubmit}
         >
           <VStack gap={4}>
-            <FormTextInput name="subject" label={t('THINK_BOX.FORM_TITLE')} placeholder={t('THINK_BOX.FORM_TITLE')} />
-            <FormTextArea name="message" label={t('THINK_BOX.MESSAGE')} placeholder={t('THINK_BOX.MESSAGE')} onChangeFunction={(e: any) => setFieldValue('message', e?.target.value)} />
+            <FormTextInput name="subject" label={'THINK_BOX.FORM_TITLE'} placeholder={'THINK_BOX.FORM_TITLE'} />
+            <FormTextArea name="message" label={'THINK_BOX.MESSAGE'} placeholder={'THINK_BOX.MESSAGE'} onChangeFunction={(e: any) => setFieldValue('message', e?.target.value)} />
           </VStack>
         </ModalComponent>
       )}

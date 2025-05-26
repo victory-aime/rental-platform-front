@@ -16,8 +16,8 @@ import { useTranslation } from 'react-i18next'
 export const FormDatePicker = ({ name, label, mode, placeholder = '', isReadOnly, isDisabled, required }: FormDatePickerFieldProps) => {
   const id = useId()
   const { t } = useTranslation()
-  const [field, meta, helpers] = useField(name)
-  const isError = isReadOnly ? !!meta.error : !!(meta.touched && meta.error)
+  const [field, { touched, error }, helpers] = useField(name)
+  const isError = isReadOnly ? Boolean(error) : !!(touched && Boolean(error))
   const [open, setOpen] = useState(false)
 
   const handleChange = (value: Date | DateRange | Date[] | undefined) => {
@@ -130,7 +130,7 @@ export const FormDatePicker = ({ name, label, mode, placeholder = '', isReadOnly
       {isError && (
         <Flex gap={1} mt={1} alignItems={'center'}>
           <Field.ErrorIcon width={4} height={4} color={'red.500'} />
-          <Field.ErrorText>{meta?.error}</Field.ErrorText>
+          <Field.ErrorText>{typeof error === 'string' ? error : typeof error === 'object' ? Object.values(error).join(' | ') : null}</Field.ErrorText>
         </Flex>
       )}
     </Field.Root>

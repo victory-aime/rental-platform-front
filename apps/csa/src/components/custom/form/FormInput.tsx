@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useField } from 'formik'
+import { useField, useFormikContext } from 'formik'
 import { Input, Text, Field, Flex } from '@chakra-ui/react'
 import { TextInputProps } from './interface/input'
 import { InputGroup } from '_components/ui/input-group'
@@ -25,10 +25,7 @@ const FormTextInput = ({
   height,
   validate,
   onChangeFunction,
-  useFullAmountMask,
   toolTipInfo,
-  onBlur,
-  ...rest
 }: TextInputProps) => {
   const { t } = useTranslation()
   const fieldHookConfig = {
@@ -36,7 +33,7 @@ const FormTextInput = ({
     validate,
   }
   const [field, { touched, error }] = useField(fieldHookConfig)
-  const isError = isReadOnly ? !!error : !!(touched && error)
+  const isError = isReadOnly ? Boolean(error) : !!(touched && Boolean(error))
   const isPassword = type === 'password'
   const [secureTextEntry, setSecureTextEntry] = useState(isPassword)
 
@@ -86,14 +83,12 @@ const FormTextInput = ({
         }
       >
         <Input
-          {...rest}
           {...field}
           type={isPassword ? (secureTextEntry ? 'password' : 'text') : type}
           onBlur={(e) => {
             field?.onBlur(e)
-            onBlur?.(e)
           }}
-          value={field?.value}
+          value={field?.value ?? ''}
           placeholder={t(placeholder)}
           borderRadius={customRadius ?? '7px'}
           border={'1px solid'}

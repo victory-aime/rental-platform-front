@@ -12,7 +12,8 @@ import { generateTimeOptions } from './utils/gerenateTime'
 export const FormTimePicker = ({ name, label, required = false, toolTipInfo, isDisabled = false, variant = 'subtle', placeholder = 'Select an option', localErrorMsg }: TimeInputProps) => {
   const { t, i18n } = useTranslation()
   const [field, { touched, error }] = useField(name)
-  const isError = touched && !!error
+  const isError = error ? Boolean(error) : !!(touched && Boolean(error))
+
   const timeOptions = generateTimeOptions(i18n.language)
 
   return (

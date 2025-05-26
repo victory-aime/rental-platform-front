@@ -11,7 +11,8 @@ export const FormSwitch: FC<SwitchProps> = ({ name, validate, label = '' }) => {
     validate,
   }
   const [field, { touched, error }, helpers] = useField(fieldHookConfig)
-  const isError = !!(touched && error)
+  const isError = error ? Boolean(error) : !!(touched && Boolean(error))
+
   const { setValue } = helpers
 
   const handleCheckedChange = (details: { checked: boolean }) => {

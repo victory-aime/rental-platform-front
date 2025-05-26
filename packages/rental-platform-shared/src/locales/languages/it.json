@@ -1,0 +1,196 @@
+{
+  "SIDE_BAR": {
+    "DASHBOARD": "Cruscotto",
+    "MANAGE_CARS": "Gestione veicoli",
+    "MANAGE_PARCS": "I miei parchi",
+    "MAINTENANCE": "Manutenzione",
+    "AGENDA": "La mia agenda"
+  },
+  "WELCOME": "Buongiorno {{username}}",
+  "LOGOUT_MESSAGE": "Disconnessione avvenuta con successo. Grazie per aver utilizzato il nostro servizio. Per riconnetterti, clicca sul pulsante qui sotto.",
+  "SESSION_EXPIRE": "Sessione scaduta",
+  "SESSION_MESSAGE": "La tua sessione è scaduta. Effettua nuovamente l'accesso per continuare.",
+  "HELP_MESSAGE": "Per migliorare la tua esperienza, ti invitiamo a condividere suggerimenti e commenti. Siamo ansiosi di ascoltarti e lavorare insieme per rendere la nostra applicazione ancora migliore! Premi questo pulsante per inviarci i tuoi suggerimenti.",
+  "IDEA_TEXT": "Ho un'idea",
+  "INFO_GEN_TITLE": "Informazioni generali",
+  "PRICE_INFO": "Tariffe e disponibilità",
+  "SELECT_LANGUAGES": "Scegli la tua lingua",
+  "SELECT_LANGUAGES_DESC": "Seleziona la lingua dell'applicazione",
+  "STATUS": "Stato",
+  "THINK_BOX": {
+    "TITLE": "Scatola delle idee",
+    "FORM_TITLE": "Il tuo argomento",
+    "MESSAGE": "Il tuo messaggio"
+  },
+  "SEND": {
+    "DESC_SUCCESS": "Il tuo messaggio è stato inviato con successo. Grazie per il tuo contributo, ti risponderemo al più presto.",
+    "ERROR_DESC": "Si è verificato un errore durante l'invio del tuo messaggio. Riprova più tardi.",
+    "SUCCESS_TITLE": "Messaggio inviato",
+    "ERROR_TITLE": "Errore di invio",
+    "PROGRESS": "Invio in corso..."
+  },
+  "COMMON": {
+    "FRENCH": "Francese",
+    "ENGLISH": "Inglese",
+    "LOGIN": "Accedi",
+    "LOGOUT": "Disconnetti",
+    "LOADING_TEXT": "Attendere",
+    "SEND": "Invia",
+    "CANCEL": "Annulla",
+    "VALIDATE": "Convalida",
+    "EDIT": "Modifica",
+    "DETAIL": "Vedi dettagli",
+    "DELETE": "Elimina",
+    "REFRESH": "Aggiorna dati",
+    "FILTER": "Filtra",
+    "REMISE": "Applicare uno sconto?",
+    "CLEAR": "Cancella",
+    "SEARCH": "Cerca",
+    "NO_SELECT_OPTIONS": "Nessuna opzione trovata",
+    "SELECT_OPTIONS": "Seleziona un'opzione",
+    "CONFIRM_TEXT": "Per confermare, digita <<{{value}}>> nel campo sottostante.",
+    "WARNING": {
+      "TITLE": "Attenzione",
+      "DESC": "Questa azione è irreversibile. Una volta eliminato, questo elemento non potrà essere recuperato. Sei sicuro di voler continuare?"
+    },
+    "STATUS": {
+      "ACTIVE": "Attivo",
+      "PENDING": "In attesa",
+      "CANCELED": "Annullato",
+      "EXPIRED": "Scaduto"
+    },
+    "TODAY": "Oggi",
+    "MONTH": "Mese",
+    "YEAR": "Anno",
+    "DAY": "Giorno",
+    "WEEK": "Settimana",
+    "LEGEND": {
+      "RESERVATIONS": "Nuova prenotazione",
+      "MAINTENANCE": "Manutenzione programmata",
+      "CANCELED": "Prenotazione annullata",
+      "UNAVAILABLE": "Veicolo non disponibile"
+    },
+    "NO_DATA": "Nessun dato disponibile",
+    "PAGE_NOT_FOUND": "Pagina non trovata",
+    "PAGE_NOT_FOUND_DESC": "La pagina cercata non esiste o è stata cancellata. Controllare l'URL o tornare alla pagina iniziale",
+    "BACK_TO_HOME": "Tornare alla pagina iniziale"
+  },
+  "VEHICLE_STATUS": {
+    "AVAILABLE": "Disponibile",
+    "MAINTENANCE": "Manutenzione",
+    "UNAVAILABLE": "Non disponibile"
+  },
+  "FUEL": {
+    "GASOLINE": "Benzina",
+    "DIESEL": "Diesel",
+    "ELECTRIC": "Elettrico",
+    "HYBRID": "Ibrido"
+  },
+  "TRANSMISSION": {
+    "MANUAL": "Manuale",
+    "AUTOMATIC": "Automatica"
+  },
+  "CARS": {
+    "TITLE": "Veicolo",
+    "LIST_DESC": "Qui puoi trovare tutti i tuoi veicoli registrati. Mantieni una visione chiara, gestisci la loro disponibilità in tempo reale e ottimizza le prestazioni aggiornando regolarmente le schede più consultate.",
+    "ADD_CARS": "Aggiungi un veicolo",
+    "EDIT_CARS": "Modifica un veicolo",
+    "EDIT_DESC": "Aggiorna le informazioni del tuo veicolo per garantire dati affidabili e attraenti. Una scheda ben curata riflette la tua serietà e aumenta le possibilità di prenotazione.",
+    "ADD_DESC": "Valorizza il tuo veicolo inserendo le sue caratteristiche principali. Più la scheda è completa e precisa, più ispira fiducia e attira clienti. Inizia ora a potenziare la tua visibilità.",
+    "FORMS": {
+      "NAME": "Nome",
+      "BRAND": "Marca",
+      "MODELS": "Modello",
+      "PLATE_NUMBER": "Numero di targa",
+      "FUEL": "Tipo di carburante",
+      "TRANSMISSION": "Trasmissione",
+      "DOORS": "Numero di porte",
+      "SEATS": "Numero di posti",
+      "DAILY_PRICE": "Prezzo giornaliero",
+      "DISCOUNT_VALUE": "Valore dello sconto",
+      "DISCOUNT": "Prezzo scontato",
+      "PARKING": "Indirizzo di parcheggio",
+      "CATEGORY": "Categoria",
+      "STATUS": "Stato",
+      "EQUIPMENTS": "Equipaggiamenti",
+      "IMAGE": "Immagini",
+      "INFO": {
+        "TITLE": "Le informazioni generali inserite qui sono essenziali per attirare l'attenzione dei futuri clienti. Dettagliando modello, marca, tipo di carburante e trasmissione, aumenti la fiducia e faciliti la decisione. Una scheda ben compilata offre maggiore visibilità, più clic e più prenotazioni.",
+        "DISCOUNT_VALUE": "Indica lo sconto applicato (%)",
+        "DISCOUNT": "Prezzo dopo lo sconto",
+        "EQUIPMENTS": "Seleziona gli equipaggiamenti disponibili per questo veicolo",
+        "IMAGES": "Aggiungi immagini del veicolo",
+        "PRICE": "Un prezzo chiaro e competitivo attira più prenotazioni. Indica il prezzo giornaliero per valorizzare il tuo veicolo mantenendo l'attrattiva.",
+        "STATUS": "La disponibilità del veicolo è essenziale per la decisione dei clienti. Assicurati che sia sempre aggiornata per evitare confusione o prenotazioni mancate."
+      }
+    }
+  },
+  "PARC": {
+    "TOTAL_CARS": "Totale veicoli",
+    "ADD_TITLE": "Aggiungi un parco",
+    "EDIT_TITLE": "Modifica un parco",
+    "DELETE_TITLE": "Elimina un parco",
+    "DESC": "La gestione dei parcheggi consiste nell'organizzare, controllare e ottimizzare l'uso degli spazi di sosta per garantire un flusso fluido dei veicoli e un uso efficiente dello spazio disponibile.",
+    "CONSENT_TITLE": "Sì! Voglio eliminare questo parco",
+    "FORMS": {
+      "NAME": "Nome del parco",
+      "ADDRESS": "Posizione"
+    }
+  },
+  "MAINTENANCE": {
+    "TITLE": "Titolo",
+    "ADD": "Pianifica una manutenzione",
+    "EDIT": "Modifica la manutenzione",
+    "DESC": "La manutenzione nella gestione automobilistica comprende le azioni volte a garantire la sicurezza, l'affidabilità e le prestazioni dei veicoli, che si tratti di riparazioni, controlli preventivi o miglioramenti.",
+    "STATUS": {
+      "PLANNED": "Pianificata",
+      "IN_PROGRESS": "In corso",
+      "COMPLETED": "Completata",
+      "CANCELED": "Annullata"
+    },
+    "STATE": "Stato",
+    "PLANNED": "Date previste",
+    "FORMS": {
+      "TITLE": "Seleziona il titolo",
+      "CAR": "Seleziona il veicolo",
+      "DATES": "Pianifica le date",
+      "COST": "Costo",
+      "DESC": "Descrizione",
+      "START_TIME": "Ora di inizio",
+      "END_TIME": "Ora di fine"
+    },
+    "VALIDATION": {
+      "TITLE_REQUIRED": "Il titolo è obbligatorio",
+      "CAR_REQUIRED": "Il veicolo è obbligatorio",
+      "DATE_FROM_REQUIRED": "La data di inizio è obbligatoria",
+      "DATE_TO_REQUIRED": "La data di fine è obbligatoria",
+      "DATES_REQUIRED": "Le date sono obbligatorie",
+      "START_TIME_INVALID": "Ora di inizio non valida",
+      "START_TIME_REQUIRED": "Ora di inizio obbligatoria",
+      "END_TIME_INVALID": "Ora di fine non valida",
+      "END_TIME_REQUIRED": "Ora di fine obbligatoria",
+      "PRICE_TYPE": "Il prezzo deve essere un numero",
+      "PRICE_REQUIRED": "Il prezzo è obbligatorio",
+      "STATUS_REQUIRED": "Lo stato è obbligatorio"
+    },
+    "CLOSE": {
+      "TITLE": "Chiudere la manutenzione",
+      "DESC": "Vuoi davvero terminare la manutenzione di questo veicolo {{carsName}}? È prevista per la chiusura il {{endDate}}"
+    }
+  },
+  "DRAG_DROP": {
+    "TITLE": "Trascina e rilascia i file qui, o clicca per selezionare",
+
+    "ERROR": {
+      "MAX_FILES": "Non è possibile scaricare più di {{max_files}} file.",
+      "MAX_SIZES": "Alcuni file superano la dimensione massima di {{max_sizes}} MB. MB.",
+      "TIPO_FILE": "Alcuni file hanno un formato non supportato. Formati accettati: {{tipo_file}}",
+      "MAX_FILES_TITLE": "Troppi file",
+      "MAX_SIZES_TITLE": "File troppo grandi",
+      "TYPE_FILES_TITLE": "Formato non supportato"
+    }
+  },
+  "PROFILE": {
+    "PREFERRED_LANGUAGE": "Lingua aggiornata correttamente"
+  }
+}

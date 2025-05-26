@@ -1,5 +1,5 @@
 import { Flex, For, VStack } from '@chakra-ui/react'
-import { BaseText, CustomToast, ModalComponent, ModalOpenProps } from '_components/custom'
+import { BaseText, CustomToast, ModalComponent, ModalOpenProps, ToastStatus } from '_components/custom'
 import React, { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
@@ -29,7 +29,7 @@ export const SelectLanguages: FC<ModalOpenProps> = ({ onChange, isOpen }) => {
         CustomToast({ description: t('PROFILE.PREFERRED_LANGUAGE') })
         onChange?.(!isOpen)
       } catch (error) {
-        CustomToast({ description: t('PROFILE.ERROR_LANGUAGE'), type: 'error' })
+        CustomToast({ description: t('PROFILE.ERROR_LANGUAGE'), type: ToastStatus.ERROR })
       } finally {
         setFallbackLoad(false)
         setLoading(false)

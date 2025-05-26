@@ -2,7 +2,7 @@ import { DialogRootProps } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 import { variantColorType } from '_components/custom'
 
-export interface ModalProps extends DialogRootProps {
+interface ModalProps extends DialogRootProps {
   title?: string | undefined
   isOpen?: boolean | undefined
   onChange?: (value: any) => void
@@ -21,7 +21,7 @@ export interface ModalProps extends DialogRootProps {
   ref?: React.Ref<HTMLDivElement> | undefined
 }
 
-export interface ModalOpenProps {
+interface ModalOpenProps {
   onChange: (value: any) => void
   callback?: (value?: any) => void
   isOpen: boolean | undefined
@@ -29,3 +29,11 @@ export interface ModalOpenProps {
   data?: any
   isSuccess?: boolean
 }
+
+interface DeleteModalActions extends ModalOpenProps {
+  title: string
+  children: React.ReactNode
+  ignoreFooter?: boolean
+}
+
+export type { DeleteModalActions, ModalProps, ModalOpenProps }

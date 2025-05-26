@@ -1,1 +1,1 @@
-export const listLanguages = ['fr', 'en']
+export const listLanguages = ['fr', 'en', 'it']

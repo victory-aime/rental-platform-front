@@ -22,6 +22,13 @@
     "FORM_TITLE": "Your Topic",
     "MESSAGE": "Your Message"
   },
+  "SEND": {
+    "DESC_SUCCESS": "Your message has been sent successfully. We thank you for your contribution and will reply as soon as possible.",
+    "ERROR_DESC": "An error has occurred while sending your message. Please try again later.",
+    "SUCCESS_TITLE": "Message sent",
+    "ERROR_TITLE": "Sending error",
+    "PROGRESS": "Sending in progress..."
+  },
   "COMMON": {
     "FRENCH": "French",
     "ENGLISH": "English",
@@ -40,6 +47,7 @@
     "CLEAR": "Clear",
     "SEARCH": "Search",
     "NO_SELECT_OPTIONS": "No options found",
+    "SELECT_OPTIONS": "Select an option",
     "CONFIRM_TEXT": "To confirm, type <<{{value}}>> in the box below.",
     "WARNING": {
       "TITLE": "Caution",
@@ -50,7 +58,25 @@
       "PENDING": "Pending",
       "CANCELED": "Canceled",
       "EXPIRED": "Expired"
-    }
+    },
+
+    "TODAY": "Today",
+    "MONTH": "Month",
+    "YEAR": "Year",
+    "DAY": "Day",
+    "WEEK": "Week",
+    "LEGEND": {
+      "RESERVATIONS": "New reservation",
+      "MAINTENANCE": "Scheduled maintenance",
+      "CANCELED": "Cancelled reservation",
+      "UNAVAILABLE": "Vehicle unavailable"
+    },
+
+    "NO_DATA": "No data available",
+
+    "PAGE_NOT_FOUND": "Page not found",
+    "PAGE_NOT_FOUND_DESC": "The page you are looking for does not exist or has been deleted. Please check the URL or return to the home page.",
+    "BACK_TO_HOME": "Return to home"
   },
   "VEHICLE_STATUS": {
     "AVAILABLE": "Available",
@@ -126,6 +152,26 @@
       "COMPLETED": "Completed",
       "CANCELED": "Cancel"
     },
+
+    "VALIDATION": {
+      "TITLE_REQUIRED": "Title required",
+      "CAR_REQUIRED": "Car required",
+      "DATE_FROM_REQUIRED": "Start date required",
+      "DATE_TO_REQUIRED": "End date required",
+      "DATES_REQUIRED": "Dates required",
+      "START_TIME_INVALID": "Start time invalid",
+      "START_TIME_REQUIRED": "Start time required",
+      "END_TIME_INVALID": "End time invalid",
+      "END_TIME_REQUIRED": "End time required",
+      "PRICE_TYPE": "Price must be a number",
+      "PRICE_REQUIRED": "Price is required",
+      "STATUS_REQUIRED": "Status is required"
+    },
+    "CLOSE": {
+      "TITLE": "Complete maintenance",
+      "DESC": "Do you really want to complete maintenance on this car {{carsName}}? It's supposed to close on {{endDate}}"
+    },
+
     "STATE": "Status",
     "PLANNED": "Scheduled dates",
     "FORMS": {

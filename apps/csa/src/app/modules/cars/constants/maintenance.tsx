@@ -1,5 +1,4 @@
 import { createListCollection } from '@chakra-ui/react'
-import { BaseText } from '_components/custom'
 import { TYPES } from 'rental-platform-shared'
 
 const typeList = (list: { label: string; value: string }[] = []) => {

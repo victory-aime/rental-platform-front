@@ -17,8 +17,10 @@ import { useColorMode } from '_components/ui/color-mode'
 import { BaseAgendaProps } from './interface/agenda'
 import { UTILS } from 'rental-platform-shared'
 import { IoIosClose } from 'react-icons/io'
+import { useTranslation } from 'react-i18next'
 
 export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick, onDateSelect, showLegend = true }: BaseAgendaProps) => {
+  const { t } = useTranslation()
   const { colorMode } = useColorMode()
   const [currentTitle, setCurrentTitle] = useState('')
   const [value, setValue] = useState<string | null>(initialView)
@@ -40,28 +42,28 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
     if (!api) return
 
     const currentView = api.view.type
-    if (currentView === 'dayGridMonth') return // on ne fait rien si c'est la vue mois
+    if (currentView === 'dayGridMonth') return
 
-    api.gotoDate(arg.date) // se positionne sur la date
-    api.changeView('timeGridDay') // change la vue
-    setValue('timeGridDay') // met à jour le state pour garder le segment synchronisé
+    api.gotoDate(arg.date)
+    api.changeView('timeGridDay')
+    setValue('timeGridDay')
   }
 
   useEffect(() => {
     const headers = document.querySelectorAll('.fc-multimonth .fc-col-header-cell-cushion')
-    const jours = ['L', 'M', 'M', 'J', 'V', 'S', 'D'] // ou ['L', 'M', 'M', 'J', 'V', 'S', 'D'] selon ton besoin
+    const jours = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
 
     headers.forEach((el, idx) => {
       ;(el as HTMLElement).setAttribute('data-letter', jours[idx % 7])
     })
-  }, [value]) // ou déclenche aussi dans `datesSet` ou après le rendu de la vue
+  }, [value])
 
   const renderButtonsValue = [
     {
       value: 'dayGridMonth',
       label: (
         <HStack>
-          <LuTable /> Mois
+          <LuTable /> {t('COMMON.MONTH')}
         </HStack>
       ),
     },
@@ -69,7 +71,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
       value: 'timeGridWeek',
       label: (
         <HStack>
-          <LuGrid2X2 /> Semaine
+          <LuGrid2X2 /> {t('COMMON.WEEK')}
         </HStack>
       ),
     },
@@ -77,7 +79,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
       value: 'timeGridDay',
       label: (
         <HStack>
-          <LuList /> Jour
+          <LuList /> {t('COMMON.DAY')}
         </HStack>
       ),
     },
@@ -85,7 +87,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
       value: 'multiMonthYear',
       label: (
         <HStack>
-          <LuGrid2X2 /> Grille de mois
+          <LuGrid2X2 /> {t('COMMON.YEAR')}
         </HStack>
       ),
     },
@@ -128,7 +130,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
                 </Flex>
                 <HStack align="start">
                   <BaseText fontSize="sm">
-                    Début : {UTILS.formatDisplayDate(eventInfo.event.start)} ~ {UTILS.formatDisplayDate(eventInfo.event.end)}{' '}
+                    {UTILS.formatDisplayDate(eventInfo.event.start)} ~ {UTILS.formatDisplayDate(eventInfo.event.end)}
                   </BaseText>
                 </HStack>
               </VStack>
@@ -154,7 +156,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
               color={colorMode === 'dark' ? 'white' : 'black'}
               _hover={{ backgroundColor: colorMode === 'dark' ? 'gray.800' : 'gray.50' }}
             >
-              Aujourd'hui
+              {t('COMMON.TODAY')}
             </BaseButton>
             <Flex gap={3}>
               <BoxIcon
@@ -198,17 +200,17 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
 
         {showLegend && (
           <HStack gap={8}>
-            <Status value={'info'} size={'lg'}>
-              New Reservations
+            <Status value={'success'} size={'lg'}>
+              {t('COMMON.LEGEND.RESERVATIONS')}
             </Status>
             <Status value={'warning'} size={'lg'}>
-              Maintenance
+              {t('COMMON.LEGEND.MAINTENANCE')}
             </Status>
             <Status value={'error'} size={'lg'}>
-              Car unavailable
+              {t('COMMON.LEGEND.CANCELED')}
             </Status>
-            <Status value={'success'} size={'lg'}>
-              Reservation success
+            <Status value={'info'} size={'lg'}>
+              {t('COMMON.LEGEND.UNAVAILABLE')}
             </Status>
           </HStack>
         )}

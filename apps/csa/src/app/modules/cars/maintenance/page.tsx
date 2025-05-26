@@ -16,15 +16,13 @@ const MaintenancePage = () => {
   const [selectedItem, setSelectedItem] = useState<{ id: string } | null>({
     id: '',
   })
-
-  const currentUser = CommonModule.UserModule.UserCache.getUser()
-  const carsIncache = CarsModule.CarsCache.getCars()
+  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
   const { data: cars } = CarsModule.getAllCarsQueries({
     payload: {
       establishment: currentUser?.establishment?.id ?? '',
     },
     queryOptions: {
-      enabled: !carsIncache?.length && !!currentUser?.establishment?.id,
+      enabled: !!currentUser?.establishment?.id,
     },
   })
 

@@ -14,7 +14,7 @@ const FormSelect: FC<FullSelectProps> = ({
   name,
   required,
   isMultiSelect = false,
-  placeholder = 'Select an option',
+  placeholder = 'SELECT_OPTIONS',
   localErrorMsg,
   width = 'full',
   variant = 'subtle',
@@ -34,11 +34,13 @@ const FormSelect: FC<FullSelectProps> = ({
     validate,
   }
   const [field, { touched, error }] = useField(fieldHookConfig)
-  const isError = !!(touched && error)
+  const isError = error ? !!error : !!(touched && error)
 
   const extractSingleValue = (value: any) => {
     return Array?.isArray(value) ? value[0] : value
   }
+
+  console.log('FormSelect', isError)
 
   return (
     <Field.Root id={name} invalid={isError} disabled={isDisabled} width={'full'}>
@@ -50,8 +52,9 @@ const FormSelect: FC<FullSelectProps> = ({
         lazyMount
         unmountOnExit
         onValueChange={(item: any) => {
-          setFieldValue(name, item?.value)
-          onChangeFunc?.(item?.value)
+          const newValue = isMultiSelect ? item?.map((i: any) => i.value) : item?.value
+          setFieldValue(name, newValue)
+          onChangeFunc?.(newValue)
         }}
         multiple={isMultiSelect}
         onBlur={(e) => {

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { FaCheck } from 'react-icons/fa'
 
 export const SignOut = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
 
   const redirectToKeycloak = () => {

@@ -80,7 +80,7 @@ export const DataTableContainer: FC<TableProps> = ({
             </Flex>
             <Flex flexDir={'column'} alignItems={'center'} gap={2}>
               <BaseText variant={TextVariant.M} color={'gray.700'}>
-                {t('COMMON.NO_DATA_FOUND')}
+                {t('COMMON.NO_DATA')}
               </BaseText>
             </Flex>
           </Center>

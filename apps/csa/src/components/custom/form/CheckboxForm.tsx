@@ -8,7 +8,7 @@ import { NoDataFound } from '../no-data-found'
 const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items, itemsPerRow }) => {
   const fieldHookConfig = { name, validate }
   const [field, { touched, error }, helpers] = useField(fieldHookConfig)
-  const isError = !!(touched && error)
+  const isError = error ? !!error : !!(touched && error)
   const { setValue } = helpers
 
   return (
