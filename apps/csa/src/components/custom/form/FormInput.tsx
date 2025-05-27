@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useField, useFormikContext } from 'formik'
+import { useField } from 'formik'
 import { Input, Text, Field, Flex } from '@chakra-ui/react'
 import { TextInputProps } from './interface/input'
 import { InputGroup } from '_components/ui/input-group'
@@ -40,7 +40,7 @@ const FormTextInput = ({
   return (
     <Field.Root id={name} invalid={isError}>
       {label && (
-        <Field.Label display={'flex'} gap={'6px'} fontSize={{ base: '14px', md: '16px' }}>
+        <Field.Label display={'flex'} gap={'6px'} fontSize={'12px'}>
           {t(label)}
           {required && <Text color={'red'}> * </Text>}
         </Field.Label>
@@ -51,12 +51,12 @@ const FormTextInput = ({
         width={'full'}
         startElement={
           isPassword ? (
-            <Flex mt={'5px'} pl={'10px'} alignItems={'center'} justifyContent={'center'}>
+            <Flex alignItems={'flex-start'} justifyContent={'flex-start'}>
               <TbLockBitcoin />
             </Flex>
           ) : (
             leftAccessory && (
-              <Flex mt={'5px'} pr={'10px'} boxSize={'30px'} alignItems={'center'} justifyContent={'center'}>
+              <Flex alignItems={'flex-start'} justifyContent={'flex-start'}>
                 {leftAccessory}
               </Flex>
             )
@@ -64,7 +64,7 @@ const FormTextInput = ({
         }
         endElement={
           isPassword ? (
-            <Flex mt={'5px'} pr={'10px'} alignItems={'center'} justifyContent={'center'} onClick={() => setSecureTextEntry(!secureTextEntry)}>
+            <Flex alignItems={'center'} justifyContent={'center'} onClick={() => setSecureTextEntry(!secureTextEntry)}>
               {secureTextEntry ? <RiEyeOffLine size={18} /> : <RiEyeLine size={18} />}
             </Flex>
           ) : toolTipInfo ? (
@@ -75,7 +75,7 @@ const FormTextInput = ({
             </>
           ) : (
             rightAccessory && (
-              <Flex mt={'5px'} pr={'10px'} boxSize={'30px'} alignItems={'center'} justifyContent={'center'}>
+              <Flex alignItems={'flex-end'} justifyContent={'flex-end'}>
                 {rightAccessory}
               </Flex>
             )
@@ -96,14 +96,12 @@ const FormTextInput = ({
           _focus={{ borderColor: 'primary.500' }}
           _placeholder={{ color: isError ? 'red.500' : 'gray.400' }}
           size={'lg'}
-          pl={3}
-          mt={'5px'}
           variant={'outline'}
           bg={'bg.muted'}
           readOnly={isReadOnly}
           disabled={isDisabled}
-          fontSize={'16px'}
-          height={height ?? '50px'}
+          fontSize={{ base: '16px', md: '12px' }}
+          height={height ?? '45px'}
           autoCapitalize="none"
           accept={accept}
         />

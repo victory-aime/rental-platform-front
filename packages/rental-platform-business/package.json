@@ -1,6 +1,6 @@
 {
   "name": "rental-platform-business",
-  "version": "1.1.0-alpha.0",
+  "version": "1.2.1-alpha.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -33,8 +33,8 @@
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.2",
-    "rental-platform-shared": "^1.1.0-alpha.0",
-    "rental-platform-state": "^1.1.0-alpha.0",
+    "rental-platform-shared": "^1.2.1-alpha.0",
+    "rental-platform-state": "^1.2.1-alpha.0",
     "rimraf": "^5.0.0",
     "rollup": "^4.0.0",
     "rollup-plugin-dts": "^6.1.0",

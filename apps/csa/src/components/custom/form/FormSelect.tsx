@@ -14,7 +14,7 @@ const FormSelect: FC<FullSelectProps> = ({
   name,
   required,
   isMultiSelect = false,
-  placeholder = 'SELECT_OPTIONS',
+  placeholder = 'COMMON.SELECT_OPTIONS',
   localErrorMsg,
   width = 'full',
   variant = 'subtle',
@@ -39,8 +39,6 @@ const FormSelect: FC<FullSelectProps> = ({
   const extractSingleValue = (value: any) => {
     return Array?.isArray(value) ? value[0] : value
   }
-
-  console.log('FormSelect', isError)
 
   return (
     <Field.Root id={name} invalid={isError} disabled={isDisabled} width={'full'}>
@@ -85,14 +83,14 @@ const FormSelect: FC<FullSelectProps> = ({
               })
             )
           ) : (
-            <SelectValueText placeholder={t(placeholder)} />
+            <SelectValueText placeholder={t(placeholder)} fontSize={{ base: '16px', md: '12px' }} />
           )}
         </SelectTrigger>
 
         <SelectContent borderRadius={7} p={3} portalRef={ref}>
           {listItems?.items?.length ? (
             listItems?.items?.map((item: { id: string; label: string; value: string }) => (
-              <SelectItem _highlighted={{ color: 'primary.500' }} py={1} item={item.value} key={item.value}>
+              <SelectItem _highlighted={{ color: 'primary.500' }} py={1} item={item.value} key={item.value} fontSize={{ base: '16px', md: '12px' }}>
                 {item.label}
               </SelectItem>
             ))

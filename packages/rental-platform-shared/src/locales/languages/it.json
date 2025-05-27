@@ -4,7 +4,12 @@
     "MANAGE_CARS": "Gestione veicoli",
     "MANAGE_PARCS": "I miei parchi",
     "MAINTENANCE": "Manutenzione",
-    "AGENDA": "La mia agenda"
+    "AGENDA": "La mia agenda",
+
+    "SETTINGS": "Parametri",
+    "PROFILE": "Il mio profilo",
+    "PLAN": "La mia offerta",
+    "HELP": "Aiuto e supporto"
   },
   "WELCOME": "Buongiorno {{username}}",
   "LOGOUT_MESSAGE": "Disconnessione avvenuta con successo. Grazie per aver utilizzato il nostro servizio. Per riconnetterti, clicca sul pulsante qui sotto.",

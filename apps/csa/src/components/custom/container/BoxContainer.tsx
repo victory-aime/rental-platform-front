@@ -51,7 +51,7 @@ export const BoxContainer = ({
               ) : (
                 <BaseText variant={TextVariant.H3}>{t(title)}</BaseText>
               )}
-              <BaseText variant={TextVariant.M}>{t(description)}</BaseText>
+              <BaseText variant={TextVariant.S}>{t(description)}</BaseText>
             </>
           )}
         </Stack>

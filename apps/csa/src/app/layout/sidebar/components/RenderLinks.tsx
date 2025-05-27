@@ -14,7 +14,7 @@ export const RenderLinks: FC<IRenderLinks> = ({ sideToggled, links, onShowSideba
   const shouldApplySideToggled = useBreakpointValue({ base: false, md: true })
   const sidebarConditionInverse = useBreakpointValue({ base: false, lg: true })
 
-  const conditionsSubMenu = (link: any) => {
+  const conditionsSubMenu = (link: { subItems: { path: string; label: string }[]; menuKey: string }) => {
     if (link?.subItems && openedMenu === link.menuKey) {
       setOpenedMenu('')
     } else {

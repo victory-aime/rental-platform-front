@@ -1,13 +1,12 @@
 import React from 'react'
-import { DrawerActionTrigger, DrawerBackdrop, DrawerBody, DrawerFooter, DrawerContent, DrawerHeader, DrawerRoot, DrawerTitle } from '_components/ui/drawer'
-import { Box, IconButton, VStack } from '@chakra-ui/react'
+import { DrawerActionTrigger, DrawerBackdrop, DrawerBody, DrawerContent, DrawerHeader, DrawerRoot, DrawerTitle } from '_components/ui/drawer'
+import { IconButton, VStack } from '@chakra-ui/react'
 import { IoIosCloseCircle } from 'react-icons/io'
-import { SwitchColorMode, BaseButton } from '_components/custom'
 import { IMobileSidebar } from '../types'
 import { RenderLinks } from './RenderLinks'
 import { CommonModule } from 'rental-platform-state'
 
-export const MobileSidebar = ({ isOpen, onClose, handleLogout, links }: IMobileSidebar) => {
+export const MobileSidebar = ({ isOpen, onClose, links }: IMobileSidebar) => {
   const cachedUser = CommonModule.UserModule.UserCache.getUser()
 
   return (
@@ -29,7 +28,7 @@ export const MobileSidebar = ({ isOpen, onClose, handleLogout, links }: IMobileS
             <RenderLinks links={links} sideToggled={isOpen} onShowSidebar={onClose} />
           </VStack>
         </DrawerBody>
-        <DrawerFooter display={'flex'} flexDir={'column'} alignItems={'flex-start'} justifyContent={'flex-start'} width={'full'}>
+        {/* <DrawerFooter display={'flex'} flexDir={'column'} alignItems={'flex-start'} justifyContent={'flex-start'} width={'full'}>
           <Box mb={8}>
             <SwitchColorMode />
           </Box>
@@ -44,7 +43,7 @@ export const MobileSidebar = ({ isOpen, onClose, handleLogout, links }: IMobileS
           >
             Deconnexion
           </BaseButton>
-        </DrawerFooter>
+        </DrawerFooter> */}
       </DrawerContent>
     </DrawerRoot>
   )

@@ -3,6 +3,8 @@ import { ILink } from '../types'
 import { MODULES_HOTEL_ROUTES, MODULES_CARS_ROUTES } from '_modules/routes'
 import { GiAutoRepair } from 'react-icons/gi'
 import { PiCalendarThin } from 'react-icons/pi'
+import { FaUserCog, FaCog } from 'react-icons/fa'
+import { MdLocalOffer } from 'react-icons/md'
 
 export const MENU_BY_ROLE: Record<string, ILink[]> = {
   HOTELIER: [
@@ -19,7 +21,7 @@ export const MENU_BY_ROLE: Record<string, ILink[]> = {
       icon: HomeIcon,
     },
     {
-      path: MODULES_CARS_ROUTES.MANAGE_CARS,
+      path: MODULES_CARS_ROUTES.MANAGE_CARS.LIST_CARS,
       label: 'SIDE_BAR.MANAGE_CARS',
       icon: CarsIcon,
     },
@@ -37,6 +39,24 @@ export const MENU_BY_ROLE: Record<string, ILink[]> = {
       path: MODULES_CARS_ROUTES.AGENDA,
       label: 'SIDE_BAR.AGENDA',
       icon: PiCalendarThin,
+    },
+    {
+      menuKey: 'settings',
+      path: '',
+      label: 'SIDE_BAR.SETTINGS',
+      icon: FaCog,
+      subItems: [
+        {
+          path: MODULES_CARS_ROUTES.SETTINGS.PROFILE,
+          label: 'SIDE_BAR.PROFILE',
+          icon: FaUserCog,
+        },
+        {
+          path: MODULES_CARS_ROUTES.SETTINGS.PLAN,
+          label: 'SIDE_BAR.PLAN',
+          icon: MdLocalOffer,
+        },
+      ],
     },
   ],
   ADMIN: [

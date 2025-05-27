@@ -111,7 +111,7 @@ export const FormColorPicker: FC<FormColorPickerProps> = ({ name, label, validat
                 </HStack>
                 <HStack width={'full'}>
                   <BaseButton p={0} leftIcon={<IoIosArrowDropleftCircle />} onClick={() => setView('swatch')} colorType={'none'} />
-                  <BaseButton width={'220px'} colorType={'success'} leftIcon={<IoSave />}>
+                  <BaseButton width={'220px'} colorType={'success'} leftIcon={<IoSave />} onClick={saveSwatch} disabled={!color}>
                     Enregistrer
                   </BaseButton>
                 </HStack>

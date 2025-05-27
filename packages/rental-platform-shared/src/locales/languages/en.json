@@ -4,7 +4,11 @@
     "MANAGE_CARS": "Vehicle Management",
     "MANAGE_PARCS": "My Parking",
     "MAINTENANCE": "Maintenance",
-    "AGENDA": "My Agenda"
+    "AGENDA": "My Agenda",
+    "SETTINGS": "Parameters",
+    "PROFILE": "My profile",
+    "PLAN": "My offer",
+    "HELP": "Help & Support"
   },
   "WELCOME": "Hello {{username}}",
   "LOGOUT_MESSAGE": "You have successfully logged out. Thank you for using our service. To log in again, please click the button below.",

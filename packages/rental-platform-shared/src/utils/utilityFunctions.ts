@@ -5,10 +5,13 @@ import imageCompression from 'browser-image-compression'
 dayjs.extend(customParseFormat)
 dayjs.locale('fr')
 
+export const YEAR_MONTH_DAY = 'yyyy-mm-dd'
+export const DAY_MONTH_YEAR = 'dd/mm/yyyy'
+export const MONTH_DAY_YEAR = 'mm/dd/yyyy'
 export const APP_DATE_PATTERN = 'DD MMM YYYY' // Default date pattern e.g: 12 Dec 2025
 export const COMMON_FORMAT_DATE = 'dd/MM/yyyy' // Application date format
 export const COMMON_FORMAT_DATE_HEADER = 'MMMM yyyy' // Common header calendar date display
-export const AMOUNT_DEFAULT_CURRENCY = '$' // Default currency (dollars)
+
 /**
  * Converts a date in a standard format (e.g., 'YYYY-MM-DD') to the application's specific format.
  * @param date - The date to convert

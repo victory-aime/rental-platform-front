@@ -1,10 +1,14 @@
-import { Flex, Spinner } from '@chakra-ui/react'
+import { Flex, Spinner, SpinnerProps } from '@chakra-ui/react'
 import React from 'react'
 
-export const Loader = ({ loader }: { loader: boolean }) => {
+interface Spni extends SpinnerProps {
+  loader: boolean
+}
+
+export const Loader = ({ loader, ...rest }: Spni) => {
   return (
     <Flex alignItems={'center'} justifyContent={'center'}>
-      {loader && <Spinner animationDuration="0.4s" size={'xl'} color={'primary.500'} borderWidth={'3px'} />}
+      {loader && <Spinner {...rest} animationDuration="0.4s" size={'xl'} color={'primary.500'} borderWidth={'3px'} />}
     </Flex>
   )
 }

@@ -2781,6 +2781,11 @@
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-1.20.2.tgz#97d26e00cd4a0423b4af620abecf3e6f442b7975"
   integrity sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==
 
+"@types/tinycolor2@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@types/tinycolor2/-/tinycolor2-1.4.6.tgz#670cbc0caf4e58dd61d1e3a6f26386e473087f06"
+  integrity sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==
+
 "@types/webpack@^5.28.5":
   version "5.28.5"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-5.28.5.tgz#0e9d9a15efa09bbda2cef41356ca4ac2031ea9a2"
@@ -8345,27 +8350,6 @@ regjsparser@^0.12.0:
   dependencies:
     jsesc "~3.0.2"
 
-rental-platform-business@^1.2.0-alpha.0:
-  version "1.2.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/rental-platform-business/-/rental-platform-business-1.2.0-alpha.0.tgz#79e5cb580c77598bda4e853fed4a26b700208c59"
-  integrity sha512-FZJ2fd/AzTXTq9asMsarTxCwlaUBcf89a9MsROUMh8usafaHJdBIjARJCutexiIkcDkM6/hfQXrS9LsONKoiEA==
-
-rental-platform-shared@^1.2.0-alpha.0:
-  version "1.2.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/rental-platform-shared/-/rental-platform-shared-1.2.0-alpha.0.tgz#a2c4277657d72aa8cd01865e601d00732aff805c"
-  integrity sha512-QEhMCaWuMrevZ07zHUDGmg8JLCaTzJWhasHypplyPdwOIxiDa8PiyJL/KxSqqLGN1wMEG68I/WwXoqwourJw2Q==
-  dependencies:
-    browser-image-compression "^2.0.2"
-    dayjs "^1.11.13"
-    yup "^1.6.1"
-
-rental-platform-state@^1.2.0-alpha.0:
-  version "1.2.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/rental-platform-state/-/rental-platform-state-1.2.0-alpha.0.tgz#fb8f6efa2d7d230422104daaba34238a00c77b05"
-  integrity sha512-OKywh77D0nrEKX3xwPhWnj/trK8LsPqbKFKI9jcO+ydJYBvsJbgry6eahmFtejLqbKFEg1px4S3oVUIa3diiHg==
-  dependencies:
-    axios "^1.6.2"
-
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
@@ -9207,6 +9191,11 @@ tiny-warning@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
+
+tinycolor2@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.6.0.tgz#f98007460169b0263b97072c5ae92484ce02d09e"
+  integrity sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==
 
 tinyglobby@^0.2.12:
   version "0.2.13"

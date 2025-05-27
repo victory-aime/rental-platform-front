@@ -34,13 +34,15 @@ export const ActiveMenu: FC<ActiveMenuProps> = ({ subLink, sideToggled, onShowSi
       <Box display={'flex'} justifyContent={'center'} alignItems={'center'} width="100%">
         <Flex
           width={'full'}
-          bgColor={isActiveLink(subLink?.path) ? hexToRGB('neutral', 0.3) : 'none'}
+          borderBottomWidth={isActiveLink(subLink?.path) ? '4px' : '0'}
+          borderColor={isActiveLink(subLink?.path) ? hexToRGB('neutral', 0.5) : 'none'}
           gap={4}
           alignItems={'center'}
           borderRadius={'5px'}
           height={'full'}
-          ms="10px"
-          me={{ base: '15px', md: '0px' }}
+          //ms="10px"
+          //me={{ base: '15px', md: '0px' }}
+          mt={{ base: '15px', md: '10px' }}
           px={'10px'}
           py={'10px'}
         >

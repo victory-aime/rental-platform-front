@@ -67,6 +67,8 @@ interface SwitchProps extends HTMLChakraProps<'switch'> {
   name: string
   label?: string
   validate?: any
+  reverse?: boolean
+  description?: string
 }
 
 interface FormColorPickerProps extends TextInputProps {}

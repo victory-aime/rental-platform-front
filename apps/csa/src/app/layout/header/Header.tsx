@@ -1,7 +1,7 @@
-import { Box, Flex, HStack, Image } from '@chakra-ui/react'
-import { ListMenu } from '_assets/svg'
+import { Box, Flex, Image, Separator } from '@chakra-ui/react'
+import { ListMenu, LogOutIcon } from '_assets/svg'
 import { SideBarProps } from '../sidebar/types'
-import { BaseText, CustomSkeletonLoader } from '_components/custom'
+import { BaseText, CustomSkeletonLoader, Loader, TextVariant } from '_components/custom'
 import { CommonModule } from 'rental-platform-state'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
@@ -9,6 +9,9 @@ import { SelectLanguages } from '_modules/components/SelectLanguages'
 import { useState } from 'react'
 import { FlagImagesIcon } from '_modules/components/flag/FlagImages'
 import { FlagKeys } from '_assets/images/flag'
+import { APP_ROUTES } from '_config/routes'
+import { keycloakSessionLogOut } from '_hooks/logout'
+import { signOut } from 'next-auth/react'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
@@ -21,30 +24,37 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
       enabled: !cachedUser,
     },
   })
+  const [loader, setLoader] = useState(false)
+
+  const handleLogout = () => {
+    keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => setLoader(false)))
+    setLoader(true)
+  }
 
   return (
     <Flex as="header" p={4} justify={'space-between'} alignItems="center" boxShadow={'0 0 35px black.50'} position={'relative'} h={{ base: '100px', md: 'auto' }}>
       {isLoading ? (
         <CustomSkeletonLoader type="BUTTON" colorButton="primary" />
       ) : (
-        <Box ms={'2px'} display="flex" alignItems="center" onClick={onShowSidebar} cursor="pointer">
-          <ListMenu width={25} height={25} />
-        </Box>
+        <Flex width={'full'} gap={5}>
+          <Box ms={'2px'} display="flex" alignItems="center" onClick={onShowSidebar} cursor="pointer">
+            <ListMenu width={18} height={18} />
+          </Box>
+          <Flex alignItems={'center'} justifyContent={'center'} gap={3}>
+            <Image draggable="false" src={'https://avatar.iran.liara.run/public'} borderRadius={'7px'} boxSize={'30px'} fit="cover" objectPosition="center" alt="img-url" />
+            <BaseText variant={TextVariant.S}> {t('WELCOME', { username: user?.name })} </BaseText>
+          </Flex>
+        </Flex>
       )}
 
       <Box ms={5} display="flex" alignItems="center">
         {isLoading ? (
           <CustomSkeletonLoader numberOfLines={1} type="TEXT_IMAGE" height={'45px'} width={'200px'} direction={{ base: 'row-reverse', md: 'row' } as any} />
         ) : (
-          <Flex gap={8}>
-            <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'35px'} onClick={() => setOpenSelectLanguage(true)} />
-
-            <Flex alignItems={{ base: 'center', md: 'flex-start' }} justifyContent={'flex-end'} flexDir={{ base: 'row', md: 'row-reverse' }} gap={3} width={'100%'}>
-              <HStack truncate maxW={'250px'} flexWrap={'wrap'} color={'gray.400'}>
-                <BaseText> {t('WELCOME', { username: user?.name })} </BaseText>
-              </HStack>
-              <Image draggable="false" src={'https://avatar.iran.liara.run/public'} boxSize={'35px'} borderRadius={'7px'} fit="cover" objectPosition="center" alt="img-url" />
-            </Flex>
+          <Flex gap={4} alignItems={'center'}>
+            <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'20px'} onClick={() => setOpenSelectLanguage(true)} />
+            <Separator orientation={'vertical'} size={'md'} />
+            {loader ? <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} /> : <Loader loader={loader} size={'xs'} />}
           </Flex>
         )}
       </Box>

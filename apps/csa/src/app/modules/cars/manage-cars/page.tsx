@@ -70,7 +70,7 @@ const ManageCarsPage = () => {
         {
           name: 'edit',
           handleClick: (value) => {
-            router.push(`${MODULES_CARS_ROUTES.ADD_CAR}?requestId=${value?.id}`)
+            router.push(`${MODULES_CARS_ROUTES.MANAGE_CARS.ADD_CAR}?requestId=${value?.id}`)
           },
         },
         // {
@@ -97,7 +97,7 @@ const ManageCarsPage = () => {
         validateTitle: 'CARS.ADD_CARS',
         validateColor: 'primary',
         onClick() {
-          router.push(MODULES_CARS_ROUTES.ADD_CAR)
+          router.push(MODULES_CARS_ROUTES.MANAGE_CARS.ADD_CAR)
         },
         onReload() {
           refetch()

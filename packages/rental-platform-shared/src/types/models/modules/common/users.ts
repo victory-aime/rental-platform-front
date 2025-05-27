@@ -37,6 +37,7 @@ export interface Establishment {
 export interface IUser {
   id: string
   name: string
+  firstName: string
   email: string
   establishment: Establishment
 }
