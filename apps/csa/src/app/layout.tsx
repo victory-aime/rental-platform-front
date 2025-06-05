@@ -25,11 +25,11 @@ export default async function RootLayout({
   return (
     <html className={`${lato.variable}`} suppressHydrationWarning>
       <body>
-        <ThemeColorProvider>
-          <ThemeProvider>
-            <I18nProvider>{children}</I18nProvider>
-          </ThemeProvider>
-        </ThemeColorProvider>
+        {/*<ThemeColorProvider>*/}
+        {/*</ThemeColorProvider>*/}
+        <ThemeProvider>
+          <I18nProvider>{children}</I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

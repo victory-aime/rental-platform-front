@@ -3,8 +3,9 @@
 import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { Center, Spinner } from '@chakra-ui/react'
+import { Center } from '@chakra-ui/react'
 import { MODULES_CARS_ROUTES, MODULES_HOTEL_ROUTES } from './routes'
+import { Loader } from '_components/custom'
 
 const roleToDashboardMap: Record<string, string> = {
   AUTOMOBILISTE: MODULES_CARS_ROUTES.DASHBOARD,
@@ -29,7 +30,7 @@ export default function ModulesRedirectPage() {
 
   return (
     <Center width={'100vw'} height={'100vh'}>
-      <Spinner color={'primary.500'} />
+      <Loader loader />
     </Center>
   )
 }

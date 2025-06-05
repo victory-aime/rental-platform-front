@@ -12,12 +12,15 @@ import { TYPES } from 'rental-platform-shared'
 export const App = ({ children, session }: { children: React.ReactNode; session: Session }) => {
   return (
     <SessionProvider session={session}>
-      <QueryClientProvider client={TYPES.QUERIES.queryClient}>
+      {session?.error === 'RefreshAccessTokenError' ? (
         <SessionErrorModal session={session} />
-        <Toaster />
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      ) : (
+        <QueryClientProvider client={TYPES.QUERIES.queryClient}>
+          <Toaster />
+          {children}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      )}
     </SessionProvider>
   )
 }

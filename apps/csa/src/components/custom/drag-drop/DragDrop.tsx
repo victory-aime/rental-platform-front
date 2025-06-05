@@ -14,8 +14,10 @@ import {
   useFileUploadContext,
   Circle,
   Center,
+  For,
+  Flex,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { HiUpload, HiX } from 'react-icons/hi'
 import { LuUpload } from 'react-icons/lu'
 import { ACCEPTED_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB, MAX_FILES } from './constant/constants'
@@ -24,40 +26,12 @@ import { Avatar } from '_components/ui/avatar'
 import { BaseText, TextVariant } from '../base-text'
 import { VariablesColors } from '_theme/variables'
 import { useTranslation } from 'react-i18next'
+import { useFileUploadErrors } from './useFileUploadErrors'
+import { HomeIcon } from '_assets/svg'
 
 const FileImageList = ({ getFilesUploaded, initialImageUrls, t }: { getFilesUploaded: (files: File[]) => void; initialImageUrls?: string[]; t: any }) => {
   const fileUpload = useFileUploadContext()
-  const [error, setError] = useState<string | null>(null)
-  const [errorType, setErrorType] = useState<'size' | 'max_file' | 'type' | null>(null)
-
-  useEffect(() => {
-    if (fileUpload.acceptedFiles.length > MAX_FILES) {
-      setErrorType('max_file')
-      setError(t('DRAG_DROP.ERROR.MAX_FILES', { max_files: MAX_FILES }))
-    } else if (fileUpload.rejectedFiles.length > 0) {
-      const oversizedFiles = fileUpload.rejectedFiles.filter((file) => file.errors.includes('FILE_TOO_LARGE'))
-
-      const invalidTypeFiles = fileUpload.rejectedFiles.filter((file) => file.errors.includes('FILE_INVALID_TYPE'))
-
-      const limitFiles = fileUpload.rejectedFiles.filter((file) => file.errors.includes('TOO_MANY_FILES'))
-
-      if (oversizedFiles.length > 0) {
-        setErrorType('size')
-        setError(t('DRAG_DROP.ERROR.MAX_SIZES', { max_sizes: MAX_FILE_SIZE / (1024 * 1024) }))
-      } else if (invalidTypeFiles.length > 0) {
-        setErrorType('type')
-        setError(t('DRAG_DROP.ERROR.TYPE_FILES', { type_files: ACCEPTED_TYPES }))
-      } else if (limitFiles.length > 0) {
-        setErrorType('max_file')
-
-        setError(t('DRAG_DROP.ERROR.MAX_FILES', { max_files: MAX_FILES }))
-      } else {
-        setError(null)
-        setErrorType(null)
-      }
-    }
-    getFilesUploaded(fileUpload.acceptedFiles)
-  }, [fileUpload])
+  const { error, errorType } = useFileUploadErrors({ onValidFiles: getFilesUploaded })
 
   useEffect(() => {
     if (initialImageUrls && initialImageUrls.length > 0 && fileUpload.acceptedFiles.length === 0) {
@@ -66,17 +40,6 @@ const FileImageList = ({ getFilesUploaded, initialImageUrls, t }: { getFilesUplo
       })
     }
   }, [initialImageUrls])
-
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setError(null)
-        setErrorType(null)
-        fileUpload.clearRejectedFiles()
-      }, 5000)
-      return () => clearTimeout(timer)
-    }
-  }, [error])
 
   return (
     <Box mt={6} w={'full'}>
@@ -131,91 +94,64 @@ export const CustomDragDropZone = ({ getFilesUploaded, initialImageUrls }: { get
 }
 
 const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File | null) => void; avatarImage?: string; name?: string }) => {
+  const { t } = useTranslation()
   const fileUpload = useFileUploadContext()
-  const [error, setError] = useState<string | null>(null)
-  const [errorType, setErrorType] = useState<'size' | 'type' | null>(null)
-
-  useEffect(() => {
-    if (fileUpload.rejectedFiles.length > 0) {
-      const oversizedFiles = fileUpload.rejectedFiles.some((file) => file.errors.includes('FILE_TOO_LARGE'))
-      const invalidTypeFiles = fileUpload.rejectedFiles.some((file) => file.errors.includes('FILE_INVALID_TYPE'))
-      if (oversizedFiles) {
-        setErrorType('size')
-        setError(`Ce fichier dépasse la taille maximale de ${MAX_FILE_SIZE / (1024 * 1024)} MB.`)
-      } else if (invalidTypeFiles) {
-        setErrorType('type')
-        setError('Ce fichier a un format non supporté. Formats acceptés : .png, .jpg, .jpeg')
-      } else {
-        setError(null)
-        setErrorType(null)
-      }
-    }
-    getFileUploaded(fileUpload.acceptedFiles[0])
-  }, [fileUpload])
-
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setError(null)
-        setErrorType(null)
-        fileUpload.clearRejectedFiles()
-      }, 5000)
-      return () => clearTimeout(timer)
-    }
-  }, [error])
+  const { error, errorType } = useFileUploadErrors({
+    onValidFiles: (files) => getFileUploaded(files[0] || null),
+  })
 
   return (
-    <Center flexDir={'column'}>
-      <Avatar
-        boxSize={'100px'}
-        size={'2xl'}
-        colorPalette={'yellow'}
-        name={name}
-        src={avatarImage}
-        css={{
-          outlineWidth: '2px',
-          outlineColor: 'colorPalette.500',
-          outlineOffset: '2px',
-          outlineStyle: 'solid',
-        }}
-      >
-        <Float placement="bottom-end" offsetX="2" offsetY="2">
-          <Circle bg="gray.500" size="25px" width={'full'} outline="0.2em solid" outlineColor="bg">
-            {!avatarImage ? (
-              <FileUpload.Trigger asChild>
-                <HiUpload size={'14px'} color={'white'} />
-              </FileUpload.Trigger>
-            ) : (
-              <>
-                {fileUpload.acceptedFiles.map((file: any) => (
-                  <FileUpload.Item p="2" width="auto" key={file.name} file={file} pos="relative" rounded={'full'} bg={'red.500'} outline="0.2em solid" outlineColor="bg">
-                    <FileUpload.ItemDeleteTrigger>
-                      <HiX color={'white'} />
-                    </FileUpload.ItemDeleteTrigger>
-                  </FileUpload.Item>
-                ))}
-              </>
+    <Flex flexDir={{ base: 'column', md: 'row' }} width={'full'} alignItems={'flex-start'} justifyContent={'flex-start'} gap={5}>
+      <Box pos="relative">
+        <FileUpload.Trigger asChild cursor={'pointer'}>
+          <Avatar
+            boxSize={'130px'}
+            size={'2xl'}
+            cursor={'pointer'}
+            name={name}
+            colorPalette={avatarImage ? 'green' : 'none'}
+            icon={<HomeIcon />}
+            src={avatarImage}
+            css={{
+              outlineWidth: '2px',
+              outlineColor: 'colorPalette.500',
+              outlineOffset: '2px',
+              outlineStyle: 'solid',
+            }}
+          />
+        </FileUpload.Trigger>
+        {avatarImage && (
+          <For each={fileUpload?.acceptedFiles}>
+            {(file) => (
+              <Float placement="bottom-end" offsetX="3" offsetY="3">
+                <FileUpload.Item rounded={'full'} bg={'red.500'} p="1" borderColor={'none'} width="auto" key={file.name} file={file} pos="relative">
+                  <FileUpload.ItemDeleteTrigger>
+                    <HiX color="white" />
+                  </FileUpload.ItemDeleteTrigger>
+                </FileUpload.Item>
+              </Float>
             )}
-          </Circle>
-        </Float>
-      </Avatar>
+          </For>
+        )}
+      </Box>
+
       {error && (
-        <Alert.Root status="error" mt={5} p={4} width={'fit-content'}>
+        <Alert.Root status="error" mt={5} p={4} width="fit-content">
           <Alert.Indicator />
           <Alert.Content>
-            <Alert.Title>{errorType === 'size' ? 'Taille limite dépassée' : 'Format non accepté'}</Alert.Title>
+            {errorType === 'max_file' ? t('DRAG_DROP.ERROR.MAX_FILES_TITLE') : errorType === 'size' ? t('DRAG_DROP.ERROR.MAX_SIZES_TITLE') : t('DRAG_DROP.ERROR.TYPE_FILES_TITLE')}
             <Alert.Description>{error}</Alert.Description>
           </Alert.Content>
         </Alert.Root>
       )}
-    </Center>
+    </Flex>
   )
 }
 
 export const UploadAvatar = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File | null) => void; avatarImage?: string | any; name?: string }) => {
   const { getRootProps } = useFileUpload()
   return (
-    <FileUpload.Root {...getRootProps()} maxFiles={1} maxFileSize={MAX_FILE_SIZE} accept={ACCEPTED_TYPES} alignItems={'center'} justifyContent={'center'}>
+    <FileUpload.Root {...getRootProps()} maxFiles={1} maxFileSize={MAX_FILE_SIZE} accept={ACCEPTED_TYPES}>
       <FileUpload.HiddenInput />
       <SimpleFileUpload getFileUploaded={getFileUploaded} avatarImage={avatarImage} name={name} />
     </FileUpload.Root>

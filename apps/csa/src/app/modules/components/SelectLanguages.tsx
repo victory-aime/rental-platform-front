@@ -1,5 +1,5 @@
 import { Flex, For, VStack } from '@chakra-ui/react'
-import { BaseText, CustomToast, ModalComponent, ModalOpenProps, ToastStatus } from '_components/custom'
+import { BaseText, CustomToast, ModalComponent, ModalOpenProps, TextVariant, ToastStatus } from '_components/custom'
 import React, { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
@@ -40,7 +40,7 @@ export const SelectLanguages: FC<ModalOpenProps> = ({ onChange, isOpen }) => {
   return (
     <ModalComponent iconBackgroundColor={hexToRGB('lighter', 0.6)} icon={<ImFlag color={VariablesColors.grayScale} />} open={isOpen} title={'SELECT_LANGUAGES'} onChange={onChange}>
       <VStack gap={5} alignItems={'flex-start'}>
-        <BaseText>{t('SELECT_LANGUAGES_DESC')}</BaseText>
+        <BaseText variant={TextVariant.XS}>{t('SELECT_LANGUAGES_DESC')}</BaseText>
         <Flex gap={6} mt={6} width="full" alignItems="center" justifyContent="center" pointerEvents={loading ? 'none' : 'auto'} opacity={loading ? 0.6 : 1}>
           <For each={listLanguages}>
             {(language, i) => (
@@ -52,12 +52,12 @@ export const SelectLanguages: FC<ModalOpenProps> = ({ onChange, isOpen }) => {
                 borderWidth={2}
                 borderColor={selectLanguage === language ? VariablesColors.green : hexToRGB('lighter', 0.6)}
                 boxShadow={selectLanguage === language ? 'lg' : 'none'}
-                borderTopRightRadius="30px"
-                borderBottomLeftRadius="30px"
+                borderTopRightRadius="20px"
+                borderBottomLeftRadius="20px"
                 cursor="pointer"
                 onClick={() => handleChangeLanguage(language)}
               >
-                <FlagImagesIcon isLoading={fallbackLoad && selectLanguage === language} countryImage={language?.toUpperCase() as FlagKeys} style={{ width: '64px', height: '64px' }} />
+                <FlagImagesIcon isLoading={fallbackLoad && selectLanguage === language} countryImage={language?.toUpperCase() as FlagKeys} style={{ width: '30px', height: '30px' }} />
               </Flex>
             )}
           </For>

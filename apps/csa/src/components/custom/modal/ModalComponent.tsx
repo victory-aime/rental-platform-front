@@ -1,10 +1,11 @@
-import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle } from '_components/ui/dialog'
+import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot } from '_components/ui/dialog'
 import React from 'react'
 import { BaseButton } from '../button'
 import { variantColorType } from '_components/custom/button'
 import { ModalProps } from './interface/modal'
 import { BoxIcon } from '../boxIcon'
 import { useTranslation } from 'react-i18next'
+import { BaseText, TextVariant } from '_components/custom'
 
 const ModalComponent = ({
   isOpen = false,
@@ -36,7 +37,7 @@ const ModalComponent = ({
               {icon}
             </BoxIcon>
           )}
-          <DialogTitle>{t(title)}</DialogTitle>
+          <BaseText variant={TextVariant.S}>{t(title)}</BaseText>
         </DialogHeader>
         <DialogBody mt={4} ref={ref}>
           {children}

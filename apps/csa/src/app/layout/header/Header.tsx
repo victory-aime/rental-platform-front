@@ -32,9 +32,9 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   }
 
   return (
-    <Flex as="header" p={4} justify={'space-between'} alignItems="center" boxShadow={'0 0 35px black.50'} position={'relative'} h={{ base: '100px', md: 'auto' }}>
+    <Flex p={4} justify={'space-between'} alignItems="center" h={{ base: '100px', md: 'auto' }}>
       {isLoading ? (
-        <CustomSkeletonLoader type="BUTTON" colorButton="primary" />
+        <CustomSkeletonLoader numberOfLines={1} type="TEXT_IMAGE" height={'45px'} width={'200px'} direction={{ base: 'row-reverse', md: 'row' } as any} />
       ) : (
         <Flex width={'full'} gap={5}>
           <Box ms={'2px'} display="flex" alignItems="center" onClick={onShowSidebar} cursor="pointer">
@@ -47,17 +47,12 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
         </Flex>
       )}
 
-      <Box ms={5} display="flex" alignItems="center">
-        {isLoading ? (
-          <CustomSkeletonLoader numberOfLines={1} type="TEXT_IMAGE" height={'45px'} width={'200px'} direction={{ base: 'row-reverse', md: 'row' } as any} />
-        ) : (
-          <Flex gap={4} alignItems={'center'}>
-            <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'20px'} onClick={() => setOpenSelectLanguage(true)} />
-            <Separator orientation={'vertical'} size={'md'} />
-            {loader ? <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} /> : <Loader loader={loader} size={'xs'} />}
-          </Flex>
-        )}
-      </Box>
+      <Flex gap={3} alignItems={'center'}>
+        <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'20px'} onClick={() => setOpenSelectLanguage(true)} />
+        <Separator orientation={'vertical'} size={'lg'} colorPalette={'red'} />
+        {!loader ? <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} /> : <Loader loader={loader} size={'xs'} />}
+      </Flex>
+
       <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} />
     </Flex>
   )
