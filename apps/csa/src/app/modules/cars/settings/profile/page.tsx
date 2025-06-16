@@ -1,28 +1,37 @@
 'use client'
-import { Flex, HStack, Stack, VStack, For } from '@chakra-ui/react'
+
+import { Flex, HStack, Stack, VStack } from '@chakra-ui/react'
 import { BaseButton, BaseText, BoxContainer, FormSelect, FormSwitch, FormTextInput, TextVariant, UploadAvatar } from '_components/custom'
 import { selectLanguages } from '_constants/languages'
-import { selectTimeZones } from '_utils/getTimeZones'
 import { Formik, FormikValues } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CiUser } from 'react-icons/ci'
 import { HiOutlineMail } from 'react-icons/hi'
 import { CommonModule } from 'rental-platform-state'
-import { calendarStartDays, dateFormats, timeFormats } from '../../constants/settings-options'
-import { Radio, RadioGroup } from '_components/ui/radio'
 import { ProfileForm } from './components/ProfileForm'
+import { useSession } from 'next-auth/react'
+import { TYPES } from 'rental-platform-shared'
 
 const ProfilePage = () => {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
+  const { data: session } = useSession()
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
+  const [initialValues, setInitialValues] = useState<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>(TYPES.VALIDATION_SCHEMA.USERS.initialUser)
+
   const { data: currentUser } = CommonModule.UserModule.userInfoQueries({
     payload: {
       userId: '',
     },
     queryOptions: {
       enabled: false,
+    },
+  })
+
+  const { mutateAsync: onUpdateUserInfo } = CommonModule.UserModule.updateUserInfoMutation({
+    onSuccess: () => {
+      CommonModule.UserModule.UserCache.invalidateUser()
     },
   })
 
@@ -41,42 +50,39 @@ const ProfilePage = () => {
     }
   }
 
-  const onUpdateUserInfo = (values: FormikValues) => {
-    const requestData: any = {
-      imgProfile: selectedFile?.name,
-      name: values?.name,
-      firstName: values?.firstName,
-      email: values?.email,
-      newPassword: values?.newPassword,
-      eneabled2MFA: values?.enable2FA,
-      preferredLanguage: values?.languages,
-      timezone: values?.timezone,
-      calendarStartDay: values?.calendarStartDay,
-      timeFormat: values?.timeFormat,
-      dateFormat: values?.dateFormat,
+  const onSubmitValues = async (values: FormikValues) => {
+    const formData = new FormData()
+    formData.append('name', values?.name ?? '')
+    formData.append('firstName', values?.firstName ?? '')
+    formData.append('email', values?.email ?? '')
+    formData.append('newPassword', values?.newPassword ?? '')
+    formData.append('enabled2MFA', String(Boolean(values?.enabled2MFA)))
+    formData.append('keycloakId', session?.keycloakId ?? '')
+    formData.append('preferredLanguage', (values?.preferredLanguage && values?.preferredLanguage[0]) ?? '')
+    if (selectedFile) {
+      formData.append('picture', selectedFile)
     }
+    await onUpdateUserInfo(formData as unknown as TYPES.MODELS.COMMON.USERS.IUpdateUserInfo)
   }
+
+  useEffect(() => {
+    setInitialValues({
+      name: currentUser?.name || '',
+      firstName: currentUser?.firstName || '',
+      email: currentUser?.email || '',
+      newPassword: undefined,
+      enabled2MFA: currentUser?.enabled2MFA || false,
+      keycloakId: session?.keycloakId || '',
+      preferredLanguage: Array.isArray(currentUser?.preferredLanguage) ? currentUser?.preferredLanguage : [currentUser?.preferredLanguage || i18n.language],
+    })
+  }, [currentUser])
 
   return (
     <BoxContainer title="SIDE_BAR.SETTINGS" border={'none'}>
-      <Formik
-        enableReinitialize
-        initialValues={{
-          name: currentUser?.name,
-          firstName: currentUser?.firstName,
-          email: currentUser?.email,
-          newPassword: '',
-          eneabled2MFA: false,
-          preferredLanguage: [i18n.language],
-          timezone: [Intl.DateTimeFormat().resolvedOptions().timeZone],
-          calendarStartDay: '1',
-          timeFormat: '24h',
-          dateFormat: 'yyyy-mm-dd',
-        }}
-        onSubmit={() => console.log('submit')}
-      >
+      <Formik enableReinitialize initialValues={initialValues} onSubmit={onSubmitValues}>
         {({ values, handleSubmit, setFieldValue, dirty }) => (
           <VStack gap={10} alignItems={'flex-start'}>
+            <BaseText>{JSON.stringify(values, null, 6)}</BaseText>
             <ProfileForm title="SIDE_BAR.PROFILE" description="Your personal information and account security settings">
               <Stack alignItems={'flex-start'} mb={5} gap={4}>
                 <BaseText variant={TextVariant.S}>Avatar</BaseText>
@@ -99,7 +105,7 @@ const ProfilePage = () => {
               title="Two-factor authentication (2FA){enabled}"
               description="Keep your account secure by enabling 2FA via SMS or using a temporary one-time passcode (TOTP) from an authenticator app."
             >
-              <FormSwitch name="eneabled2MFA" label="Authenticator App (TOTP)" description="Use an app to receive a temporary one-time passcode each time you log in." />
+              <FormSwitch name="enabled2MFA" label="Authenticator App (TOTP)" description="Use an app to receive a temporary one-time passcode each time you log in." />
             </ProfileForm>
             {/* <ProfileForm title="Theme colors" description="Choose a preferred theme for the app">
               <FormGroupColorPicker />
@@ -107,49 +113,6 @@ const ProfilePage = () => {
             <ProfileForm title="Langue et region" description="Customize your language and region">
               <VStack width={{ base: '100%', md: 'full' }} alignItems={'flex-start'} gap={4}>
                 <FormSelect name="preferredLanguage" label="Language" setFieldValue={setFieldValue} listItems={selectLanguages()} />
-                <FormSelect name="timezone" label="Timezone" setFieldValue={setFieldValue} listItems={selectTimeZones()} />
-              </VStack>
-            </ProfileForm>
-            <ProfileForm title="Time and date format" description="Select the way times & dates are displayed">
-              <VStack alignItems={'flex-start'} gap={8}>
-                <VStack alignItems={'flex-start'}>
-                  <BaseText variant={TextVariant.S}>Start of the calendar</BaseText>
-                  <VStack alignItems={'flex-start'} gap={3} mt={2}>
-                    <For each={calendarStartDays}>
-                      {(item, i) => (
-                        <RadioGroup size={'sm'} value={values?.calendarStartDay} onValueChange={(val) => setFieldValue('calendarStartDay', val)}>
-                          <Radio value={item.value}>{item.label}</Radio>
-                        </RadioGroup>
-                      )}
-                    </For>
-                  </VStack>
-                </VStack>
-
-                <VStack alignItems={'flex-start'}>
-                  <BaseText variant={TextVariant.S}>Time format</BaseText>
-                  <VStack alignItems={'flex-start'} gap={3} mt={2}>
-                    <For each={timeFormats}>
-                      {(item, i) => (
-                        <RadioGroup key={i} size={'sm'} value={values?.timeFormat} onValueChange={(val) => setFieldValue('timeFormat', val)}>
-                          <Radio value={item.value}>{item.label}</Radio>
-                        </RadioGroup>
-                      )}
-                    </For>
-                  </VStack>
-                </VStack>
-
-                <VStack alignItems={'flex-start'}>
-                  <BaseText variant={TextVariant.S}>Date format</BaseText>
-                  <VStack alignItems={'flex-start'} gap={3} mt={2}>
-                    <For each={dateFormats}>
-                      {(item, i) => (
-                        <RadioGroup size={'sm'} key={i} value={values?.dateFormat} onValueChange={(val) => setFieldValue('dateFormat', val)}>
-                          <Radio value={item.value}>{item.label}</Radio>
-                        </RadioGroup>
-                      )}
-                    </For>
-                  </VStack>
-                </VStack>
               </VStack>
             </ProfileForm>
 
@@ -167,7 +130,7 @@ const ProfilePage = () => {
               </Flex>
             </ProfileForm>
             <Flex width={'full'} alignItems={'flex-end'} justifyContent={'flex-end'}>
-              <BaseButton disabled={!dirty} colorType={'success'} onClick={() => handleSubmit()}>
+              <BaseButton colorType={'success'} onClick={() => handleSubmit()}>
                 Save changes
               </BaseButton>
             </Flex>

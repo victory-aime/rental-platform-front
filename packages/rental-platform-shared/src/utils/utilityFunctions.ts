@@ -11,6 +11,8 @@ export const MONTH_DAY_YEAR = 'mm/dd/yyyy'
 export const APP_DATE_PATTERN = 'DD MMM YYYY' // Default date pattern e.g: 12 Dec 2025
 export const COMMON_FORMAT_DATE = 'dd/MM/yyyy' // Application date format
 export const COMMON_FORMAT_DATE_HEADER = 'MMMM yyyy' // Common header calendar date display
+export const TIME_FORMAT = '24h'
+export const HALF_TIME_FORMAT = '12h' // 12-hour format
 
 /**
  * Converts a date in a standard format (e.g., 'YYYY-MM-DD') to the application's specific format.

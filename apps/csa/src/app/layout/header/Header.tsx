@@ -53,7 +53,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
         {!loader ? <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} /> : <Loader loader={loader} size={'xs'} />}
       </Flex>
 
-      <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} />
+      <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={user?.preferredLanguage ?? ''} />
     </Flex>
   )
 }

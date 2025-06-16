@@ -59,18 +59,18 @@ export const APIS = (baseUrl?: string) => {
     createApiAction({ ...args, baseUrl })
 
   return {
-    USERS: {
-      PRIVATE: {
+    COMMON: {
+      USERS: {
         ME: api({
           path: '/user/me',
           method: 'GET',
           showResponse: false,
           handleErrorManually: false,
         }),
-        UPDATE_USER: api({ path: '/user/update-info', method: 'PATCH' }),
+        UPDATE_USER: api({ path: '/user/update', method: 'PATCH' }),
       },
     },
-    COMMON: {
+    MODULES: {
       CARS: {
         GET_CATEGORIES: api({
           path: '/categories',
@@ -84,10 +84,6 @@ export const APIS = (baseUrl?: string) => {
           showResponse: false,
           handleErrorManually: true,
         }),
-      },
-    },
-    MODULES: {
-      CARS: {
         ADD_CAR: api({
           path: '/manage-cars/add',
           method: 'POST',

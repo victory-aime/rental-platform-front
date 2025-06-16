@@ -1,6 +1,6 @@
 import { Flex, For, VStack } from '@chakra-ui/react'
 import { BaseText, CustomToast, ModalComponent, ModalOpenProps, TextVariant, ToastStatus } from '_components/custom'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
 import { ImFlag } from 'react-icons/im'
@@ -10,9 +10,13 @@ import { FlagKeys } from '_assets/images/flag'
 import { hexToRGB } from '_theme/colors'
 import { listLanguages } from '_constants/languages'
 
-export const SelectLanguages: FC<ModalOpenProps> = ({ onChange, isOpen }) => {
+interface IProps extends ModalOpenProps {
+  language: string
+}
+
+export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
   const { t, i18n } = useTranslation()
-  const [selectLanguage, setSelectLanguage] = useState(i18n.language)
+  const [selectLanguage, setSelectLanguage] = useState(language ?? i18n.language)
   const [fallbackLoad, setFallbackLoad] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
 
@@ -36,6 +40,12 @@ export const SelectLanguages: FC<ModalOpenProps> = ({ onChange, isOpen }) => {
       }
     }, 1000)
   }
+
+  useEffect(() => {
+    if (language) {
+      i18n.changeLanguage(language).then(() => localStorage.setItem(StorageKey.LANGUAGE, language))
+    }
+  }, [language])
 
   return (
     <ModalComponent iconBackgroundColor={hexToRGB('lighter', 0.6)} icon={<ImFlag color={VariablesColors.grayScale} />} open={isOpen} title={'SELECT_LANGUAGES'} onChange={onChange}>

@@ -11,14 +11,18 @@ export class CarsServices extends BaseApi {
    * @returns {Promise<any>} - A promise that resolves to the car categories
    */
   fetchCarCategories() {
-    return this.apiService.invoke(this.applicationContext.getApiConfig().COMMON.CARS.GET_CATEGORIES)
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().MODULES.CARS.GET_CATEGORIES
+    )
   }
   /**
    * Fetches car equipments
    * @returns {Promise<any>} - A promise that resolves to the car categories
    */
   fetchEquipments() {
-    return this.apiService.invoke(this.applicationContext.getApiConfig().COMMON.CARS.GET_EQUIPMENTS)
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().MODULES.CARS.GET_EQUIPMENTS
+    )
   }
   /**
    * Adds a new car

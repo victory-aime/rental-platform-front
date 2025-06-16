@@ -11,3 +11,17 @@ export const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: strin
     options: queryOptions,
   })
 }
+
+export const updateUserInfoMutation = (
+  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>
+) => {
+  return TYPES.QUERIES.useCustomMutation<
+    TYPES.MODELS.COMMON.USERS.IUpdateUserInfo,
+    any,
+    AxiosError
+  >({
+    mutationKey: [Constants.USERS_KEYS.UPDATE_USER],
+    mutationFn: (payload) => usersServiceInstance().updateUser(payload),
+    options: args,
+  })
+}

@@ -35,9 +35,17 @@ export interface Establishment {
 }
 
 export interface IUser {
-  id: string
-  name: string
-  firstName: string
-  email: string
-  establishment: Establishment
+  id?: string
+  name?: string
+  firstName?: string
+  email?: string
+  picture?: string
+  enabled2MFA?: boolean
+  preferredLanguage?: string | string[]
+  establishment?: Establishment
+}
+
+export interface IUpdateUserInfo extends IUser {
+  newPassword?: string
+  keycloakId?: string
 }
