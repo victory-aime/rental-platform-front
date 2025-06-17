@@ -29,4 +29,29 @@ export class UsersService extends BaseApi {
       user
     )
   }
+
+  /**
+   * Deactivates or activates a user account.
+   *
+   * @param {Object} [data] - The data containing the user ID and activation status.
+   * @returns {Promise<any>} - A promise resolving to the result of the operation.
+   */
+  deactivateOrActivateAccount(data: { keycloakId: string; deactivateUser: boolean }): Promise<any> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().COMMON.USERS.DEACTIVATE_OR_ACTIVATE_ACCOUNT,
+      data
+    )
+  }
+  /**
+   * Clears all sessions for a user.
+   *
+   * @param {string} keycloakId - The Keycloak ID of the user.
+   * @returns {Promise<any>} - A promise resolving to the result of the session clearing operation.
+   */
+  clearAllSessions(keycloakId: string): Promise<any> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().COMMON.USERS.CLEAR_ALL_SESSIONS,
+      keycloakId
+    )
+  }
 }

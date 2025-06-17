@@ -17,11 +17,10 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
   const getPreferredLanguage = localStorage.getItem(StorageKey.LANGUAGE)
   const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
-  const cachedUser = CommonModule.UserModule.UserCache.getUser()
   const { data: user, isLoading } = CommonModule.UserModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
     queryOptions: {
-      enabled: !cachedUser,
+      enabled: !!session?.keycloakId,
     },
   })
   const [loader, setLoader] = useState(false)
@@ -41,7 +40,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
             <ListMenu width={18} height={18} />
           </Box>
           <Flex alignItems={'center'} justifyContent={'center'} gap={3}>
-            <Image draggable="false" src={'https://avatar.iran.liara.run/public'} borderRadius={'7px'} boxSize={'30px'} fit="cover" objectPosition="center" alt="img-url" />
+            <Image draggable="false" src={user?.picture ?? 'https://avatar.iran.liara.run/public'} borderRadius={'7px'} boxSize={'30px'} fit="cover" objectPosition="center" alt="img-url" />
             <BaseText variant={TextVariant.S}> {t('WELCOME', { username: user?.name })} </BaseText>
           </Flex>
         </Flex>
@@ -53,7 +52,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
         {!loader ? <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} /> : <Loader loader={loader} size={'xs'} />}
       </Flex>
 
-      <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={user?.preferredLanguage ?? ''} />
+      <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={(user?.preferredLanguage as string) ?? ''} />
     </Flex>
   )
 }

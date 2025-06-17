@@ -3,7 +3,7 @@ import { usersServiceInstance } from './users.service-instance'
 import { TYPES } from 'rental-platform-shared'
 import { AxiosError } from 'axios'
 
-export const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: string }, any>) => {
+const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: string }, any>) => {
   const { payload, queryOptions } = args
   return TYPES.QUERIES.useCustomQuery<TYPES.MODELS.COMMON.USERS.IUser, AxiosError>({
     queryKey: [Constants.USERS_KEYS.WHO_AMI],
@@ -12,7 +12,7 @@ export const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: strin
   })
 }
 
-export const updateUserInfoMutation = (
+const updateUserInfoMutation = (
   args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>
 ) => {
   return TYPES.QUERIES.useCustomMutation<
@@ -24,4 +24,37 @@ export const updateUserInfoMutation = (
     mutationFn: (payload) => usersServiceInstance().updateUser(payload),
     options: args,
   })
+}
+
+const deactivateOrActivateAccountMutation = (
+  args: TYPES.QUERIES.MutationPayload<{ keycloakId: string; enabledOrDeactivate: boolean }>
+) => {
+  return TYPES.QUERIES.useCustomMutation<
+    { keycloakId: string; enabledOrDeactivate: boolean },
+    any,
+    AxiosError
+  >({
+    mutationKey: [Constants.USERS_KEYS.DEACTIVATE_OR_ACTIVATE_ACCOUNT],
+    mutationFn: (data) =>
+      usersServiceInstance().deactivateOrActivateAccount({
+        deactivateUser: data.enabledOrDeactivate,
+        keycloakId: data.keycloakId,
+      }),
+    options: args,
+  })
+}
+
+const clearAllSessionsMutation = (args: TYPES.QUERIES.MutationPayload<{ keycloakId: string }>) => {
+  return TYPES.QUERIES.useCustomMutation({
+    mutationKey: [Constants.USERS_KEYS.CLEAR_ALL_SESSIONS],
+    mutationFn: (keycloakId: string) => usersServiceInstance().clearAllSessions(keycloakId),
+    options: args,
+  })
+}
+
+export {
+  userInfoQueries,
+  updateUserInfoMutation,
+  deactivateOrActivateAccountMutation,
+  clearAllSessionsMutation,
 }

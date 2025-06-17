@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useField } from 'formik'
 import { Input, Text, Field, Flex } from '@chakra-ui/react'
 import { TextInputProps } from './interface/input'
@@ -6,7 +6,6 @@ import { InputGroup } from '_components/ui/input-group'
 import { TbLockBitcoin } from 'react-icons/tb'
 import { HiOutlineInformationCircle } from 'react-icons/hi'
 import { BaseTooltip } from '_components/custom'
-import { RiEyeOffLine, RiEyeLine } from 'react-icons/ri'
 import { useTranslation } from 'react-i18next'
 
 const FormTextInput = ({
@@ -24,7 +23,6 @@ const FormTextInput = ({
   accept,
   height,
   validate,
-  onChangeFunction,
   toolTipInfo,
 }: TextInputProps) => {
   const { t } = useTranslation()
@@ -33,9 +31,8 @@ const FormTextInput = ({
     validate,
   }
   const [field, { touched, error }] = useField(fieldHookConfig)
-  const isError = isReadOnly ? Boolean(error) : !!(touched && Boolean(error))
+  const isError = isReadOnly ? Boolean(error) : touched && Boolean(error)
   const isPassword = type === 'password'
-  const [secureTextEntry, setSecureTextEntry] = useState(isPassword)
 
   return (
     <Field.Root id={name} invalid={isError}>
@@ -63,11 +60,7 @@ const FormTextInput = ({
           )
         }
         endElement={
-          isPassword ? (
-            <Flex alignItems={'center'} justifyContent={'center'} onClick={() => setSecureTextEntry(!secureTextEntry)}>
-              {secureTextEntry ? <RiEyeOffLine size={18} /> : <RiEyeLine size={18} />}
-            </Flex>
-          ) : toolTipInfo ? (
+          toolTipInfo ? (
             <>
               <BaseTooltip message={toolTipInfo}>
                 <HiOutlineInformationCircle size={18} />
@@ -84,7 +77,7 @@ const FormTextInput = ({
       >
         <Input
           {...field}
-          type={isPassword ? (secureTextEntry ? 'password' : 'text') : type}
+          type={type}
           onBlur={(e) => {
             field?.onBlur(e)
           }}

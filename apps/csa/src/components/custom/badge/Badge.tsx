@@ -31,7 +31,7 @@ const getBadgeContent = (status?: string, type?: string, t?: (key: string) => st
       default:
         return { variant: 'primary', label: t('MAINTENANCE.STATUS.IN_PROGRESS') }
     }
-  } else {
+  } else if (type === 'booking') {
     switch (status) {
       case TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE:
         return { variant: 'success', label: t('COMMON.STATUS.ACTIVE') }
@@ -43,6 +43,13 @@ const getBadgeContent = (status?: string, type?: string, t?: (key: string) => st
         return { variant: 'danger', label: t('COMMON.STATUS.CANCELED') }
       default:
         return { variant: 'warning', label: 'Inconnu' }
+    }
+  } else {
+    switch (status) {
+      case 'success':
+        return { variant: 'success', label: t('inconnu') }
+      default:
+        return { variant: 'success', label: t('inconnu') }
     }
   }
 }
@@ -58,14 +65,14 @@ export const BaseBadge: FC<Props> = ({ children, variant = 'solid', label: custo
       variant={variant}
       size="lg"
       borderRadius="7px"
-      p={2.5}
+      p={props.p ?? 2}
       bg={gradient ?? bg ?? 'none'}
       color={color || textColor}
       _hover={{ background: hover ?? `${bg}CC` }}
       _active={{ background: hover ?? `${bg}AA` }}
       _disabled={{ background: 'gray.300', cursor: 'not-allowed' }}
     >
-      <BaseText variant={TextVariant.S} textTransform="capitalize">
+      <BaseText variant={TextVariant.XS} textTransform="capitalize">
         {customLabel ?? resolvedLabel}
       </BaseText>
     </Badge>

@@ -12,13 +12,11 @@ import {
   Icon,
   useFileUpload,
   useFileUploadContext,
-  Circle,
-  Center,
   For,
   Flex,
 } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import { HiUpload, HiX } from 'react-icons/hi'
+import { HiX } from 'react-icons/hi'
 import { LuUpload } from 'react-icons/lu'
 import { ACCEPTED_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB, MAX_FILES } from './constant/constants'
 import { UTILS } from 'rental-platform-shared'
@@ -93,25 +91,33 @@ export const CustomDragDropZone = ({ getFilesUploaded, initialImageUrls }: { get
   )
 }
 
-const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File | null) => void; avatarImage?: string; name?: string }) => {
+const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File) => void; avatarImage?: string; name?: string }) => {
   const { t } = useTranslation()
   const fileUpload = useFileUploadContext()
   const { error, errorType } = useFileUploadErrors({
     onValidFiles: (files) => getFileUploaded(files[0] || null),
   })
 
+  useEffect(() => {
+    if (avatarImage && fileUpload.acceptedFiles.length === 0) {
+      UTILS.convertUrlsToFiles(avatarImage).then((file) => {
+        fileUpload.setFiles([...file])
+      })
+    }
+  }, [avatarImage])
+
   return (
-    <Flex flexDir={{ base: 'column', md: 'row' }} width={'full'} alignItems={'flex-start'} justifyContent={'flex-start'} gap={5}>
+    <Flex direction={{ base: 'column', md: 'row' }} w="full" align="flex-start" justify="flex-start" gap={5}>
       <Box pos="relative">
-        <FileUpload.Trigger asChild cursor={'pointer'}>
+        <FileUpload.Trigger asChild cursor="pointer">
           <Avatar
-            boxSize={'130px'}
-            size={'2xl'}
-            cursor={'pointer'}
+            boxSize="130px"
+            size="2xl"
             name={name}
-            colorPalette={avatarImage ? 'green' : 'none'}
+            cursor="pointer"
+            colorPalette={avatarImage && fileUpload.acceptedFiles.length > 0 ? 'green' : 'none'}
             icon={<HomeIcon />}
-            src={avatarImage}
+            src={avatarImage && fileUpload.acceptedFiles.length > 0 ? avatarImage : undefined}
             css={{
               outlineWidth: '2px',
               outlineColor: 'colorPalette.500',
@@ -120,11 +126,12 @@ const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploa
             }}
           />
         </FileUpload.Trigger>
-        {avatarImage && (
+
+        {fileUpload?.acceptedFiles?.length > 0 && (
           <For each={fileUpload?.acceptedFiles}>
             {(file) => (
-              <Float placement="bottom-end" offsetX="3" offsetY="3">
-                <FileUpload.Item rounded={'full'} bg={'red.500'} p="1" borderColor={'none'} width="auto" key={file.name} file={file} pos="relative">
+              <Float placement="bottom-end" offsetX="3" offsetY="3" key={file.name}>
+                <FileUpload.Item rounded="full" bg="red.500" p="1" borderColor="none" width="auto" file={file} pos="relative">
                   <FileUpload.ItemDeleteTrigger>
                     <HiX color="white" />
                   </FileUpload.ItemDeleteTrigger>
@@ -148,7 +155,7 @@ const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploa
   )
 }
 
-export const UploadAvatar = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File | null) => void; avatarImage?: string | any; name?: string }) => {
+export const UploadAvatar = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File) => void; avatarImage?: string; name?: string }) => {
   const { getRootProps } = useFileUpload()
   return (
     <FileUpload.Root {...getRootProps()} maxFiles={1} maxFileSize={MAX_FILE_SIZE} accept={ACCEPTED_TYPES}>

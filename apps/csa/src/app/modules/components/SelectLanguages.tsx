@@ -16,7 +16,7 @@ interface IProps extends ModalOpenProps {
 
 export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
   const { t, i18n } = useTranslation()
-  const [selectLanguage, setSelectLanguage] = useState(language ?? i18n.language)
+  const [selectLanguage, setSelectLanguage] = useState<string>(i18n.language)
   const [fallbackLoad, setFallbackLoad] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
 
@@ -44,6 +44,7 @@ export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
   useEffect(() => {
     if (language) {
       i18n.changeLanguage(language).then(() => localStorage.setItem(StorageKey.LANGUAGE, language))
+      setSelectLanguage(language)
     }
   }, [language])
 

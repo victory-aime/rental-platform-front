@@ -250,15 +250,17 @@ export const base64ToFile = (base64: string, filename: string): File => {
   }
   return new File([u8arr], filename, { type: mime })
 }
+
 /**
- * function to fetch and extract file name
- * in cloudinary server
- * @param urls
- * @returns
+ * Convert one or multiple Cloudinary URLs to File objects
+ * @param urls - Single URL string or array of URL strings
+ * @returns Array of File objects
  */
-export const convertUrlsToFiles = async (urls: string[]): Promise<File[]> => {
+export const convertUrlsToFiles = async (urls: string | string[]): Promise<File[]> => {
+  const urlArray = Array.isArray(urls) ? urls : [urls]
+
   const results = await Promise.all(
-    urls?.map(async (url, index) => {
+    urlArray.map(async (url, index) => {
       try {
         const response = await fetch(url)
         const data = await response.blob()
@@ -269,5 +271,6 @@ export const convertUrlsToFiles = async (urls: string[]): Promise<File[]> => {
       }
     })
   )
+
   return results.filter((f): f is File => !!f)
 }

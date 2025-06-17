@@ -67,7 +67,15 @@ export const APIS = (baseUrl?: string) => {
           showResponse: false,
           handleErrorManually: false,
         }),
-        UPDATE_USER: api({ path: '/user/update', method: 'PATCH' }),
+        UPDATE_USER: api({ path: '/user/update-user', method: 'PATCH' }),
+        DEACTIVATE_OR_ACTIVATE_ACCOUNT: api({
+          path: '/user/deactivate-activate-account',
+          method: 'PUT',
+        }),
+        CLEAR_ALL_SESSIONS: api({
+          path: '/user/clear-all-sessions',
+          method: 'PUT',
+        }),
       },
     },
     MODULES: {
@@ -76,25 +84,21 @@ export const APIS = (baseUrl?: string) => {
           path: '/categories',
           method: 'GET',
           showResponse: false,
-          handleErrorManually: true,
         }),
         GET_EQUIPMENTS: api({
           path: '/equipments',
           method: 'GET',
           showResponse: false,
-          handleErrorManually: true,
         }),
         ADD_CAR: api({
           path: '/manage-cars/add',
           method: 'POST',
           showResponse: true,
-          handleErrorManually: true,
         }),
         GET_CARS: api({
           path: '/manage-cars/cars-list',
           method: 'GET',
           showResponse: false,
-          handleErrorManually: true,
         }),
         UPDATE_CAR: api({
           path: '/manage-cars/update-car',
