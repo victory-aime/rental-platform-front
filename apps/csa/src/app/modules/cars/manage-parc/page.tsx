@@ -15,7 +15,7 @@ const ManageParcPage = () => {
   const [isFilterActive, setIsFilterActive] = useState<boolean>(false)
   const [filters, setFilters] = useState<TYPES.MODELS.CARS.ParcListDto | null>(null)
   const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
-  const agencyId = currentUser?.establishment.id
+  const agencyId = currentUser?.establishment?.id
 
   const {
     data: parc,

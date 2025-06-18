@@ -55,7 +55,7 @@
     "CONFIRM_TEXT": "To confirm, type <<{{value}}>> in the box below.",
     "WARNING": {
       "TITLE": "Caution",
-      "DESC": "this action is irreversible. Once deleted, this item cannot be restored. Are you sure you want to continue?"
+      "DESC": "This action is irreversible. Once you've done it, there's no turning back. Are you sure you want to continue?"
     },
     "STATUS": {
       "ACTIVE": "Active",
@@ -75,12 +75,11 @@
       "CANCELED": "Cancelled reservation",
       "UNAVAILABLE": "Vehicle unavailable"
     },
-
     "NO_DATA": "No data available",
-
     "PAGE_NOT_FOUND": "Page not found",
     "PAGE_NOT_FOUND_DESC": "The page you are looking for does not exist or has been deleted. Please check the URL or return to the home page.",
-    "BACK_TO_HOME": "Return to home"
+    "BACK_TO_HOME": "Return to home",
+    "ENABLED": "Enabled"
   },
   "VEHICLE_STATUS": {
     "AVAILABLE": "Available",
@@ -186,7 +185,6 @@
       "DESC": "Description"
     }
   },
-
   "DRAG_DROP": {
     "TITLE": "Drag and drop files here, or click to select",
     "DESC": "Accepted formats: .png, .jpg up to {{max_size}}MB",
@@ -200,6 +198,26 @@
     }
   },
   "PROFILE": {
-    "PREFERRED_LANGUAGE": "The language has been successfully updated"
+    "PREFERRED_LANGUAGE": "The language has been successfully updated",
+    "PERSONAL_INFO": "Your personal information and account security settings",
+    "NAME": "Last name",
+    "FIRST_NAME": "First name",
+    "EMAIL": "Email",
+    "PHONE": "Phone",
+    "NEW_PASSWORD": "New password",
+    "2MFA": "Two-factor authentication",
+    "2MFA_DESC": "Ensure the security of your account by activating the 2FA function using a one-time temporary access code (TOTP) from an authentication application. ",
+    "ENABLED_2MFA": "Enable Authenticator (TOTP)",
+    "ENABLED_2MFA_DESC": "Enable to receive a one-time temporary access code each time you log in. ",
+    "LANGUAGE": "Language",
+    "LANGUAGE_DESC": "Select the application language for a personalized experience.",
+    "CONSENT_TITLE": "Yes, I want to delete my account",
+    "DANGER_ZONE": {
+      "TITLE": "Danger Zone",
+      "DESC": "This section contains critical actions that may affect your account. Please use caution when using these features.",
+      "DELETE_ACCOUNT": "Delete account",
+      "LOGOUT_ALL_SESSIONS": "Logout from all sessions",
+      "LOGOUT_ALL_SESSIONS_DESC": "Logout from all sessions, including mobile, iPad and other browsers"
+    }
   }
 }

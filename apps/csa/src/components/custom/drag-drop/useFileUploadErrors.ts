@@ -5,11 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 export type ErrorType = 'size' | 'max_file' | 'type' | null
 
-export const useFileUploadErrors = ({
-  onValidFiles,
-}: {
-  onValidFiles: (files: File[]) => void
-}) => {
+export const useFileUploadErrors = ({ onValidFiles }: { onValidFiles: (files: File[]) => void }) => {
   const { t } = useTranslation()
   const fileUpload = useFileUploadContext()
   const [error, setError] = useState<string | null>(null)
@@ -20,15 +16,9 @@ export const useFileUploadErrors = ({
       setErrorType('max_file')
       setError(t('DRAG_DROP.ERROR.MAX_FILES', { max_files: MAX_FILES }))
     } else if (fileUpload.rejectedFiles.length > 0) {
-      const oversized = fileUpload.rejectedFiles.some(file =>
-        file.errors.includes('FILE_TOO_LARGE')
-      )
-      const invalidType = fileUpload.rejectedFiles.some(file =>
-        file.errors.includes('FILE_INVALID_TYPE')
-      )
-      const tooMany = fileUpload.rejectedFiles.some(file =>
-        file.errors.includes('TOO_MANY_FILES')
-      )
+      const oversized = fileUpload.rejectedFiles.some((file) => file.errors.includes('FILE_TOO_LARGE'))
+      const invalidType = fileUpload.rejectedFiles.some((file) => file.errors.includes('FILE_INVALID_TYPE'))
+      const tooMany = fileUpload.rejectedFiles.some((file) => file.errors.includes('TOO_MANY_FILES'))
 
       if (oversized) {
         setErrorType('size')

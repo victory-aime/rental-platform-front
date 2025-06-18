@@ -14,15 +14,18 @@ import { signOut, useSession } from 'next-auth/react'
 import { TYPES } from 'rental-platform-shared'
 import { keycloakSessionLogOut } from '_hooks/logout'
 import { APP_ROUTES } from '_config/routes'
+import { DisabledAccount } from '_modules/cars/settings/profile/components/DisabledAccount'
+import { useGlobalLoader } from '_context/loaderContext'
 
 const ProfilePage = () => {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { data: session } = useSession()
+  const { showLoader, hideLoader } = useGlobalLoader()
   const [picture, setPicture] = useState<File>()
   const [getPicture, setGetPicture] = useState<string>()
   const [filesUploaded, setFilesUploaded] = useState<File>()
   const [pending, setPending] = useState<boolean>(false)
-  const [loader, setLoader] = useState<boolean>(false)
+  const [validateDisabledAccount, setValidateDisabledAccount] = useState<boolean>(false)
   const [initialValues, setInitialValues] = useState<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>(TYPES.VALIDATION_SCHEMA.USERS.initialUser)
 
   const { data: currentUser, refetch } = CommonModule.UserModule.userInfoQueries({
@@ -41,12 +44,14 @@ const ProfilePage = () => {
   })
   const { mutateAsync: deactivateOrEnabled, isPending: deactivatePending } = CommonModule.UserModule.deactivateOrActivateAccountMutation({
     onSuccess: () => {
-      keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then())
+      showLoader()
+      keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => hideLoader()))
     },
   })
   const { mutateAsync: clearAllSessions, isPending: clearLoading } = CommonModule.UserModule.clearAllSessionsMutation({
     onSuccess: () => {
-      keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then())
+      showLoader()
+      keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => hideLoader()))
     },
   })
 
@@ -71,12 +76,12 @@ const ProfilePage = () => {
     await onUpdateUserInfo(formData as unknown as TYPES.MODELS.COMMON.USERS.IUpdateUserInfo)
   }
 
-  const handleDeactivateOrEnabled = async (enabled: boolean) => {
-    await deactivateOrEnabled({ keycloakId: session?.keycloakId ?? '', enabledOrDeactivate: enabled })
+  const handleDeactivateOrEnabled = async () => {
+    await deactivateOrEnabled({ keycloakId: session?.keycloakId ?? '', enabledOrDeactivate: false })
   }
 
-  const clearAllUserSessions = async () => {
-    await clearAllSessions(session?.keycloakId ?? '')
+  const clearAllUserSessions = async (keycloakId: string | undefined) => {
+    await clearAllSessions(keycloakId ?? '')
   }
 
   useEffect(() => {
@@ -105,7 +110,7 @@ const ProfilePage = () => {
       <Formik enableReinitialize initialValues={initialValues} onSubmit={(values) => onSubmitValues(values)}>
         {({ values, handleSubmit, setFieldValue }) => (
           <VStack gap={10} alignItems={'flex-start'}>
-            <ProfileForm title="SIDE_BAR.PROFILE" description="Your personal information and account security settings">
+            <ProfileForm title="SIDE_BAR.PROFILE" description="PROFILE.PERSONAL_INFO">
               <Stack alignItems={'flex-start'} mb={5} gap={4}>
                 <BaseText variant={TextVariant.S}>Avatar</BaseText>
                 <UploadAvatar getFileUploaded={setFilesUploaded} avatarImage={getPicture} name={currentUser?.name + '' + currentUser?.firstName} />
@@ -115,46 +120,49 @@ const ProfilePage = () => {
               </Stack>
               <VStack gap={4} alignItems={'flex-start'} mt={10}>
                 <HStack width={'full'} gap={4}>
-                  <FormTextInput name="name" label="Name" placeholder="" value={values?.name} leftAccessory={<CiUser />} />
-                  <FormTextInput name="firstName" label="First name" placeholder="" value={values?.firstName} leftAccessory={<CiUser />} />
+                  <FormTextInput name="name" label="PROFILE.NAME" placeholder="" value={values?.name} leftAccessory={<CiUser />} />
+                  <FormTextInput name="firstName" label="PROFILE.FIRST_NAME" placeholder="" value={values?.firstName} leftAccessory={<CiUser />} />
                 </HStack>
-                <FormTextInput name="email" label="Email" placeholder="" type="email" value={values?.email} leftAccessory={<HiOutlineMail />} />
-                <FormTextInput name="newPassword" label="Password" placeholder="Enter new password" type="password" value={values?.newPassword} />
+                <FormTextInput name="email" label="PROFILE.EMAIL" placeholder="PROFILE.EMAIL" type="email" value={values?.email} leftAccessory={<HiOutlineMail />} />
+                <FormTextInput name="newPassword" label="PROFILE.NEW_PASSWORD" placeholder="PROFILE.NEW_PASSWORD" type="password" value={values?.newPassword} />
               </VStack>
             </ProfileForm>
-            <ProfileForm
-              title="Two-factor authentication (2MFA)"
-              activeBadge={currentUser?.enabled2MFA}
-              description="Keep your account secure by enabling 2FA via SMS or using a temporary one-time passcode (TOTP) from an authenticator app."
-            >
-              <FormSwitch name="enabled2MFA" label="Authenticator App (TOTP)" description="Use an app to receive a temporary one-time passcode each time you log in." />
+            <ProfileForm title={'PROFILE.2MFA'} activeBadge={currentUser?.enabled2MFA} description="PROFILE.2MFA_DESC">
+              <FormSwitch name="enabled2MFA" label="PROFILE.ENABLED_2MFA" description="PROFILE.ENABLED_2MFA_DESC" />
             </ProfileForm>
-            <ProfileForm title="Langue et region" description="Customize your language and region">
+            <ProfileForm title="PROFILE.LANGUAGE" description="PROFILE.LANGUAGE_DESC">
               <VStack width={{ base: '100%', md: 'full' }} alignItems={'flex-start'} gap={4}>
-                <FormSelect name="preferredLanguage" label="Language" setFieldValue={setFieldValue} listItems={selectLanguages()} />
+                <FormSelect name="preferredLanguage" label="PROFILE.LANGUAGE" setFieldValue={setFieldValue} listItems={selectLanguages(t)} isClearable={false} />
               </VStack>
             </ProfileForm>
-            <ProfileForm title="Danger zone" description="Proced with caution" borderColor={'red.500'} borderWidth={1.5} borderRadius={'7px'}>
+            <ProfileForm title="PROFILE.DANGER_ZONE.TITLE" description="PROFILE.DANGER_ZONE.DESC" borderColor={'red.500'} borderWidth={1.5} borderRadius={'7px'}>
               <Flex alignItems={'flex-start'} justifyContent={'space-between'} flexDir={{ base: 'column', md: 'row' }}>
-                <BaseText variant={TextVariant.S}>Log out all sessions including any session on mobile, iPad, and other browsers</BaseText>
-                <VStack gap={4}>
-                  <BaseButton isLoading={clearLoading} borderColor={'gray.400'} colorType={'none'} onClick={clearAllUserSessions}>
-                    {'Log out of all sessions'}
+                <BaseText variant={TextVariant.S}>{t('PROFILE.DANGER_ZONE.LOGOUT_ALL_SESSIONS_DESC')}</BaseText>
+                <VStack gap={4} alignItems={'flex-end'} justifyContent={'flex-end'}>
+                  <BaseButton isLoading={clearLoading} borderColor={'gray.400'} colorType={'none'} onClick={() => clearAllUserSessions('c33c59ff-08d8-4b65-a95b-4ecbe3b6522a')}>
+                    {t('COMMON.LOGOUT')}
                   </BaseButton>
-                  <BaseButton withGradient colorType={'danger'} isLoading={deactivatePending} onClick={() => handleDeactivateOrEnabled(false)}>
-                    Delete account
+                  <BaseButton withGradient colorType={'danger'} isLoading={deactivatePending} onClick={() => setValidateDisabledAccount(!validateDisabledAccount)}>
+                    {t('PROFILE.DANGER_ZONE.DELETE_ACCOUNT')}
                   </BaseButton>
                 </VStack>
               </Flex>
             </ProfileForm>
             <Flex width={'full'} alignItems={'flex-end'} justifyContent={'flex-end'}>
               <BaseButton colorType={'success'} onClick={() => handleSubmit()} isLoading={isPending}>
-                Save changes
+                {t('COMMON.VALIDATE')}
               </BaseButton>
             </Flex>
           </VStack>
         )}
       </Formik>
+      <DisabledAccount
+        onChange={() => setValidateDisabledAccount(!validateDisabledAccount)}
+        isOpen={validateDisabledAccount}
+        callback={handleDeactivateOrEnabled}
+        data={currentUser?.email}
+        isLoading={deactivatePending}
+      />
     </BoxContainer>
   )
 }

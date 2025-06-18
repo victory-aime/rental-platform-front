@@ -44,10 +44,16 @@ const deactivateOrActivateAccountMutation = (
   })
 }
 
-const clearAllSessionsMutation = (args: TYPES.QUERIES.MutationPayload<{ keycloakId: string }>) => {
-  return TYPES.QUERIES.useCustomMutation({
+const clearAllSessionsMutation = (
+  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>
+) => {
+  return TYPES.QUERIES.useCustomMutation<
+    TYPES.MODELS.COMMON.USERS.IUpdateUserInfo,
+    any,
+    AxiosError
+  >({
     mutationKey: [Constants.USERS_KEYS.CLEAR_ALL_SESSIONS],
-    mutationFn: (keycloakId: string) => usersServiceInstance().clearAllSessions(keycloakId),
+    mutationFn: (data) => usersServiceInstance().clearAllSessions(data?.keycloakId!),
     options: args,
   })
 }

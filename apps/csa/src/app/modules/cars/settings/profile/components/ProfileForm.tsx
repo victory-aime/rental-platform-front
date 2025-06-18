@@ -13,11 +13,11 @@ interface IProfileProps extends FlexProps {
 export const ProfileForm = ({ children, title, description, activeBadge = false, ...rest }: IProfileProps) => {
   const { t } = useTranslation()
   return (
-    <Flex width={'full'} alignItems={'flex-start'} flexDir={{ base: 'column', md: 'row' }} padding={4} {...rest}>
+    <Flex width={'full'} alignItems={'flex-start'} flexDir={{ base: 'column', md: 'row' }} padding={4} {...rest} gap={10}>
       <Box width={{ base: 'full', md: '1/2' }}>
         <Flex gap={3} alignItems={'center'}>
           <BaseText variant={TextVariant.S}>{t(title)}</BaseText>
-          {activeBadge && <BaseBadge status={'success'} label={'enabled'} p={1.5} />}
+          {activeBadge && <BaseBadge status={'success'} label={t('COMMON.ENABLED')} p={1.5} />}
         </Flex>
         <BaseText variant={TextVariant.XS} color={'gray.500'} mt={1}>
           {t(description)}

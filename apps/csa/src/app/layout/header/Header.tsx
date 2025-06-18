@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Separator } from '@chakra-ui/react'
 import { ListMenu, LogOutIcon } from '_assets/svg'
 import { SideBarProps } from '../sidebar/types'
-import { BaseText, CustomSkeletonLoader, Loader, TextVariant } from '_components/custom'
+import { BaseText, CustomSkeletonLoader, TextVariant } from '_components/custom'
 import { CommonModule } from 'rental-platform-state'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
@@ -12,22 +12,24 @@ import { FlagKeys } from '_assets/images/flag'
 import { APP_ROUTES } from '_config/routes'
 import { keycloakSessionLogOut } from '_hooks/logout'
 import { signOut } from 'next-auth/react'
+import { useGlobalLoader } from '_context/loaderContext'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
   const getPreferredLanguage = localStorage.getItem(StorageKey.LANGUAGE)
+  const { showLoader, hideLoader } = useGlobalLoader()
   const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
+
   const { data: user, isLoading } = CommonModule.UserModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
     queryOptions: {
       enabled: !!session?.keycloakId,
     },
   })
-  const [loader, setLoader] = useState(false)
 
   const handleLogout = () => {
-    keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => setLoader(false)))
-    setLoader(true)
+    showLoader()
+    keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => hideLoader()))
   }
 
   return (
@@ -49,7 +51,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
       <Flex gap={3} alignItems={'center'}>
         <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'20px'} onClick={() => setOpenSelectLanguage(true)} />
         <Separator orientation={'vertical'} size={'lg'} colorPalette={'red'} />
-        {!loader ? <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} /> : <Loader loader={loader} size={'xs'} />}
+        <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} />
       </Flex>
 
       <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={(user?.preferredLanguage as string) ?? ''} />

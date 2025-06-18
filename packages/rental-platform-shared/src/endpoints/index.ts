@@ -74,7 +74,8 @@ export const APIS = (baseUrl?: string) => {
         }),
         CLEAR_ALL_SESSIONS: api({
           path: '/user/clear-all-sessions',
-          method: 'PUT',
+          method: 'POST',
+          showResponse: false,
         }),
       },
     },

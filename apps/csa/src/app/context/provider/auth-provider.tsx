@@ -4,8 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useSessionRefresh } from '_hooks/useSessionRefresh'
 import { useSyncTokensWithContext } from '_hooks/useSyncSession'
 import React, { useState, useEffect } from 'react'
-import { Loader } from '_components/custom'
-import { Center } from '@chakra-ui/react'
+import { GlobalLoader } from '_components/custom'
 
 export const AppAuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession()
@@ -23,11 +22,7 @@ export const AppAuthProvider = ({ children }: { children: React.ReactNode }) => 
   }, [session])
 
   if (!isInitialized) {
-    return (
-      <Center width={'100vw'} height={'100vh'}>
-        <Loader loader />
-      </Center>
-    )
+    return <GlobalLoader loader />
   }
 
   return <>{children}</>

@@ -2,6 +2,7 @@ import {
   useQuery,
   useMutation,
   QueryKey,
+  MutationKey,
   UseQueryOptions,
   UseMutationOptions,
 } from '@tanstack/react-query'
@@ -33,7 +34,7 @@ export const useCustomQuery = <TData, TError = AxiosError>({
  * Custom hook for useMutation
  */
 type UseCustomMutationProps<TPayload, TResult, TError = AxiosError> = {
-  mutationKey?: QueryKey
+  mutationKey?: MutationKey
   mutationFn: (payload: TPayload) => Promise<TResult>
   options?: Omit<UseMutationOptions<TResult, TError, TPayload>, 'mutationKey' | 'mutationFn'>
 }

@@ -1,5 +1,5 @@
 import { Flex, For, VStack } from '@chakra-ui/react'
-import { BaseText, CustomToast, ModalComponent, ModalOpenProps, TextVariant, ToastStatus } from '_components/custom'
+import { BaseText, ModalComponent, ModalOpenProps, TextVariant } from '_components/custom'
 import React, { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
@@ -9,6 +9,8 @@ import { FlagImagesIcon } from './flag/FlagImages'
 import { FlagKeys } from '_assets/images/flag'
 import { hexToRGB } from '_theme/colors'
 import { listLanguages } from '_constants/languages'
+import { CommonModule } from 'rental-platform-state'
+import { useSession } from 'next-auth/react'
 
 interface IProps extends ModalOpenProps {
   language: string
@@ -16,29 +18,26 @@ interface IProps extends ModalOpenProps {
 
 export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
   const { t, i18n } = useTranslation()
+  const { data: session } = useSession()
   const [selectLanguage, setSelectLanguage] = useState<string>(i18n.language)
   const [fallbackLoad, setFallbackLoad] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
 
-  const handleChangeLanguage = async (lang: string) => {
-    if (lang === i18n.language || loading) return
-    setFallbackLoad(true)
-    setSelectLanguage(lang)
-    setLoading(true)
+  const { mutateAsync: onUpdateUserInfo, isPending } = CommonModule.UserModule.updateUserInfoMutation({
+    onSuccess: () => {
+      CommonModule.UserModule.UserCache.invalidateUser()
+    },
+  })
 
-    setTimeout(async () => {
-      try {
-        await i18n.changeLanguage(lang)
-        localStorage.setItem(StorageKey.LANGUAGE, lang)
-        CustomToast({ description: t('PROFILE.PREFERRED_LANGUAGE') })
-        onChange?.(!isOpen)
-      } catch (error) {
-        CustomToast({ description: t('PROFILE.ERROR_LANGUAGE'), type: ToastStatus.ERROR })
-      } finally {
-        setFallbackLoad(false)
-        setLoading(false)
-      }
-    }, 1000)
+  const onSubmitValues = async (selectLanguage: string) => {
+    if (selectLanguage === i18n.language || loading) return
+    setFallbackLoad(isPending)
+    setSelectLanguage(selectLanguage)
+    setLoading(isPending)
+    await i18n.changeLanguage(selectLanguage)
+    localStorage.setItem(StorageKey.LANGUAGE, selectLanguage)
+    await onUpdateUserInfo({ preferredLanguage: selectLanguage, keycloakId: session?.keycloakId ?? '' })
+    onChange?.(!isOpen)
   }
 
   useEffect(() => {
@@ -66,7 +65,7 @@ export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
                 borderTopRightRadius="20px"
                 borderBottomLeftRadius="20px"
                 cursor="pointer"
-                onClick={() => handleChangeLanguage(language)}
+                onClick={() => onSubmitValues(language)}
               >
                 <FlagImagesIcon isLoading={fallbackLoad && selectLanguage === language} countryImage={language?.toUpperCase() as FlagKeys} style={{ width: '30px', height: '30px' }} />
               </Flex>

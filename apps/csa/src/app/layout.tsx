@@ -5,6 +5,7 @@ import { I18nProvider } from '_context/provider/i18n-provider'
 import 'react-day-picker/dist/style.css'
 import '_components/custom/agenda/index.css'
 import { ThemeColorProvider } from '_context/themeColor-context'
+import { LoaderProvider } from '_context/loaderContext'
 
 const lato = Lato({
   variable: '--font-lato',
@@ -28,7 +29,9 @@ export default async function RootLayout({
         {/*<ThemeColorProvider>*/}
         {/*</ThemeColorProvider>*/}
         <ThemeProvider>
-          <I18nProvider>{children}</I18nProvider>
+          <LoaderProvider>
+            <I18nProvider>{children}</I18nProvider>
+          </LoaderProvider>
         </ThemeProvider>
       </body>
     </html>

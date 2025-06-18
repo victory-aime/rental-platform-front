@@ -55,7 +55,7 @@
     "CONFIRM_TEXT": "Pour confirmer, tapez <<{{value}}>> dans la case ci-dessous.",
     "WARNING": {
       "TITLE": "Attention",
-      "DESC": "cette action est irréversible. Une fois supprimé, cet élément ne pourra pas être restauré. Êtes-vous sûr de vouloir continuer ?"
+      "DESC": "Cette action est irréversible. Une fois effectuée, vous ne pourriez plus faire marche arrière. Êtes-vous sûr de vouloir continuer ?"
     },
     "STATUS": {
       "ACTIVE": "Actif",
@@ -77,7 +77,11 @@
     "NO_DATA": "Aucune donnée disponible",
     "PAGE_NOT_FOUND": "Page non trouvée",
     "PAGE_NOT_FOUND_DESC": "La page que vous recherchez n'existe pas ou a été supprimée. Veuillez vérifier l'URL ou revenir à la page d'accueil.",
-    "BACK_TO_HOME": "Retour à l'accueil"
+    "BACK_TO_HOME": "Retour à l'accueil",
+    "ENABLED": "Actif",
+    "fr": "Français",
+    "en": "Anglais",
+    "it": "Italien"
   },
   "VEHICLE_STATUS": {
     "AVAILABLE": "Disponible",
@@ -196,6 +200,25 @@
     }
   },
   "PROFILE": {
-    "PREFERRED_LANGUAGE": "La langue a été mise à jour avec succès"
+    "PREFERRED_LANGUAGE": "La langue a été mise à jour avec succès",
+    "PERSONAL_INFO": "Vos informations personnelles et les paramètres de sécurité de votre compte",
+    "NAME": "Nom",
+    "FIRST_NAME": "Prénom",
+    "EMAIL": "Adresse E-mail",
+    "PHONE": "Téléphone",
+    "NEW_PASSWORD": "Nouveau mot de passe",
+    "2MFA": "Authentification à deux facteurs",
+    "2MFA_DESC": "Assurez la sécurité de votre compte en activant la fonction 2FA en utilisant un code d'accès temporaire à usage unique (TOTP) à partir d'une application d'authentification.",
+    "ENABLED_2MFA": "Activer l'authentification (TOTP)",
+    "ENABLED_2MFA_DESC": "Activer pour recevoir un code d'accès temporaire à usage unique à chaque fois que vous vous connectez.",
+    "LANGUAGE": "Langue",
+    "LANGUAGE_DESC": "Sélectionnez la langue de l'application pour une expérience personnalisée.",
+    "CONSENT_TITLE": "Oui! Je veux supprimer mon compte",
+    "DANGER_ZONE": {
+      "TITLE": "Zone de danger",
+      "DESC": "Cette section contient des actions critiques qui peuvent affecter votre compte. Soyez prudent lors de l'utilisation de ces fonctionnalités.",
+      "DELETE_ACCOUNT": "Supprimer le compte",
+      "LOGOUT_ALL_SESSIONS_DESC": "Déconnexion de toutes les sessions, y compris sur mobile, iPad et autres navigateurs"
+    }
   }
 }
