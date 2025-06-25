@@ -12,7 +12,7 @@ export const MobileSidebar = ({ isOpen, onClose, links }: IMobileSidebar) => {
   return (
     <DrawerRoot open={isOpen} onOpenChange={onClose} placement={'start'} size={'xs'} closeOnEscape>
       <DrawerBackdrop />
-      <DrawerContent height={'full'} bgColor={'#1c58b1'}>
+      <DrawerContent height={'full'} bgColor={'primary.800'}>
         <DrawerHeader display={'flex'} alignItems={'center'} justifyContent={'space-between'} p={5}>
           <DrawerTitle color={'white'} fontSize={'2xl'}>
             {cachedUser?.establishment?.name}

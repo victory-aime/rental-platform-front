@@ -21,7 +21,7 @@ export const ParcFormModal: FC<ModalOpenProps> = ({ isOpen, onChange, data, call
       {({ values, handleSubmit }) => (
         <ModalComponent
           icon={<FaParking />}
-          iconBackgroundColor={hexToRGB('blue', 0.5)}
+          iconBackgroundColor={'primary.900'}
           title={!data?.id ? 'PARC.ADD_TITLE' : 'PARC.EDIT_TITLE'}
           buttonSaveTitle={data?.id ? 'COMMON.EDIT' : 'COMMON.VALIDATE'}
           open={isOpen}

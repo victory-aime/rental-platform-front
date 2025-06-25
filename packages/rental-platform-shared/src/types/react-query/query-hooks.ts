@@ -7,14 +7,21 @@ import {
   UseMutationOptions,
 } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
+import { MutationInput } from './types'
 
-/**
- * Custom hook from UseQuery
- */
 type UseCustomQueryProps<TData, TError = AxiosError> = {
   queryKey: QueryKey
   queryFn: () => Promise<TData>
   options?: Omit<UseQueryOptions<TData, TError>, 'queryKey' | 'queryFn'>
+}
+
+type UseCustomMutationProps<TPayload, TResult, TError = AxiosError> = {
+  mutationKey?: MutationKey
+  mutationFn: (input: MutationInput<TPayload>) => Promise<TResult>
+  options?: Omit<
+    UseMutationOptions<TResult, TError, MutationInput<TPayload>>,
+    'mutationFn' | 'mutationKey'
+  >
 }
 
 export const useCustomQuery = <TData, TError = AxiosError>({
@@ -30,21 +37,12 @@ export const useCustomQuery = <TData, TError = AxiosError>({
   })
 }
 
-/**
- * Custom hook for useMutation
- */
-type UseCustomMutationProps<TPayload, TResult, TError = AxiosError> = {
-  mutationKey?: MutationKey
-  mutationFn: (payload: TPayload) => Promise<TResult>
-  options?: Omit<UseMutationOptions<TResult, TError, TPayload>, 'mutationKey' | 'mutationFn'>
-}
-
 export const useCustomMutation = <TPayload, TResult, TError = AxiosError>({
   mutationKey,
   mutationFn,
   options,
 }: UseCustomMutationProps<TPayload, TResult, TError>) => {
-  return useMutation<TResult, TError, TPayload>({
+  return useMutation<TResult, TError, MutationInput<TPayload>>({
     mutationKey,
     mutationFn,
     ...options,

@@ -1,6 +1,6 @@
 'use client'
 
-import { BaseBadge, BaseText, BoxContainer, ColumnsDataTable, BaseFormatNumber, DataTableContainer } from '_components/custom'
+import { BaseBadge, BoxContainer, ColumnsDataTable, BaseFormatNumber, DataTableContainer } from '_components/custom'
 import { DisplayImage } from '../components/DisplayImage'
 import React from 'react'
 import { TYPES } from 'rental-platform-shared'
@@ -10,7 +10,6 @@ import { CarsModule, CommonModule } from 'rental-platform-state'
 
 const ManageCarsPage = () => {
   const router = useRouter()
-  //const [toggle, setToggle] = React.useState(false)
   const { data: currentUser } = CommonModule.UserModule.userInfoQueries({
     payload: { userId: '' },
     queryOptions: { enabled: false },
@@ -73,14 +72,6 @@ const ManageCarsPage = () => {
             router.push(`${MODULES_CARS_ROUTES.MANAGE_CARS.ADD_CAR}?requestId=${value?.id}`)
           },
         },
-        // {
-        //   name: 'view',
-        //   handleClick: () => {},
-        // },
-        // {
-        //   name: 'delete',
-        //   handleClick: () => {},
-        // },
       ],
     },
   ]
@@ -91,8 +82,6 @@ const ManageCarsPage = () => {
       description={'CARS.LIST_DESC'}
       border={'none'}
       withActionButtons
-      // isFilterActive={toggle}
-      // onToggleFilter={() => setToggle(!toggle)}
       actionsButtonProps={{
         validateTitle: 'CARS.ADD_CARS',
         validateColor: 'primary',
@@ -103,7 +92,6 @@ const ManageCarsPage = () => {
           refetch()
         },
       }}
-      filterComponent={<BaseText>Texte all</BaseText>}
     >
       <DataTableContainer data={cars ?? []} columns={columns} isLoading={isLoading} hidePagination />
     </BoxContainer>

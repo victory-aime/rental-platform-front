@@ -3,9 +3,8 @@ import { FaTrashAlt } from 'react-icons/fa'
 import { IoNewspaperOutline } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
 import { BaseButton } from '../button'
-import { ActionButtonsProps } from './interface/data-types'
 import { TbRestore } from 'react-icons/tb'
-import { BaseTooltip } from '_components/custom'
+import { BaseTooltip, ActionButtonsProps } from '_components/custom'
 
 export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   return (
@@ -19,7 +18,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
         switch (label) {
           case 'delete':
             return (
-              <BaseTooltip message={'COMMON.DELETE'} key={index}>
+              <BaseTooltip message={'COMMON.DELETE'} key={index} show>
                 <IconButton aria-label="Supprimer" colorPalette="red" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <FaTrashAlt />
                 </IconButton>
@@ -27,7 +26,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
             )
           case 'edit':
             return (
-              <BaseTooltip message={'COMMON.EDIT'} key={index}>
+              <BaseTooltip message={'COMMON.EDIT'} key={index} show>
                 <IconButton aria-label="Modifier" colorPalette="blue" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <MdEdit />
                 </IconButton>
@@ -35,7 +34,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
             )
           case 'view':
             return (
-              <BaseTooltip message={'COMMON.DETAIL'} key={index}>
+              <BaseTooltip message={'COMMON.DETAIL'} key={index} show>
                 <IconButton aria-label="Voir" colorPalette="green" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <IoNewspaperOutline />
                 </IconButton>
@@ -43,7 +42,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
             )
           case 'restore':
             return (
-              <BaseTooltip message={'COMMON.RESTORE'} key={index}>
+              <BaseTooltip message={'COMMON.RESTORE'} key={index} show>
                 <IconButton aria-label="restore" colorPalette="blue" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <TbRestore />
                 </IconButton>

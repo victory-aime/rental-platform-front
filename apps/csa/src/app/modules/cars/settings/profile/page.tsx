@@ -48,7 +48,7 @@ const ProfilePage = () => {
       keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => hideLoader()))
     },
   })
-  const { mutateAsync: clearAllSessions, isPending: clearLoading } = CommonModule.UserModule.clearAllSessionsMutation({
+  const { mutateAsync: clearAllSessions, isPending: clearSessionLoading } = CommonModule.UserModule.clearAllSessionsMutation({
     onSuccess: () => {
       showLoader()
       keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => hideLoader()))
@@ -80,8 +80,8 @@ const ProfilePage = () => {
     await deactivateOrEnabled({ keycloakId: session?.keycloakId ?? '', enabledOrDeactivate: false })
   }
 
-  const clearAllUserSessions = async (keycloakId: string | undefined) => {
-    await clearAllSessions(keycloakId ?? '')
+  const clearAllUserSessions = async () => {
+    await clearAllSessions({ keycloakId: session?.keycloakId })
   }
 
   useEffect(() => {
@@ -139,7 +139,7 @@ const ProfilePage = () => {
               <Flex alignItems={'flex-start'} justifyContent={'space-between'} flexDir={{ base: 'column', md: 'row' }}>
                 <BaseText variant={TextVariant.S}>{t('PROFILE.DANGER_ZONE.LOGOUT_ALL_SESSIONS_DESC')}</BaseText>
                 <VStack gap={4} alignItems={'flex-end'} justifyContent={'flex-end'}>
-                  <BaseButton isLoading={clearLoading} borderColor={'gray.400'} colorType={'none'} onClick={() => clearAllUserSessions('c33c59ff-08d8-4b65-a95b-4ecbe3b6522a')}>
+                  <BaseButton isLoading={clearSessionLoading} borderColor={'gray.400'} colorType={'none'} onClick={() => clearAllUserSessions()}>
                     {t('COMMON.LOGOUT')}
                   </BaseButton>
                   <BaseButton withGradient colorType={'danger'} isLoading={deactivatePending} onClick={() => setValidateDisabledAccount(!validateDisabledAccount)}>

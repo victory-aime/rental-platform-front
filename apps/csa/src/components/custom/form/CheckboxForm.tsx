@@ -26,7 +26,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items, itemsPe
             {itemsPerRow ? (
               <SimpleGrid columns={{ base: 1, sm: 2, lgOnly: itemsPerRow }} gap={8} width={'full'}>
                 {items?.map((item, index) => (
-                  <Checkbox key={index} value={item.name} size={'lg'}>
+                  <Checkbox key={index} value={item.name} size={'sm'}>
                     {item.name}
                   </Checkbox>
                 ))}
@@ -34,7 +34,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items, itemsPe
             ) : (
               <>
                 {items?.map((item, index) => (
-                  <Checkbox key={index} value={item.name} size={'lg'}>
+                  <Checkbox key={index} value={item.name} size={'sm'}>
                     {item.name}
                   </Checkbox>
                 ))}

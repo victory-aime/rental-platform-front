@@ -6,10 +6,10 @@ import React from 'react'
 import { BaseButton } from '../base/baseButton'
 import { IoIosClose } from 'react-icons/io'
 import { ActionButtonTypes } from '_components/custom'
-import { GoSync } from 'react-icons/go'
 import { useTranslation } from 'react-i18next'
 import { HiMiniPlusSmall } from 'react-icons/hi2'
 import { CiSaveDown2, CiFilter } from 'react-icons/ci'
+import { CgSync } from 'react-icons/cg'
 
 export const ActionsButton = ({
   cancelTitle,
@@ -18,7 +18,7 @@ export const ActionsButton = ({
   isLoading = false,
   cancelColor = 'danger',
   refreshTitle = 'COMMON.REFRESH',
-  validateColor = 'success',
+  validateColor = 'primary',
   icon,
   cancelIcon,
   onClick,
@@ -59,12 +59,12 @@ export const ActionsButton = ({
         </BaseButton>
       )}
       {onReload && (
-        <BaseButton onClick={onReload} px={'15px'} colorType={'primary'} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={<GoSync />}>
+        <BaseButton onClick={onReload} px={'15px'} colorType={'secondary'} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={<CgSync size={14} />}>
           {t(refreshTitle)}
         </BaseButton>
       )}
       {onToggleFilter && (
-        <BaseButton px={'15px'} colorType={'secondary'} withGradient leftIcon={<CiFilter />} onClick={onToggleFilter}>
+        <BaseButton px={'15px'} colorType={'tertiary'} withGradient leftIcon={<CiFilter />} onClick={onToggleFilter}>
           {t('COMMON.FILTER')}
         </BaseButton>
       )}

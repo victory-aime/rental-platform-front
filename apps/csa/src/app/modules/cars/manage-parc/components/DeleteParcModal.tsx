@@ -37,7 +37,7 @@ export const DeleteParcModal: FC<ModalOpenProps> = ({ isOpen, isLoading, callbac
               <VStack gap={4} width={'full'} alignItems={'flex-start'} animation={'slideIn'}>
                 <BaseText>{t('COMMON.CONFIRM_TEXT', { value: data?.name })}</BaseText>
                 <FormTextInput name="parkName" />
-                <BaseButton isLoading={isLoading} disabled={values.parkName !== data?.name} width={'full'} colorType={'danger'} onClick={() => handleSubmit()}>
+                <BaseButton isLoading={isLoading} disabled={values.parkName !== data?.name} width={'full'} colorType={'danger'} onClick={() => handleSubmit()} withGradient>
                   {t('COMMON.DELETE')}
                 </BaseButton>
               </VStack>

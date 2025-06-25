@@ -1,4 +1,4 @@
-import { Fieldset, Switch, Box, Flex, VStack } from '@chakra-ui/react'
+import { Fieldset, Switch, Box, Flex } from '@chakra-ui/react'
 import { useField } from 'formik'
 import React, { FC } from 'react'
 import { SwitchProps } from './interface/input'
@@ -12,7 +12,7 @@ export const FormSwitch: FC<SwitchProps> = ({ name, validate, label = '', descri
     validate,
   }
   const [field, { touched, error }, helpers] = useField(fieldHookConfig)
-  const isError = error ? Boolean(error) : !!(touched && Boolean(error))
+  const isError = error ? Boolean(error) : touched && Boolean(error)
 
   const { setValue } = helpers
 
@@ -22,14 +22,14 @@ export const FormSwitch: FC<SwitchProps> = ({ name, validate, label = '', descri
 
   return (
     <Fieldset.Root id={name} invalid={isError} width={'fit-content'} mb={4}>
-      <Switch.Root name={name} checked={field.value} onCheckedChange={handleCheckedChange} colorPalette={'green'} size={'lg'}>
-        <Flex gap={3} alignItems={'center'} justifyContent={'center'}>
-          <Box>
+      <Switch.Root name={name} checked={field.value} onCheckedChange={handleCheckedChange} colorPalette={'green'} size={'md'}>
+        <Flex gap={2} alignItems={'flex-start'} justifyContent={'flex-start'}>
+          <>
             <Switch.HiddenInput />
             <Switch.Control>
               <Switch.Thumb />
             </Switch.Control>
-          </Box>
+          </>
           <Box>
             <BaseText variant={TextVariant.S}>{t(label)}</BaseText>
             <BaseText variant={TextVariant.XS} color={'gray.500'}>

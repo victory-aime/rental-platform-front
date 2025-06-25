@@ -10,7 +10,7 @@ export class CarsServices extends BaseApi {
    * Fetches car categories
    * @returns {Promise<any>} - A promise that resolves to the car categories
    */
-  fetchCarCategories() {
+  fetchCarCategories(): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().MODULES.CARS.GET_CATEGORIES
     )
@@ -19,7 +19,7 @@ export class CarsServices extends BaseApi {
    * Fetches car equipments
    * @returns {Promise<any>} - A promise that resolves to the car categories
    */
-  fetchEquipments() {
+  fetchEquipments(): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().MODULES.CARS.GET_EQUIPMENTS
     )
@@ -27,10 +27,18 @@ export class CarsServices extends BaseApi {
   /**
    * Adds a new car
    * @param {Object} data - The data of the car to be added
+   * @param params
    * @returns {Promise<any>} - A promise that resolves to the response of the add car operation
    */
-  addCar(data: TYPES.MODELS.CARS.ICreateCarDto) {
-    return this.apiService.invoke(this.applicationContext.getApiConfig().MODULES.CARS.ADD_CAR, data)
+  addCar(
+    data: TYPES.MODELS.CARS.ICreateCarDto | FormData,
+    params: { agencyId: string; agencyName: string }
+  ): Promise<any> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().MODULES.CARS.ADD_CAR,
+      data,
+      { params }
+    )
   }
 
   /**
@@ -38,7 +46,7 @@ export class CarsServices extends BaseApi {
    * @param {establishment} establishment - The id of the etablissement
    * @returns {Promise<any>} - A promise that resolves to the list of cars
    */
-  fetchAllCars(establishment: { establishment: string }) {
+  fetchAllCars(establishment: { establishment: string }): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().MODULES.CARS.GET_CARS,
       establishment
@@ -50,10 +58,14 @@ export class CarsServices extends BaseApi {
    * @params {data} data - The object required to update car
    * @returns {Promise<{message:string}>} - A promise that resolves to the message
    */
-  updateCar(data: TYPES.MODELS.CARS.ICreateCarDto) {
+  updateCar(
+    data: TYPES.MODELS.CARS.ICreateCarDto | FormData,
+    params: { requestId: string; agencyName: string }
+  ): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().MODULES.CARS.UPDATE_CAR,
-      data
+      data,
+      { params }
     )
   }
 }

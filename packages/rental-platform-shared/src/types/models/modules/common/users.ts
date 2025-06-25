@@ -49,3 +49,7 @@ export interface IUpdateUserInfo extends IUser {
   newPassword?: string
   keycloakId?: string
 }
+
+export interface IDeactivateAccount extends IUpdateUserInfo {
+  enabledOrDeactivate: boolean
+}

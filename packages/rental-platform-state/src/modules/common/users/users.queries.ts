@@ -7,7 +7,7 @@ const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: string }, an
   const { payload, queryOptions } = args
   return TYPES.QUERIES.useCustomQuery<TYPES.MODELS.COMMON.USERS.IUser, AxiosError>({
     queryKey: [Constants.USERS_KEYS.WHO_AMI],
-    queryFn: () => usersServiceInstance().whoAmI({ userId: payload.userId }),
+    queryFn: () => usersServiceInstance().whoAmI({ userId: payload?.userId! }),
     options: queryOptions,
   })
 }
@@ -21,25 +21,21 @@ const updateUserInfoMutation = (
     AxiosError
   >({
     mutationKey: [Constants.USERS_KEYS.UPDATE_USER],
-    mutationFn: (payload) => usersServiceInstance().updateUser(payload),
-    options: args,
+    mutationFn: ({ payload }) => usersServiceInstance().updateUser(payload),
+    options: args.mutationOptions,
   })
 }
 
 const deactivateOrActivateAccountMutation = (
-  args: TYPES.QUERIES.MutationPayload<{ keycloakId: string; enabledOrDeactivate: boolean }>
+  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IDeactivateAccount>
 ) => {
   return TYPES.QUERIES.useCustomMutation<
-    { keycloakId: string; enabledOrDeactivate: boolean },
+    TYPES.MODELS.COMMON.USERS.IDeactivateAccount,
     any,
     AxiosError
   >({
     mutationKey: [Constants.USERS_KEYS.DEACTIVATE_OR_ACTIVATE_ACCOUNT],
-    mutationFn: (data) =>
-      usersServiceInstance().deactivateOrActivateAccount({
-        deactivateUser: data.enabledOrDeactivate,
-        keycloakId: data.keycloakId,
-      }),
+    mutationFn: (data) => usersServiceInstance().deactivateOrActivateAccount(data),
     options: args,
   })
 }
@@ -53,7 +49,7 @@ const clearAllSessionsMutation = (
     AxiosError
   >({
     mutationKey: [Constants.USERS_KEYS.CLEAR_ALL_SESSIONS],
-    mutationFn: (data) => usersServiceInstance().clearAllSessions(data?.keycloakId!),
+    mutationFn: (data) => usersServiceInstance().clearAllSessions(data),
     options: args,
   })
 }

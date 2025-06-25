@@ -11,7 +11,7 @@ export class ParcServices extends BaseApi {
    * @param {TYPES.MODELS.CARS.ParcListDto} payload - The payload used to filter or paginate parcs.
    * @returns {Promise<any>} A promise that resolves to the list of parcs.
    */
-  fetchParcs(payload: TYPES.MODELS.CARS.ParcListDto) {
+  fetchParcs(payload: TYPES.MODELS.CARS.ParcListDto): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().MODULES.CARS.PARC.LIST,
       payload
@@ -21,36 +21,46 @@ export class ParcServices extends BaseApi {
   /**
    * Adds a new parc.
    * @param {TYPES.MODELS.CARS.ParcDto} data - The data of the parc to be added.
+   * @param params
    * @returns {Promise<any>} A promise that resolves to the response of the add operation.
    */
-  createParc(data: TYPES.MODELS.CARS.ParcDto) {
+  createParc(data: TYPES.MODELS.CARS.ParcDto, params: { agencyId: string }): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().MODULES.CARS.PARC.ADD_PARC,
-      data
+      data,
+      { params }
     )
   }
 
   /**
    * Updates a parc.
    * @param {TYPES.MODELS.CARS.ParcDto} data - The object containing updated parc data.
+   * @param params
    * @returns {Promise<{message: string}>} A promise that resolves to a confirmation message.
    */
-  updateParc(data: TYPES.MODELS.CARS.ParcDto) {
+  updateParc(
+    data: TYPES.MODELS.CARS.ParcDto,
+    params: { agencyId: string }
+  ): Promise<{ message: string }> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().MODULES.CARS.PARC.UPDATE_PARC,
-      data
+      data,
+      {
+        params,
+      }
     )
   }
 
   /**
    * Deletes a parc.
-   * @param {TYPES.MODELS.CARS.ParcDto} data - The object identifying the parc to delete.
    * @returns {Promise<{message: string}>} A promise that resolves to a confirmation message.
+   * @param params
    */
-  deleteParc(data: TYPES.MODELS.CARS.ParcDto) {
+  deleteParc(params: { agencyId: string; name: string }): Promise<{ message: string }> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().MODULES.CARS.PARC.DELETE_PARC,
-      data
+      {},
+      { params }
     )
   }
 }

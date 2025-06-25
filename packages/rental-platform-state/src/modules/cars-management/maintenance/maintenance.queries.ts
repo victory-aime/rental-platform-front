@@ -15,7 +15,7 @@ const getMaintenanceListQueries = (
     AxiosError
   >({
     queryKey: [Constants.MAINTENANCE_KEYS.LIST],
-    queryFn: () => maintenanceServiceInstance().getMaintenanceList(payload.filters),
+    queryFn: () => maintenanceServiceInstance().getMaintenanceList(payload?.filters!),
     options: queryOptions,
   })
 }
@@ -30,7 +30,7 @@ const createMaintenanceMutation = (
   >({
     mutationKey: [Constants.MAINTENANCE_KEYS.ADD],
     mutationFn: (data) => maintenanceServiceInstance().addMaintenance(data),
-    options: args,
+    options: args.mutationOptions,
   })
 }
 
@@ -43,8 +43,8 @@ const updateMaintenanceMutation = (
     AxiosError
   >({
     mutationKey: [Constants.MAINTENANCE_KEYS.UPDATE],
-    mutationFn: (data) => maintenanceServiceInstance().updateMaintenace(data),
-    options: args,
+    mutationFn: (data) => maintenanceServiceInstance().updateMaintenance(data),
+    options: args.mutationOptions,
   })
 }
 
@@ -52,7 +52,7 @@ const closeMaintenanceMutation = (args: TYPES.QUERIES.MutationPayload<{ requestI
   return TYPES.QUERIES.useCustomMutation<{ requestId: string }, any, AxiosError>({
     mutationKey: [Constants.MAINTENANCE_KEYS.CLOSE_MAINTENANCE],
     mutationFn: (requestId) => maintenanceServiceInstance().closeMaintenace(requestId),
-    options: args,
+    options: args.mutationOptions,
   })
 }
 

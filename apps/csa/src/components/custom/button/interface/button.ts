@@ -1,9 +1,7 @@
 import { ButtonProps, FlexProps } from '@chakra-ui/react'
 import React, { ReactNode } from 'react'
 
-export type variantColorType = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'none'
-
-export type animationType = 'none' | 'pulse' | 'rotate' | 'scale' | 'shake' | 'grow' | 'fade'
+export type variantColorType = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'success' | 'warning'
 
 export interface VariantColorStyle {
   bg: string
@@ -17,7 +15,6 @@ export interface ButtonBaseProps extends ButtonProps {
   withGradient?: boolean
   colorType?: variantColorType
   status?: string
-  animation?: animationType
   isLoading?: boolean
   rightIcon?: ReactNode
   leftIcon?: ReactNode

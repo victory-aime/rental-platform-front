@@ -63,12 +63,12 @@ const FormSelect: FC<FullSelectProps> = ({
         width={width}
       >
         {label && (
-          <SelectLabel display={'flex'} gap={'6px'} mb={'4px'} fontSize={{ base: '14px', md: '16px' }}>
+          <SelectLabel display={'flex'} gap={'6px'} mb={'4px'} fontSize={{ base: '14px', md: '12px' }} alignItems={'center'}>
             {t(label)}
             {required && <BaseText color={'red'}> * </BaseText>}
             {toolTipInfo && (
               <BaseTooltip message={toolTipInfo}>
-                <HiOutlineInformationCircle size={18} />
+                <HiOutlineInformationCircle size={14} />
               </BaseTooltip>
             )}
           </SelectLabel>

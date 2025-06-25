@@ -37,7 +37,7 @@ const FormTextInput = ({
   return (
     <Field.Root id={name} invalid={isError}>
       {label && (
-        <Field.Label display={'flex'} gap={'6px'} fontSize={'12px'}>
+        <Field.Label display={'flex'} gap={'6px'} fontSize={{ base: '14px', md: '12px' }}>
           {t(label)}
           {required && <Text color={'red'}> * </Text>}
         </Field.Label>

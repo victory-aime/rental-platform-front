@@ -23,12 +23,11 @@ const AddCarsPage = () => {
   const [bookingStatus, setBookingsStatus] = useState<string | null>(null)
 
   const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
-  const carsCache = CarsModule.CarsCache.getCars()
-  const existingCarsFiles = UTILS.findDynamicIdInList(requestId ?? '', carsCache)
-  const {} = CarsModule.getAllCarsQueries({
+  const { data: allCars } = CarsModule.getAllCarsQueries({
     payload: { establishment: currentUser?.establishment?.id ?? '' },
-    queryOptions: { enabled: carsCache?.length === 0 && !!existingCarsFiles && !!requestId },
+    queryOptions: { enabled: !!requestId && !!currentUser?.establishment?.id },
   })
+  const existingCarsFiles = UTILS.findDynamicIdInList(requestId!, allCars)
   const { data: categories } = CarsModule.getCarsCategoriesQueries({})
   const { data: equipments } = CarsModule.getCarsEquipmentsQueries({})
   const { data: parcs } = CarsModule.parcs.getParcsQueries({
@@ -40,17 +39,21 @@ const AddCarsPage = () => {
     },
   })
   const { mutateAsync: createCars, isPending: createPending } = CarsModule.createCarsMutation({
-    onSuccess: () => {
-      CarsModule.CarsCache.invalidateCars()
-      CarsModule.parcs.ParcsCache.invalidateParcs()
-      router.back()
+    mutationOptions: {
+      onSuccess: () => {
+        CarsModule.CarsCache.invalidateCars()
+        CarsModule.parcs.ParcsCache.invalidateParcs()
+        router.back()
+      },
     },
   })
   const { mutateAsync: updateCars, isPending: updatePending } = CarsModule.updateCarsMutation({
-    onSuccess: () => {
-      CarsModule.CarsCache.invalidateCars()
-      CarsModule.parcs.ParcsCache.invalidateParcs()
-      router.back()
+    mutationOptions: {
+      onSuccess: () => {
+        CarsModule.CarsCache.invalidateCars()
+        CarsModule.parcs.ParcsCache.invalidateParcs()
+        router.back()
+      },
     },
   })
 
@@ -63,13 +66,10 @@ const AddCarsPage = () => {
   const submitForm = async (values: TYPES.MODELS.CARS.ICreateCarDto) => {
     const formData = new FormData()
 
-    formData.append('id', String(requestId))
-    formData.append('agencyId', currentUser?.establishment?.id ?? '')
-    formData.append('agencyName', String(currentUser?.establishment?.name))
-    formData.append('name', values?.name)
-    formData.append('brand', values?.brand)
-    formData.append('model', values?.model)
-    formData.append('plateNumber', values?.plateNumber)
+    formData.append('name', String(values?.name))
+    formData.append('brand', String(values?.brand))
+    formData.append('model', String(values?.model))
+    formData.append('plateNumber', String(values?.plateNumber))
     formData.append('doors', String(values?.doors))
     formData.append('seats', String(values?.seats))
     formData.append('transmission', values?.transmission?.[0] ?? '')
@@ -87,9 +87,14 @@ const AddCarsPage = () => {
     })
 
     if (requestId) {
-      await updateCars(formData as unknown as TYPES.MODELS.CARS.ICreateCarDto)
+      await updateCars({
+        payload: formData as TYPES.MODELS.CARS.ICreateCarDto,
+        params: {
+          requestId: requestId,
+        },
+      })
     } else {
-      await createCars(formData as unknown as TYPES.MODELS.CARS.ICreateCarDto)
+      await createCars({ payload: formData as TYPES.MODELS.CARS.ICreateCarDto, params: { agencyId: currentUser?.establishment?.id, agencyName: currentUser?.establishment?.name } })
     }
   }
 
@@ -132,6 +137,7 @@ const AddCarsPage = () => {
           description={!requestId ? 'CARS.ADD_DESC' : 'CARS.EDIT_DESC'}
           withActionButtons
           actionsButtonProps={{
+            requestId: requestId!,
             isLoading: createPending || updatePending,
             cancelTitle: 'COMMON.CANCEL',
             validateTitle: requestId ? 'COMMON.EDIT' : 'COMMON.VALIDATE',
@@ -256,7 +262,7 @@ const AddCarsPage = () => {
                 </VStack>
                 <VStack mt={10} gap={4} mb={4} align="stretch" width="100%">
                   <Stack mb={4} alignItems={'center'} justifyContent={'center'} width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
-                    <FormSelect name="parkingCarId" label={'CARS.FORMS.PARKING'} placeholder={'CARS.FORMS.PARKING'} setFieldValue={setFieldValue} listItems={parcList(parcs?.content)} />
+                    <FormSelect name="parkingCarId" label={'CARS.FORMS.PARKING'} placeholder={'CARS.FORMS.PARKING'} setFieldValue={setFieldValue} listItems={parcList(parcs?.content) ?? []} />
 
                     <FormSelect
                       name="carCategoryId"

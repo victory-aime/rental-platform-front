@@ -58,6 +58,8 @@ export const BaseBadge: FC<Props> = ({ children, variant = 'solid', label: custo
   const { t } = useTranslation()
   const { variant: resolvedVariant, label: resolvedLabel } = getBadgeContent(status, type, t)
   const { bg, gradient, hover, textColor } = getVariantStyles(resolvedVariant)
+  console.log('status', status)
+  console.log('label', customLabel)
 
   return (
     <Badge

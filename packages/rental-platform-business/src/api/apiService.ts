@@ -23,7 +23,7 @@ export class ApiService {
   invoke<RQ = any, RS = any>(
     endpoint: APIObjectType,
     requestData?: RQ,
-    options?: InvokeOptions
+    options?: InvokeOptions & { params?: Record<string, any> }
   ): Promise<RS> {
     const token = this.applicationContext.getToken()
     const config: AxiosRequestConfig = {
@@ -37,15 +37,21 @@ export class ApiService {
       },
     }
 
-    if (['POST', 'PUT', 'PATCH'].includes(endpoint.method)) {
+    const isBodyMethod = ['POST', 'PUT', 'PATCH'].includes(endpoint.method)
+
+    if (isBodyMethod) {
       config.data = requestData
+      if (options?.params) {
+        config.params = options.params
+      }
     } else {
       config.params =
-        requestData && typeof requestData === 'object'
+        options?.params ??
+        (requestData && typeof requestData === 'object'
           ? requestData
           : requestData !== undefined
             ? { value: requestData }
-            : undefined
+            : undefined)
     }
 
     return axios(config)

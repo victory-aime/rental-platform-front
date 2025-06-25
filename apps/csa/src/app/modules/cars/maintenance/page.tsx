@@ -42,29 +42,35 @@ const MaintenancePage = () => {
     isPending: createPending,
     isSuccess: createSuccess,
   } = CarsModule.maintenance.createMaintenanceMutation({
-    onSuccess: () => {
-      setOpenModalForm(false)
-      CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+    mutationOptions: {
+      onSuccess: () => {
+        setOpenModalForm(false)
+        CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+      },
     },
   })
 
   const {
     mutateAsync: updateMaintenance,
     isPending: updatePending,
-    isSuccess: updateSucess,
+    isSuccess: updateSuccess,
   } = CarsModule.maintenance.updateMaintenanceMutation({
-    onSuccess: () => {
-      setSelectedItem(null)
-      setOpenModalForm(false)
-      CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+    mutationOptions: {
+      onSuccess: () => {
+        setSelectedItem(null)
+        setOpenModalForm(false)
+        CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+      },
     },
   })
 
   const { mutateAsync: closeMutate, isPending: closePending } = CarsModule.maintenance.closeMaintenanceMutation({
-    onSuccess: () => {
-      setSelectedItem(null)
-      setOpenCloseForm(false)
-      CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+    mutationOptions: {
+      onSuccess: () => {
+        setSelectedItem(null)
+        setOpenCloseForm(false)
+        CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+      },
     },
   })
 
@@ -188,7 +194,7 @@ const MaintenancePage = () => {
         isLoading={createPending || updatePending}
         callback={submitForm}
         data={selectedItem}
-        isSuccess={createSuccess || updateSucess}
+        isSuccess={createSuccess || updateSuccess}
       />
       <CloseMaintenanceForm isOpen={openCloseForm} onChange={() => setOpenCloseForm(!openCloseForm)} data={selectedItem} callback={handleClose} isLoading={closePending} />
     </BoxContainer>

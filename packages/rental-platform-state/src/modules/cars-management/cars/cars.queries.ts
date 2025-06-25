@@ -24,28 +24,28 @@ const getAllCarsQueries = (args: TYPES.QUERIES.QueryPayload<{ establishment: str
   const { payload, queryOptions } = args
   return TYPES.QUERIES.useCustomQuery<TYPES.MODELS.CARS.IResponseCarsList[], AxiosError>({
     queryKey: [Constants.CARS_KEYS.ALL_CARS],
-    queryFn: () => carsServiceInstance().fetchAllCars({ establishment: payload.establishment }),
+    queryFn: () => carsServiceInstance().fetchAllCars({ establishment: payload?.establishment! }),
     options: queryOptions,
   })
 }
 
 const createCarsMutation = (
-  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.CARS.ICreateCarDto>
+  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.CARS.ICreateCarDto, any>
 ) => {
   return TYPES.QUERIES.useCustomMutation<TYPES.MODELS.CARS.ICreateCarDto, any, AxiosError>({
     mutationKey: [Constants.CARS_KEYS.ADD_CAR],
-    mutationFn: (data) => carsServiceInstance().addCar(data),
-    options: args,
+    mutationFn: ({ payload, params }) => carsServiceInstance().addCar(payload!, params),
+    options: args.mutationOptions,
   })
 }
 
 const updateCarsMutation = (
-  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.CARS.ICreateCarDto>
+  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.CARS.ICreateCarDto, any, any>
 ) => {
   return TYPES.QUERIES.useCustomMutation<TYPES.MODELS.CARS.ICreateCarDto, any, AxiosError>({
     mutationKey: [Constants.CARS_KEYS.UPDATE_CAR],
-    mutationFn: (data) => carsServiceInstance().updateCar(data),
-    options: args,
+    mutationFn: ({ payload, params }) => carsServiceInstance().updateCar(payload!, params),
+    options: args.mutationOptions,
   })
 }
 

@@ -7,4 +7,5 @@ export interface BaseTooltipProps {
   message: string
   placement?: Placement
   arrow?: boolean
+  show?: boolean
 }

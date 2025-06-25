@@ -12,7 +12,7 @@ const ModalComponent = ({
   ignoreFooter = true,
   onChange,
   title = 'Modal Title',
-  colorSaveButton = 'success',
+  colorSaveButton = 'primary',
   buttonSaveTitle = 'COMMON.VALIDATE',
   buttonCancelTitle = 'COMMON.CANCEL',
   showCloseButton = true,
@@ -21,7 +21,7 @@ const ModalComponent = ({
   isFull,
   modalType,
   icon,
-  iconBackgroundColor = 'red',
+  iconBackgroundColor = 'error.700',
   children,
   ref,
   ...rest
@@ -46,7 +46,7 @@ const ModalComponent = ({
           <DialogFooter mt={8}>
             {buttonCancelTitle && (
               <DialogActionTrigger asChild>
-                <BaseButton disabled={isLoading} onClick={onChange} variant="outline">
+                <BaseButton disabled={isLoading} withGradient onClick={onChange} variant="outline" colorType={'secondary'}>
                   {t(buttonCancelTitle)}
                 </BaseButton>
               </DialogActionTrigger>

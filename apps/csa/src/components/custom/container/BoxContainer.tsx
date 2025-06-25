@@ -5,7 +5,8 @@ import { ActionsButton } from '../button'
 import { BaseTooltip, CustomSkeletonLoader, IBoxProps } from '_components/custom'
 import { hexToRGB } from '_theme/colors'
 import { useTranslation } from 'react-i18next'
-import { HiInformationCircle } from 'react-icons/hi2'
+import { VariablesColors } from '_theme/variables'
+import { LuInfo } from 'react-icons/lu'
 
 export const BoxContainer = ({
   title = '',
@@ -41,10 +42,10 @@ export const BoxContainer = ({
             <>
               {tooltip ? (
                 <Flex width={'full'} gap={4} alignItems={'center'} justifyContent={'flex-start'}>
-                  <BaseText variant={TextVariant.H3}>{t(title)}</BaseText>
+                  <BaseText variant={TextVariant.L}>{t(title)}</BaseText>
                   {tooltip && (
                     <BaseTooltip message={tooltip}>
-                      <HiInformationCircle size={18} />
+                      <LuInfo size={14} color={VariablesColors.primary} />
                     </BaseTooltip>
                   )}
                 </Flex>

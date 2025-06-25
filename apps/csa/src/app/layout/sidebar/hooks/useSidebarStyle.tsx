@@ -19,7 +19,7 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
       position: 'fixed',
       transition: 'all 400ms cubic-bezier(0.25, 0.1, 0.25, 1)',
       overflow: 'hidden',
-      bg: 'primary.500',
+      bg: 'primary.800',
       borderTopRightRadius: /*sideToggled ? '25px'*/ '0',
       //borderBottomRightRadius: '25px',
       zIndex: { base: '999', md: '10' },

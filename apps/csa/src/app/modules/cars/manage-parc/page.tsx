@@ -33,46 +33,58 @@ const ManageParcPage = () => {
   })
 
   const { mutateAsync: createParc, isPending: createPending } = CarsModule.parcs.createParcMutation({
-    onSuccess: () => {
-      setOpenModal(false)
-      setSelectedParc(null)
-      refetch().then()
+    mutationOptions: {
+      onSuccess: () => {
+        setOpenModal(false)
+        setSelectedParc(null)
+        refetch().then()
+      },
     },
   })
 
   const { mutateAsync: updateParc, isPending: updatePending } = CarsModule.parcs.updateParcMutation({
-    onSuccess: () => {
-      setOpenModal(false)
-      setSelectedParc(null)
-      refetch().then()
+    mutationOptions: {
+      onSuccess: () => {
+        setOpenModal(false)
+        setSelectedParc(null)
+        refetch().then()
+      },
     },
   })
   const { mutateAsync: deleteParc, isPending: deleteParcPending } = CarsModule.parcs.deleteParcMutation({
-    onSuccess: () => {
-      setSelectedParc(null)
-      refetch().then()
+    mutationOptions: {
+      onSuccess: () => {
+        setSelectedParc(null)
+        refetch().then()
+      },
     },
   })
 
   const handleSubmit = async (values: any) => {
     const request: TYPES.MODELS.CARS.ParcDto = {
-      agencyId,
       name: values?.name,
       address: values?.address,
     }
     if (selectedParc?.id) {
-      await updateParc({ id: selectedParc.id, ...request })
+      await updateParc({
+        payload: request,
+        params: { agencyId },
+      })
     } else {
-      await createParc(request)
+      await createParc({
+        payload: request,
+        params: { agencyId },
+      })
     }
   }
 
   const handleDelete = async () => {
-    const request: TYPES.MODELS.CARS.ParcDto = {
-      agencyId,
-      name: selectedParc?.name,
-    }
-    await deleteParc(request)
+    await deleteParc({
+      params: {
+        agencyId,
+        name: selectedParc?.name,
+      },
+    })
   }
 
   const handleFilter = (values: TYPES.MODELS.CARS.ParcListDto | null) => {
