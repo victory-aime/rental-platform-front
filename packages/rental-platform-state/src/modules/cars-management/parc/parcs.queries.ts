@@ -3,7 +3,7 @@ import { parcsServiceInstance } from './parc.service-instance'
 import { TYPES } from 'rental-platform-shared'
 import { AxiosError } from 'axios'
 
-const getParcsQueries = (args: TYPES.QUERIES.QueryPayload<TYPES.MODELS.CARS.ParcListDto, any>) => {
+const getParcsQueries = (args: TYPES.QUERIES.QueryPayload<TYPES.MODELS.CARS.ParcListDto>) => {
   const { payload, queryOptions } = args
   return TYPES.QUERIES.useCustomQuery<TYPES.MODELS.CARS.IResponseParc, AxiosError>({
     queryKey: [Constants.PARCS_KEYS.ALL_PARCS],

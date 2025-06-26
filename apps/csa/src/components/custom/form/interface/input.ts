@@ -15,6 +15,9 @@ interface TextInputProps extends HTMLChakraProps<'input'> {
   type?: HTMLInputTypeAttribute | undefined
   accept?: string
   validate?: any
+  useMask?: boolean
+  maskVisibleCount?: number
+  maskChar?: string
   customRadius?: number
   height?: string | number
   toolTipInfo?: string
@@ -80,5 +83,9 @@ interface FormDatePickerFieldProps extends TextInputProps {
 interface TimeInputProps extends TextInputProps {
   variant?: 'outline' | 'subtle' | 'plain'
 }
+interface OtpInputProps extends TextInputProps {
+  count?: number
+  attached?: boolean
+}
 
-export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps, SwitchProps, FormColorPickerProps, FormDatePickerFieldProps, TimeInputProps }
+export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps, SwitchProps, FormColorPickerProps, FormDatePickerFieldProps, TimeInputProps, OtpInputProps }

@@ -4,8 +4,9 @@ import { Lato } from 'next/font/google'
 import { I18nProvider } from '_context/provider/i18n-provider'
 import 'react-day-picker/dist/style.css'
 import '_components/custom/agenda/index.css'
-import { ThemeColorProvider } from '_context/themeColor-context'
 import { LoaderProvider } from '_context/loaderContext'
+import { Toaster } from '_components/ui/toaster'
+import GlobalApplicationProvider from '_context/provider/GlobalApplicationProvider'
 
 const lato = Lato({
   variable: '--font-lato',
@@ -28,11 +29,14 @@ export default async function RootLayout({
       <body>
         {/*<ThemeColorProvider>*/}
         {/*</ThemeColorProvider>*/}
-        <ThemeProvider>
-          <LoaderProvider>
-            <I18nProvider>{children}</I18nProvider>
-          </LoaderProvider>
-        </ThemeProvider>
+        <GlobalApplicationProvider>
+          <ThemeProvider>
+            <LoaderProvider>
+              <Toaster />
+              <I18nProvider>{children}</I18nProvider>
+            </LoaderProvider>
+          </ThemeProvider>
+        </GlobalApplicationProvider>
       </body>
     </html>
   )

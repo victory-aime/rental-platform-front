@@ -1,12 +1,13 @@
 import React from 'react'
 import { useField } from 'formik'
-import { Input, Text, Field, Flex } from '@chakra-ui/react'
+import { Input, Field, Flex } from '@chakra-ui/react'
 import { TextInputProps } from './interface/input'
 import { InputGroup } from '_components/ui/input-group'
 import { TbLockBitcoin } from 'react-icons/tb'
 import { HiOutlineInformationCircle } from 'react-icons/hi'
-import { BaseTooltip } from '_components/custom'
+import { BaseText, BaseTooltip } from '_components/custom'
 import { useTranslation } from 'react-i18next'
+import { maskValue } from './utils/maskValue'
 
 const FormTextInput = ({
   name,
@@ -22,6 +23,9 @@ const FormTextInput = ({
   customRadius,
   accept,
   height,
+  useMask = false,
+  maskChar,
+  maskVisibleCount = 4,
   validate,
   toolTipInfo,
 }: TextInputProps) => {
@@ -39,7 +43,7 @@ const FormTextInput = ({
       {label && (
         <Field.Label display={'flex'} gap={'6px'} fontSize={{ base: '14px', md: '12px' }}>
           {t(label)}
-          {required && <Text color={'red'}> * </Text>}
+          {required && <BaseText color={'red'}> * </BaseText>}
         </Field.Label>
       )}
 
@@ -81,7 +85,7 @@ const FormTextInput = ({
           onBlur={(e) => {
             field?.onBlur(e)
           }}
-          value={field?.value ?? ''}
+          value={useMask && typeof field.value === 'string' ? maskValue(field.value, maskVisibleCount, maskChar ?? '*') : (field.value ?? '')}
           placeholder={t(placeholder)}
           borderRadius={customRadius ?? '7px'}
           border={'1px solid'}

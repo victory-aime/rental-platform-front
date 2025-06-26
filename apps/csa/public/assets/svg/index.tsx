@@ -8,5 +8,6 @@ import Eye from './eye-icon.svg'
 import TrashIcon from './trash-icon.svg'
 import CarsIcon from './cars.svg'
 import ParkingIcon from './parking.svg'
+import LockIcon from './lock.svg'
 
-export { ListMenu, Dot, LogOutIcon, ArrowDown, HomeIcon, Eye, EyeOff, TrashIcon, CarsIcon, ParkingIcon }
+export { ListMenu, LockIcon, Dot, LogOutIcon, ArrowDown, HomeIcon, Eye, EyeOff, TrashIcon, CarsIcon, ParkingIcon }

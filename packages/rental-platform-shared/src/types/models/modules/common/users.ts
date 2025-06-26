@@ -41,15 +41,15 @@ export interface IUser {
   email?: string
   picture?: string
   enabled2MFA?: boolean
+  keycloakId?: string
   preferredLanguage?: string | string[]
   establishment?: Establishment
 }
 
 export interface IUpdateUserInfo extends IUser {
   newPassword?: string
-  keycloakId?: string
 }
 
 export interface IDeactivateAccount extends IUpdateUserInfo {
-  enabledOrDeactivate: boolean
+  deactivateUser: boolean
 }

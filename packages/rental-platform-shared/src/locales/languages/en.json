@@ -11,6 +11,8 @@
     "HELP": "Help & Support"
   },
   "WELCOME": "Hello {{username}}",
+  "SIGN_IN_TITLE": "Welcome to Rental Services",
+  "SIGN_IN_DESC": "Easily manage all your rental services: hotels, cars, equipment and more.Access your centralized dashboard and easily manage your business.",
   "LOGOUT_MESSAGE": "You have successfully logged out. Thank you for using our service. To log in again, please click the button below.",
   "SESSION_EXPIRE": "Session expired",
   "SESSION_MESSAGE": "Your session has expired. Please log in again to continue",
@@ -34,8 +36,12 @@
     "PROGRESS": "Sending in progress..."
   },
   "COMMON": {
-    "FRENCH": "French",
-    "ENGLISH": "English",
+    "LEGAL_MENTIONS": "Legal Notice",
+    "TERMS_OF_USE": "Terms of Use",
+    "PRIVACY_POLICY": "Privacy Policy",
+    "CONTACT_US": "Contact Us",
+    "SECURITY": "Security",
+    "SUPPORT": "Support",
     "LOGIN": "Login",
     "LOGOUT": "Logout",
     "LOADING_TEXT": "Please wait",
@@ -79,7 +85,12 @@
     "PAGE_NOT_FOUND": "Page not found",
     "PAGE_NOT_FOUND_DESC": "The page you are looking for does not exist or has been deleted. Please check the URL or return to the home page.",
     "BACK_TO_HOME": "Return to home",
-    "ENABLED": "Enabled"
+    "ACCOUNT_NOT_ACTIVATED": "Your account has been deactivated?",
+    "ACTIVATE_ACCOUNT": "Activate my account",
+    "ENABLED": "Enabled",
+    "fr": "French",
+    "en": "English",
+    "it": "Italian"
   },
   "VEHICLE_STATUS": {
     "AVAILABLE": "Available",
@@ -218,6 +229,16 @@
       "DELETE_ACCOUNT": "Delete account",
       "LOGOUT_ALL_SESSIONS": "Logout from all sessions",
       "LOGOUT_ALL_SESSIONS_DESC": "Logout from all sessions, including mobile, iPad and other browsers"
-    }
+    },
+    "ACTIVATE_ACCOUNT": "Activate account",
+    "ACTIVATE_ACCOUNT_DESC": "To activate your account, please enter the e-mail address associated with your account. An activation code will be sent to you by e-mail",
+    "OTP_CHECK_TITLE": "OTP Verification",
+    "OTP_WARNING": "If you did not receive the OTP, please check your spam or wait a few moments before trying again",
+    "OTP_RETRY": "Didn't receive the code?",
+    "OTP_RESEND": "Resend the code",
+    "OTP_ACCOUNT_ENABLED_DESC": "Please enter the activation code sent to your email address. Please enter the OTP (One-Time Password) you received on your {{email}} email address to activate your account.",
+    "OTP_CHECK_DESC": "Please enter the OTP code sent to your email address to verify your identity.",
+    "OTP_CHECK_BUTTON": "Verify",
+    "OTP_CHECK_ERROR": "The OTP code is invalid or has expired. Please try again."
   }
 }

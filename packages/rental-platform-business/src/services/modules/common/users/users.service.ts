@@ -21,36 +21,43 @@ export class UsersService extends BaseApi {
    * Updates the current user's information.
    *
    * @param {Object} [user] - The user data to update.
+   * @param params
    * @returns {Promise<any>} - A promise resolving to the updated user information.
    */
-  updateUser(user: TYPES.MODELS.COMMON.USERS.IUpdateUserInfo): Promise<any> {
+  updateUser(
+    user: TYPES.MODELS.COMMON.USERS.IUpdateUserInfo | FormData,
+    params: { keycloakId: string }
+  ): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().COMMON.USERS.UPDATE_USER,
-      user
+      user,
+      { params }
     )
   }
 
   /**
    * Deactivates or activates a user account.
    *
-   * @param {Object} [data] - The data containing the user ID and activation status.
    * @returns {Promise<any>} - A promise resolving to the result of the operation.
+   * @param params
    */
-  deactivateOrActivateAccount(data: TYPES.MODELS.COMMON.USERS.IDeactivateAccount): Promise<any> {
+  deactivateAccount(params: TYPES.MODELS.COMMON.USERS.IDeactivateAccount): Promise<any> {
     return this.apiService.invoke(
-      this.applicationContext.getApiConfig().COMMON.USERS.DEACTIVATE_OR_ACTIVATE_ACCOUNT,
-      data
+      this.applicationContext.getApiConfig().COMMON.USERS.DEACTIVATE_ACCOUNT,
+      {},
+      { params }
     )
   }
   /**
    * Clears all sessions for a user.
    * @returns {Promise<any>} - A promise resolving to the result of the session clearing operation.
-   * @param data
+   * @param params
    */
-  clearAllSessions(data: TYPES.MODELS.COMMON.USERS.IUpdateUserInfo): Promise<any> {
+  clearAllSessions(params: { keycloakId: string }): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().COMMON.USERS.CLEAR_ALL_SESSIONS,
-      data.keycloakId
+      {},
+      { params }
     )
   }
 }

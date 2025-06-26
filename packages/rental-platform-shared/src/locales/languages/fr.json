@@ -11,6 +11,8 @@
     "HELP": "Aide & Support"
   },
   "WELCOME": "Bonjour {{username}}",
+  "SIGN_IN_TITLE": "Bienvenue chez Rental Services",
+  "SIGN_IN_DESC": "Gérez facilement l'ensemble de vos services de location : hôtels, voitures, équipements et plus encore.Accédez à votre tableau de bord centralisé et pilotez votre activité en toute simplicité.",
   "LOGOUT_MESSAGE": "Vous vous êtes déconnecté avec succès. Merci d'avoir utilisé notre service. Pour vous reconnecter, veuillez cliquer sur le bouton ci-dessous.",
   "SESSION_EXPIRE": "Session expirée",
   "SESSION_MESSAGE": "Votre session a expiré. Veuillez vous reconnecter pour continuer.",
@@ -34,8 +36,12 @@
     "PROGRESS": "Envoi en cours..."
   },
   "COMMON": {
-    "FRENCH": "Francais",
-    "ENGLISH": "Anglais",
+   "LEGAL_MENTIONS": "Mentions légales",
+    "TERMS_OF_USE": "Conditions d'utilisation",
+    "PRIVACY_POLICY": "Politique de confidentialité",
+    "CONTACT_US": "Contactez-nous",
+    "SECURITY": "Sécurité",
+    "SUPPORT": "Support",
     "LOGIN": "Se connecter",
     "LOGOUT": "Déconnexion",
     "LOADING_TEXT": "Patientez",
@@ -78,6 +84,8 @@
     "PAGE_NOT_FOUND": "Page non trouvée",
     "PAGE_NOT_FOUND_DESC": "La page que vous recherchez n'existe pas ou a été supprimée. Veuillez vérifier l'URL ou revenir à la page d'accueil.",
     "BACK_TO_HOME": "Retour à l'accueil",
+    "ACCOUNT_NOT_ACTIVATED": "Votre compte a été desactive?",
+    "ACTIVATE_ACCOUNT": "Activer mon compte",
     "ENABLED": "Actif",
     "fr": "Français",
     "en": "Anglais",
@@ -219,6 +227,14 @@
       "DESC": "Cette section contient des actions critiques qui peuvent affecter votre compte. Soyez prudent lors de l'utilisation de ces fonctionnalités.",
       "DELETE_ACCOUNT": "Supprimer le compte",
       "LOGOUT_ALL_SESSIONS_DESC": "Déconnexion de toutes les sessions, y compris sur mobile, iPad et autres navigateurs"
-    }
+    },
+    "ACTIVATE_ACCOUNT": "Activer le compte",
+    "ACTIVATE_ACCOUNT_DESC": "Pour activer votre compte, veuillez saisir l'adresse e-mail associée à votre compte. Un code d'activation vous sera envoyé par e-mail.",
+  "OTP_CHECK_TITLE": "Vérification OTP",
+    "OTP_WARNING": "Si vous n'avez pas reçu l'OTP, veuillez vérifier votre vos spam ou attendre quelques instants avant de réessayer",
+    "OTP_RETRY": "Vous n'avez pas reçu le code ?",
+    "OTP_RESEND": "Renvoyer le code",
+    "OTP_ACCOUNT_ENABLED_DESC": "Veuillez saisir le code d'activation envoyé à votre adresse e-mail. Veuillez saisir l'OTP (One-Time Password) que vous avez reçu sur votre addresse email {{email}} pour activer votre compte",
+    "OTP_CHECK_DESC": "Veuillez saisir le code OTP envoyé à votre adresse e-mail pour vérifier votre identité."
   }
 }

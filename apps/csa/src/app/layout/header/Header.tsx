@@ -29,7 +29,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
 
   const handleLogout = () => {
     showLoader()
-    keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => hideLoader()))
+    keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_IN }).then(() => hideLoader()))
   }
 
   return (

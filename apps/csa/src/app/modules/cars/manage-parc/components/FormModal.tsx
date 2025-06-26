@@ -1,6 +1,5 @@
 import { VStack } from '@chakra-ui/react'
 import { FormTextInput, ModalComponent, ModalOpenProps } from '_components/custom'
-import { hexToRGB } from '_theme/colors'
 import { Formik } from 'formik'
 import React, { FC } from 'react'
 import { FaParking } from 'react-icons/fa'

@@ -68,8 +68,8 @@ export const APIS = (baseUrl?: string) => {
           handleErrorManually: false,
         }),
         UPDATE_USER: api({ path: '/user/update-user', method: 'PATCH' }),
-        DEACTIVATE_OR_ACTIVATE_ACCOUNT: api({
-          path: '/user/deactivate-activate-account',
+        DEACTIVATE_ACCOUNT: api({
+          path: '/user/deactivate-account',
           method: 'PUT',
         }),
         CLEAR_ALL_SESSIONS: api({

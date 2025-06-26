@@ -29,7 +29,8 @@ const createMaintenanceMutation = (
     AxiosError
   >({
     mutationKey: [Constants.MAINTENANCE_KEYS.ADD],
-    mutationFn: (data) => maintenanceServiceInstance().addMaintenance(data),
+    mutationFn: ({ payload, params }) =>
+      maintenanceServiceInstance().addMaintenance(payload!, params),
     options: args.mutationOptions,
   })
 }
@@ -43,7 +44,8 @@ const updateMaintenanceMutation = (
     AxiosError
   >({
     mutationKey: [Constants.MAINTENANCE_KEYS.UPDATE],
-    mutationFn: (data) => maintenanceServiceInstance().updateMaintenance(data),
+    mutationFn: ({ payload, params }) =>
+      maintenanceServiceInstance().updateMaintenance(payload!, params),
     options: args.mutationOptions,
   })
 }
@@ -51,7 +53,7 @@ const updateMaintenanceMutation = (
 const closeMaintenanceMutation = (args: TYPES.QUERIES.MutationPayload<{ requestId: string }>) => {
   return TYPES.QUERIES.useCustomMutation<{ requestId: string }, any, AxiosError>({
     mutationKey: [Constants.MAINTENANCE_KEYS.CLOSE_MAINTENANCE],
-    mutationFn: (requestId) => maintenanceServiceInstance().closeMaintenace(requestId),
+    mutationFn: ({ params }) => maintenanceServiceInstance().closeMaintenance(params),
     options: args.mutationOptions,
   })
 }

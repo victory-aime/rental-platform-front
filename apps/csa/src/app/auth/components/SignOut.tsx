@@ -8,6 +8,7 @@ import { signIn } from 'next-auth/react'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaCheck } from 'react-icons/fa'
+import { VariablesColors } from '_theme/variables'
 
 export const SignOut = () => {
   const { t } = useTranslation()
@@ -22,7 +23,7 @@ export const SignOut = () => {
     <Center width={'100vw'} height={'100vh'} p={4} animation={'slideIn'}>
       <Flex alignItems={'center'} justifyContent={'center'} flexDir={'column'} gap={8} borderWidth={'2px'} p={10} rounded={'xl'} boxShadow={'lg'} boxShadowColor={'bg.error'}>
         <Flex alignItems={'center'} justifyContent={'center'} boxSize={'65px'} bgColor={hexToRGB('primary', 0.1)} rounded={'2xl'}>
-          <FaCheck size={24} color={'blue'} />
+          <FaCheck size={24} color={VariablesColors.primary} />
         </Flex>
         <BaseText maxW={'800px'} textAlign={'center'}>
           {t('LOGOUT_MESSAGE')}

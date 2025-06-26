@@ -87,14 +87,14 @@ const MaintenancePage = () => {
     }
 
     if (selectedItem?.id) {
-      await updateMaintenance({ id: selectedItem.id, ...request })
+      await updateMaintenance({ payload: { ...request, id: selectedItem.id }, params: { agencyId: currentUser?.establishment?.id } })
     } else {
-      await addMaintenance(request)
+      await addMaintenance({ payload: request, params: { agencyId: currentUser?.establishment?.id } })
     }
   }
 
   const handleClose = async () => {
-    await closeMutate({ requestId: selectedItem?.id ?? '' })
+    await closeMutate({ params: { requestId: selectedItem?.id } })
   }
 
   const findCarsName = (carId: string) => {

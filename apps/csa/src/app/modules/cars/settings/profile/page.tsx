@@ -30,7 +30,7 @@ const ProfilePage = () => {
 
   const { data: currentUser, refetch } = CommonModule.UserModule.userInfoQueries({
     payload: {
-      userId: session?.keycloakId ?? '',
+      userId: session?.keycloakId || '',
     },
     queryOptions: {
       enabled: pending,
@@ -38,20 +38,26 @@ const ProfilePage = () => {
   })
 
   const { mutateAsync: onUpdateUserInfo, isPending } = CommonModule.UserModule.updateUserInfoMutation({
-    onSuccess: () => {
-      refetch().then(() => setPending(true))
+    mutationOptions: {
+      onSuccess: () => {
+        refetch().then(() => setPending(true))
+      },
     },
   })
-  const { mutateAsync: deactivateOrEnabled, isPending: deactivatePending } = CommonModule.UserModule.deactivateOrActivateAccountMutation({
-    onSuccess: () => {
-      showLoader()
-      keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => hideLoader()))
+  const { mutateAsync: deactivateOrEnabled, isPending: deactivatePending } = CommonModule.UserModule.deactivateAccountMutation({
+    mutationOptions: {
+      onSuccess: () => {
+        showLoader()
+        keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_IN }).then(() => hideLoader()))
+      },
     },
   })
   const { mutateAsync: clearAllSessions, isPending: clearSessionLoading } = CommonModule.UserModule.clearAllSessionsMutation({
-    onSuccess: () => {
-      showLoader()
-      keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_OUT }).then(() => hideLoader()))
+    mutationOptions: {
+      onSuccess: () => {
+        showLoader()
+        keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_IN }).then(() => hideLoader()))
+      },
     },
   })
 
@@ -68,20 +74,24 @@ const ProfilePage = () => {
     formData.append('email', values?.email ?? '')
     formData.append('newPassword', values?.newPassword ?? '')
     formData.append('enabled2MFA', String(Boolean(values?.enabled2MFA)))
-    formData.append('keycloakId', session?.keycloakId ?? '')
     formData.append('preferredLanguage', values?.preferredLanguage && values?.preferredLanguage[0])
     if (picture) {
       formData.append('picture', picture)
     }
-    await onUpdateUserInfo(formData as unknown as TYPES.MODELS.COMMON.USERS.IUpdateUserInfo)
+    await onUpdateUserInfo({ payload: formData as TYPES.MODELS.COMMON.USERS.IUpdateUserInfo, params: { keycloakId: currentUser?.keycloakId } })
   }
 
   const handleDeactivateOrEnabled = async () => {
-    await deactivateOrEnabled({ keycloakId: session?.keycloakId ?? '', enabledOrDeactivate: false })
+    await deactivateOrEnabled({
+      params: {
+        keycloakId: currentUser?.keycloakId,
+        enabledOrDeactivate: false,
+      },
+    })
   }
 
   const clearAllUserSessions = async () => {
-    await clearAllSessions({ keycloakId: session?.keycloakId })
+    await clearAllSessions({ params: { keycloakId: session?.keycloakId || '' } })
   }
 
   useEffect(() => {
@@ -139,7 +149,7 @@ const ProfilePage = () => {
               <Flex alignItems={'flex-start'} justifyContent={'space-between'} flexDir={{ base: 'column', md: 'row' }}>
                 <BaseText variant={TextVariant.S}>{t('PROFILE.DANGER_ZONE.LOGOUT_ALL_SESSIONS_DESC')}</BaseText>
                 <VStack gap={4} alignItems={'flex-end'} justifyContent={'flex-end'}>
-                  <BaseButton isLoading={clearSessionLoading} borderColor={'gray.400'} colorType={'none'} onClick={() => clearAllUserSessions()}>
+                  <BaseButton isLoading={clearSessionLoading} borderColor={'gray.400'} colorType={'secondary'} onClick={() => clearAllUserSessions()}>
                     {t('COMMON.LOGOUT')}
                   </BaseButton>
                   <BaseButton withGradient colorType={'danger'} isLoading={deactivatePending} onClick={() => setValidateDisabledAccount(!validateDisabledAccount)}>
