@@ -36,7 +36,7 @@ export class UsersService extends BaseApi {
   }
 
   /**
-   * Deactivates or activates a user account.
+   * Deactivates a user account.
    *
    * @returns {Promise<any>} - A promise resolving to the result of the operation.
    * @param params
@@ -44,6 +44,20 @@ export class UsersService extends BaseApi {
   deactivateAccount(params: TYPES.MODELS.COMMON.USERS.IDeactivateAccount): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().COMMON.USERS.DEACTIVATE_ACCOUNT,
+      {},
+      { params }
+    )
+  }
+
+  /**
+   * Deactivates or activates a user account.
+   *
+   * @returns {Promise<any>} - A promise resolving to the result of the operation.
+   * @param params
+   */
+  activateAccount(params: { email: string }): Promise<any> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().COMMON.USERS.ACTIVATE_ACCOUNT,
       {},
       { params }
     )

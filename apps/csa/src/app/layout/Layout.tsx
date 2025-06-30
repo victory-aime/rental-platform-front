@@ -6,9 +6,7 @@ import { Session } from 'next-auth'
 import { Header } from './header'
 import { Sidebar } from './sidebar'
 import { layoutStyle } from './styles'
-import { applicationContext } from '_context/global-state'
 import { Container } from './container/Container'
-import { AppContext } from '_context/app.context'
 import { AppAuthProvider } from '_context/provider/auth-provider'
 
 export const Layout: FunctionComponent<{
@@ -37,13 +35,11 @@ export const Layout: FunctionComponent<{
 
   return (
     <AppAuthProvider>
-      <AppContext.Provider value={applicationContext}>
-        <Sidebar sideToggled={isSidebarOpen} onShowSidebar={toggleSidebar} session={session} />
-        <Box {...toggledLayoutStyle}>
-          <Header sideToggled={false} onShowSidebar={toggleSidebar} session={session} />
-          <Container>{children}</Container>
-        </Box>
-      </AppContext.Provider>
+      <Sidebar sideToggled={isSidebarOpen} onShowSidebar={toggleSidebar} session={session} />
+      <Box {...toggledLayoutStyle}>
+        <Header sideToggled={false} onShowSidebar={toggleSidebar} session={session} />
+        <Container>{children}</Container>
+      </Box>
     </AppAuthProvider>
   )
 }

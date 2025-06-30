@@ -34,8 +34,16 @@ const deactivateAccountMutation = (
     any,
     AxiosError
   >({
-    mutationKey: [Constants.USERS_KEYS.DEACTIVATE_OR_ACTIVATE_ACCOUNT],
+    mutationKey: [Constants.USERS_KEYS.DEACTIVATE_ACCOUNT],
     mutationFn: ({ params }) => usersServiceInstance().deactivateAccount(params),
+    options: args.mutationOptions,
+  })
+}
+
+const activateAccountMutation = (args: TYPES.QUERIES.MutationPayload<{ email: string }>) => {
+  return TYPES.QUERIES.useCustomMutation<{ email: string }, any, AxiosError>({
+    mutationKey: [Constants.USERS_KEYS.ACTIVATE_ACCOUNT],
+    mutationFn: ({ params }) => usersServiceInstance().activateAccount(params),
     options: args.mutationOptions,
   })
 }
@@ -58,5 +66,6 @@ export {
   userInfoQueries,
   updateUserInfoMutation,
   deactivateAccountMutation,
+  activateAccountMutation,
   clearAllSessionsMutation,
 }

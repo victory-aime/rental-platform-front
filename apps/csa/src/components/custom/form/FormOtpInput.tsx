@@ -45,7 +45,11 @@ export const FormOtpInput: FC<OtpInputProps> = ({ name, label, validate, isReadO
                 index={index}
                 borderRadius={8}
                 bg={field.value?.[index] ? 'white' : hexToRGB('lighter', 0.15)}
-                borderColor={field.value?.[index] ? 'primary.800' : 'lighter.500'}
+                borderColor={field.value?.[index] ? (isError ? 'red' : 'primary.800') : 'lighter.500'}
+                borderWidth={1.5}
+                animation={isError ? 'shake' : undefined}
+                color={'black'}
+                fontWeight={'bold'}
                 boxShadow={field.value?.[index] ? 'lg' : 'none'}
                 placeholder="-"
               />

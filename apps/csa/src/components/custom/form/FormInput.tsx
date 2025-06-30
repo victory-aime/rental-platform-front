@@ -85,7 +85,8 @@ const FormTextInput = ({
           onBlur={(e) => {
             field?.onBlur(e)
           }}
-          value={useMask && typeof field.value === 'string' ? maskValue(field.value, maskVisibleCount, maskChar ?? '*') : (field.value ?? '')}
+          //value={useMask && typeof field.value === 'string' ? maskValue(field.value, maskVisibleCount, maskChar ?? '*') : (field.value ?? '')}
+          value={field?.value}
           placeholder={t(placeholder)}
           borderRadius={customRadius ?? '7px'}
           border={'1px solid'}

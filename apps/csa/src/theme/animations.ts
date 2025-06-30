@@ -33,6 +33,15 @@ export const keyframes = {
     '0%': { transform: 'translateY(-10px)' },
     '100%': { transform: 'translateY(0)' },
   },
+  // Shake Animation
+  shake: {
+    '0%': { transform: 'translateX(0)' },
+    '20%': { transform: 'translateX(-6px)' },
+    '40%': { transform: 'translateX(6px)' },
+    '60%': { transform: 'translateX(-4px)' },
+    '80%': { transform: 'translateX(4px)' },
+    '100%': { transform: 'translateX(0)' },
+  },
 }
 
 export const animations = {
@@ -42,4 +51,5 @@ export const animations = {
   slideLeft: { value: 'slideLeft 0.6s ease-in-out forwards' },
   slideRight: { value: 'slideRight 0.6s ease-in forwards' },
   slideIn: { value: 'slideIn 0.3s ease-in-out' },
+  shake: { value: 'shake 0.5s ease-in-out' },
 }

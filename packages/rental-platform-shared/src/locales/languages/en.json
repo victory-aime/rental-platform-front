@@ -239,6 +239,8 @@
     "OTP_ACCOUNT_ENABLED_DESC": "Please enter the activation code sent to your email address. Please enter the OTP (One-Time Password) you received on your {{email}} email address to activate your account.",
     "OTP_CHECK_DESC": "Please enter the OTP code sent to your email address to verify your identity.",
     "OTP_CHECK_BUTTON": "Verify",
-    "OTP_CHECK_ERROR": "The OTP code is invalid or has expired. Please try again."
+    "OTP_CHECK_ERROR": "The OTP code is invalid or has expired. Please try again.",
+    "OTP_MAX_ATTEMPTS": "You have reached the maximum number of attempts to enter the OTP. Please try again later.",
+    "OTP_RETRY_INFO": "You can try again in {{time}}"
   }
 }

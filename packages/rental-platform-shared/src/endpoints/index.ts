@@ -77,6 +77,29 @@ export const APIS = (baseUrl?: string) => {
           method: 'POST',
           showResponse: false,
         }),
+        ACTIVATE_ACCOUNT: api({
+          path: '/user/activate-account',
+          method: 'POST',
+        }),
+      },
+      OTP: {
+        GENERATE: api({
+          path: '/otp/generate',
+          method: 'POST',
+          pathBase: 'UNSECURED_API',
+          showResponse: false,
+        }),
+        RENEW: api({
+          path: '/otp/renewOtp',
+          pathBase: 'UNSECURED_API',
+          method: 'POST',
+        }),
+        VALIDATE: api({
+          path: '/otp/validate',
+          method: 'POST',
+          pathBase: 'UNSECURED_API',
+          handleErrorManually: false,
+        }),
       },
     },
     MODULES: {

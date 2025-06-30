@@ -13,6 +13,7 @@ import { APP_ROUTES } from '_config/routes'
 import { keycloakSessionLogOut } from '_hooks/logout'
 import { signOut } from 'next-auth/react'
 import { useGlobalLoader } from '_context/loaderContext'
+import { VariablesColors } from '_theme/variables'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
@@ -51,7 +52,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
       <Flex gap={3} alignItems={'center'}>
         <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'20px'} onClick={() => setOpenSelectLanguage(true)} />
         <Separator orientation={'vertical'} size={'lg'} colorPalette={'red'} />
-        <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} />
+        <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} fill={VariablesColors.red} />
       </Flex>
 
       <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={(user?.preferredLanguage as string) ?? ''} />

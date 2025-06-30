@@ -7,42 +7,40 @@ import { Box, Center, Flex, Link, Separator, VStack } from '@chakra-ui/react'
 import { VariablesColors } from '_theme/variables'
 import { useTranslation } from 'react-i18next'
 import { useGlobalLoader } from '_context/loaderContext'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ActivateAccount } from './ActivateAccount'
 import { EnterOtpModal } from './EnterOtpModal'
 import { FormikValues } from 'formik'
+import { CommonModule } from 'rental-platform-state'
 
 export const SignIn = () => {
   const { t } = useTranslation()
   const callbackUrl = useSearchParams()?.get('callbackUrl') || APP_ROUTES.HOME
   const { showLoader, hideLoader } = useGlobalLoader()
   const [openActiveModal, setOpenActiveModal] = useState<boolean>(false)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [email, setEmail] = useState<boolean>(false)
   const [openOtpModal, setOpenOtpModal] = useState<boolean>(false)
+  const [email, setEmail] = useState<string | null>(null)
+
+  const { mutateAsync: generateOtp, isPending } = CommonModule.OtpModule.generateOtpMutation({
+    mutationOptions: {
+      onSuccess: (data) => {
+        console.log('OTP generated successfully:', data)
+        setOpenOtpModal(true)
+        setOpenActiveModal(false)
+      },
+    },
+  })
 
   const handleSignIn = () => {
     showLoader()
     signIn('keycloak', { callbackUrl }).then(() => hideLoader())
   }
 
-  const handleSubmitEmail = (values: FormikValues) => {
-    // Simulate an API call to send the activation email
-    setIsLoading(true)
-    setEmail(values?.email || '')
+  const handleSubmitEmail = async (values: FormikValues) => {
+    setEmail(values?.email)
     console.log('Email submitted:', values?.email)
-    setTimeout(() => {
-      setIsLoading(false)
-      setOpenActiveModal(false)
-      setOpenOtpModal(true)
-    }, 1000) // Simulating a delay for the API call
+    await generateOtp({ params: { email: values?.email } })
   }
-  useEffect(() => {
-    if (email) {
-      setOpenOtpModal(true)
-      setOpenActiveModal(false)
-    }
-  }, [email])
 
   return (
     <Box minH="100vh" backgroundImage="url('/assets/images/background.jpg')" backgroundSize="cover" backgroundPosition="center" position="relative" overflow="hidden">
@@ -99,7 +97,7 @@ export const SignIn = () => {
           {t('COMMON.CONTACT_US')}
         </BaseText>
       </Flex>
-      <ActivateAccount isLoading={isLoading} onChange={() => setOpenActiveModal(!openActiveModal)} isOpen={openActiveModal} callback={handleSubmitEmail} />
+      <ActivateAccount isLoading={isPending} onChange={() => setOpenActiveModal(!openActiveModal)} isOpen={openActiveModal} callback={handleSubmitEmail} />
       <EnterOtpModal onChange={() => setOpenOtpModal(!openOtpModal)} isOpen={openOtpModal} data={email} />
     </Box>
   )
