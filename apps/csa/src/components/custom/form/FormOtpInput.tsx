@@ -9,7 +9,7 @@ import { BaseText } from '_components/custom'
 import * as React from 'react'
 import { hexToRGB } from '_theme/colors'
 
-export const FormOtpInput: FC<OtpInputProps> = ({ name, label, validate, isReadOnly = false, required = false, localErrorMsg, count = 6, attached = false }) => {
+export const FormOtpInput: FC<OtpInputProps> = ({ name, label, validate, isReadOnly = false, required = false, localErrorMsg, count = 6, attached = false, isDisabled }) => {
   const { t } = useTranslation()
   const fieldHookConfig = { name, validate }
   const [field, { touched, error }, { setValue }] = useField(fieldHookConfig)
@@ -33,7 +33,7 @@ export const FormOtpInput: FC<OtpInputProps> = ({ name, label, validate, isReadO
           setValue(e.value)
         }}
         size="xl"
-        disabled={isReadOnly}
+        disabled={isReadOnly || isDisabled}
         attached={attached}
       >
         <PinInput.HiddenInput />

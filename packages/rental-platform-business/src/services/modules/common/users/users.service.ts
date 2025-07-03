@@ -53,13 +53,12 @@ export class UsersService extends BaseApi {
    * Deactivates or activates a user account.
    *
    * @returns {Promise<any>} - A promise resolving to the result of the operation.
-   * @param params
+   * @param email
    */
-  activateAccount(params: { email: string }): Promise<any> {
+  activateAccount(email: string): Promise<any> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().COMMON.USERS.ACTIVATE_ACCOUNT,
-      {},
-      { params }
+      { email }
     )
   }
   /**

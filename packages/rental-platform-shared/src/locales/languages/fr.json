@@ -230,13 +230,15 @@
     },
     "ACTIVATE_ACCOUNT": "Activer le compte",
     "ACTIVATE_ACCOUNT_DESC": "Pour activer votre compte, veuillez saisir l'adresse e-mail associée à votre compte. Un code d'activation vous sera envoyé par e-mail.",
+    "ACTIVE_ACCOUNT_SUCCESS": "\uD83C\uDF89 Félicitations ! Votre compte a été activé avec succès. Vous pouvez désormais vous connecter et profiter pleinement de nos services.",
     "OTP_CHECK_TITLE": "Vérification OTP",
     "OTP_WARNING": "Si vous n'avez pas reçu l'OTP, veuillez vérifier votre vos spam ou attendre quelques instants avant de réessayer",
     "OTP_RETRY": "Vous n'avez pas reçu le code ?",
     "OTP_RESEND": "Renvoyer le code",
     "OTP_ACCOUNT_ENABLED_DESC": "Veuillez saisir le code d'activation envoyé à votre adresse e-mail. Veuillez saisir l'OTP (One-Time Password) que vous avez reçu sur votre addresse email {{email}} pour activer votre compte",
     "OTP_CHECK_DESC": "Veuillez saisir le code OTP envoyé à votre adresse e-mail pour vérifier votre identité.",
-    "OTP_MAX_ATTEMPTS": "Vous avez atteint le nombre maximum de tentatives de saisie de l'OTP. Veuillez réessayer plus tard.",
+    "OTP_MAX_SEND_ATTEMPTS": "Vous avez atteint le nombre maximum de tentatives d'envoie de code OTP",
+    "OTP_EXPIRES_IN": "Ce code expire dans {{expiresIn}}",
     "OTP_RETRY_INFO": "Vous pouvez réessayer dans {{time}}"
   }
 }

@@ -19,7 +19,7 @@ const NotFoundPage = () => {
         <BaseText variant={TextVariant.L} weight={TextWeight.Light} textAlign={{ base: 'justify', md: 'left' }}>
           {t('COMMON.PAGE_NOT_FOUND_DESC')}
         </BaseText>
-        <BaseButton colorType={'primary'} mt={4} onClick={() => router.push(APP_ROUTES.HOME)}>
+        <BaseButton colorType={'info'} mt={4} onClick={() => router.push(APP_ROUTES.HOME)}>
           {t('COMMON.BACK_TO_HOME')}
         </BaseButton>
       </VStack>

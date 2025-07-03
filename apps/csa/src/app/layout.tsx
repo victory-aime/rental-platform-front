@@ -27,8 +27,6 @@ export default async function RootLayout({
   return (
     <html className={`${lato.variable}`} suppressHydrationWarning>
       <body>
-        {/*<ThemeColorProvider>*/}
-        {/*</ThemeColorProvider>*/}
         <GlobalApplicationProvider>
           <ThemeProvider>
             <LoaderProvider>

@@ -145,35 +145,37 @@ const colors: Colors = {
   },
 }
 
-const getColor = (color: keyof Colors = 'primary', opacity: number = 500) => colors[color]?.[opacity]?.value
-
+const getColor = (color: keyof Colors = 'primary', shade: number = 500): string => {
+  return colors[color]?.[shade]?.value ?? '#000000'
+}
 /**
  * Get the color with the specified opacity.
  * The color in the theme.
  * The opacity value (0 to 100).
  * @returns The RGBA color string with the specified opacity.
  */
-const hexToRGB = (color: keyof Colors, alpha?: number, op?: number) => {
-  const hex = getColor(color, op)
-  const r = parseInt(hex?.slice(1, 3), 16)
-  const g = parseInt(hex?.slice(3, 5), 16)
-  const b = parseInt(hex?.slice(5, 7), 16)
+const hexToRGB = (color: keyof Colors, alpha: number = 1, shade: number = 500): string => {
+  const hex = getColor(color, shade)
+  if (!/^#[0-9A-F]{6}$/i.test(hex)) return `rgba(0,0,0,${alpha})`
 
-  return `rgba(${r},${g},${b}${alpha ? `, ${alpha}` : ''})`
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }
 
-const getGradient = (colorKey: keyof Colors, start: number = 300, mid: number = 500): string => {
+const getGradient = (colorKey: keyof Colors, start: number = 400, mid: number = 500, end?: number): string => {
   const startColor = getColor(colorKey, start)
   const midColor = getColor(colorKey, mid)
-
-  return `linear-gradient(to right, ${startColor}, ${midColor})`
+  const endColor = end ? getColor(colorKey, end) : midColor
+  return `linear-gradient(to right, ${startColor}, ${midColor}, ${endColor})`
 }
 
-const getHoverGradient = (colorKey: keyof Colors, end: number = 700, darker: number = 800): string => {
-  const endColor = getColor(colorKey, end)
-  const darkerColor = getColor(colorKey, darker)
-
-  return `linear-gradient(to right,  ${endColor}, ${darkerColor})`
+const getHoverGradient = (colorKey: keyof Colors, end: number = 800, darker: number = 900, alpha: number = 1): string => {
+  const endColor = hexToRGB(colorKey, alpha, end)
+  const darkerColor = hexToRGB(colorKey, alpha, darker)
+  return `linear-gradient(to right, ${endColor}, ${darkerColor})`
 }
 
 export { colors, hexToRGB, getColor, getGradient, getHoverGradient }

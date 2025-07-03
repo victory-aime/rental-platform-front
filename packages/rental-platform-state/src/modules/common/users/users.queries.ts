@@ -40,10 +40,10 @@ const deactivateAccountMutation = (
   })
 }
 
-const activateAccountMutation = (args: TYPES.QUERIES.MutationPayload<{ email: string }>) => {
-  return TYPES.QUERIES.useCustomMutation<{ email: string }, any, AxiosError>({
+const activateAccountMutation = (args: TYPES.QUERIES.MutationPayload<string>) => {
+  return TYPES.QUERIES.useCustomMutation<string, any, AxiosError>({
     mutationKey: [Constants.USERS_KEYS.ACTIVATE_ACCOUNT],
-    mutationFn: ({ params }) => usersServiceInstance().activateAccount(params),
+    mutationFn: ({ payload }) => usersServiceInstance().activateAccount(payload!),
     options: args.mutationOptions,
   })
 }

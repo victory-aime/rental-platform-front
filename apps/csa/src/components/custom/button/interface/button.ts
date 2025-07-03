@@ -1,7 +1,7 @@
 import { ButtonProps, FlexProps } from '@chakra-ui/react'
 import React, { ReactNode } from 'react'
 
-export type variantColorType = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'success' | 'warning'
+export type variantColorType = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'success' | 'warning' | 'info'
 
 export interface VariantColorStyle {
   bg: string

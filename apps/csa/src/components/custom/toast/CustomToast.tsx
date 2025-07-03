@@ -17,15 +17,15 @@ export const CustomToast = ({ title = 'Notification', type = ToastStatus.SUCCESS
   if (asPromise) {
     return toaster.promise(asPromise.promise, {
       loading: {
-        title: asPromise.config?.loading?.title || 'Chargement...',
+        title: asPromise.config?.loading?.title || 'Loading...',
         description: asPromise.config?.loading?.description || '',
       },
       success: {
-        title: asPromise.config?.success?.title || 'Succès',
+        title: asPromise.config?.success?.title || 'Success',
         description: asPromise.config?.success?.description || '',
       },
       error: {
-        title: asPromise.config?.error?.title || 'Erreur',
+        title: asPromise.config?.error?.title || 'Errorr',
         description: asPromise.config?.error?.description || '',
       },
       finally: () => {

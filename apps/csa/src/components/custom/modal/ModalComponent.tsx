@@ -23,6 +23,7 @@ const ModalComponent = ({
   icon,
   iconBackgroundColor = 'error.700',
   children,
+  disabled,
   ref,
   ...rest
 }: ModalProps) => {
@@ -44,16 +45,22 @@ const ModalComponent = ({
         </DialogBody>
         {!ignoreFooter ? (
           <DialogFooter mt={8}>
-            {buttonCancelTitle && (
-              <DialogActionTrigger asChild>
-                <BaseButton disabled={isLoading} withGradient onClick={onChange} variant="outline" colorType={'secondary'}>
-                  {t(buttonCancelTitle)}
+            {isLoading ? (
+              <BaseButton isLoading />
+            ) : (
+              <>
+                {buttonCancelTitle && (
+                  <DialogActionTrigger asChild>
+                    <BaseButton disabled={disabled} withGradient onClick={onChange} variant="outline" colorType={'secondary'}>
+                      {t(buttonCancelTitle)}
+                    </BaseButton>
+                  </DialogActionTrigger>
+                )}
+                <BaseButton disabled={disabled} withGradient onClick={() => onClick?.()} colorType={modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)}>
+                  {t(buttonSaveTitle)}
                 </BaseButton>
-              </DialogActionTrigger>
+              </>
             )}
-            <BaseButton withGradient onClick={() => onClick?.()} isLoading={isLoading} colorType={modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)}>
-              {t(buttonSaveTitle)}
-            </BaseButton>
           </DialogFooter>
         ) : null}
         {showCloseButton && <DialogCloseTrigger />}

@@ -6,7 +6,7 @@ import { CommonModule } from 'rental-platform-state'
 import { useTranslation } from 'react-i18next'
 import { StorageKey } from '_constants/StorageKeys'
 import { SelectLanguages } from '_modules/components/SelectLanguages'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { FlagImagesIcon } from '_modules/components/flag/FlagImages'
 import { FlagKeys } from '_assets/images/flag'
 import { APP_ROUTES } from '_config/routes'
@@ -14,6 +14,7 @@ import { keycloakSessionLogOut } from '_hooks/logout'
 import { signOut } from 'next-auth/react'
 import { useGlobalLoader } from '_context/loaderContext'
 import { VariablesColors } from '_theme/variables'
+import { PostLoginChallenge } from '../../challenge-handler/otp/PostLoginChallenge'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
@@ -54,7 +55,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
         <Separator orientation={'vertical'} size={'lg'} colorPalette={'red'} />
         <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} fill={VariablesColors.red} />
       </Flex>
-
+      {user && <PostLoginChallenge user={user} />}
       <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={(user?.preferredLanguage as string) ?? ''} />
     </Flex>
   )

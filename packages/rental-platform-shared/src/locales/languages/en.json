@@ -232,6 +232,7 @@
     },
     "ACTIVATE_ACCOUNT": "Activate account",
     "ACTIVATE_ACCOUNT_DESC": "To activate your account, please enter the e-mail address associated with your account. An activation code will be sent to you by e-mail",
+    "ACTIVE_ACCOUNT_SUCCESS": "\uD83C\uDF89 Congratulations! Your account has been successfully activated. You can now log in and take full advantage of our services",
     "OTP_CHECK_TITLE": "OTP Verification",
     "OTP_WARNING": "If you did not receive the OTP, please check your spam or wait a few moments before trying again",
     "OTP_RETRY": "Didn't receive the code?",
@@ -240,7 +241,8 @@
     "OTP_CHECK_DESC": "Please enter the OTP code sent to your email address to verify your identity.",
     "OTP_CHECK_BUTTON": "Verify",
     "OTP_CHECK_ERROR": "The OTP code is invalid or has expired. Please try again.",
-    "OTP_MAX_ATTEMPTS": "You have reached the maximum number of attempts to enter the OTP. Please try again later.",
+    "OTP_MAX_SEND_ATTEMPTS": "You have reached the maximum number of attempts to send the OTP code.",
+    "OTP_EXPIRES_IN": "This code expire in {{expiresIn}}",
     "OTP_RETRY_INFO": "You can try again in {{time}}"
   }
 }

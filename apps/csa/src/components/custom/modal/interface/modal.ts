@@ -17,13 +17,14 @@ interface ModalProps extends DialogRootProps {
   iconBackgroundColor?: string
   onClick?: () => void
   isLoading?: boolean
+  disabled?: boolean
   children: ReactNode
   ref?: React.Ref<HTMLDivElement> | undefined
 }
 
 interface ModalOpenProps {
   onChange: (value: any) => void
-  callback?: (value?: any) => void
+  callback?: (value?: any, helpers?: any) => void
   isOpen: boolean | undefined
   isLoading?: boolean
   data?: any

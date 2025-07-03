@@ -93,7 +93,7 @@ export class ApplicationContext implements IApplicationContext {
    * Returns the current access channel (e.g., mobile, web).
    */
   getChannel(): string {
-    return ''
+    return 'web'
   }
 
   private authToken?: string

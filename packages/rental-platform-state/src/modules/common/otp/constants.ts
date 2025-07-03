@@ -1,5 +1,4 @@
 export enum OTP_KEYS {
   GENERATE = 'GENERATE',
-  RENEW_OTP = 'RENEW_OTP',
   VALIDATE_OTP = 'VALIDATE_OTP',
 }

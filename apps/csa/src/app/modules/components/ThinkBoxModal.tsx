@@ -16,53 +16,47 @@ export interface InitialFormValues {
   message: string
 }
 
-const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => {} }) => {
+const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange }) => {
   const { t } = useTranslation()
   const cachedUser = CommonModule.UserModule.UserCache.getUser()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmitForm = async (values: FormikValues, { resetForm }: FormikHelpers<InitialFormValues>) => {
-    try {
-      const emailDto = {
-        sender: {
-          name: cachedUser?.name,
-          email: cachedUser?.email,
-        },
-        subject: values.subject,
-        message: values.message,
-      }
-      setIsLoading(true)
-      const promise = axios.post(`/api/send-email`, emailDto, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      CustomToast({
-        asPromise: {
-          promise,
-          config: {
-            loading: { title: t('SEND.PROGRESS'), description: t('COMMON.LOADING_TEXT') },
-            success: {
-              title: t('SEND.EMAIL.SUCCESS'),
-              description: t('SEND.DESC_SUCCESS'),
-            },
-            error: {
-              title: t('SEND.ERROR_TITLE'),
-              description: t('SEND.ERROR_DESC'),
-            },
-            loader: () => {
-              setIsLoading(false)
-              resetForm()
-              onChange(false)
-            },
+    const emailDto = {
+      sender: {
+        name: cachedUser?.name,
+        email: cachedUser?.email,
+      },
+      subject: values.subject,
+      message: values.message,
+    }
+    setIsLoading(true)
+    const promise = axios.post(`/api/send-email`, emailDto, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    CustomToast({
+      asPromise: {
+        promise,
+        config: {
+          loading: { title: t('SEND.PROGRESS'), description: t('COMMON.LOADING_TEXT') },
+          success: {
+            title: t('SEND.EMAIL.SUCCESS'),
+            description: t('SEND.DESC_SUCCESS'),
+          },
+          error: {
+            title: t('SEND.ERROR_TITLE'),
+            description: t('SEND.ERROR_DESC'),
+          },
+          loader: () => {
+            resetForm()
+            onChange(false)
+            setIsLoading(false)
           },
         },
-      })
-    } catch (error) {
-      onChange(false)
-    } finally {
-      setIsLoading(false)
-    }
+      },
+    })
   }
 
   return (

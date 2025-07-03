@@ -7,7 +7,7 @@ import { TYPES } from 'rental-platform-shared'
 import { useTranslation } from 'react-i18next'
 
 const getBadgeContent = (status?: string, type?: string, t?: (key: string) => string): { variant: variantColorType; label: string } => {
-  if (!t) return { variant: 'none', label: 'Inconnu' }
+  if (!t) return { variant: 'info', label: 'Inconnu' }
 
   if (type === 'cars') {
     switch (status) {
@@ -18,7 +18,7 @@ const getBadgeContent = (status?: string, type?: string, t?: (key: string) => st
       case TYPES.ENUM.CARS.VehicleStatus.UNAVAILABLE:
         return { variant: 'danger', label: t('VEHICLE_STATUS.UNAVAILABLE') }
       default:
-        return { variant: 'none', label: 'Inconnu' }
+        return { variant: 'info', label: 'Inconnu' }
     }
   } else if (type === 'maintenance') {
     switch (status) {
@@ -38,7 +38,7 @@ const getBadgeContent = (status?: string, type?: string, t?: (key: string) => st
       case TYPES.ENUM.COMMON.CommonBookingStatus.PENDING:
         return { variant: 'warning', label: t('COMMON.STATUS.PENDING') }
       case TYPES.ENUM.COMMON.CommonBookingStatus.EXPIRED:
-        return { variant: 'none', label: t('COMMON.STATUS.EXPIRED') }
+        return { variant: 'warning', label: t('COMMON.STATUS.EXPIRED') }
       case TYPES.ENUM.COMMON.CommonBookingStatus.CANCELED:
         return { variant: 'danger', label: t('COMMON.STATUS.CANCELED') }
       default:
@@ -58,8 +58,6 @@ export const BaseBadge: FC<Props> = ({ children, variant = 'solid', label: custo
   const { t } = useTranslation()
   const { variant: resolvedVariant, label: resolvedLabel } = getBadgeContent(status, type, t)
   const { bg, gradient, hover, textColor } = getVariantStyles(resolvedVariant)
-  console.log('status', status)
-  console.log('label', customLabel)
 
   return (
     <Badge

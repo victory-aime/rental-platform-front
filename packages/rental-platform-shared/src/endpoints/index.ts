@@ -87,12 +87,6 @@ export const APIS = (baseUrl?: string) => {
           path: '/otp/generate',
           method: 'POST',
           pathBase: 'UNSECURED_API',
-          showResponse: false,
-        }),
-        RENEW: api({
-          path: '/otp/renewOtp',
-          pathBase: 'UNSECURED_API',
-          method: 'POST',
         }),
         VALIDATE: api({
           path: '/otp/validate',
