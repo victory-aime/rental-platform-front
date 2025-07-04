@@ -36,7 +36,7 @@
     "PROGRESS": "Envoi en cours..."
   },
   "COMMON": {
-   "LEGAL_MENTIONS": "Mentions légales",
+    "LEGAL_MENTIONS": "Mentions légales",
     "TERMS_OF_USE": "Conditions d'utilisation",
     "PRIVACY_POLICY": "Politique de confidentialité",
     "CONTACT_US": "Contactez-nous",
@@ -216,7 +216,7 @@
     "PHONE": "Téléphone",
     "NEW_PASSWORD": "Nouveau mot de passe",
     "2MFA": "Authentification à deux facteurs",
-    "2MFA_DESC": "Assurez la sécurité de votre compte en activant la fonction 2FA en utilisant un code d'accès temporaire à usage unique (TOTP) à partir d'une application d'authentification.",
+    "2MFA_DESC": "Assurez la sécurité de votre compte en activant la fonction 2FA en utilisant un code d'accès temporaire à usage unique (TOTP) qui sera envoye a votre addresse e-mail",
     "ENABLED_2MFA": "Activer l'authentification (TOTP)",
     "ENABLED_2MFA_DESC": "Activer pour recevoir un code d'accès temporaire à usage unique à chaque fois que vous vous connectez.",
     "LANGUAGE": "Langue",
@@ -239,6 +239,10 @@
     "OTP_CHECK_DESC": "Veuillez saisir le code OTP envoyé à votre adresse e-mail pour vérifier votre identité.",
     "OTP_MAX_SEND_ATTEMPTS": "Vous avez atteint le nombre maximum de tentatives d'envoie de code OTP",
     "OTP_EXPIRES_IN": "Ce code expire dans {{expiresIn}}",
-    "OTP_RETRY_INFO": "Vous pouvez réessayer dans {{time}}"
+    "OTP_RETRY_INFO": "Vous pouvez réessayer dans {{time}}",
+    "REMOVE_KEY_TITLE": "Supprimer la clé de sécurité",
+    "CLOSE_SESSION": "Fermer la session",
+    "CLOSE_SESSION_DESC": "Vous êtes sur le point de fermer cette session.",
+    "REMOVE_KEY_TITLE_DESC": "Cette action supprimera définitivement cette clé d'accès (passkey) de votre compte. Vous ne pourrez plus l'utiliser pour vous connecter"
   }
 }

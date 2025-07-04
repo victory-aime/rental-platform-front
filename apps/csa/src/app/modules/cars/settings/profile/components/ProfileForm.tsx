@@ -1,5 +1,5 @@
 import { Flex, Box, FlexProps } from '@chakra-ui/react'
-import { BaseBadge, BaseText, TextVariant } from '_components/custom'
+import { BaseBadge, BaseButton, BaseText, TextVariant } from '_components/custom'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,6 +17,7 @@ export const ProfileForm = ({ children, title, description, activeBadge = false,
       <Box width={{ base: 'full', md: '1/2' }}>
         <Flex gap={3} alignItems={'center'}>
           <BaseText variant={TextVariant.S}>{t(title)}</BaseText>
+
           {activeBadge && <BaseBadge status={'success'} label={t('COMMON.ENABLED')} p={1.5} type={'common'} />}
         </Flex>
         <BaseText variant={TextVariant.XS} color={'gray.500'} mt={1}>

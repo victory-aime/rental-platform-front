@@ -81,6 +81,31 @@ export const APIS = (baseUrl?: string) => {
           path: '/user/activate-account',
           method: 'POST',
         }),
+        REGISTER_PASSKEY: api({
+          path: '/user/create-passkey',
+          method: 'POST',
+          showResponse: false,
+        }),
+        REVOKE_PASSKEY: api({
+          path: '/user/revoke-passkey',
+          method: 'POST',
+          showResponse: false,
+        }),
+        CREDENTIALS_LIST: api({
+          path: '/user/credentials-list',
+          method: 'GET',
+          showResponse: false,
+        }),
+        SESSIONS: api({
+          path: '/user/sessions',
+          method: 'GET',
+          showResponse: false,
+        }),
+        REVOKE_SESSIONS: api({
+          path: '/user/sessions-delete',
+          method: 'POST',
+          showResponse: false,
+        }),
       },
       OTP: {
         GENERATE: api({

@@ -25,6 +25,7 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
 
   const handleReconnect = () => {
     showLoader()
+    localStorage.setItem('otpRequired', 'true')
     signIn('keycloak').then(() => hideLoader())
   }
   const handleSignOut = () => {
@@ -36,7 +37,7 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
     <ModalComponent
       open={showSessionError}
       icon={<PiWarningBold size={22} color={VariablesColors.warning} />}
-      iconBackgroundColor={hexToRGB('orange', 0.4)}
+      iconBackgroundColor={hexToRGB('warning', 0.2)}
       title={'SESSION_EXPIRE'}
       buttonSaveTitle={'COMMON.LOGIN'}
       buttonCancelTitle={'COMMON.LOGOUT'}

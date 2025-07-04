@@ -12,6 +12,24 @@ const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: string }, an
   })
 }
 
+const credentialInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ keycloakId: string }, any>) => {
+  const { payload, queryOptions } = args
+  return TYPES.QUERIES.useCustomQuery<{message:string, data:any[]}, AxiosError>({
+    queryKey: [Constants.USERS_KEYS.CREDENTIAL_LIST],
+    queryFn: () => usersServiceInstance().credentialList({ keycloakId: payload?.keycloakId! }),
+    options: queryOptions,
+  })
+}
+
+const getAllSessionsQueries = (args: TYPES.QUERIES.QueryPayload<{ keycloakId: string }, any>) => {
+  const { payload, queryOptions } = args
+  return TYPES.QUERIES.useCustomQuery<{message: string,sessions: any}, AxiosError>({
+    queryKey: [Constants.USERS_KEYS.SESSIONS],
+    queryFn: () => usersServiceInstance().allSessions({ keycloakId: payload?.keycloakId! }),
+    options: queryOptions,
+  })
+}
+
 const updateUserInfoMutation = (
   args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>
 ) => {
@@ -62,10 +80,52 @@ const clearAllSessionsMutation = (
   })
 }
 
+const registerPasskeyMutation = (
+  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUser>
+) => {
+  return TYPES.QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IUser, any, AxiosError>({
+    mutationKey: [Constants.USERS_KEYS.CREATE_PASSKEY],
+    mutationFn: ({ params }) => usersServiceInstance().registerPasskey(params),
+    options: args.mutationOptions,
+  })
+}
+
+const revokePasskeyMutation = (
+  args: TYPES.QUERIES.MutationPayload<{
+    keycloakId:string
+    credentialId: string
+  }>
+) => {
+  return TYPES.QUERIES.useCustomMutation<
+    { keycloakId: string; credentialId: string },
+    any,
+    AxiosError
+  >({
+    mutationKey: [Constants.USERS_KEYS.REVOKE_PASSKEY],
+    mutationFn: ({ params }) => usersServiceInstance().revokePasskey(params),
+    options: args.mutationOptions,
+  })
+}
+
+const revokeSessionsMutation = (
+  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUser>
+) => {
+  return TYPES.QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IUser, any, AxiosError>({
+    mutationKey: [Constants.USERS_KEYS.REVOKE_SESSION],
+    mutationFn: ({ params }) => usersServiceInstance().revokeSessions(params),
+    options: args.mutationOptions,
+  })
+}
+
 export {
   userInfoQueries,
+  credentialInfoQueries,
+  getAllSessionsQueries,
   updateUserInfoMutation,
   deactivateAccountMutation,
   activateAccountMutation,
   clearAllSessionsMutation,
+  registerPasskeyMutation,
+  revokePasskeyMutation,
+  revokeSessionsMutation,
 }

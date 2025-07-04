@@ -217,7 +217,7 @@
     "PHONE": "Phone",
     "NEW_PASSWORD": "New password",
     "2MFA": "Two-factor authentication",
-    "2MFA_DESC": "Ensure the security of your account by activating the 2FA function using a one-time temporary access code (TOTP) from an authentication application. ",
+    "2MFA_DESC": "Ensure the security of your account by activating the 2FA function using a one-time temporary access code (TOTP) that will be sent to your e-mail address.",
     "ENABLED_2MFA": "Enable Authenticator (TOTP)",
     "ENABLED_2MFA_DESC": "Enable to receive a one-time temporary access code each time you log in. ",
     "LANGUAGE": "Language",
@@ -243,6 +243,10 @@
     "OTP_CHECK_ERROR": "The OTP code is invalid or has expired. Please try again.",
     "OTP_MAX_SEND_ATTEMPTS": "You have reached the maximum number of attempts to send the OTP code.",
     "OTP_EXPIRES_IN": "This code expire in {{expiresIn}}",
-    "OTP_RETRY_INFO": "You can try again in {{time}}"
+    "OTP_RETRY_INFO": "You can try again in {{time}}",
+    "REMOVE_KEY_TITLE": "Remove the security key",
+    "CLOSE_SESSION": "Close the session",
+    "CLOSE_SESSION_DESC": "You are about to close this session.",
+    "REMOVE_KEY_TITLE_DESC": "This action will permanently remove this access key (passkey) from your account. You will no longer be able to use it to log in."
   }
 }
