@@ -42,6 +42,7 @@ export const ProfileInfo = () => {
     mutationOptions: {
       onSuccess: () => {
         refetch().then(() => setPending(true))
+        CommonModule.UserModule.UserCache.invalidateUser()
       },
     },
   })

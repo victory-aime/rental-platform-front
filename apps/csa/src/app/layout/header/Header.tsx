@@ -15,17 +15,23 @@ import { signOut } from 'next-auth/react'
 import { useGlobalLoader } from '_context/loaderContext'
 import { VariablesColors } from '_theme/variables'
 import { PostLoginChallenge } from '../../challenge-handler/otp/PostLoginChallenge'
+import { TYPES } from 'rental-platform-shared'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
   const getPreferredLanguage = localStorage.getItem(StorageKey.LANGUAGE)
   const { showLoader, hideLoader } = useGlobalLoader()
   const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
+  const cachedUser = CommonModule.UserModule.UserCache.getUser()
 
   const { data: user, isLoading } = CommonModule.UserModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
     queryOptions: {
-      enabled: !!session?.keycloakId,
+      enabled: !!session?.keycloakId && !cachedUser,
+      select(data) {
+        CommonModule.UserModule.UserCache.setUser(data)
+        return data
+      },
     },
   })
 
