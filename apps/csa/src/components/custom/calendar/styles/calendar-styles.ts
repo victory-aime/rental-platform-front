@@ -1,14 +1,16 @@
-import { useThemeColor } from '_context/themeColor-context'
+import { useColorMode } from '_components/ui/color-mode'
+import { hexToRGB } from '_theme/colors'
+import { VariablesColors } from '_theme/variables'
 import { DateRange, UI } from 'react-day-picker'
 
 export const useCalendarStyles = (isSelected: Date | DateRange, type: 'single' | 'range') => {
-  const { primaryColor } = useThemeColor() // couleur dynamique de l'utilisateur
+  const { colorMode } = useColorMode()
 
-  const selectedBg = primaryColor
-  const selectedColor = '#ffffff' // ou autre
-  const middleBg = '#dbeafe' // tu peux aussi le rendre dynamique si besoin
-  const middleColor = '#000000'
-  const blockedBg = '#ec2f4e' // idem
+  const selectedBg = VariablesColors.primary
+  const selectedColor = colorMode === 'dark' ? VariablesColors.white : VariablesColors.black
+  const middleBg = hexToRGB('primary', 0.1)
+  const middleColor = colorMode === 'dark' ? VariablesColors.white : VariablesColors.black
+  const blockedBg = VariablesColors.danger
 
   return {
     modifiersClassNames: {
@@ -49,7 +51,7 @@ export const useCalendarStyles = (isSelected: Date | DateRange, type: 'single' |
         cursor: 'not-allowed',
       },
       hovered: {
-        backgroundColor: `${primaryColor}33`, // exemple avec opacité hex 20%
+        backgroundColor: hexToRGB('primary', 0.3),
         color: selectedColor,
         borderRadius: '8px',
         boxShadow: 'md',

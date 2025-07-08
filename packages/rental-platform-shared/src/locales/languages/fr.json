@@ -213,6 +213,8 @@
     "NAME": "Nom",
     "FIRST_NAME": "Prénom",
     "EMAIL": "Adresse E-mail",
+    "EMAIL_UPDATE": "Changement d'adresse e-mail",
+    "EMAIL_UPDATE_INFO": "Vous avez modifié votre adresse e-mail. Lors de votre prochaine connexion, un lien de vérification vous sera envoyé à cette nouvelle adresse pour valider le changement.",
     "PHONE": "Téléphone",
     "NEW_PASSWORD": "Nouveau mot de passe",
     "2MFA": "Authentification à deux facteurs",
@@ -243,6 +245,23 @@
     "REMOVE_KEY_TITLE": "Supprimer la clé de sécurité",
     "CLOSE_SESSION": "Fermer la session",
     "CLOSE_SESSION_DESC": "Vous êtes sur le point de fermer cette session.",
-    "REMOVE_KEY_TITLE_DESC": "Cette action supprimera définitivement cette clé d'accès (passkey) de votre compte. Vous ne pourrez plus l'utiliser pour vous connecter"
+    "REMOVE_KEY_TITLE_DESC": "Cette action supprimera définitivement cette clé d'accès (passkey) de votre compte. Vous ne pourrez plus l'utiliser pour vous connecter",
+    "SECURITY": {
+      "PASSWORD": "Mot de passe",
+      "PASSWORD_DESC": "Définissez un mot de passe sécurisé pour protéger votre compte.",
+      "PASSWORD_INFO": "Votre mot de passe doit contenir au minimum 8 caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial (ex. ! @ # $ %). Évitez d'utiliser des informations personnelles ou des mots de passe trop simples.",
+      "PASS_KEY": "Clés d'accès (Passkeys)",
+      "PASS_KEY_DESC": "Ajoutez une ou plusieurs clés d'accès pour vous connecter sans mot de passe. Utilisez la reconnaissance faciale, une empreinte ou un appareil sécurisé compatible.",
+      "ADD_PASS_KEY": "Ajouter une clé",
+      "ADD_PASS_KEY_INFO": "Vous allez être redirigé vers une interface sécurisée pour ajouter une nouvelle clé d'accès (passkey). Cette opération vous permettra de vous connecter sans mot de passe à l'avenir, à l'aide d'un appareil compatible (empreinte digitale, reconnaissance faciale ou code PIN).",
+      "UNKNOW_DEVICE": "Appareil inconnu",
+      "PASS_KEY_NO_FOUND": "Aucune clé détectée.",
+      "ACTIVE_SESSIONS": "Sessions actives",
+      "ACTIVE_SESSIONS_DESC": "Voici les connexions actuellement actives sur votre compte. Si vous voyez une activité inconnue, vous pouvez fermer une session à distance.",
+      "CURRENT_SESSION": "Session actuelle",
+      "SESSION_START": "Début de session",
+      "SESSION_LAST_ACCESS": "Dernier accès",
+      "IP_ADDRESS": "Adresse IP Hôte"
+    }
   }
 }

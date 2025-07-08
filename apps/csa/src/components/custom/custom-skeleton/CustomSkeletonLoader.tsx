@@ -12,7 +12,7 @@ export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> 
   variant = 'pulse',
   direction,
   numberOfLines = 3,
-  colorButton = 'none',
+  colorButton = 'info',
 }) => {
   const DefaultBlockLoader = <Skeleton height={height} variant={variant} />
 
@@ -52,10 +52,12 @@ export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> 
 
   const SkeletonTextLoader = <SkeletonText noOfLines={numberOfLines} gap={2} variant={variant} width={width} />
 
+  const SkeletonFormLoader = <Skeleton height={height} width={width} variant={variant} />
+
   const SkeletonImage = <SkeletonCircle size={height} />
 
   const SkeletonTextImage = (
-    <Flex gap={direction === 'column' ? 4 : 1} width={width} flexDir={direction} alignItems={'center'}>
+    <Flex gap={direction === 'column' ? 4 : 1} width={width} flexDir={direction} alignItems={'flex-start'}>
       <SkeletonCircle size={height} />
       <SkeletonText noOfLines={numberOfLines} variant={variant} gap={3} />
     </Flex>
@@ -85,6 +87,8 @@ export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> 
         return SkeletonImage
       case 'BUTTON':
         return SkeletonButton
+      case 'FORM':
+        return SkeletonFormLoader
       default:
         return null
     }

@@ -14,7 +14,7 @@ const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: string }, an
 
 const credentialInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ keycloakId: string }, any>) => {
   const { payload, queryOptions } = args
-  return TYPES.QUERIES.useCustomQuery<{message:string, data:any[]}, AxiosError>({
+  return TYPES.QUERIES.useCustomQuery<{ message: string; data: any[] }, AxiosError>({
     queryKey: [Constants.USERS_KEYS.CREDENTIAL_LIST],
     queryFn: () => usersServiceInstance().credentialList({ keycloakId: payload?.keycloakId! }),
     options: queryOptions,
@@ -23,7 +23,7 @@ const credentialInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ keycloakId: st
 
 const getAllSessionsQueries = (args: TYPES.QUERIES.QueryPayload<{ keycloakId: string }, any>) => {
   const { payload, queryOptions } = args
-  return TYPES.QUERIES.useCustomQuery<{message: string,sessions: any}, AxiosError>({
+  return TYPES.QUERIES.useCustomQuery<{ message: string; sessions: any }, AxiosError>({
     queryKey: [Constants.USERS_KEYS.SESSIONS],
     queryFn: () => usersServiceInstance().allSessions({ keycloakId: payload?.keycloakId! }),
     options: queryOptions,
@@ -92,7 +92,7 @@ const registerPasskeyMutation = (
 
 const revokePasskeyMutation = (
   args: TYPES.QUERIES.MutationPayload<{
-    keycloakId:string
+    keycloakId: string
     credentialId: string
   }>
 ) => {

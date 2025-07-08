@@ -9,7 +9,7 @@ import { BaseText } from '_components/custom'
 import * as React from 'react'
 import { hexToRGB } from '_theme/colors'
 
-export const FormOtpInput: FC<OtpInputProps> = ({ name, label, validate, isReadOnly = false, required = false, localErrorMsg, count = 6, attached = false, isDisabled }) => {
+export const FormOtpInput: FC<OtpInputProps> = ({ name, label, validate, isReadOnly = false, required = false, infoMessage, count = 6, attached = false, isDisabled }) => {
   const { t } = useTranslation()
   const fieldHookConfig = { name, validate }
   const [field, { touched, error }, { setValue }] = useField(fieldHookConfig)
@@ -64,8 +64,12 @@ export const FormOtpInput: FC<OtpInputProps> = ({ name, label, validate, isReadO
           <Field.ErrorText>{error}</Field.ErrorText>
         </Flex>
       )}
-
-      {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
+      {infoMessage && (
+        <Flex gap={1} mt={1} alignItems={'center'}>
+          <Field.ErrorIcon width={4} height={4} color={'info.500'} />
+          <Field.HelperText p={1}>{t(infoMessage)}</Field.HelperText>
+        </Flex>
+      )}
     </Field.Root>
   )
 }

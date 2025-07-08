@@ -214,6 +214,8 @@
     "NAME": "Last name",
     "FIRST_NAME": "First name",
     "EMAIL": "Email",
+    "EMAIL_UPDATE": "Change of e-mail address",
+    "EMAIL_UPDATE_INFO": "You have changed your e-mail address. The next time you connect, a verification link will be sent to this new address to validate the change.",
     "PHONE": "Phone",
     "NEW_PASSWORD": "New password",
     "2MFA": "Two-factor authentication",
@@ -247,6 +249,23 @@
     "REMOVE_KEY_TITLE": "Remove the security key",
     "CLOSE_SESSION": "Close the session",
     "CLOSE_SESSION_DESC": "You are about to close this session.",
-    "REMOVE_KEY_TITLE_DESC": "This action will permanently remove this access key (passkey) from your account. You will no longer be able to use it to log in."
+    "REMOVE_KEY_TITLE_DESC": "This action will permanently remove this access key (passkey) from your account. You will no longer be able to use it to log in.",
+    "SECURITY": {
+      "PASSWORD": "Password",
+      "PASSWORD_DESC": "Set a secure password to protect your account.",
+      "PASSWORD_INFO": "Your password must contain at least 8 characters, with at least one uppercase letter, one lowercase letter, one number and one special character (e.g. ! @ # $ %). Avoid using personal information or passwords that are too simple.",
+      "PASS_KEY": "Access keys (Passkeys)",
+      "PASS_KEY_DESC": "Add one or more access keys to log in without a password. Use facial recognition, a fingerprint or a compatible secure device.",
+      "ADD_PASS_KEY": "Add a key",
+      "ADD_PASS_KEY_INFO": "You will be redirected to a secure interface to add a new access key (passkey). This will enable you to log in without a password in the future, using a compatible device (fingerprint, facial recognition or PIN code).",
+      "UNKNOW_DEVICE": "Unknown device",
+      "PASS_KEY_NO_FOUND": "No keys detected.",
+      "ACTIVE_SESSIONS": "Active sessions",
+      "ACTIVE_SESSIONS_DESC": "Here are the connections currently active on your account. If you see any unknown activity, you can log off remotely.",
+      "CURRENT_SESSION": "Current session",
+      "SESSION_START": "Session start",
+      "SESSION_LAST_ACCESS": "Last access",
+      "IP_ADDRESS": "Host IP address"
+    }
   }
 }

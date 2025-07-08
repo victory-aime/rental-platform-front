@@ -7,7 +7,7 @@ interface TextInputProps extends HTMLChakraProps<'input'> {
   required?: boolean
   isReadOnly?: boolean
   isDisabled?: boolean
-  localErrorMsg?: string
+  infoMessage?: string
   helperMessage?: string
   useFullAmountMask?: boolean
   rightAccessory?: React.ReactNode
@@ -21,6 +21,7 @@ interface TextInputProps extends HTMLChakraProps<'input'> {
   customRadius?: number
   height?: string | number
   toolTipInfo?: string
+  isLoading?: boolean
   onChangeFunction?: any
 }
 
@@ -38,7 +39,7 @@ interface FullSelectProps {
   isDisabled?: boolean
   isMultiSelect?: boolean
   onChangeFunc?: (data: any) => void
-  localErrorMsg?: string
+  infoMessage?: string
   variant?: 'outline' | 'subtle'
   validate?: any
   required?: boolean
@@ -47,6 +48,7 @@ interface FullSelectProps {
   isClearable?: boolean
   showDropdownIcon?: boolean
   toolTipInfo?: string
+  isLoading?: boolean
   ref?: any | undefined
 }
 interface DefaultProps extends TextInputProps {
@@ -72,6 +74,7 @@ interface SwitchProps extends HTMLChakraProps<'switch'> {
   validate?: any
   reverse?: boolean
   description?: string
+  isLoading?: boolean
 }
 
 interface FormColorPickerProps extends TextInputProps {}

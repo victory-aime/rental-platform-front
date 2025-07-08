@@ -13,7 +13,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
   name,
   placeholder = '',
   width,
-  localErrorMsg,
+  infoMessage,
   isReadOnly,
   isDisabled,
   validate,
@@ -63,10 +63,10 @@ const FormTextArea: FC<FormTextAreaProps> = ({
           field.onBlur(e)
         }}
       />
-      {localErrorMsg || helperMessage ? (
+      {infoMessage || helperMessage ? (
         <Flex p={1} gap={2}>
           <HiOutlineInformationCircle size={18} color={isError ? 'red' : 'none'} />
-          <Field.HelperText>{localErrorMsg ? localErrorMsg : helperMessage ? null : ''}</Field.HelperText>
+          <Field.HelperText>{infoMessage ? infoMessage : helperMessage ? null : ''}</Field.HelperText>
         </Flex>
       ) : null}
       {isError && <Field.ErrorText>{error}</Field.ErrorText>}

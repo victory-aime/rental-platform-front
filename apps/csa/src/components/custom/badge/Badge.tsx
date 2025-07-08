@@ -29,7 +29,7 @@ const getBadgeContent = (status?: string, type?: string, t?: (key: string) => st
       case TYPES.ENUM.CARS.MAINTENANCE.MaintenanceStatus.CANCELED:
         return { variant: 'danger', label: t('MAINTENANCE.STATUS.CANCELED') }
       default:
-        return { variant: 'primary', label: t('MAINTENANCE.STATUS.IN_PROGRESS') }
+        return { variant: 'secondary', label: t('MAINTENANCE.STATUS.IN_PROGRESS') }
     }
   } else if (type === 'booking') {
     switch (status) {

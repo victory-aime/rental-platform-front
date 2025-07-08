@@ -1,6 +1,6 @@
 import { variantColorType } from '_components/custom/button'
 
-type LoaderType = 'BAR_CHART' | 'DATA_TABLE' | 'DONUT_CHART' | 'PRODUCT_LIST_CARD' | 'DEFAULT' | 'TEXT' | 'IMAGE' | 'TEXT_IMAGE' | 'BUTTON'
+type LoaderType = 'BAR_CHART' | 'DATA_TABLE' | 'DONUT_CHART' | 'PRODUCT_LIST_CARD' | 'DEFAULT' | 'TEXT' | 'IMAGE' | 'TEXT_IMAGE' | 'BUTTON' | 'FORM'
 
 interface CustomSkeletonLoaderProps {
   type?: LoaderType

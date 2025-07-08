@@ -26,6 +26,7 @@ import { VariablesColors } from '_theme/variables'
 import { useTranslation } from 'react-i18next'
 import { useFileUploadErrors } from './useFileUploadErrors'
 import { HomeIcon } from '_assets/svg'
+import { CustomSkeletonLoader } from '../custom-skeleton'
 
 const FileImageList = ({ getFilesUploaded, initialImageUrls, t }: { getFilesUploaded: (files: File[]) => void; initialImageUrls?: string[]; t: any }) => {
   const fileUpload = useFileUploadContext()
@@ -155,12 +156,24 @@ const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploa
   )
 }
 
-export const UploadAvatar = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File) => void; avatarImage?: string; name?: string }) => {
+export const UploadAvatar = ({ getFileUploaded, avatarImage, name, isLoading }: { getFileUploaded: (file: File) => void; avatarImage?: string; name?: string; isLoading?: boolean }) => {
   const { getRootProps } = useFileUpload()
   return (
-    <FileUpload.Root {...getRootProps()} maxFiles={1} maxFileSize={MAX_FILE_SIZE} accept={ACCEPTED_TYPES}>
-      <FileUpload.HiddenInput />
-      <SimpleFileUpload getFileUploaded={getFileUploaded} avatarImage={avatarImage} name={name} />
-    </FileUpload.Root>
+    <>
+      {isLoading ? (
+        <CustomSkeletonLoader type="TEXT_IMAGE" numberOfLines={1} direction={'column'} height={'130px'} />
+      ) : (
+        <>
+          <BaseText variant={TextVariant.S}>Avatar</BaseText>
+          <FileUpload.Root {...getRootProps()} maxFiles={1} maxFileSize={MAX_FILE_SIZE} accept={ACCEPTED_TYPES}>
+            <FileUpload.HiddenInput />
+            <SimpleFileUpload getFileUploaded={getFileUploaded} avatarImage={avatarImage} name={name} />
+          </FileUpload.Root>
+          <BaseText variant={TextVariant.S} textTransform={'capitalize'}>
+            {name}
+          </BaseText>
+        </>
+      )}
+    </>
   )
 }

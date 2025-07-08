@@ -18,12 +18,7 @@ export const SwitchColorMode = ({ hideIcon = false }: { hideIcon?: boolean }) =>
           <LuMoon />
         </>
       ) : (
-        <>
-          <Switch.HiddenInput />
-          <Switch.Control>
-            <Switch.Thumb />
-          </Switch.Control>
-        </>
+        <>{colorMode === 'dark' ? <LuSun /> : <LuMoon />}</>
       )}
     </Switch.Root>
   )

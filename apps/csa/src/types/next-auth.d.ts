@@ -4,7 +4,7 @@ declare module 'next-auth' {
   interface Session {
     access_token?: string
     refresh_token?: string
-    sessionId?:string
+    sessionId?: string
     keycloakId?: string
     id_token?: string
     roles?: string[]
@@ -13,7 +13,7 @@ declare module 'next-auth' {
 
   interface JWT {
     access_token?: string
-    sid?:string
+    sid?: string
     id_token?: string
     refresh_token?: string
     expires_at?: number

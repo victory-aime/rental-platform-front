@@ -23,7 +23,7 @@ const AddCarsPage = () => {
   const [bookingStatus, setBookingsStatus] = useState<string | null>(null)
 
   const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
-  const { data: allCars } = CarsModule.getAllCarsQueries({
+  const { data: allCars, isLoading: fetchCarsLoading } = CarsModule.getAllCarsQueries({
     payload: { establishment: currentUser?.establishment?.id ?? '' },
     queryOptions: { enabled: !!requestId && !!currentUser?.establishment?.id },
   })
@@ -157,6 +157,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.NAME'}
                       value={values?.name}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                     <FormTextInput
                       name="brand"
@@ -164,6 +165,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.BRAND'}
                       value={values?.brand}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                     <FormTextInput
                       name="model"
@@ -171,6 +173,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.MODELS'}
                       value={values?.model}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                   </Stack>
                   <Stack width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
@@ -180,6 +183,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.PLATE_NUMBER'}
                       value={values?.plateNumber}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                     <FormSelect
                       name="fuelType"
@@ -188,6 +192,7 @@ const AddCarsPage = () => {
                       listItems={fuelList(t)}
                       setFieldValue={setFieldValue}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                   </Stack>
                   <Stack width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
@@ -198,6 +203,7 @@ const AddCarsPage = () => {
                       listItems={transmissionList(t)}
                       setFieldValue={setFieldValue}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                     <FormTextInput
                       name="doors"
@@ -206,6 +212,7 @@ const AddCarsPage = () => {
                       type="number"
                       value={values?.doors}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                     <FormTextInput
                       name="seats"
@@ -214,6 +221,7 @@ const AddCarsPage = () => {
                       type="number"
                       value={values?.seats}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                   </Stack>
                 </VStack>
@@ -231,6 +239,7 @@ const AddCarsPage = () => {
                       placeholder={'CARS.FORMS.DAILY_PRICE'}
                       value={values?.dailyPrice}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                   </Stack>
                   {currentUser?.establishment?.subscription?.plan?.canUseDiscounts && <FormSwitch name="hasDiscount" label="COMMON.REMISE" />}
@@ -246,6 +255,7 @@ const AddCarsPage = () => {
                         toolTipInfo="CARS.FORMS.INFO.DISCOUNT_VALUE"
                         value={values?.discountValue}
                         isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                        isLoading={fetchCarsLoading}
                       />
                       <FormTextInput
                         name="rentalPriceDiscounted"
@@ -256,13 +266,21 @@ const AddCarsPage = () => {
                         placeholder="0.00"
                         toolTipInfo="CARS.FORMS.INFO.DISCOUNT"
                         value={values?.rentalPriceDiscounted}
+                        isLoading={fetchCarsLoading}
                       />
                     </Stack>
                   )}
                 </VStack>
                 <VStack mt={10} gap={4} mb={4} align="stretch" width="100%">
                   <Stack mb={4} alignItems={'center'} justifyContent={'center'} width={'full'} gap={4} direction={{ base: 'column', md: 'row' }}>
-                    <FormSelect name="parkingCarId" label={'CARS.FORMS.PARKING'} placeholder={'CARS.FORMS.PARKING'} setFieldValue={setFieldValue} listItems={parcList(parcs?.content) ?? []} />
+                    <FormSelect
+                      name="parkingCarId"
+                      label={'CARS.FORMS.PARKING'}
+                      placeholder={'CARS.FORMS.PARKING'}
+                      setFieldValue={setFieldValue}
+                      listItems={parcList(parcs?.content) ?? []}
+                      isLoading={fetchCarsLoading}
+                    />
 
                     <FormSelect
                       name="carCategoryId"
@@ -271,6 +289,7 @@ const AddCarsPage = () => {
                       listItems={categoryList(categories)}
                       placeholder={'CARS.FORMS.CATEGORY'}
                       isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                      isLoading={fetchCarsLoading}
                     />
                   </Stack>
 
@@ -283,6 +302,7 @@ const AddCarsPage = () => {
                     label={'CARS.FORMS.STATUS'}
                     toolTipInfo={'CARS.FORMS.INFO.STATUS'}
                     isDisabled={bookingStatus === (TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE ?? TYPES.ENUM.COMMON.CommonBookingStatus.ACTIVE)}
+                    isLoading={fetchCarsLoading}
                   />
                 </VStack>
               </BoxContainer>

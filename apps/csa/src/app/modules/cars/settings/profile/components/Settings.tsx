@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { DisabledAccount } from './DisabledAccount'
 import { VStack, HStack, Flex, For } from '@chakra-ui/react'
-import { BaseText, TextVariant, FormTextInput, BaseButton, BoxIcon, BaseBadge } from '_components/custom'
+import { BaseText, TextVariant, FormTextInput, BaseButton, BoxIcon, BaseBadge, CustomSkeletonLoader } from '_components/custom'
 import { Formik } from 'formik'
 import { ProfileForm } from './ProfileForm'
 import { CommonModule } from 'rental-platform-state'
-import { signOut, useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import { useGlobalLoader } from '_context/loaderContext'
 import { keycloakSessionLogOut } from '_hooks/logout'
 import { APP_ROUTES } from '_config/routes'
@@ -13,6 +13,7 @@ import { TrashIcon } from '_assets/svg'
 import { useTranslation } from 'react-i18next'
 import { UTILS } from 'rental-platform-shared'
 import { GlobalModal } from './GlobalModal'
+import { PassKeyModal } from './PassKeyModal'
 
 export const Settings = () => {
   const { data: session } = useSession()
@@ -20,6 +21,7 @@ export const Settings = () => {
   const { showLoader, hideLoader } = useGlobalLoader()
   const [open, setOpen] = useState<boolean>(false)
   const [isRevoke, setIsRevoke] = useState<boolean>(false)
+  const [openPassKeyModal, setOpenPasskeyModal] = useState<boolean>(false)
   const [selectedData, setSelectedData] = useState<string | null>(null)
   const currentSessionId = session?.sessionId
   const [validateDisabledAccount, setValidateDisabledAccount] = useState<boolean>(false)
@@ -33,7 +35,7 @@ export const Settings = () => {
     },
   })
 
-  const { data: userSessions } = CommonModule.UserModule.getAllSessionsQueries({
+  const { data: userSessions, isLoading: sessionLoading } = CommonModule.UserModule.getAllSessionsQueries({
     payload: {
       keycloakId: currentUser?.keycloakId || '',
     },
@@ -42,7 +44,11 @@ export const Settings = () => {
     },
   })
 
-  const { data: credential, refetch: refetchCredentials } = CommonModule.UserModule.credentialInfoQueries({
+  const {
+    data: credential,
+    refetch: refetchCredentials,
+    isLoading: credentialsLoading,
+  } = CommonModule.UserModule.credentialInfoQueries({
     payload: {
       keycloakId: currentUser?.keycloakId || '',
     },
@@ -51,9 +57,12 @@ export const Settings = () => {
     },
   })
 
-  const { mutateAsync } = CommonModule.UserModule.registerPasskeyMutation({
+  const { mutateAsync: registerNewKey, isPending: registerNewKeyPending } = CommonModule.UserModule.registerPasskeyMutation({
     mutationOptions: {
-      onSuccess: () => {},
+      onSuccess: () => {
+        setOpenPasskeyModal(false)
+        handleRegidectToKeycloak()
+      },
     },
   })
 
@@ -99,7 +108,7 @@ export const Settings = () => {
     await deactivate({
       params: {
         keycloakId: currentUser?.keycloakId,
-        enabledOrDeactivate: false,
+        deactivateUser: false,
       },
     })
   }
@@ -119,8 +128,17 @@ export const Settings = () => {
     }
   }
 
+  const handleRegisterNewKey = async () => {
+    await registerNewKey({ params: { keycloakId: currentUser?.keycloakId } })
+  }
+
   const actions = async () => {
     isRevoke ? await removeKeyMutation({ params: { keycloakId: currentUser?.keycloakId, credentialId: selectedData } }) : handleClearSessions(selectedData)
+  }
+  const handleRegidectToKeycloak = () => {
+    showLoader()
+    localStorage.setItem('otpRequired', 'true')
+    signIn('keycloak').then(() => hideLoader())
   }
 
   const filteredCredentials = credential?.data
@@ -136,80 +154,101 @@ export const Settings = () => {
       <Formik enableReinitialize initialValues={{ newPassword: '' }} onSubmit={(values) => {}}>
         {({ values, handleSubmit, dirty }) => (
           <VStack gap={10} alignItems={'flex-start'}>
-            <ProfileForm title="SIDE_BAR.PROFILE" description="PROFILE.PERSONAL_INFO">
-              <FormTextInput name="newPassword" label="PROFILE.NEW_PASSWORD" placeholder="PROFILE.NEW_PASSWORD" type="password" value={values?.newPassword} />
+            <ProfileForm title="PROFILE.SECURITY.PASSWORD" description="PROFILE.SECURITY.PASSWORD_DESC">
+              <FormTextInput
+                name="newPassword"
+                label="PROFILE.NEW_PASSWORD"
+                placeholder="PROFILE.NEW_PASSWORD"
+                type="password"
+                value={values?.newPassword}
+                infoMessage="PROFILE.SECURITY.PASSWORD_INFO"
+              />
             </ProfileForm>
 
-            <ProfileForm
-              title="Clés d'accès (Passkeys)"
-              description="Ajoutez une ou plusieurs clés d'accès pour vous connecter sans mot de passe. Utilisez la reconnaissance faciale, une empreinte ou un appareil sécurisé compatible."
-            >
-              <BaseButton withGradient colorType={'info'} onClick={() => {}}>
-                Ajouter une clé d'accès
-              </BaseButton>
+            <ProfileForm title="PROFILE.SECURITY.PASS_KEY" description="PROFILE.SECURITY.PASS_KEY_DESC">
+              {credentialsLoading ? (
+                <CustomSkeletonLoader type="BUTTON" width={'120px'} />
+              ) : (
+                <BaseButton withGradient colorType={'info'} onClick={() => setOpenPasskeyModal(true)}>
+                  {t('PROFILE.SECURITY.ADD_PASS_KEY')}
+                </BaseButton>
+              )}
+
               {(filteredCredentials?.length ?? 0) > 0 ? (
                 <For each={filteredCredentials ?? []}>
                   {(cred) => (
                     <HStack key={cred.id} width={'full'} mt={5} justifyContent={'space-between'} py={2} borderBottom="1px solid" borderColor={'lighter.500'}>
-                      <VStack alignItems="flex-start" gap={1}>
-                        <BaseText fontWeight="bold">{cred.userLabel || 'Appareil sans nom'}</BaseText>
-                        <BaseText variant={TextVariant.XS}> Créé {UTILS.formatCreatedAt(cred.createdDate)}</BaseText>
-                      </VStack>
+                      {credentialsLoading ? (
+                        <CustomSkeletonLoader type="TEXT" numberOfLines={3} />
+                      ) : (
+                        <>
+                          <VStack alignItems="flex-start" gap={1}>
+                            <BaseText fontWeight="bold">{cred.userLabel || t('PROFILE.SECURITY.UNKNOW_DEVICE')}</BaseText>
+                            <BaseText variant={TextVariant.XS}> Créé {UTILS.formatCreatedAt(cred.createdDate)}</BaseText>
+                          </VStack>
 
-                      <BoxIcon
-                        bgColor={'red'}
-                        boxSize={'30px'}
-                        borderRadius={'7px'}
-                        cursor="pointer"
-                        onClick={() => {
-                          setOpen(true)
-                          setIsRevoke(true)
-                          setSelectedData(cred.id)
-                          console.log('clicked')
-                        }}
-                      >
-                        <TrashIcon />
-                      </BoxIcon>
+                          <BoxIcon
+                            bgColor={'red'}
+                            boxSize={'30px'}
+                            borderRadius={'7px'}
+                            cursor="pointer"
+                            onClick={() => {
+                              setOpen(true)
+                              setIsRevoke(true)
+                              setSelectedData(cred.id)
+                            }}
+                          >
+                            <TrashIcon />
+                          </BoxIcon>
+                        </>
+                      )}
                     </HStack>
                   )}
                 </For>
               ) : (
-                <BaseText mt={8}>Aucune clé détectée.</BaseText>
+                <BaseText mt={8}> {t('PROFILE.SECURITY.PASS_KEY_NO_FOUND')}</BaseText>
               )}
             </ProfileForm>
 
-            <ProfileForm
-              title="Sessions actives"
-              description="Voici les connexions actuellement actives sur votre compte. Si vous voyez une activité inconnue, vous pouvez fermer une session à distance."
-            >
-              {userSessions?.sessions?.length > 0 ? (
-                userSessions?.sessions?.map((session: { ipAddress: string; start: string; lastAccess: string; id: string }) => (
-                  <HStack key={session.id} width="full" justifyContent="space-between" alignItems="center" borderBottom="1px solid #e5e5e5" py={2} borderRadius="md">
-                    <VStack alignItems="flex-start" gap={0}>
-                      <HStack>
-                        <BaseText fontWeight="bold">Adresse IP : {session.ipAddress}</BaseText>
-                        {session.id === currentSessionId && <BaseBadge label="Session actuelle" type={'common'} />}
-                      </HStack>
+            <ProfileForm title="PROFILE.SECURITY.ACTIVE_SESSIONS" description="PROFILE.SECURITY.ACTIVE_SESSIONS_DESC">
+              <For each={userSessions?.sessions}>
+                {(session: { ipAddress: string; start: string; lastAccess: string; id: string }) => (
+                  <HStack key={session.id} width="full" justifyContent="space-between" alignItems="center" borderBottom="1px solid" borderColor={'lighter.500'} py={2}>
+                    {sessionLoading ? (
+                      <CustomSkeletonLoader type="TEXT" numberOfLines={3} />
+                    ) : (
+                      <>
+                        <VStack alignItems="flex-start" gap={0}>
+                          <HStack>
+                            <BaseText fontWeight="bold">
+                              {t('PROFILE.SECURITY.IP_ADDRESS')}: {session.ipAddress}
+                            </BaseText>
+                            {session.id === currentSessionId && <BaseBadge label={t('PROFILE.SECURITY.CURRENT_SESSION')} type={'common'} />}
+                          </HStack>
 
-                      <BaseText variant={TextVariant.XS}>Début de session : {UTILS.formatCreatedAt(session.start)}</BaseText>
-                      <BaseText variant={TextVariant.XS}>Dernier accès : {UTILS.formatCreatedAt(session.lastAccess)}</BaseText>
-                    </VStack>
-                    {userSessions?.sessions?.length >= 1 && (
-                      <BoxIcon bgColor={'red'} boxSize={'30px'} borderRadius={'7px'} cursor="pointer" onClick={() => session.id}>
-                        <TrashIcon
-                          onClick={() => {
-                            setOpen(true)
-                            setIsRevoke(false)
-                            setSelectedData(session.id)
-                          }}
-                        />
-                      </BoxIcon>
+                          <BaseText variant={TextVariant.XS}>
+                            {t('PROFILE.SECURITY.SESSION_START')} : {UTILS.formatCreatedAt(session.start)}
+                          </BaseText>
+                          <BaseText variant={TextVariant.XS}>
+                            {t('PROFILE.SECURITY.SESSION_LAST_ACCESS')} : {UTILS.formatCreatedAt(session.lastAccess)}
+                          </BaseText>
+                        </VStack>
+                        {userSessions?.sessions?.length > 1 && (
+                          <BoxIcon bgColor={'red'} boxSize={'30px'} borderRadius={'7px'} cursor="pointer" onClick={() => session.id}>
+                            <TrashIcon
+                              onClick={() => {
+                                setOpen(true)
+                                setIsRevoke(false)
+                                setSelectedData(session.id)
+                              }}
+                            />
+                          </BoxIcon>
+                        )}
+                      </>
                     )}
                   </HStack>
-                ))
-              ) : (
-                <BaseText>Aucune session active détectée.</BaseText>
-              )}
+                )}
+              </For>
             </ProfileForm>
 
             <ProfileForm title="PROFILE.DANGER_ZONE.TITLE" description="PROFILE.DANGER_ZONE.DESC" borderColor={'red.500'} borderWidth={1.5} borderRadius={'7px'}>
@@ -242,6 +281,8 @@ export const Settings = () => {
         isLoading={deactivatePending}
       />
       <GlobalModal isOpen={open} isRevoke={isRevoke} onChange={() => setOpen(!open)} callback={actions} isLoading={removeKeyPending || removeSessionPending} />
+
+      <PassKeyModal isOpen={openPassKeyModal} onChange={() => setOpenPasskeyModal(!openPassKeyModal)} callback={handleRegisterNewKey} isLoading={registerNewKeyPending} />
     </>
   )
 }

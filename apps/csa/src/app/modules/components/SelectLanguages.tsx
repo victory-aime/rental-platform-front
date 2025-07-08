@@ -24,8 +24,10 @@ export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
   const [loading, setLoading] = useState(false)
 
   const { mutateAsync: onUpdateUserInfo, isPending } = CommonModule.UserModule.updateUserInfoMutation({
-    onSuccess: () => {
-      CommonModule.UserModule.UserCache.invalidateUser()
+    mutationOptions: {
+      onSuccess: () => {
+        CommonModule.UserModule.UserCache.invalidateUser()
+      },
     },
   })
 
@@ -36,7 +38,7 @@ export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
     setLoading(isPending)
     await i18n.changeLanguage(selectLanguage)
     localStorage.setItem(StorageKey.LANGUAGE, selectLanguage)
-    await onUpdateUserInfo({ preferredLanguage: selectLanguage, keycloakId: session?.keycloakId ?? '' })
+    await onUpdateUserInfo({ payload: { preferredLanguage: selectLanguage, keycloakId: session?.keycloakId } })
     onChange?.(!isOpen)
   }
 
@@ -48,7 +50,7 @@ export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
   }, [language])
 
   return (
-    <ModalComponent iconBackgroundColor={hexToRGB('lighter', 0.6)} icon={<ImFlag color={VariablesColors.grayScale} />} open={isOpen} title={'SELECT_LANGUAGES'} onChange={onChange}>
+    <ModalComponent iconBackgroundColor={'secondary.500'} icon={<ImFlag />} open={isOpen} title={'SELECT_LANGUAGES'} onChange={onChange}>
       <VStack gap={5} alignItems={'flex-start'}>
         <BaseText variant={TextVariant.XS}>{t('SELECT_LANGUAGES_DESC')}</BaseText>
         <Flex gap={6} mt={6} width="full" alignItems="center" justifyContent="center" pointerEvents={loading ? 'none' : 'auto'} opacity={loading ? 0.6 : 1}>
@@ -60,7 +62,7 @@ export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
                 justifyContent="center"
                 padding={4}
                 borderWidth={2}
-                borderColor={selectLanguage === language ? VariablesColors.green : hexToRGB('lighter', 0.6)}
+                borderColor={selectLanguage === language ? VariablesColors.secondary : hexToRGB('lighter', 0.6)}
                 boxShadow={selectLanguage === language ? 'lg' : 'none'}
                 borderTopRightRadius="20px"
                 borderBottomLeftRadius="20px"

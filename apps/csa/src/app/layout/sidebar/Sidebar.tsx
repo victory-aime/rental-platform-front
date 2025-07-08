@@ -27,23 +27,6 @@ export const Sidebar = ({ sideToggled, onShowSidebar, session }: SideBarProps) =
           <VStack align="stretch" overflow="auto" mt={6}>
             <RenderLinks links={sidebarLinks ?? []} sideToggled={sideToggled} onShowSidebar={onShowSidebar} />
           </VStack>
-          {/* 
-          <Box pe={'10px'} ps={'10px'} bottom={0}>
-            <SwitchColorMode />
-            <BaseButton
-              width={'full'}
-              withGradient
-              mt={8}
-              colorType={'danger'}
-              overflow={'hidden'}
-              justifyContent={'center'}
-              onClick={handleLogout}
-              isLoading={loader}
-              leftIcon={<LogOutIcon width="18px" height="18px" fill={VariablesColors.white} />}
-            >
-              {sideToggled ? t('COMMON.LOGOUT') : null}
-            </BaseButton>
-          </Box> */}
         </Box>
       )}
     </>

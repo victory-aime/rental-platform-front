@@ -7,6 +7,7 @@ import { BaseText } from '../base-text'
 import { useTranslation } from 'react-i18next'
 import { HiOutlineInformationCircle } from 'react-icons/hi2'
 import { BaseTooltip } from '../tooltip'
+import { CustomSkeletonLoader } from '../custom-skeleton'
 
 const FormSelect: FC<FullSelectProps> = ({
   listItems,
@@ -15,7 +16,7 @@ const FormSelect: FC<FullSelectProps> = ({
   required,
   isMultiSelect = false,
   placeholder = 'COMMON.SELECT_OPTIONS',
-  localErrorMsg,
+  infoMessage,
   width = 'full',
   variant = 'subtle',
   validate,
@@ -25,6 +26,7 @@ const FormSelect: FC<FullSelectProps> = ({
   toolTipInfo = '',
   onChangeFunc,
   setFieldValue,
+  isLoading,
   ref,
   customRenderSelected,
 }) => {
@@ -64,42 +66,54 @@ const FormSelect: FC<FullSelectProps> = ({
       >
         {label && (
           <SelectLabel display={'flex'} gap={'6px'} mb={'4px'} fontSize={{ base: '14px', md: '12px' }} alignItems={'center'}>
-            {t(label)}
-            {required && <BaseText color={'red'}> * </BaseText>}
-            {toolTipInfo && (
-              <BaseTooltip message={toolTipInfo}>
-                <HiOutlineInformationCircle size={14} />
-              </BaseTooltip>
+            {isLoading ? (
+              <CustomSkeletonLoader type="TEXT" numberOfLines={1} />
+            ) : (
+              <>
+                {t(label)}
+                {required && <BaseText color={'red'}> * </BaseText>}
+                {toolTipInfo && (
+                  <BaseTooltip message={toolTipInfo}>
+                    <HiOutlineInformationCircle size={14} />
+                  </BaseTooltip>
+                )}
+              </>
             )}
           </SelectLabel>
         )}
 
-        <SelectTrigger clearable={isClearable} showDropdownIcon={showDropdownIcon}>
-          {customRenderSelected ? (
-            customRenderSelected(
-              listItems?.items.filter((i: any) => {
-                const currentValue = extractSingleValue(field.value)
-                return i.value === currentValue
-              })
-            )
-          ) : (
-            <SelectValueText placeholder={t(placeholder)} fontSize={{ base: '16px', md: '12px' }} />
-          )}
-        </SelectTrigger>
+        {isLoading ? (
+          <CustomSkeletonLoader type="FORM" height={'50px'} width={'100%'} />
+        ) : (
+          <>
+            <SelectTrigger clearable={isClearable} showDropdownIcon={showDropdownIcon}>
+              {customRenderSelected ? (
+                customRenderSelected(
+                  listItems?.items.filter((i: any) => {
+                    const currentValue = extractSingleValue(field.value)
+                    return i.value === currentValue
+                  })
+                )
+              ) : (
+                <SelectValueText placeholder={t(placeholder)} fontSize={{ base: '16px', md: '12px' }} />
+              )}
+            </SelectTrigger>
 
-        <SelectContent borderRadius={7} p={3} portalRef={ref}>
-          {listItems?.items?.length ? (
-            listItems?.items?.map((item: { id: string; label: string; value: string }) => (
-              <SelectItem _highlighted={{ color: 'primary.500' }} py={1} item={item.value} key={item.value} fontSize={{ base: '16px', md: '12px' }}>
-                {item.label}
-              </SelectItem>
-            ))
-          ) : (
-            <BaseText fontSize="sm" color="gray.400" px={2} py={1}>
-              {t('COMMON.NO_SELECT_OPTIONS')}
-            </BaseText>
-          )}
-        </SelectContent>
+            <SelectContent borderRadius={7} p={3} portalRef={ref}>
+              {listItems?.items?.length ? (
+                listItems?.items?.map((item: { id: string; label: string; value: string }) => (
+                  <SelectItem _highlighted={{ color: 'primary.500' }} py={1} item={item.value} key={item.value} fontSize={{ base: '16px', md: '12px' }}>
+                    {item.label}
+                  </SelectItem>
+                ))
+              ) : (
+                <BaseText fontSize="sm" color="gray.400" px={2} py={1}>
+                  {t('COMMON.NO_SELECT_OPTIONS')}
+                </BaseText>
+              )}
+            </SelectContent>
+          </>
+        )}
       </SelectRoot>
       {isError && (
         <Flex gap={1} mt={1} alignItems={'center'}>
@@ -107,7 +121,18 @@ const FormSelect: FC<FullSelectProps> = ({
           <Field.ErrorText>{error}</Field.ErrorText>
         </Flex>
       )}
-      {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
+      {infoMessage && (
+        <>
+          {isLoading ? (
+            <CustomSkeletonLoader type="TEXT" numberOfLines={2} />
+          ) : (
+            <Flex gap={1} mt={1} alignItems={'center'}>
+              <Field.ErrorIcon width={4} height={4} color={'info.500'} />
+              <Field.HelperText p={1}>{t(infoMessage)}</Field.HelperText>
+            </Flex>
+          )}
+        </>
+      )}
     </Field.Root>
   )
 }

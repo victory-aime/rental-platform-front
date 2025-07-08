@@ -35,7 +35,7 @@ export const authOptions = {
       } else {
         try {
           const refreshedToken = await refreshAccessToken(token?.refresh_token)
-                const refreshedDecoded = jwtDecode<{ [key: string]: any }>(refreshedToken.access_token)
+          const refreshedDecoded = jwtDecode<{ [key: string]: any }>(refreshedToken.access_token)
 
           return {
             ...token,
@@ -44,7 +44,7 @@ export const authOptions = {
             id_token: refreshedToken.id_token,
             expires_at: refreshedToken.expires_at,
             decoded: refreshedDecoded,
-             sessionId: refreshedDecoded.sid,
+            sessionId: refreshedDecoded.sid,
           }
         } catch (error) {
           console.error('Error refreshing access token', error)
@@ -58,7 +58,7 @@ export const authOptions = {
       session.id_token = token.id_token ? encrypted(token.id_token) : null
       session.roles = token.decoded?.realm_access?.roles ?? []
       session.keycloakId = token.decoded?.sub ?? null
-        session.sessionId = token.sessionId ?? null
+      session.sessionId = token.sessionId ?? null
       session.error = token.error
       return session
     },

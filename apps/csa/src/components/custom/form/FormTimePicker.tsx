@@ -9,7 +9,7 @@ import { TimeInputProps } from './interface/input'
 import { CiTimer } from 'react-icons/ci'
 import { generateTimeOptions } from './utils/gerenateTime'
 
-export const FormTimePicker = ({ name, label, required = false, toolTipInfo, isDisabled = false, variant = 'subtle', placeholder = 'Select an option', localErrorMsg }: TimeInputProps) => {
+export const FormTimePicker = ({ name, label, required = false, toolTipInfo, isDisabled = false, variant = 'subtle', placeholder = 'Select an option', infoMessage }: TimeInputProps) => {
   const { t, i18n } = useTranslation()
   const [field, { touched, error }] = useField(name)
   const isError = error ? Boolean(error) : !!(touched && Boolean(error))
@@ -54,7 +54,12 @@ export const FormTimePicker = ({ name, label, required = false, toolTipInfo, isD
           <Field.ErrorText>{error}</Field.ErrorText>
         </Flex>
       )}
-      {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
+      {infoMessage && (
+        <Flex gap={1} mt={1} alignItems={'center'}>
+          <Field.ErrorIcon width={4} height={4} color={'info.500'} />
+          <Field.HelperText p={1}>{t(infoMessage)}</Field.HelperText>
+        </Flex>
+      )}
     </Field.Root>
   )
 }

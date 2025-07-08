@@ -11,12 +11,14 @@ import { BaseTooltip } from '../tooltip'
 import { BaseButton } from '../button'
 import { IoSave } from 'react-icons/io5'
 import { IoIosArrowDropleftCircle } from 'react-icons/io'
+import { useTranslation } from 'react-i18next'
 
 const LOCAL_STORAGE_KEY = 'custom-color-swatches'
 
 const DEFAULT_SWATCHES = ['#000000', '#4A5568', '#F56565', '#ED64A6', '#9F7AEA', '#6B46C1', '#4299E1', '#0BC5EA', '#00B5D8', '#38B2AC', '#48BB78', '#68D391', '#ECC94B', '#DD6B20']
 
-export const FormColorPicker: FC<FormColorPickerProps> = ({ name, label, validate, isDisabled, isReadOnly, required, localErrorMsg, toolTipInfo }) => {
+export const FormColorPicker: FC<FormColorPickerProps> = ({ name, label, validate, isDisabled, isReadOnly, required, infoMessage, toolTipInfo }) => {
+  const { t } = useTranslation()
   const { setFieldValue } = useFormikContext<any>()
   const fieldHookConfig = {
     name,
@@ -110,7 +112,7 @@ export const FormColorPicker: FC<FormColorPickerProps> = ({ name, label, validat
                   <ColorPicker.Sliders />
                 </HStack>
                 <HStack width={'full'}>
-                  <BaseButton p={0} leftIcon={<IoIosArrowDropleftCircle />} onClick={() => setView('swatch')} colorType={'none'} />
+                  <BaseButton p={0} leftIcon={<IoIosArrowDropleftCircle />} onClick={() => setView('swatch')} colorType={'secondary'} />
                   <BaseButton width={'220px'} colorType={'success'} leftIcon={<IoSave />} onClick={saveSwatch} disabled={!color}>
                     Enregistrer
                   </BaseButton>
@@ -138,7 +140,12 @@ export const FormColorPicker: FC<FormColorPickerProps> = ({ name, label, validat
         </Portal>
       </ColorPicker.Root>
       {isError && <Field.ErrorText>{error}</Field.ErrorText>}
-      {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
+      {infoMessage && (
+        <Flex gap={1} mt={1} alignItems={'center'}>
+          <Field.ErrorIcon width={4} height={4} color={'info.500'} />
+          <Field.HelperText p={1}>{t(infoMessage)}</Field.HelperText>
+        </Flex>
+      )}
     </Field.Root>
   )
 }
