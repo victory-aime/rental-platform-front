@@ -75,7 +75,7 @@ export const MaintenanceForm: FC<ModalOpenProps> = ({ isOpen, isLoading, onChang
       }}
       validationSchema={TYPES.VALIDATION_SCHEMA.MAINTENANCE.maintenanceValidationSchema}
     >
-      {({ handleSubmit, setFieldValue, resetForm }) => (
+      {({ handleSubmit, setFieldValue, resetForm, dirty }) => (
         <ModalComponent
           ref={contentRef}
           title={!data?.id ? 'MAINTENANCE.ADD' : 'MAINTENANCE.EDIT'}
@@ -88,6 +88,7 @@ export const MaintenanceForm: FC<ModalOpenProps> = ({ isOpen, isLoading, onChang
             resetForm()
           }}
           onClick={handleSubmit}
+          disabled={!dirty}
           buttonSaveTitle={!data?.id ? 'COMMON.VALIDATE' : 'COMMON.EDIT'}
           closeOnInteractOutside={false}
           ignoreFooter={false}

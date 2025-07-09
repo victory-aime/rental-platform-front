@@ -6,14 +6,12 @@ import React from 'react'
 import { TYPES } from 'rental-platform-shared'
 import { useRouter } from 'next/navigation'
 import { MODULES_CARS_ROUTES } from '../routes'
-import { CarsModule, CommonModule } from 'rental-platform-state'
+import { CarsModule } from 'rental-platform-state'
+import { useCachedUser } from '_hooks/useCachedUser'
 
 const ManageCarsPage = () => {
   const router = useRouter()
-  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({
-    payload: { userId: '' },
-    queryOptions: { enabled: false },
-  })
+  const currentUser = useCachedUser()
 
   const {
     data: cars,

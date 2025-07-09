@@ -25,7 +25,10 @@ export const initZustandCacheStore = (options: { storage: PersistStorage<CacheSt
           delete newCache[key]
           return set({ cache: newCache })
         },
-        clearAll: () => set({ cache: {} }),
+        clearAll: () => {
+          set({ cache: {} })
+          options.storage.removeItem?.('zustand-cache')
+        },
       }),
       {
         name: 'zustand-cache',

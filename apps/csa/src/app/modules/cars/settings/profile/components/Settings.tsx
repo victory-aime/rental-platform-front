@@ -5,35 +5,26 @@ import { BaseText, TextVariant, FormTextInput, BaseButton, BoxIcon, BaseBadge, C
 import { Formik } from 'formik'
 import { ProfileForm } from './ProfileForm'
 import { CommonModule } from 'rental-platform-state'
-import { signIn, signOut, useSession } from 'next-auth/react'
-import { useGlobalLoader } from '_context/loaderContext'
-import { keycloakSessionLogOut } from '_hooks/logout'
-import { APP_ROUTES } from '_config/routes'
+import { useSession } from 'next-auth/react'
 import { TrashIcon } from '_assets/svg'
 import { useTranslation } from 'react-i18next'
 import { UTILS } from 'rental-platform-shared'
 import { GlobalModal } from './GlobalModal'
 import { PassKeyModal } from './PassKeyModal'
+import { useAuth } from '_hooks/useAuth'
+import { useCachedUser } from '_hooks/useCachedUser'
 
 export const Settings = () => {
   const { data: session } = useSession()
   const { t } = useTranslation()
-  const { showLoader, hideLoader } = useGlobalLoader()
+  const { logout, login } = useAuth()
   const [open, setOpen] = useState<boolean>(false)
   const [isRevoke, setIsRevoke] = useState<boolean>(false)
   const [openPassKeyModal, setOpenPasskeyModal] = useState<boolean>(false)
   const [selectedData, setSelectedData] = useState<string | null>(null)
   const currentSessionId = session?.sessionId
   const [validateDisabledAccount, setValidateDisabledAccount] = useState<boolean>(false)
-
-  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({
-    payload: {
-      userId: session?.keycloakId || '',
-    },
-    queryOptions: {
-      enabled: false,
-    },
-  })
+  const currentUser = useCachedUser()
 
   const { data: userSessions, isLoading: sessionLoading } = CommonModule.UserModule.getAllSessionsQueries({
     payload: {
@@ -61,7 +52,7 @@ export const Settings = () => {
     mutationOptions: {
       onSuccess: () => {
         setOpenPasskeyModal(false)
-        handleRegidectToKeycloak()
+        login({ otpRequired: true })
       },
     },
   })
@@ -89,8 +80,7 @@ export const Settings = () => {
   const { mutateAsync: deactivate, isPending: deactivatePending } = CommonModule.UserModule.deactivateAccountMutation({
     mutationOptions: {
       onSuccess: () => {
-        showLoader()
-        keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_IN }).then(() => hideLoader()))
+        logout()
       },
     },
   })
@@ -98,8 +88,7 @@ export const Settings = () => {
   const { mutateAsync: clearAllSessions, isPending: clearSessionLoading } = CommonModule.UserModule.clearAllSessionsMutation({
     mutationOptions: {
       onSuccess: () => {
-        showLoader()
-        keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_IN }).then(() => hideLoader()))
+        logout()
       },
     },
   })
@@ -120,8 +109,7 @@ export const Settings = () => {
   const handleClearSessions = async (session: string | null) => {
     if (session === currentSessionId) {
       removeSessionMutattion({ params: { keycloakId: selectedData } }).then(() => {
-        showLoader()
-        keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_IN }).then(() => hideLoader()))
+        logout()
       })
     } else {
       await removeSessionMutattion({ params: { keycloakId: selectedData } })
@@ -134,11 +122,6 @@ export const Settings = () => {
 
   const actions = async () => {
     isRevoke ? await removeKeyMutation({ params: { keycloakId: currentUser?.keycloakId, credentialId: selectedData } }) : handleClearSessions(selectedData)
-  }
-  const handleRegidectToKeycloak = () => {
-    showLoader()
-    localStorage.setItem('otpRequired', 'true')
-    signIn('keycloak').then(() => hideLoader())
   }
 
   const filteredCredentials = credential?.data

@@ -8,15 +8,16 @@ import { TYPES, UTILS } from 'rental-platform-shared'
 import { FormikValues } from 'formik'
 import { getCarsName, getTitle } from '../constants/maintenance'
 import { CloseMaintenanceForm } from './components/CloseMaintenanceForm'
+import { useCachedUser } from '_hooks/useCachedUser'
 
 const MaintenancePage = () => {
-  const [activeFilter, setActiveFilter] = useState<boolean>(false)
   const [openModalForm, setOpenModalForm] = useState<boolean>(false)
   const [openCloseForm, setOpenCloseForm] = useState<boolean>(false)
   const [selectedItem, setSelectedItem] = useState<{ id: string } | null>({
     id: '',
   })
-  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
+  const currentUser = useCachedUser()
+
   const { data: cars } = CarsModule.getAllCarsQueries({
     payload: {
       establishment: currentUser?.establishment?.id ?? '',
@@ -26,7 +27,7 @@ const MaintenancePage = () => {
     },
   })
 
-  const { data: maintenance } = CarsModule.maintenance.getMaintenanceListQueries({
+  const { data: maintenance, refetch } = CarsModule.maintenance.getMaintenanceListQueries({
     payload: {
       filters: {
         agencyId: currentUser?.establishment?.id,
@@ -45,7 +46,7 @@ const MaintenancePage = () => {
     mutationOptions: {
       onSuccess: () => {
         setOpenModalForm(false)
-        CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+        refetch()
       },
     },
   })
@@ -59,7 +60,7 @@ const MaintenancePage = () => {
       onSuccess: () => {
         setSelectedItem(null)
         setOpenModalForm(false)
-        CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+        refetch()
       },
     },
   })
@@ -69,7 +70,7 @@ const MaintenancePage = () => {
       onSuccess: () => {
         setSelectedItem(null)
         setOpenCloseForm(false)
-        CarsModule.maintenance.MaintenanceCache.invalidateMaintenanceList()
+        refetch()
       },
     },
   })
@@ -175,9 +176,6 @@ const MaintenancePage = () => {
       description={'MAINTENANCE.DESC'}
       border={'none'}
       withActionButtons
-      isFilterActive={activeFilter}
-      onToggleFilter={() => setActiveFilter(!activeFilter)}
-      filterComponent={<>h</>}
       actionsButtonProps={{
         validateColor: 'primary',
         validateTitle: 'MAINTENANCE.ADD',

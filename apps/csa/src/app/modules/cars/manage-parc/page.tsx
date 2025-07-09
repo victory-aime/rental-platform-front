@@ -7,6 +7,7 @@ import { CarsModule, CommonModule } from 'rental-platform-state'
 import { ParcFormModal } from './components/FormModal'
 import { FilterParc } from '_modules/cars/manage-parc/components/FilterParc'
 import { DeleteParcModal } from './components/DeleteParcModal'
+import { useCachedUser } from '_hooks/useCachedUser'
 
 const ManageParcPage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false)
@@ -14,7 +15,8 @@ const ManageParcPage = () => {
   const [selectedParc, setSelectedParc] = useState<TYPES.MODELS.CARS.ParcDto | null>(null)
   const [isFilterActive, setIsFilterActive] = useState<boolean>(false)
   const [filters, setFilters] = useState<TYPES.MODELS.CARS.ParcListDto | null>(null)
-  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
+  const currentUser = useCachedUser()
+
   const agencyId = currentUser?.establishment?.id
 
   const {

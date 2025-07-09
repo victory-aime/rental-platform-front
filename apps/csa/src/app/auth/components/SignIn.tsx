@@ -2,12 +2,10 @@
 
 import { BaseButton, BaseText, TextVariant, TextWeight } from '_components/custom'
 import { APP_ROUTES } from '_config/routes'
-import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { Box, Center, Flex, Link, Separator, VStack } from '@chakra-ui/react'
 import { VariablesColors } from '_theme/variables'
 import { useTranslation } from 'react-i18next'
-import { useGlobalLoader } from '_context/loaderContext'
 import { useState } from 'react'
 import { ActivateAccount } from './ActivateAccount'
 import { FormikHelpers, FormikValues } from 'formik'
@@ -17,22 +15,17 @@ import { useOtpStorage } from '_hooks/useOtpStorage'
 import { ActivateAccountRecap } from './ActivateAccountRecap'
 import { extractOtp } from '../../challenge-handler/otp/utils/extract-otp'
 import { OtpChallengeHandler } from '../../challenge-handler/otp/OtpChallengeHandler'
+import { useAuth } from '_hooks/useAuth'
 
 export const SignIn = () => {
   const { t } = useTranslation()
   const callbackUrl = useSearchParams()?.get('callbackUrl') || APP_ROUTES.HOME
-  const { showLoader, hideLoader } = useGlobalLoader()
+  const { login } = useAuth()
   const { email, otpRemaining: expiresIn, blockRemaining, saveOtpData, clearOtpData } = useOtpStorage()
 
   const [openActiveModal, setOpenActiveModal] = useState<boolean>(false)
   const [openRecapModal, setOpenRecapModal] = useState<boolean>(false)
   const [openOtpModal, setOpenOtpModal] = useState<boolean>(false)
-
-  const handleSignIn = () => {
-    localStorage.setItem('otpRequired', 'true')
-    showLoader()
-    signIn('keycloak', { callbackUrl }).then(() => hideLoader())
-  }
 
   const { mutateAsync: generateOtp, isPending } = CommonModule.OtpModule.generateOtpMutation({
     mutationOptions: {
@@ -111,7 +104,7 @@ export const SignIn = () => {
             <BaseText variant={TextVariant.M} weight={TextWeight.Regular} color="white" textAlign="center">
               {t('SIGN_IN_DESC')}
             </BaseText>
-            <BaseButton onClick={handleSignIn} width="1/2">
+            <BaseButton onClick={() => login({ callbackUrl })} width="1/2">
               {t('COMMON.LOGIN')}
             </BaseButton>
           </VStack>

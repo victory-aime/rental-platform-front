@@ -9,22 +9,19 @@ import { SelectLanguages } from '_modules/components/SelectLanguages'
 import React, { useState } from 'react'
 import { FlagImagesIcon } from '_modules/components/flag/FlagImages'
 import { FlagKeys } from '_assets/images/flag'
-import { APP_ROUTES } from '_config/routes'
-import { keycloakSessionLogOut } from '_hooks/logout'
-import { signOut } from 'next-auth/react'
-import { useGlobalLoader } from '_context/loaderContext'
 import { VariablesColors } from '_theme/variables'
 import { PostLoginChallenge } from '../../challenge-handler/otp/PostLoginChallenge'
-import { TYPES } from 'rental-platform-shared'
+import { useAuth } from '_hooks/useAuth'
+import { useCachedUser } from '_hooks/useCachedUser'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
   const getPreferredLanguage = localStorage.getItem(StorageKey.LANGUAGE)
-  const { showLoader, hideLoader } = useGlobalLoader()
+  const { logout } = useAuth()
   const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
-  const cachedUser = CommonModule.UserModule.UserCache.getUser()
+  const cachedUser = useCachedUser()
 
-  const { data: user, isLoading } = CommonModule.UserModule.userInfoQueries({
+  const { isLoading } = CommonModule.UserModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
     queryOptions: {
       enabled: !!session?.keycloakId && !cachedUser,
@@ -34,11 +31,6 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
       },
     },
   })
-
-  const handleLogout = () => {
-    showLoader()
-    keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_IN }).then(() => hideLoader()))
-  }
 
   return (
     <Flex p={4} justify={'space-between'} alignItems="center" h={{ base: '100px', md: 'auto' }}>
@@ -50,8 +42,8 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
             <ListMenu width={18} height={18} />
           </Box>
           <Flex alignItems={'center'} justifyContent={'center'} gap={3}>
-            <Image draggable="false" src={user?.picture ?? 'https://avatar.iran.liara.run/public'} borderRadius={'7px'} boxSize={'30px'} fit="cover" objectPosition="center" alt="img-url" />
-            <BaseText variant={TextVariant.S}> {t('WELCOME', { username: user?.name })} </BaseText>
+            <Image draggable="false" src={cachedUser?.picture ?? 'https://avatar.iran.liara.run/public'} borderRadius={'7px'} boxSize={'30px'} fit="cover" objectPosition="center" alt="img-url" />
+            <BaseText variant={TextVariant.S}> {t('WELCOME', { username: cachedUser?.name })} </BaseText>
           </Flex>
         </Flex>
       )}
@@ -59,10 +51,10 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
       <Flex gap={3} alignItems={'center'}>
         <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'20px'} onClick={() => setOpenSelectLanguage(true)} />
         <Separator orientation={'vertical'} size={'lg'} colorPalette={'red'} />
-        <LogOutIcon width={24} height={24} onClick={handleLogout} cursor={'pointer'} fill={VariablesColors.red} />
+        <LogOutIcon width={24} height={24} onClick={logout} cursor={'pointer'} fill={VariablesColors.red} />
       </Flex>
-      {user && <PostLoginChallenge user={user} />}
-      <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={(user?.preferredLanguage as string) ?? ''} />
+      {cachedUser && <PostLoginChallenge user={cachedUser} />}
+      <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={(cachedUser?.preferredLanguage as string) ?? ''} />
     </Flex>
   )
 }
