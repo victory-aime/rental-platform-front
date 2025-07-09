@@ -1,7 +1,7 @@
 'use client'
 
 import { Flex, HStack, Stack, VStack } from '@chakra-ui/react'
-import { BaseButton, BaseText, FormSelect, FormSwitch, FormTextInput, TextVariant, UploadAvatar } from '_components/custom'
+import { BaseButton, FormSelect, FormSwitch, FormTextInput, UploadAvatar } from '_components/custom'
 import { selectLanguages } from '_constants/languages'
 import { Formik, FormikValues } from 'formik'
 import React, { useEffect, useState } from 'react'
@@ -13,6 +13,7 @@ import { ProfileForm } from '../components/ProfileForm'
 import { useSession } from 'next-auth/react'
 import { TYPES } from 'rental-platform-shared'
 import { EmailChangeModal } from './EmailChangeModal'
+import { useCachedUser } from '_hooks/useCachedUser'
 
 export const ProfileInfo = () => {
   const { t, i18n } = useTranslation()
@@ -24,17 +25,18 @@ export const ProfileInfo = () => {
   const [emailHasChanged, setEmailHasChanged] = useState<boolean>(false)
   const [pendingValues, setPendingValues] = useState<FormikValues>()
   const [initialValues, setInitialValues] = useState<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>(TYPES.VALIDATION_SCHEMA.USERS.initialUser)
+  const currentUser = useCachedUser()
 
-  const {
-    data: currentUser,
-    refetch,
-    isLoading,
-  } = CommonModule.UserModule.userInfoQueries({
+  const { refetch, isLoading } = CommonModule.UserModule.userInfoQueries({
     payload: {
       userId: session?.keycloakId || '',
     },
     queryOptions: {
       enabled: pending,
+      select(data) {
+        CommonModule.UserModule.UserCache.setUser(data)
+        return data
+      },
     },
   })
 

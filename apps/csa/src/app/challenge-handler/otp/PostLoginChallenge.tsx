@@ -6,8 +6,7 @@ import { AxiosError } from 'axios'
 import { FormikValues, FormikHelpers } from 'formik'
 import { OtpChallengeHandler } from './OtpChallengeHandler'
 import { extractOtp } from './utils/extract-otp'
-import { keycloakSessionLogOut } from '_hooks/logout'
-import { useGlobalLoader } from '_context/loaderContext'
+import { useAuth } from '_hooks/useAuth'
 
 interface Props {
   user?: TYPES.MODELS.COMMON.USERS.IUser
@@ -16,7 +15,7 @@ interface Props {
 export const PostLoginChallenge: FC<Props> = ({ user }) => {
   const hasTriggeredRef = useRef(false)
   const [openModal, setOpenModal] = useState(false)
-  const { showLoader, hideLoader } = useGlobalLoader()
+  const { logout } = useAuth()
   const { email, otpRemaining: expiresIn, blockRemaining, saveOtpData, clearOtpData } = useOtpStorage()
 
   const shouldTriggerOtp = typeof window !== 'undefined' && localStorage.getItem('otpRequired') === 'true'
@@ -85,13 +84,9 @@ export const PostLoginChallenge: FC<Props> = ({ user }) => {
   }
 
   const handleClose = () => {
-    showLoader()
     setOpenModal(false)
+    logout()
     clearOtpData()
-    localStorage.removeItem('otpRequired')
-    keycloakSessionLogOut().then(() => {
-      hideLoader()
-    })
   }
   return user?.enabled2MFA && !isSuccess ? (
     <OtpChallengeHandler

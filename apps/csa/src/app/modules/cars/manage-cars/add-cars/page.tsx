@@ -11,6 +11,7 @@ import { TYPES, UTILS } from 'rental-platform-shared'
 import { fuelList, transmissionList, categoryList, statusList, equipmentsList, parcList } from '../../constants/cars'
 import { DiscountedPriceCalculator } from '_modules/cars/hooks/DiscountPriceCalculator'
 import { useTranslation } from 'react-i18next'
+import { useCachedUser } from '_hooks/useCachedUser'
 
 const AddCarsPage = () => {
   const { t } = useTranslation()
@@ -21,8 +22,8 @@ const AddCarsPage = () => {
   const [getCarsImages, setGetCarsImages] = useState<string[]>([])
   const [filesUploaded, setFilesUploaded] = useState<File[]>([])
   const [bookingStatus, setBookingsStatus] = useState<string | null>(null)
+  const currentUser = useCachedUser()
 
-  const { data: currentUser } = CommonModule.UserModule.userInfoQueries({ payload: { userId: '' }, queryOptions: { enabled: false } })
   const { data: allCars, isLoading: fetchCarsLoading } = CarsModule.getAllCarsQueries({
     payload: { establishment: currentUser?.establishment?.id ?? '' },
     queryOptions: { enabled: !!requestId && !!currentUser?.establishment?.id },

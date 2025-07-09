@@ -1,21 +1,18 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { signIn, signOut } from 'next-auth/react'
 import { PiWarningBold } from 'react-icons/pi'
 import { BaseText, ModalComponent } from '_components/custom'
 import { hexToRGB } from '_theme/colors'
 import { Session } from 'next-auth'
 import { useTranslation } from 'react-i18next'
-import { keycloakSessionLogOut } from '_hooks/logout'
-import { APP_ROUTES } from '_config/routes'
-import { useGlobalLoader } from '_context/loaderContext'
 import { VariablesColors } from '_theme/variables'
+import { useAuth } from '_hooks/useAuth'
 
 export const SessionErrorModal = ({ session }: { session: Session | null }) => {
   const { t } = useTranslation()
   const [showSessionError, setShowSessionError] = useState(false)
-  const { showLoader, hideLoader, isLoading } = useGlobalLoader()
+  const { logout, login, isLoading } = useAuth()
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -24,13 +21,10 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
   }, [session])
 
   const handleReconnect = () => {
-    showLoader()
-    localStorage.setItem('otpRequired', 'true')
-    signIn('keycloak').then(() => hideLoader())
+    login({ otpRequired: true })
   }
   const handleSignOut = () => {
-    showLoader()
-    keycloakSessionLogOut().then(() => signOut({ callbackUrl: APP_ROUTES.SIGN_IN }).then(() => hideLoader()))
+    logout()
   }
 
   return (
