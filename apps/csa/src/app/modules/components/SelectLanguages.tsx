@@ -31,15 +31,33 @@ export const SelectLanguages: FC<IProps> = ({ onChange, isOpen, language }) => {
     },
   })
 
-  const onSubmitValues = async (selectLanguage: string) => {
-    if (selectLanguage === i18n.language || loading) return
+  const onSubmitValues = async (newLanguage: string) => {
+    const currentLanguage = i18n.language
+    if (newLanguage === currentLanguage || loading) return
+
     setFallbackLoad(isPending)
-    setSelectLanguage(selectLanguage)
+    setSelectLanguage(newLanguage)
     setLoading(isPending)
-    await i18n.changeLanguage(selectLanguage)
-    localStorage.setItem(StorageKey.LANGUAGE, selectLanguage)
-    await onUpdateUserInfo({ payload: { preferredLanguage: selectLanguage, keycloakId: session?.keycloakId } })
-    onChange?.(!isOpen)
+
+    try {
+      await i18n.changeLanguage(newLanguage)
+      localStorage.setItem(StorageKey.LANGUAGE, newLanguage)
+
+      await onUpdateUserInfo({
+        payload: { preferredLanguage: newLanguage },
+        params: { keycloakId: session?.keycloakId },
+      })
+
+      onChange?.(!isOpen)
+    } catch (error) {
+      await i18n.changeLanguage(currentLanguage)
+      localStorage.setItem(StorageKey.LANGUAGE, currentLanguage)
+      setSelectLanguage(currentLanguage)
+      console.error('Language change failed:', error)
+    } finally {
+      setLoading(false)
+      setFallbackLoad(false)
+    }
   }
 
   useEffect(() => {

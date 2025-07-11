@@ -18,7 +18,7 @@ export const useAuth = () => {
 
       setTimeout(() => {
         store.getState().clearAll()
-      }, 100)
+      }, 10)
 
       await keycloakSessionLogOut()
 

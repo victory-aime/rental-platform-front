@@ -147,6 +147,14 @@ export const APIS = (baseUrl?: string) => {
           path: '/manage-cars/update-car',
           method: 'PATCH',
         }),
+        DELETE_CAR: api({
+          path: '/manage-cars/delete-car',
+          method: 'DELETE',
+        }),
+        DELETE_ALL_CARS: api({
+          path: '/manage-cars/delete-all-cars',
+          method: 'DELETE',
+        }),
         PARC: {
           LIST: api({
             path: '/manage-parcs/list',

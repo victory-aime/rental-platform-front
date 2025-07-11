@@ -32,41 +32,47 @@ export const ActionsButton = ({
 
   return (
     <Flex {...rest} gap={3}>
-      {cancelTitle && (
-        <BaseButton
-          px={'15px'}
-          withGradient
-          disabled={isLoading}
-          colorType={cancelColor}
-          leftIcon={cancelIcon ? cancelIcon : <IoIosClose />}
-          onClick={() => (onCancel ? onCancel?.() : router?.back())}
-        >
-          {t(cancelTitle)}
-        </BaseButton>
-      )}
+      {isLoading ? (
+        <BaseButton isLoading={isLoading} />
+      ) : (
+        <>
+          {cancelTitle && (
+            <BaseButton
+              px={'15px'}
+              withGradient
+              disabled={isLoading}
+              colorType={cancelColor}
+              leftIcon={cancelIcon ? cancelIcon : <IoIosClose />}
+              onClick={() => (onCancel ? onCancel?.() : router?.back())}
+            >
+              {t(cancelTitle)}
+            </BaseButton>
+          )}
 
-      {validateTitle && (
-        <BaseButton
-          onClick={onClick}
-          px={'15px'}
-          colorType={validateColor}
-          withGradient
-          isLoading={isLoading}
-          disabled={isLoading}
-          leftIcon={icon ? icon : requestId ? <CiSaveDown2 /> : <HiMiniPlusSmall />}
-        >
-          {t(validateTitle)}
-        </BaseButton>
-      )}
-      {onReload && (
-        <BaseButton onClick={onReload} px={'15px'} colorType={'secondary'} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={<CgSync size={14} />}>
-          {t(refreshTitle)}
-        </BaseButton>
-      )}
-      {onToggleFilter && (
-        <BaseButton px={'15px'} colorType={'tertiary'} withGradient leftIcon={<CiFilter />} onClick={onToggleFilter}>
-          {t('COMMON.FILTER')}
-        </BaseButton>
+          {validateTitle && (
+            <BaseButton
+              onClick={onClick}
+              px={'15px'}
+              colorType={validateColor}
+              withGradient
+              isLoading={isLoading}
+              disabled={isLoading}
+              leftIcon={icon ? icon : requestId ? <CiSaveDown2 /> : <HiMiniPlusSmall />}
+            >
+              {t(validateTitle)}
+            </BaseButton>
+          )}
+          {onReload && (
+            <BaseButton onClick={onReload} px={'15px'} colorType={'secondary'} withGradient isLoading={isLoading} disabled={isLoading} leftIcon={<CgSync size={14} />}>
+              {t(refreshTitle)}
+            </BaseButton>
+          )}
+          {onToggleFilter && (
+            <BaseButton px={'15px'} colorType={'tertiary'} withGradient leftIcon={<CiFilter />} onClick={onToggleFilter}>
+              {t('COMMON.FILTER')}
+            </BaseButton>
+          )}
+        </>
       )}
     </Flex>
   )

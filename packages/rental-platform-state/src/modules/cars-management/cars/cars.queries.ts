@@ -49,10 +49,31 @@ const updateCarsMutation = (
   })
 }
 
+const deleteCarMutation = (
+  args: TYPES.QUERIES.MutationPayload<{ carId: string }>
+) => {
+  return TYPES.QUERIES.useCustomMutation<{ carId: string }, any, AxiosError>({
+    mutationKey: [Constants.CARS_KEYS.DELETE_CAR],
+    mutationFn: ({ params }) => carsServiceInstance().deleteCar(params),
+    options: args.mutationOptions,
+  })
+}
+
+const deleteAllCarsMutation = (
+  args: TYPES.QUERIES.MutationPayload<{ agencyId: string }>
+) => {
+  return TYPES.QUERIES.useCustomMutation<{ agencyId: string }, any, AxiosError>({
+    mutationKey: [Constants.CARS_KEYS.DELETE_ALL_CARS],
+    mutationFn: ({ params }) => carsServiceInstance().deleteAllCars(params),
+    options: args.mutationOptions,
+  })
+}
 export {
   getCarsCategoriesQueries,
   getCarsEquipmentsQueries,
   createCarsMutation,
   getAllCarsQueries,
   updateCarsMutation,
+  deleteCarMutation,
+  deleteAllCarsMutation,
 }

@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { FormTextInput, FormSelect, CustomDragDropZone, CheckBoxFom, FormSwitch, BoxContainer } from '_components/custom'
 import { Formik } from 'formik'
 import { LuBadgeDollarSign, LuBadgePercent } from 'react-icons/lu'
-import { CarsModule, CommonModule } from 'rental-platform-state'
+import { CarsModule } from 'rental-platform-state'
 import { TYPES, UTILS } from 'rental-platform-shared'
 import { fuelList, transmissionList, categoryList, statusList, equipmentsList, parcList } from '../../constants/cars'
 import { DiscountedPriceCalculator } from '_modules/cars/hooks/DiscountPriceCalculator'
@@ -24,7 +24,11 @@ const AddCarsPage = () => {
   const [bookingStatus, setBookingsStatus] = useState<string | null>(null)
   const currentUser = useCachedUser()
 
-  const { data: allCars, isLoading: fetchCarsLoading } = CarsModule.getAllCarsQueries({
+  const {
+    data: allCars,
+    isLoading: fetchCarsLoading,
+    refetch,
+  } = CarsModule.getAllCarsQueries({
     payload: { establishment: currentUser?.establishment?.id ?? '' },
     queryOptions: { enabled: !!requestId && !!currentUser?.establishment?.id },
   })
@@ -42,8 +46,8 @@ const AddCarsPage = () => {
   const { mutateAsync: createCars, isPending: createPending } = CarsModule.createCarsMutation({
     mutationOptions: {
       onSuccess: () => {
-        CarsModule.CarsCache.invalidateCars()
         CarsModule.parcs.ParcsCache.invalidateParcs()
+        refetch()
         router.back()
       },
     },
@@ -51,14 +55,14 @@ const AddCarsPage = () => {
   const { mutateAsync: updateCars, isPending: updatePending } = CarsModule.updateCarsMutation({
     mutationOptions: {
       onSuccess: () => {
-        CarsModule.CarsCache.invalidateCars()
         CarsModule.parcs.ParcsCache.invalidateParcs()
+        refetch()
         router.back()
       },
     },
   })
 
-  const uploadImages = async () => {
+  const uploadImages = () => {
     if (filesUploaded?.length > 0) {
       setImages(filesUploaded)
     }
@@ -117,7 +121,7 @@ const AddCarsPage = () => {
 
   useEffect(() => {
     if (filesUploaded?.length > 0) {
-      uploadImages().then()
+      uploadImages()
     }
   }, [filesUploaded?.length])
 
