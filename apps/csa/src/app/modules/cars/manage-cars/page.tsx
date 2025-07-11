@@ -2,7 +2,7 @@
 
 import { BaseBadge, BoxContainer, ColumnsDataTable, BaseFormatNumber, DataTableContainer } from '_components/custom'
 import { DisplayImage } from '../components/DisplayImage'
-import React from 'react'
+import React, { useState } from 'react'
 import { TYPES } from 'rental-platform-shared'
 import { useRouter } from 'next/navigation'
 import { MODULES_CARS_ROUTES } from '../routes'
@@ -12,6 +12,7 @@ import { useCachedUser } from '_hooks/useCachedUser'
 const ManageCarsPage = () => {
   const router = useRouter()
   const currentUser = useCachedUser()
+  const [selectedCars, setSelectedCars] = useState<string[]>([])
 
   const {
     data: cars,
@@ -26,7 +27,41 @@ const ManageCarsPage = () => {
     },
   })
 
+  const {mutate: deleteCarMutation, isPending: isDeletingCar} = CarsModule.deleteCarMutation({
+    mutationOptions: {
+      onSuccess: () => {
+        refetch()
+      },
+    },
+  })
+
+  const {mutateAsync: deleteAllCarsMutation, isPending: isDeletingAllCars} = CarsModule.deleteAllCarsMutation({
+    mutationOptions: {
+      onSuccess: () => {
+        refetch()
+      },
+    },
+  })
+
+  const handleRowSelection = (selectedRows: string[]) => {
+    setSelectedCars(selectedRows)
+    console.log('selectedCars', selectedRows)
+  }
+  console.log('selectedCars', selectedCars)
+
+  const handleDeleteCars = () => {
+    if(selectedCars?.length > 0) {
+      deleteAllCarsMutation({ params: { carId: selectedCars } })
+    } else {
+      deleteCarMutation({ params: { agencyId: currentUser?.establishment?.id } })
+    }
+  }
+
   const columns: ColumnsDataTable[] = [
+    {
+      header: 'select',
+      accessor: 'select',
+    },
     {
       header: '',
       accessor: 'carImages',
@@ -91,7 +126,7 @@ const ManageCarsPage = () => {
         },
       }}
     >
-      <DataTableContainer data={cars ?? []} columns={columns} isLoading={isLoading} hidePagination />
+      <DataTableContainer data={cars ?? []} columns={columns} isLoading={isLoading} hidePagination handleRowSelection={handleRowSelection} />
     </BoxContainer>
   )
 }

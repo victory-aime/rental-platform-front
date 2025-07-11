@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { CommonModule } from 'rental-platform-state'
 
 /**
- * Hook pour récupérer le user depuis le cache et rester à jour si cache change
+ * Hook pour lire le user depuis le cache Zustand de manière réactive,
+ * sans déclencher de boucle infinie ou de state React inutile.
  */
-
 export function useCachedUser() {
-  const [user, setUser] = useState(() => CommonModule.UserModule.UserCache.getUser())
-
-  useEffect(() => {
-    const unsubscribe = CommonModule.UserModule.UserCache.subscribe(setUser)
-    return () => unsubscribe()
-  }, [])
-
-  return user
+  return useSyncExternalStore(
+    CommonModule.UserModule.UserCache.subscribe,
+    CommonModule.UserModule.UserCache.getUser
+  )
 }

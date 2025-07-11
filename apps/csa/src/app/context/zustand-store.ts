@@ -1,5 +1,3 @@
-// zustandCacheStore.ts
-
 import { TYPES } from 'rental-platform-shared'
 
 const storage = {

@@ -42,7 +42,15 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
             <ListMenu width={18} height={18} />
           </Box>
           <Flex alignItems={'center'} justifyContent={'center'} gap={3}>
-            <Image draggable="false" src={cachedUser?.picture ?? 'https://avatar.iran.liara.run/public'} borderRadius={'7px'} boxSize={'30px'} fit="cover" objectPosition="center" alt="img-url" />
+            <Image
+              draggable="false"
+              src={cachedUser?.picture?.trim() ? cachedUser?.picture : 'https://avatar.iran.liara.run/public'}
+              borderRadius={'7px'}
+              boxSize={'30px'}
+              fit="cover"
+              objectPosition="center"
+              alt="user-picture"
+            />
             <BaseText variant={TextVariant.S}> {t('WELCOME', { username: cachedUser?.name })} </BaseText>
           </Flex>
         </Flex>

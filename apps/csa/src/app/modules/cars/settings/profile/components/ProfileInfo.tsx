@@ -18,19 +18,20 @@ import { useCachedUser } from '_hooks/useCachedUser'
 export const ProfileInfo = () => {
   const { t, i18n } = useTranslation()
   const { data: session } = useSession()
-  const [picture, setPicture] = useState<File>()
-  const [getPicture, setGetPicture] = useState<string>()
-  const [filesUploaded, setFilesUploaded] = useState<File>()
-  const [pending, setPending] = useState<boolean>(false)
-  const [emailHasChanged, setEmailHasChanged] = useState<boolean>(false)
-  const [pendingValues, setPendingValues] = useState<FormikValues>()
-  const [initialValues, setInitialValues] = useState<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>(TYPES.VALIDATION_SCHEMA.USERS.initialUser)
   const currentUser = useCachedUser()
 
+  const [uploadKey, setUploadKey] = useState(0)
+  const [getPicture, setGetPicture] = useState<string | undefined>()
+  const [pending, setPending] = useState<boolean>(false)
+  const [emailHasChanged, setEmailHasChanged] = useState<boolean>(false)
+
+  const [hasAvatarChanged, setHasAvatarChanged] = useState(false)
+  const [picture, setPicture] = useState<File | undefined>()
+  const [pendingValues, setPendingValues] = useState<FormikValues>()
+  const [initialValues, setInitialValues] = useState(TYPES.VALIDATION_SCHEMA.USERS.initialUser)
+
   const { refetch, isLoading } = CommonModule.UserModule.userInfoQueries({
-    payload: {
-      userId: session?.keycloakId || '',
-    },
+    payload: { userId: session?.keycloakId || '' },
     queryOptions: {
       enabled: pending,
       select(data) {
@@ -42,17 +43,23 @@ export const ProfileInfo = () => {
 
   const { mutateAsync: onUpdateUserInfo, isPending } = CommonModule.UserModule.updateUserInfoMutation({
     mutationOptions: {
-      onSuccess: () => {
+      onSuccess: (data) => {
         refetch().then(() => setPending(true))
-        CommonModule.UserModule.UserCache.invalidateUser()
+        setHasAvatarChanged(false)
+        CommonModule.UserModule.UserCache.setUser(data)
       },
     },
   })
 
-  const uploadImage = async () => {
-    if (filesUploaded) {
-      setPicture(filesUploaded)
-    }
+  const onFileUploaded = (file?: File) => {
+    setPicture(file)
+  }
+
+  const handleDeleteAvatar = () => {
+    setPicture(undefined)
+    setGetPicture(undefined)
+    setHasAvatarChanged(true)
+    setUploadKey((prev) => prev + 1)
   }
 
   const onSubmitValues = async (values: FormikValues, skipCheck = false) => {
@@ -62,15 +69,14 @@ export const ProfileInfo = () => {
     }
 
     const formData = new FormData()
-    formData.append('name', values?.name)
-    formData.append('firstName', values?.firstName)
-    formData.append('email', values?.email)
-    formData.append('enabled2MFA', String(Boolean(values?.enabled2MFA)))
-    formData.append('preferredLanguage', values?.preferredLanguage?.[0])
+    formData.append('name', values.name)
+    formData.append('firstName', values.firstName)
+    formData.append('email', values.email)
+    formData.append('enabled2MFA', String(Boolean(values.enabled2MFA)))
+    formData.append('preferredLanguage', values.preferredLanguage?.[0])
 
-    if (picture) {
-      formData.append('picture', picture)
-    }
+    if (picture) formData.append('picture', picture)
+    else if (hasAvatarChanged) formData.append('picture', '')
 
     await onUpdateUserInfo({
       payload: formData as TYPES.MODELS.COMMON.USERS.IUpdateUserInfo,
@@ -82,23 +88,18 @@ export const ProfileInfo = () => {
 
   useEffect(() => {
     if (currentUser) {
+      const { name, firstName, email, enabled2MFA, preferredLanguage, picture } = currentUser
       setInitialValues({
-        name: currentUser?.name,
-        firstName: currentUser?.firstName,
-        email: currentUser?.email,
-        enabled2MFA: currentUser?.enabled2MFA || false,
+        name,
+        firstName,
+        email,
+        enabled2MFA: enabled2MFA || false,
         keycloakId: session?.keycloakId,
-        preferredLanguage: Array.isArray(currentUser?.preferredLanguage) ? currentUser?.preferredLanguage : [currentUser?.preferredLanguage || i18n.language],
+        preferredLanguage: Array.isArray(preferredLanguage) ? preferredLanguage : [preferredLanguage || i18n.language],
       })
-      setGetPicture(currentUser?.picture)
+      setGetPicture(picture)
     }
   }, [currentUser])
-
-  useEffect(() => {
-    if (filesUploaded) {
-      uploadImage().then()
-    }
-  }, [filesUploaded])
 
   return (
     <>
@@ -114,7 +115,14 @@ export const ProfileInfo = () => {
           <VStack gap={10} alignItems={'flex-start'}>
             <ProfileForm title="SIDE_BAR.PROFILE" description="PROFILE.PERSONAL_INFO" isLoading={isLoading}>
               <Stack alignItems={'flex-start'} mb={5} gap={4}>
-                <UploadAvatar getFileUploaded={setFilesUploaded} avatarImage={getPicture} name={currentUser?.name + ' ' + currentUser?.firstName} isLoading={isLoading} />
+                <UploadAvatar
+                  key={uploadKey}
+                  getFileUploaded={onFileUploaded}
+                  avatarImage={getPicture}
+                  name={currentUser?.name + ' ' + currentUser?.firstName}
+                  isLoading={isLoading}
+                  handleDeleteAvatar={handleDeleteAvatar}
+                />
               </Stack>
               <VStack gap={4} alignItems={'flex-start'} mt={10}>
                 <HStack width={'full'} gap={4}>
@@ -134,7 +142,7 @@ export const ProfileInfo = () => {
               </VStack>
             </ProfileForm>
             <Flex width={'full'} alignItems={'flex-end'} justifyContent={'flex-end'}>
-              <BaseButton colorType={'success'} onClick={() => handleSubmit()} isLoading={isPending} disabled={!dirty}>
+              <BaseButton colorType={'success'} onClick={() => handleSubmit()} isLoading={isPending}>
                 {t('COMMON.VALIDATE')}
               </BaseButton>
             </Flex>

@@ -14,8 +14,9 @@ import {
   useFileUploadContext,
   For,
   Flex,
+  Circle,
 } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { HiX } from 'react-icons/hi'
 import { LuUpload } from 'react-icons/lu'
 import { ACCEPTED_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB, MAX_FILES } from './constant/constants'
@@ -92,20 +93,52 @@ export const CustomDragDropZone = ({ getFilesUploaded, initialImageUrls }: { get
   )
 }
 
-const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File) => void; avatarImage?: string; name?: string }) => {
+const SimpleFileUpload = ({
+  getFileUploaded,
+  avatarImage,
+  name,
+  handleDeleteAvatar,
+}: {
+  getFileUploaded: (file: File | undefined) => void
+  avatarImage?: string
+  name?: string
+  handleDeleteAvatar?: () => void
+}) => {
   const { t } = useTranslation()
+  const [previewUrl, setPreviewUrl] = useState<string>()
+  const [isImageDeleted, setIsImageDeleted] = useState(false)
   const fileUpload = useFileUploadContext()
   const { error, errorType } = useFileUploadErrors({
-    onValidFiles: (files) => getFileUploaded(files[0] || null),
+    onValidFiles: (files) => getFileUploaded(files[0] || undefined),
   })
 
   useEffect(() => {
-    if (avatarImage && fileUpload.acceptedFiles.length === 0) {
+    if (typeof avatarImage === 'string' && avatarImage && fileUpload.acceptedFiles.length === 0) {
       UTILS.convertUrlsToFiles(avatarImage).then((file) => {
         fileUpload.setFiles([...file])
       })
     }
   }, [avatarImage])
+
+  useEffect(() => {
+    if (fileUpload.acceptedFiles.length > 0) {
+      const file = fileUpload.acceptedFiles[0]
+      const url = URL.createObjectURL(file)
+      setPreviewUrl(url)
+
+      return () => URL.revokeObjectURL(url)
+    } else {
+      setPreviewUrl(undefined)
+    }
+  }, [fileUpload.acceptedFiles])
+
+  const handleDeleteImage = () => {
+    fileUpload.setFiles([])
+    getFileUploaded(undefined)
+    setPreviewUrl(undefined)
+    setIsImageDeleted(true)
+    handleDeleteAvatar?.()
+  }
 
   return (
     <Flex direction={{ base: 'column', md: 'row' }} w="full" align="flex-start" justify="flex-start" gap={5}>
@@ -116,9 +149,9 @@ const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploa
             size="2xl"
             name={name}
             cursor="pointer"
-            colorPalette={avatarImage && fileUpload.acceptedFiles.length > 0 ? 'green' : 'none'}
+            colorPalette={(previewUrl || avatarImage) && !isImageDeleted ? 'green' : 'none'}
             icon={<HomeIcon />}
-            src={avatarImage && fileUpload.acceptedFiles.length > 0 ? avatarImage : undefined}
+            src={!isImageDeleted ? previewUrl || (avatarImage?.trim() ? avatarImage : undefined) : undefined}
             css={{
               outlineWidth: '2px',
               outlineColor: 'colorPalette.500',
@@ -128,7 +161,7 @@ const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploa
           />
         </FileUpload.Trigger>
 
-        {fileUpload?.acceptedFiles?.length > 0 && (
+        {!isImageDeleted && fileUpload?.acceptedFiles?.length > 0 && (
           <For each={fileUpload?.acceptedFiles}>
             {(file) => (
               <Float placement="bottom-end" offsetX="3" offsetY="3" key={file.name}>
@@ -140,6 +173,13 @@ const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploa
               </Float>
             )}
           </For>
+        )}
+        {(previewUrl || avatarImage) && !isImageDeleted && (
+          <Float placement="bottom-end" offsetX="3" offsetY="3" key={'image'} cursor={'pointer'}>
+            <Circle bg="red.500" p="1" borderColor="none" width="auto" onClick={handleDeleteImage}>
+              <HiX color="white" />
+            </Circle>
+          </Float>
         )}
       </Box>
 
@@ -156,7 +196,19 @@ const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploa
   )
 }
 
-export const UploadAvatar = ({ getFileUploaded, avatarImage, name, isLoading }: { getFileUploaded: (file: File) => void; avatarImage?: string; name?: string; isLoading?: boolean }) => {
+export const UploadAvatar = ({
+  getFileUploaded,
+  avatarImage,
+  name,
+  isLoading,
+  handleDeleteAvatar,
+}: {
+  getFileUploaded: (file: File | undefined) => void
+  avatarImage?: string
+  name?: string
+  isLoading?: boolean
+  handleDeleteAvatar?: () => void
+}) => {
   const { getRootProps } = useFileUpload()
   return (
     <>
@@ -167,7 +219,7 @@ export const UploadAvatar = ({ getFileUploaded, avatarImage, name, isLoading }: 
           <BaseText variant={TextVariant.S}>Avatar</BaseText>
           <FileUpload.Root {...getRootProps()} maxFiles={1} maxFileSize={MAX_FILE_SIZE} accept={ACCEPTED_TYPES}>
             <FileUpload.HiddenInput />
-            <SimpleFileUpload getFileUploaded={getFileUploaded} avatarImage={avatarImage} name={name} />
+            <SimpleFileUpload getFileUploaded={getFileUploaded} avatarImage={avatarImage} name={name} handleDeleteAvatar={handleDeleteAvatar} />
           </FileUpload.Root>
           <BaseText variant={TextVariant.S} textTransform={'capitalize'}>
             {name}

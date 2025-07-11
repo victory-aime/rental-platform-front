@@ -5,6 +5,8 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import frLocale from '@fullcalendar/core/locales/fr'
+import enLocale from '@fullcalendar/core/locales/es-us'
+
 import { HStack, Box, SegmentGroup, VStack, Flex, Popover, Portal } from '@chakra-ui/react'
 import { BaseButton } from '../button'
 import { BoxIcon } from '../boxIcon'
@@ -25,6 +27,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
   const [currentTitle, setCurrentTitle] = useState('')
   const [value, setValue] = useState<string | null>(initialView)
   const [openedPopoverId, setOpenedPopoverId] = useState<string | null>(null)
+  const { i18n } = useTranslation()
 
   const calendarRef = useRef<FullCalendar | null>(null)
   const calendarApi = calendarRef.current?.getApi()
@@ -217,8 +220,8 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
       </VStack>
 
       <FullCalendar
-        locales={[frLocale]}
-        locale="fr"
+        locales={[frLocale, enLocale]}
+        locale={i18n.language === 'fr' ? 'fr' : 'en'}
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, multiMonthPlugin]}
         headerToolbar={false}

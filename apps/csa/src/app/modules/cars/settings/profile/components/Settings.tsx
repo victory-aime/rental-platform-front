@@ -167,7 +167,7 @@ export const Settings = () => {
                         <>
                           <VStack alignItems="flex-start" gap={1}>
                             <BaseText fontWeight="bold">{cred.userLabel || t('PROFILE.SECURITY.UNKNOW_DEVICE')}</BaseText>
-                            <BaseText variant={TextVariant.XS}> Créé {UTILS.formatCreatedAt(cred.createdDate)}</BaseText>
+                            <BaseText variant={TextVariant.S}> Créé {UTILS.formatCreatedAt(cred.createdDate)}</BaseText>
                           </VStack>
 
                           <BoxIcon
@@ -209,11 +209,8 @@ export const Settings = () => {
                             {session.id === currentSessionId && <BaseBadge label={t('PROFILE.SECURITY.CURRENT_SESSION')} type={'common'} />}
                           </HStack>
 
-                          <BaseText variant={TextVariant.XS}>
+                          <BaseText variant={TextVariant.S}>
                             {t('PROFILE.SECURITY.SESSION_START')} : {UTILS.formatCreatedAt(session.start)}
-                          </BaseText>
-                          <BaseText variant={TextVariant.XS}>
-                            {t('PROFILE.SECURITY.SESSION_LAST_ACCESS')} : {UTILS.formatCreatedAt(session.lastAccess)}
                           </BaseText>
                         </VStack>
                         {userSessions?.sessions?.length > 1 && (
