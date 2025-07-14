@@ -14,6 +14,6 @@ const storage = {
 }
 
 if (typeof window !== 'undefined') {
-    console.log('store init')
+  console.log('store init')
   TYPES.ZUSTAND.initZustandCacheStore({ storage })
 }

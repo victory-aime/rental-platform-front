@@ -13,12 +13,11 @@ export type CacheState = {
 let store: StoreApi<CacheState> | null = null
 
 export const initZustandCacheStore = (options: { storage: PersistStorage<CacheState> }) => {
-  store = createStore<CacheState, [["zustand/persist", CacheState]]>(
+  store = createStore<CacheState, [['zustand/persist', CacheState]]>(
     persist(
       (set, get) => ({
         cache: {},
-        setCache: (key, data) =>
-          set((state) => ({ cache: { ...state.cache, [key]: data } })),
+        setCache: (key, data) => set((state) => ({ cache: { ...state.cache, [key]: data } })),
         getCache: (key) => get().cache[key],
         removeCache: (key) => {
           const newCache = { ...get().cache }

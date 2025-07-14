@@ -9,18 +9,19 @@ import { StorageKey } from '_constants/StorageKeys'
 export const useAuth = () => {
   const router = useRouter()
   const { showLoader, hideLoader, isLoading } = useGlobalLoader()
-  
+
   const logout = async () => {
     try {
       showLoader()
       const store = TYPES.ZUSTAND.useZustandCacheStore()
       localStorage.removeItem(StorageKey.OTP_REQUIRED)
+      localStorage.removeItem(StorageKey.CACHE)
 
       setTimeout(() => {
         store.getState().clearAll()
       }, 10)
 
-      await keycloakSessionLogOut()
+      await keycloakSessionLogOut().then(() => store.getState().clearAll())
 
       await signOut({ redirect: false })
 
@@ -33,7 +34,6 @@ export const useAuth = () => {
   const login = async (options?: { otpRequired?: boolean; callbackUrl?: string }) => {
     try {
       showLoader()
-
       if (options?.otpRequired) {
         localStorage.setItem(StorageKey.OTP_REQUIRED, 'true')
       }

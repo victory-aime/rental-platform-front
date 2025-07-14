@@ -1,6 +1,6 @@
 import { JSX } from 'react'
 
-export type DataActionsButtonType = 'edit' | 'delete' | 'view'
+export type DataActionsButtonType = 'edit' | 'delete' | 'view' | 'share' | 'duplicate' | 'restore'
 
 interface ActionProps<T = any> {
   name: DataActionsButtonType | ((data: T) => string) // Nom ou fonction retournant un nom dynamique
@@ -53,6 +53,8 @@ interface TableProps {
   lazy?: boolean
   animationType?: NoDataFoundType
   handleRowSelection?: (item: any) => void
+  handleDeleteActionBar?: (item?: any) => void
+  handleShareActionBar?: (item?: any) => void
   enabledSort?: boolean
   hidePagination?: boolean
   isLoading?: boolean
@@ -60,6 +62,9 @@ interface TableProps {
     edit?: boolean
     delete?: boolean
     details?: boolean
+    share?: boolean
+    duplicate?: boolean
+    restore?: boolean
   }
 }
 

@@ -1,10 +1,11 @@
 import { HStack, IconButton } from '@chakra-ui/react'
 import { FaTrashAlt } from 'react-icons/fa'
-import { IoNewspaperOutline } from 'react-icons/io5'
+import { IoCopyOutline, IoShareOutline } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
 import { BaseButton } from '../button'
 import { TbRestore } from 'react-icons/tb'
 import { BaseTooltip, ActionButtonsProps } from '_components/custom'
+import { PiEyeLight } from 'react-icons/pi'
 
 export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   return (
@@ -19,7 +20,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
           case 'delete':
             return (
               <BaseTooltip message={'COMMON.DELETE'} key={index} show>
-                <IconButton aria-label="Supprimer" colorPalette="red" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
+                <IconButton aria-label="Supprimer" color={'white'} bgColor="red.500" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <FaTrashAlt />
                 </IconButton>
               </BaseTooltip>
@@ -27,7 +28,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
           case 'edit':
             return (
               <BaseTooltip message={'COMMON.EDIT'} key={index} show>
-                <IconButton aria-label="Modifier" colorPalette="blue" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
+                <IconButton aria-label="Modifier" color={'white'} bgColor="info.500" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <MdEdit />
                 </IconButton>
               </BaseTooltip>
@@ -35,15 +36,31 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
           case 'view':
             return (
               <BaseTooltip message={'COMMON.DETAIL'} key={index} show>
-                <IconButton aria-label="Voir" colorPalette="green" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
-                  <IoNewspaperOutline />
+                <IconButton aria-label="Voir" color={'white'} bgColor="primary.500" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
+                  <PiEyeLight />
+                </IconButton>
+              </BaseTooltip>
+            )
+          case 'share':
+            return (
+              <BaseTooltip message={'COMMON.SHARE'} key={index} show>
+                <IconButton aria-label="Partager" color={'white'} bgColor="tertiary.500" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
+                  <IoShareOutline />
+                </IconButton>
+              </BaseTooltip>
+            )
+          case 'duplicate':
+            return (
+              <BaseTooltip message={'COMMON.DUPLICATE'} key={index} show>
+                <IconButton aria-label="Dupliquer" color={'white'} bgColor="secondary.500" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
+                  <IoCopyOutline />
                 </IconButton>
               </BaseTooltip>
             )
           case 'restore':
             return (
               <BaseTooltip message={'COMMON.RESTORE'} key={index} show>
-                <IconButton aria-label="restore" colorPalette="blue" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
+                <IconButton aria-label="restore" color={'white'} bgColor="orange.800" size="sm" onClick={() => action.handleClick(item)} disabled={isDisabled}>
                   <TbRestore />
                 </IconButton>
               </BaseTooltip>

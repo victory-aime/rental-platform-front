@@ -51,11 +51,11 @@ export const MENU_BY_ROLE: Record<string, ILink[]> = {
           label: 'SIDE_BAR.PROFILE',
           icon: FaUserCog,
         },
-        {
-          path: MODULES_CARS_ROUTES.SETTINGS.PLAN,
-          label: 'SIDE_BAR.PLAN',
-          icon: MdLocalOffer,
-        },
+        // {
+        //   path: MODULES_CARS_ROUTES.SETTINGS.PLAN,
+        //   label: 'SIDE_BAR.PLAN',
+        //   icon: MdLocalOffer,
+        // },
       ],
     },
   ],

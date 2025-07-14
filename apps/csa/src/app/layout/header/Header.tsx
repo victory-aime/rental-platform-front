@@ -13,12 +13,14 @@ import { VariablesColors } from '_theme/variables'
 import { PostLoginChallenge } from '../../challenge-handler/otp/PostLoginChallenge'
 import { useAuth } from '_hooks/useAuth'
 import { useCachedUser } from '_hooks/useCachedUser'
+import { TYPES } from 'rental-platform-shared'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
   const getPreferredLanguage = localStorage.getItem(StorageKey.LANGUAGE)
   const { logout } = useAuth()
   const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
+  const store = TYPES.ZUSTAND.useZustandCacheStore()
   const cachedUser = useCachedUser()
 
   const { isLoading } = CommonModule.UserModule.userInfoQueries({
@@ -59,7 +61,16 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
       <Flex gap={3} alignItems={'center'}>
         <FlagImagesIcon countryImage={getPreferredLanguage?.toUpperCase() as FlagKeys} boxSize={'20px'} onClick={() => setOpenSelectLanguage(true)} />
         <Separator orientation={'vertical'} size={'lg'} colorPalette={'red'} />
-        <LogOutIcon width={24} height={24} onClick={logout} cursor={'pointer'} fill={VariablesColors.red} />
+        <LogOutIcon
+          width={24}
+          height={24}
+          onClick={() => {
+            logout()
+            store.getState().clearAll()
+          }}
+          cursor={'pointer'}
+          fill={VariablesColors.red}
+        />
       </Flex>
       {cachedUser && <PostLoginChallenge user={cachedUser} />}
       <SelectLanguages isOpen={openSelectLanguage} onChange={() => setOpenSelectLanguage(false)} language={(cachedUser?.preferredLanguage as string) ?? ''} />

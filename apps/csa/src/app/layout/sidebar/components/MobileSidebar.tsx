@@ -28,22 +28,6 @@ export const MobileSidebar = ({ isOpen, onClose, links }: IMobileSidebar) => {
             <RenderLinks links={links} sideToggled={isOpen} onShowSidebar={onClose} />
           </VStack>
         </DrawerBody>
-        {/* <DrawerFooter display={'flex'} flexDir={'column'} alignItems={'flex-start'} justifyContent={'flex-start'} width={'full'}>
-          <Box mb={8}>
-            <SwitchColorMode />
-          </Box>
-          <BaseButton
-            onClick={() => {
-              handleLogout?.()
-              onClose(!isOpen)
-            }}
-            withGradient
-            colorType={'danger'}
-            width={'full'}
-          >
-            Deconnexion
-          </BaseButton>
-        </DrawerFooter> */}
       </DrawerContent>
     </DrawerRoot>
   )
