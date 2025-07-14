@@ -1,3 +1,17 @@
+# [1.1.0](https://github.com/victory-aime/rental-platform-front/compare/v1.0.0...v1.1.0) (2025-07-14)
+
+
+### Bug Fixes
+
+* 🐛update zustand logic ([9fbdaa5](https://github.com/victory-aime/rental-platform-front/commit/9fbdaa5da597b6d8a19b36e7a72c9d1a10c163e2))
+
+
+### Features
+
+* 🎸 DELETE CARS ([3929956](https://github.com/victory-aime/rental-platform-front/commit/39299560107ecbd58f841d1005b21fd24191154d))
+* 🎸 integrate zustand store ([b52cf31](https://github.com/victory-aime/rental-platform-front/commit/b52cf31cf1fc86fc9ed04153fa228e2e0c8c0e6e))
+* 🎸 Lib and update Action bar ([5c086de](https://github.com/victory-aime/rental-platform-front/commit/5c086de4b069b0571e68fdb390b3eb6b5f4479d6))
+
 # 1.0.0 (2025-07-08)
 
 
