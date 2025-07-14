@@ -1,9 +1,9 @@
 'use client'
-import { Box, Button, Center, Flex, Table } from '@chakra-ui/react'
+import { ActionBar, Box, Center, CloseButton, Flex, Table } from '@chakra-ui/react'
 import React, { useEffect, useState, FC } from 'react'
 import { Checkbox } from '_components/ui/checkbox'
 import { ActionBarRoot, ActionBarContent, ActionBarSelectionTrigger, ActionBarSeparator } from '_components/ui/action-bar'
-import { TableProps, PaginationDataTable } from '_components/custom'
+import { TableProps, PaginationDataTable, BaseButton } from '_components/custom'
 import { ActionButtons } from './ActionButtons'
 import { NoDataFoundLottieAnimation } from '_lottie/animations/LottieAnimation'
 import { CustomSkeletonLoader } from '_components/custom'
@@ -14,6 +14,8 @@ export const DataTableContainer: FC<TableProps> = ({
   data,
   columns,
   handleRowSelection,
+  handleDeleteActionBar,
+  handleShareActionBar,
   minH = '10rem',
   hidePagination = false,
   isLoading,
@@ -26,6 +28,7 @@ export const DataTableContainer: FC<TableProps> = ({
   const { t } = useTranslation()
   const [selection, setSelection] = useState<number[]>([])
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
+  const [openActionBar, setOpenActionBar] = useState<boolean>(false)
   const [sortConfig, setSortConfig] = useState<{
     key: string
     direction: 'asc' | 'desc'
@@ -51,7 +54,8 @@ export const DataTableContainer: FC<TableProps> = ({
 
   useEffect(() => {
     handleRowSelection?.(data.filter((item) => selection.includes(item.id)))
-  }, [selection])
+    setOpenActionBar(selection.length > 0)
+  }, [selection, data, openActionBar])
 
   if (isLoading) {
     return <CustomSkeletonLoader type={'DATA_TABLE'} />
@@ -65,24 +69,16 @@ export const DataTableContainer: FC<TableProps> = ({
             <Flex alignItems={'center'} justifyContent={'center'} width={'1/2'} mt={20}>
               {/*<TrashLottieAnimationV2 />*/}
             </Flex>
-            <Flex flexDir={'column'} alignItems={'center'} gap={2}>
-              <BaseText variant={TextVariant.M} color={'gray.700'}>
-                {t('COMMON.NO_DATA')}
-              </BaseText>
-            </Flex>
+            <BaseText variant={TextVariant.M}>{t('COMMON.NO_DATA')}</BaseText>
           </Center>
         )
       case 'folder':
         return (
           <Center flexDir={'column'} gap={4}>
-            <Flex alignItems={'center'} justifyContent={'center'} width={{ base: 'full', lg: '500px' }} mt={10}>
+            <Flex alignItems={'center'} justifyContent={'center'} width={{ base: 'full', lg: '300px' }}>
               <NoDataFoundLottieAnimation />
             </Flex>
-            <Flex flexDir={'column'} alignItems={'center'} gap={2}>
-              <BaseText variant={TextVariant.M} color={'gray.700'}>
-                {t('COMMON.NO_DATA')}
-              </BaseText>
-            </Flex>
+            <BaseText variant={TextVariant.M}>{t('COMMON.NO_DATA')}</BaseText>
           </Center>
         )
       default:
@@ -150,18 +146,31 @@ export const DataTableContainer: FC<TableProps> = ({
         </Table.Body>
       </Table.Root>
 
-      <ActionBarRoot open={hasSelection}>
-        <ActionBarContent>
-          <ActionBarSelectionTrigger>{selection.length} sélectionné(s)</ActionBarSelectionTrigger>
-          <ActionBarSeparator />
-          <Button variant="outline" size="sm">
-            Delete
-          </Button>
-          <Button variant="outline" size="sm">
-            Share
-          </Button>
-        </ActionBarContent>
-      </ActionBarRoot>
+      {selection?.length > 1 && (
+        <ActionBarRoot
+          open={openActionBar}
+          onOpenChange={(e) => {
+            setOpenActionBar(e?.open)
+            setSelection([])
+          }}
+        >
+          <ActionBarContent>
+            <ActionBarSelectionTrigger>
+              {selection?.length} {t('COMMON.ITEMS_SELECTED')}
+            </ActionBarSelectionTrigger>
+            <ActionBarSeparator />
+            <BaseButton colorType={'danger'} p={'2'} variant={'outline'} onClick={handleDeleteActionBar}>
+              {t('COMMON.DELETE')}
+            </BaseButton>
+            <BaseButton colorType={'secondary'} p={'2'} variant={'outline'} onClick={handleShareActionBar}>
+              {t('COMMON.SHARE')}
+            </BaseButton>
+            <ActionBar.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </ActionBar.CloseTrigger>
+          </ActionBarContent>
+        </ActionBarRoot>
+      )}
 
       {!hidePagination && (
         <PaginationDataTable

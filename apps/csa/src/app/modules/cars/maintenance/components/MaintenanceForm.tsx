@@ -80,7 +80,7 @@ export const MaintenanceForm: FC<ModalOpenProps> = ({ isOpen, isLoading, onChang
           ref={contentRef}
           title={!data?.id ? 'MAINTENANCE.ADD' : 'MAINTENANCE.EDIT'}
           icon={<GiAutoRepair />}
-          iconBackgroundColor={'orange.500'}
+          iconBackgroundColor={'tertiary.500'}
           isOpen={isOpen}
           isLoading={isLoading}
           onChange={() => {

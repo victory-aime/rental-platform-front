@@ -17,6 +17,7 @@ const AddCarsPage = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const requestId = useSearchParams()?.get('requestId')
+  const isDuplicate = useSearchParams()?.get('isDuplicate')
   const [initialValues, setInitialValues] = useState(TYPES.VALIDATION_SCHEMA.CARS.initialCarsValues)
   const [images, setImages] = useState<File[]>([])
   const [getCarsImages, setGetCarsImages] = useState<string[]>([])
@@ -91,7 +92,7 @@ const AddCarsPage = () => {
       formData.append('carImages', file)
     })
 
-    if (requestId) {
+    if (requestId && !isDuplicate) {
       await updateCars({
         payload: formData as TYPES.MODELS.CARS.ICreateCarDto,
         params: {
@@ -138,14 +139,14 @@ const AddCarsPage = () => {
         <BoxContainer
           border={'none'}
           p={{ base: 0, md: '3' }}
-          title={!requestId ? 'CARS.ADD_CARS' : 'CARS.EDIT_CARS'}
-          description={!requestId ? 'CARS.ADD_DESC' : 'CARS.EDIT_DESC'}
+          title={!requestId ? 'CARS.ADD_CARS' : isDuplicate ? 'CARS.DUPLICATE_CARS' : 'CARS.EDIT_CARS'}
+          description={!requestId ? 'CARS.ADD_DESC' : isDuplicate ? 'CARS.DUPLICATE_DESC' : 'CARS.EDIT_DESC'}
           withActionButtons
           actionsButtonProps={{
             requestId: requestId!,
             isLoading: createPending || updatePending,
             cancelTitle: 'COMMON.CANCEL',
-            validateTitle: requestId ? 'COMMON.EDIT' : 'COMMON.VALIDATE',
+            validateTitle: requestId && !isDuplicate ? 'COMMON.EDIT' : isDuplicate ? 'COMMON.DUPLICATE' : 'COMMON.VALIDATE',
             onClick() {
               handleSubmit()
             },

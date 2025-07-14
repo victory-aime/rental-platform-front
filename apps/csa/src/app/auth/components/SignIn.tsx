@@ -104,7 +104,7 @@ export const SignIn = () => {
             <BaseText variant={TextVariant.M} weight={TextWeight.Regular} color="white" textAlign="center">
               {t('SIGN_IN_DESC')}
             </BaseText>
-            <BaseButton onClick={() => login({ callbackUrl })} width="1/2">
+            <BaseButton onClick={() => login({ callbackUrl, otpRequired: true })} width="1/2">
               {t('COMMON.LOGIN')}
             </BaseButton>
           </VStack>

@@ -40,7 +40,7 @@ const ModalComponent = ({
           )}
           <BaseText variant={TextVariant.S}>{t(title)}</BaseText>
         </DialogHeader>
-        <DialogBody mt={4} ref={ref}>
+        <DialogBody autoFocus={false} mt={4} ref={ref}>
           {children}
         </DialogBody>
         {!ignoreFooter ? (

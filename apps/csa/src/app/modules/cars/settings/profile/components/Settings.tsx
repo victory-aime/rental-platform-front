@@ -8,7 +8,7 @@ import { CommonModule } from 'rental-platform-state'
 import { useSession } from 'next-auth/react'
 import { TrashIcon } from '_assets/svg'
 import { useTranslation } from 'react-i18next'
-import { UTILS } from 'rental-platform-shared'
+import { TYPES, UTILS } from 'rental-platform-shared'
 import { GlobalModal } from './GlobalModal'
 import { PassKeyModal } from './PassKeyModal'
 import { useAuth } from '_hooks/useAuth'
@@ -18,6 +18,7 @@ export const Settings = () => {
   const { data: session } = useSession()
   const { t } = useTranslation()
   const { logout, login } = useAuth()
+  const store = TYPES.ZUSTAND.useZustandCacheStore()
   const [open, setOpen] = useState<boolean>(false)
   const [isRevoke, setIsRevoke] = useState<boolean>(false)
   const [openPassKeyModal, setOpenPasskeyModal] = useState<boolean>(false)
@@ -81,6 +82,7 @@ export const Settings = () => {
     mutationOptions: {
       onSuccess: () => {
         logout()
+        store.getState().clearAll()
       },
     },
   })

@@ -37,7 +37,7 @@ export const BaseCalendar: FC<BaseCalendarProps> = (props) => {
     weekStartsOn: 1 as 0 | 1 | 2 | 3 | 4 | 5 | 6,
     showOutsideDays: false,
     animate: true,
-
+    today: new Date(),
     numberOfMonths: props.mode === 'single' ? 1 : 2,
     navLayout: 'around' as const,
     modifiersClassNames: calendarStyles.modifiersClassNames,

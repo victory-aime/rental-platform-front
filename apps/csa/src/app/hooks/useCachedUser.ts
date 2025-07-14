@@ -6,8 +6,5 @@ import { CommonModule } from 'rental-platform-state'
  * sans déclencher de boucle infinie ou de state React inutile.
  */
 export function useCachedUser() {
-  return useSyncExternalStore(
-    CommonModule.UserModule.UserCache.subscribe,
-    CommonModule.UserModule.UserCache.getUser
-  )
+  return useSyncExternalStore(CommonModule.UserModule.UserCache.subscribe, CommonModule.UserModule.UserCache.getUser)
 }

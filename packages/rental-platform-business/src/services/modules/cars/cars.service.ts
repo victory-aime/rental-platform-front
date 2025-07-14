@@ -74,14 +74,22 @@ export class CarsServices extends BaseApi {
    * @returns {Promise<any>} - A promise that resolves to the response of the delete car operation
    */
   deleteCar(carId: { carId: string }): Promise<any> {
-    return this.apiService.invoke(this.applicationContext.getApiConfig().MODULES.CARS.DELETE_CAR, {}, {params : carId})
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().MODULES.CARS.DELETE_CAR,
+      {},
+      { params: carId }
+    )
   }
   /**
    * Delete all cars
    * @param {Object} agencyId - The agencyId of the car to be deleted
    * @returns {Promise<any>} - A promise that resolves to the response of the delete car operation
    */
-  deleteAllCars(agencyId: { agencyId: string }): Promise<any> {
-    return this.apiService.invoke(this.applicationContext.getApiConfig().MODULES.CARS.DELETE_ALL_CARS, {},{params:agencyId})
+  deleteAllCars(data: { agencyId: string; agencyName: string }): Promise<any> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().MODULES.CARS.DELETE_ALL_CARS,
+      {},
+      { params: data }
+    )
   }
 }

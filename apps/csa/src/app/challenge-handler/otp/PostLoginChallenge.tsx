@@ -7,6 +7,7 @@ import { FormikValues, FormikHelpers } from 'formik'
 import { OtpChallengeHandler } from './OtpChallengeHandler'
 import { extractOtp } from './utils/extract-otp'
 import { useAuth } from '_hooks/useAuth'
+import { StorageKey } from '_constants/StorageKeys'
 
 interface Props {
   user?: TYPES.MODELS.COMMON.USERS.IUser
@@ -16,9 +17,10 @@ export const PostLoginChallenge: FC<Props> = ({ user }) => {
   const hasTriggeredRef = useRef(false)
   const [openModal, setOpenModal] = useState(false)
   const { logout } = useAuth()
+  const store = TYPES.ZUSTAND.useZustandCacheStore()
   const { email, otpRemaining: expiresIn, blockRemaining, saveOtpData, clearOtpData } = useOtpStorage()
 
-  const shouldTriggerOtp = typeof window !== 'undefined' && localStorage.getItem('otpRequired') === 'true'
+  const shouldTriggerOtp = typeof window !== 'undefined' && localStorage.getItem(StorageKey.OTP_REQUIRED) === 'true'
 
   const { mutateAsync: generateOtp } = CommonModule.OtpModule.generateOtpMutation({
     mutationOptions: {
@@ -45,7 +47,7 @@ export const PostLoginChallenge: FC<Props> = ({ user }) => {
     mutationOptions: {
       onSuccess: () => {
         setOpenModal(false)
-        localStorage.removeItem('otpRequired')
+        localStorage.removeItem(StorageKey.OTP_REQUIRED)
         clearOtpData()
       },
     },
@@ -60,7 +62,7 @@ export const PostLoginChallenge: FC<Props> = ({ user }) => {
 
   useEffect(() => {
     if (!user?.enabled2MFA) {
-      localStorage.removeItem('otpRequired')
+      localStorage.removeItem(StorageKey.OTP_REQUIRED)
     }
   }, [user])
 
@@ -86,6 +88,7 @@ export const PostLoginChallenge: FC<Props> = ({ user }) => {
   const handleClose = () => {
     setOpenModal(false)
     logout()
+    store.getState().clearAll()
     clearOtpData()
   }
   return user?.enabled2MFA && !isSuccess ? (

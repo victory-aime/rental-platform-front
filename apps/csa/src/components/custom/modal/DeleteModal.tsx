@@ -16,7 +16,7 @@ export const DeleteModalAnimation: FC<DeleteModalActions> = ({ isOpen, onChange,
       setTimeout(() => {
         setShowAnimation(false)
         onChange(false)
-      }, 2150)
+      }, 2200)
     }
   }, [isLoading, isOpen, onChange])
 

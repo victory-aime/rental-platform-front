@@ -8,10 +8,12 @@ import { Session } from 'next-auth'
 import { useTranslation } from 'react-i18next'
 import { VariablesColors } from '_theme/variables'
 import { useAuth } from '_hooks/useAuth'
+import { TYPES } from 'rental-platform-shared'
 
 export const SessionErrorModal = ({ session }: { session: Session | null }) => {
   const { t } = useTranslation()
   const [showSessionError, setShowSessionError] = useState(false)
+  const store = TYPES.ZUSTAND.useZustandCacheStore()
   const { logout, login, isLoading } = useAuth()
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
   }
   const handleSignOut = () => {
     logout()
+    store.getState().clearAll()
   }
 
   return (

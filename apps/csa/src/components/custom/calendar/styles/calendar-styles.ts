@@ -28,7 +28,7 @@ export const useCalendarStyles = (isSelected: Date | DateRange, type: 'single' |
       range_start: {
         backgroundColor: selectedBg,
         color: selectedColor,
-        borderRadius: type === 'single' ? '8px' : '8px 0 0 8px',
+        borderRadius: type === 'single' ? '4px' : '4px 0 0 4px',
       },
       range_end: {
         backgroundColor: selectedBg,
@@ -42,7 +42,7 @@ export const useCalendarStyles = (isSelected: Date | DateRange, type: 'single' |
       },
       today: {
         fontWeight: 'bold',
-        border: !isSelected ? `1px dashed ${selectedBg}` : 'none',
+        backgroundColor: isSelected ? selectedBg : middleBg,
       },
       booked: {
         backgroundColor: blockedBg,
@@ -53,21 +53,23 @@ export const useCalendarStyles = (isSelected: Date | DateRange, type: 'single' |
       hovered: {
         backgroundColor: hexToRGB('primary', 0.3),
         color: selectedColor,
-        borderRadius: '8px',
+        borderRadius: '4px',
         boxShadow: 'md',
       },
     },
     styles: {
       [UI.Day]: {
-        width: '60px',
-        height: '60px',
-        borderRadius: '8px',
-        fontSize: '16px',
+        width: '45px',
+        height: '45px',
+        borderRadius: '4px',
+        fontSize: '13px',
+        alignItems: 'center',
+        justifyContent: 'center',
         cursor: 'pointer',
         transition: 'background-color 0.2s ease',
       },
       [UI.Weekday]: {
-        fontSize: '14px',
+        fontSize: '13px',
         color: '#888',
         padding: '1rem',
       },

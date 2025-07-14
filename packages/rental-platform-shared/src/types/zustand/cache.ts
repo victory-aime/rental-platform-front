@@ -21,10 +21,7 @@ export class ZustandCache {
     store.getState().clearAll()
   }
 
-  static subscribe<T = unknown>(
-    key: string,
-    callback: (data: T | undefined) => void
-  ): () => void {
+  static subscribe<T = unknown>(key: string, callback: (data: T | undefined) => void): () => void {
     const store = useZustandCacheStore()
     return store.subscribe((state: { cache: Record<string, unknown> }) => {
       callback(state.cache[key] as T | undefined)
