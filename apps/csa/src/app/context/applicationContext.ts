@@ -1,5 +1,5 @@
 import { APIS } from 'rental-platform-shared'
-import { ApplicationContext } from 'rental-platform-state'
+import { ApplicationContext } from 'rise-core-frontend'
 import { handleApiError } from '_utils/handleApiError'
 import { handleApiSuccess } from '_utils/handleApiSuccess'
 import { AxiosError } from 'axios'

@@ -13,7 +13,7 @@ import { TYPES } from 'rental-platform-shared'
 export const SessionErrorModal = ({ session }: { session: Session | null }) => {
   const { t } = useTranslation()
   const [showSessionError, setShowSessionError] = useState(false)
-  const store = TYPES.ZUSTAND.useZustandCacheStore()
+  const store = ZUSTAND.useZustandCacheStore()
   const { logout, login, isLoading } = useAuth()
 
   useEffect(() => {

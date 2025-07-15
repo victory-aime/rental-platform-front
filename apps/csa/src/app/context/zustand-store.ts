@@ -1,4 +1,4 @@
-import { TYPES } from 'rental-platform-shared'
+import { ZUSTAND } from 'rise-core-frontend'
 
 const storage = {
   getItem: (key: string) => {
@@ -15,5 +15,5 @@ const storage = {
 
 if (typeof window !== 'undefined') {
   console.log('store init')
-  TYPES.ZUSTAND.initZustandCacheStore({ storage })
+  ZUSTAND.initZustandCacheStore({ storage })
 }

@@ -1,4 +1,4 @@
-import { BaseApi } from '../../../../api'
+import { BaseApi } from 'rise-core-frontend'
 import { TYPES } from 'rental-platform-shared'
 
 /**

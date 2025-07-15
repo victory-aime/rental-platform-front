@@ -17,9 +17,9 @@ import { LuGrid2X2, LuList, LuTable } from 'react-icons/lu'
 import { BaseText, TextVariant, TextWeight } from '../base-text'
 import { useColorMode } from '_components/ui/color-mode'
 import { BaseAgendaProps } from './interface/agenda'
-import { UTILS } from 'rental-platform-shared'
 import { IoIosClose } from 'react-icons/io'
 import { useTranslation } from 'react-i18next'
+import { formatDisplayDate } from 'rise-core-frontend'
 
 export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick, onDateSelect, showLegend = true }: BaseAgendaProps) => {
   const { t } = useTranslation()
@@ -133,7 +133,7 @@ export const BaseAgenda = ({ events, initialView = 'dayGridMonth', onEventClick,
                 </Flex>
                 <HStack align="start">
                   <BaseText fontSize="sm">
-                    {UTILS.formatDisplayDate(eventInfo.event.start)} ~ {UTILS.formatDisplayDate(eventInfo.event.end)}
+                    {formatDisplayDate(eventInfo.event.start)} ~ {formatDisplayDate(eventInfo.event.end)}
                   </BaseText>
                 </HStack>
               </VStack>

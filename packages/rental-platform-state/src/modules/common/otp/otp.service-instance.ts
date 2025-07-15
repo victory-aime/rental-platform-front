@@ -1,4 +1,4 @@
-import { applicationInstance } from '../../../context'
+import { applicationInstance } from 'rise-core-frontend'
 import { CommonModule } from 'rental-platform-business'
 
 export const otpServiceInstance = () => {

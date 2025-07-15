@@ -1,6 +1,6 @@
 'use client'
 
-import { applicationInstance } from 'rental-platform-state'
+import { applicationInstance } from 'rise-core-frontend'
 import { GlobalApplicationContext } from './applicationContext'
 
 /**

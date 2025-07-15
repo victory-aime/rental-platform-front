@@ -2,9 +2,10 @@
 
 import { BaseText, BoxContainer, ColumnsDataTable, BaseFormatNumber, DataTableContainer, BaseBadge } from '_components/custom'
 import React, { useState } from 'react'
-import { CarsModule, CommonModule } from 'rental-platform-state'
+import { CarsModule } from 'rental-platform-state'
 import { MaintenanceForm } from './components/MaintenanceForm'
-import { TYPES, UTILS } from 'rental-platform-shared'
+import { TYPES } from 'rental-platform-shared'
+import { formatDisplayDate } from 'rise-core-frontend'
 import { FormikValues } from 'formik'
 import { getCarsName, getTitle } from '../constants/maintenance'
 import { CloseMaintenanceForm } from './components/CloseMaintenanceForm'
@@ -123,7 +124,7 @@ const MaintenancePage = () => {
       cell(plannedDates) {
         return (
           <BaseText>
-            {UTILS.formatDisplayDate(plannedDates?.scheduledStartDate)} ~ {UTILS.formatDisplayDate(plannedDates?.scheduledEndDate)}
+            {formatDisplayDate(plannedDates?.scheduledStartDate)} ~ {formatDisplayDate(plannedDates?.scheduledEndDate)}
           </BaseText>
         )
       },

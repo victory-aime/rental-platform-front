@@ -8,7 +8,7 @@ import { FC, useState } from 'react'
 import { format } from 'date-fns'
 import { BoxIcon } from '../boxIcon'
 import { IoIosClose } from 'react-icons/io'
-import { UTILS } from 'rental-platform-shared'
+import { COMMON_FORMAT_DATE_HEADER } from 'rise-core-frontend'
 
 interface CommonProps {
   blockedDates?: (Date | { from: Date; to: Date })[]
@@ -47,7 +47,7 @@ export const BaseCalendar: FC<BaseCalendarProps> = (props) => {
   const commonProps = {
     locale: defaultLocale,
     formatters: {
-      formatCaption: (date: Date, options: any) => format(date, UTILS.COMMON_FORMAT_DATE_HEADER, options),
+      formatCaption: (date: Date, options: any) => format(date, COMMON_FORMAT_DATE_HEADER, options),
     },
     modifiers: {
       booked: props.blockedDates,

@@ -1,29 +1,30 @@
 import * as Constants from './constants'
 import { usersServiceInstance } from './users.service-instance'
 import { TYPES } from 'rental-platform-shared'
+import { QUERIES } from 'rise-core-frontend'
 import { AxiosError } from 'axios'
 
-const userInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ userId: string }, any>) => {
+const userInfoQueries = (args: QUERIES.QueryPayload<{ userId: string }, any>) => {
   const { payload, queryOptions } = args
-  return TYPES.QUERIES.useCustomQuery<TYPES.MODELS.COMMON.USERS.IUser, AxiosError>({
+  return QUERIES.useCustomQuery<TYPES.MODELS.COMMON.USERS.IUser, AxiosError>({
     queryKey: [Constants.USERS_KEYS.WHO_AMI],
     queryFn: () => usersServiceInstance().whoAmI({ userId: payload?.userId! }),
     options: queryOptions,
   })
 }
 
-const credentialInfoQueries = (args: TYPES.QUERIES.QueryPayload<{ keycloakId: string }, any>) => {
+const credentialInfoQueries = (args: QUERIES.QueryPayload<{ keycloakId: string }, any>) => {
   const { payload, queryOptions } = args
-  return TYPES.QUERIES.useCustomQuery<{ message: string; data: any[] }, AxiosError>({
+  return QUERIES.useCustomQuery<{ message: string; data: any[] }, AxiosError>({
     queryKey: [Constants.USERS_KEYS.CREDENTIAL_LIST],
     queryFn: () => usersServiceInstance().credentialList({ keycloakId: payload?.keycloakId! }),
     options: queryOptions,
   })
 }
 
-const getAllSessionsQueries = (args: TYPES.QUERIES.QueryPayload<{ keycloakId: string }, any>) => {
+const getAllSessionsQueries = (args: QUERIES.QueryPayload<{ keycloakId: string }, any>) => {
   const { payload, queryOptions } = args
-  return TYPES.QUERIES.useCustomQuery<{ message: string; sessions: any }, AxiosError>({
+  return QUERIES.useCustomQuery<{ message: string; sessions: any }, AxiosError>({
     queryKey: [Constants.USERS_KEYS.SESSIONS],
     queryFn: () => usersServiceInstance().allSessions({ keycloakId: payload?.keycloakId! }),
     options: queryOptions,
@@ -31,13 +32,9 @@ const getAllSessionsQueries = (args: TYPES.QUERIES.QueryPayload<{ keycloakId: st
 }
 
 const updateUserInfoMutation = (
-  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>
+  args: QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>
 ) => {
-  return TYPES.QUERIES.useCustomMutation<
-    TYPES.MODELS.COMMON.USERS.IUpdateUserInfo,
-    any,
-    AxiosError
-  >({
+  return QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo, any, AxiosError>({
     mutationKey: [Constants.USERS_KEYS.UPDATE_USER],
     mutationFn: ({ payload, params }) => usersServiceInstance().updateUser(payload!, params),
     options: args.mutationOptions,
@@ -45,21 +42,17 @@ const updateUserInfoMutation = (
 }
 
 const deactivateAccountMutation = (
-  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IDeactivateAccount>
+  args: QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IDeactivateAccount>
 ) => {
-  return TYPES.QUERIES.useCustomMutation<
-    TYPES.MODELS.COMMON.USERS.IDeactivateAccount,
-    any,
-    AxiosError
-  >({
+  return QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IDeactivateAccount, any, AxiosError>({
     mutationKey: [Constants.USERS_KEYS.DEACTIVATE_ACCOUNT],
     mutationFn: ({ params }) => usersServiceInstance().deactivateAccount(params),
     options: args.mutationOptions,
   })
 }
 
-const activateAccountMutation = (args: TYPES.QUERIES.MutationPayload<string>) => {
-  return TYPES.QUERIES.useCustomMutation<string, any, AxiosError>({
+const activateAccountMutation = (args: QUERIES.MutationPayload<string>) => {
+  return QUERIES.useCustomMutation<string, any, AxiosError>({
     mutationKey: [Constants.USERS_KEYS.ACTIVATE_ACCOUNT],
     mutationFn: ({ payload }) => usersServiceInstance().activateAccount(payload!),
     options: args.mutationOptions,
@@ -67,13 +60,9 @@ const activateAccountMutation = (args: TYPES.QUERIES.MutationPayload<string>) =>
 }
 
 const clearAllSessionsMutation = (
-  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>
+  args: QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo>
 ) => {
-  return TYPES.QUERIES.useCustomMutation<
-    TYPES.MODELS.COMMON.USERS.IUpdateUserInfo,
-    any,
-    AxiosError
-  >({
+  return QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IUpdateUserInfo, any, AxiosError>({
     mutationKey: [Constants.USERS_KEYS.CLEAR_ALL_SESSIONS],
     mutationFn: ({ params }) => usersServiceInstance().clearAllSessions(params),
     options: args.mutationOptions,
@@ -81,9 +70,9 @@ const clearAllSessionsMutation = (
 }
 
 const registerPasskeyMutation = (
-  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUser>
+  args: QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUser>
 ) => {
-  return TYPES.QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IUser, any, AxiosError>({
+  return QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IUser, any, AxiosError>({
     mutationKey: [Constants.USERS_KEYS.CREATE_PASSKEY],
     mutationFn: ({ params }) => usersServiceInstance().registerPasskey(params),
     options: args.mutationOptions,
@@ -91,26 +80,20 @@ const registerPasskeyMutation = (
 }
 
 const revokePasskeyMutation = (
-  args: TYPES.QUERIES.MutationPayload<{
+  args: QUERIES.MutationPayload<{
     keycloakId: string
     credentialId: string
   }>
 ) => {
-  return TYPES.QUERIES.useCustomMutation<
-    { keycloakId: string; credentialId: string },
-    any,
-    AxiosError
-  >({
+  return QUERIES.useCustomMutation<{ keycloakId: string; credentialId: string }, any, AxiosError>({
     mutationKey: [Constants.USERS_KEYS.REVOKE_PASSKEY],
     mutationFn: ({ params }) => usersServiceInstance().revokePasskey(params),
     options: args.mutationOptions,
   })
 }
 
-const revokeSessionsMutation = (
-  args: TYPES.QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUser>
-) => {
-  return TYPES.QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IUser, any, AxiosError>({
+const revokeSessionsMutation = (args: QUERIES.MutationPayload<TYPES.MODELS.COMMON.USERS.IUser>) => {
+  return QUERIES.useCustomMutation<TYPES.MODELS.COMMON.USERS.IUser, any, AxiosError>({
     mutationKey: [Constants.USERS_KEYS.REVOKE_SESSION],
     mutationFn: ({ params }) => usersServiceInstance().revokeSessions(params),
     options: args.mutationOptions,

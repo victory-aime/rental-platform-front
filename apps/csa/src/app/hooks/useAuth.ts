@@ -3,8 +3,8 @@ import { signIn, signOut } from 'next-auth/react'
 import { APP_ROUTES } from '_config/routes'
 import { keycloakSessionLogOut } from '_hooks/logout'
 import { useGlobalLoader } from '_context/loaderContext'
-import { TYPES } from 'rental-platform-shared'
 import { StorageKey } from '_constants/StorageKeys'
+import { ZUSTAND } from 'rise-core-frontend'
 
 export const useAuth = () => {
   const router = useRouter()
@@ -13,7 +13,7 @@ export const useAuth = () => {
   const logout = async () => {
     try {
       showLoader()
-      const store = TYPES.ZUSTAND.useZustandCacheStore()
+      const store = ZUSTAND.useZustandCacheStore()
       localStorage.removeItem(StorageKey.OTP_REQUIRED)
       localStorage.removeItem(StorageKey.CACHE)
 

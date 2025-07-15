@@ -3,7 +3,7 @@ import { getCarsName } from '_modules/cars/constants/maintenance'
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoIosClose } from 'react-icons/io'
-import { UTILS } from 'rental-platform-shared'
+import { formatDisplayDate } from 'rise-core-frontend'
 import { CarsModule } from 'rental-platform-state'
 
 export const CloseMaintenanceForm: FC<ModalOpenProps> = ({ isOpen, isLoading, onChange, callback, data }) => {
@@ -20,7 +20,7 @@ export const CloseMaintenanceForm: FC<ModalOpenProps> = ({ isOpen, isLoading, on
       ignoreFooter={false}
       modalType={'alertdialog'}
     >
-      <BaseText>{t('MAINTENANCE.CLOSE.DESC', { carsName: getCarsName(data?.carId, cars), endDate: UTILS.formatDisplayDate(data?.plannedDates?.scheduledEndDate) })}</BaseText>
+      <BaseText>{t('MAINTENANCE.CLOSE.DESC', { carsName: getCarsName(data?.carId, cars), endDate: formatDisplayDate(data?.plannedDates?.scheduledEndDate) })}</BaseText>
     </ModalComponent>
   )
 }

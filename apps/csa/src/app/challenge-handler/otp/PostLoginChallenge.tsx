@@ -8,6 +8,7 @@ import { OtpChallengeHandler } from './OtpChallengeHandler'
 import { extractOtp } from './utils/extract-otp'
 import { useAuth } from '_hooks/useAuth'
 import { StorageKey } from '_constants/StorageKeys'
+import { ZUSTAND } from 'rise-core-frontend'
 
 interface Props {
   user?: TYPES.MODELS.COMMON.USERS.IUser
@@ -17,7 +18,7 @@ export const PostLoginChallenge: FC<Props> = ({ user }) => {
   const hasTriggeredRef = useRef(false)
   const [openModal, setOpenModal] = useState(false)
   const { logout } = useAuth()
-  const store = TYPES.ZUSTAND.useZustandCacheStore()
+  const store = ZUSTAND.useZustandCacheStore()
   const { email, otpRemaining: expiresIn, blockRemaining, saveOtpData, clearOtpData } = useOtpStorage()
 
   const shouldTriggerOtp = typeof window !== 'undefined' && localStorage.getItem(StorageKey.OTP_REQUIRED) === 'true'

@@ -20,7 +20,7 @@ import { useEffect, useState } from 'react'
 import { HiX } from 'react-icons/hi'
 import { LuUpload } from 'react-icons/lu'
 import { ACCEPTED_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB, MAX_FILES } from './constant/constants'
-import { UTILS } from 'rental-platform-shared'
+import { convertUrlsToFiles } from 'rise-core-frontend'
 import { Avatar } from '_components/ui/avatar'
 import { BaseText, TextVariant } from '../base-text'
 import { VariablesColors } from '_theme/variables'
@@ -35,7 +35,7 @@ const FileImageList = ({ getFilesUploaded, initialImageUrls, t }: { getFilesUplo
 
   useEffect(() => {
     if (initialImageUrls && initialImageUrls.length > 0 && fileUpload.acceptedFiles.length === 0) {
-      UTILS.convertUrlsToFiles(initialImageUrls).then((files) => {
+      convertUrlsToFiles(initialImageUrls).then((files) => {
         fileUpload.setFiles([...files])
       })
     }
@@ -114,7 +114,7 @@ const SimpleFileUpload = ({
 
   useEffect(() => {
     if (typeof avatarImage === 'string' && avatarImage && fileUpload.acceptedFiles.length === 0) {
-      UTILS.convertUrlsToFiles(avatarImage).then((file) => {
+      convertUrlsToFiles(avatarImage).then((file) => {
         fileUpload.setFiles([...file])
       })
     }

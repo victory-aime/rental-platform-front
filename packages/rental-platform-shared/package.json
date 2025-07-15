@@ -1,6 +1,6 @@
 {
   "name": "rental-platform-shared",
-  "version": "1.2.1-alpha.0",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -32,6 +32,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "rise-core-frontend": "^3.1.0-alpha.0",
+    "yup": "^1.6.1"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-json": "^6.1.0",
@@ -44,10 +48,5 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^5.3.3"
   },
-  "dependencies": {
-    "browser-image-compression": "^2.0.2",
-    "dayjs": "^1.11.13",
-    "yup": "^1.6.1"
-  },
-  "gitHead": "24bd12f509e1783b3d58fb2d4b4de4a7b0d93d37"
+  "gitHead": "14dd597a91396ebd26dbef06adc5f44af5db8bab"
 }

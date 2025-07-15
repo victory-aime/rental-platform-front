@@ -7,7 +7,8 @@ import { FormTextInput, FormSelect, CustomDragDropZone, CheckBoxFom, FormSwitch,
 import { Formik } from 'formik'
 import { LuBadgeDollarSign, LuBadgePercent } from 'react-icons/lu'
 import { CarsModule } from 'rental-platform-state'
-import { TYPES, UTILS } from 'rental-platform-shared'
+import { TYPES } from 'rental-platform-shared'
+import { findDynamicIdInList } from 'rise-core-frontend'
 import { fuelList, transmissionList, categoryList, statusList, equipmentsList, parcList } from '../../constants/cars'
 import { DiscountedPriceCalculator } from '_modules/cars/hooks/DiscountPriceCalculator'
 import { useTranslation } from 'react-i18next'
@@ -33,7 +34,7 @@ const AddCarsPage = () => {
     payload: { establishment: currentUser?.establishment?.id ?? '' },
     queryOptions: { enabled: !!requestId && !!currentUser?.establishment?.id },
   })
-  const existingCarsFiles = UTILS.findDynamicIdInList(requestId!, allCars)
+  const existingCarsFiles = findDynamicIdInList(requestId!, allCars)
   const { data: categories } = CarsModule.getCarsCategoriesQueries({})
   const { data: equipments } = CarsModule.getCarsEquipmentsQueries({})
   const { data: parcs } = CarsModule.parcs.getParcsQueries({

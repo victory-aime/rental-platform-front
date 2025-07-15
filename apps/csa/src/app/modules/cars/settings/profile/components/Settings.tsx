@@ -8,17 +8,17 @@ import { CommonModule } from 'rental-platform-state'
 import { useSession } from 'next-auth/react'
 import { TrashIcon } from '_assets/svg'
 import { useTranslation } from 'react-i18next'
-import { TYPES, UTILS } from 'rental-platform-shared'
 import { GlobalModal } from './GlobalModal'
 import { PassKeyModal } from './PassKeyModal'
 import { useAuth } from '_hooks/useAuth'
 import { useCachedUser } from '_hooks/useCachedUser'
+import { formatCreatedAt, ZUSTAND } from 'rise-core-frontend'
 
 export const Settings = () => {
   const { data: session } = useSession()
   const { t } = useTranslation()
   const { logout, login } = useAuth()
-  const store = TYPES.ZUSTAND.useZustandCacheStore()
+  const store = ZUSTAND.useZustandCacheStore()
   const [open, setOpen] = useState<boolean>(false)
   const [isRevoke, setIsRevoke] = useState<boolean>(false)
   const [openPassKeyModal, setOpenPasskeyModal] = useState<boolean>(false)
@@ -169,7 +169,7 @@ export const Settings = () => {
                         <>
                           <VStack alignItems="flex-start" gap={1}>
                             <BaseText fontWeight="bold">{cred.userLabel || t('PROFILE.SECURITY.UNKNOW_DEVICE')}</BaseText>
-                            <BaseText variant={TextVariant.S}> Créé {UTILS.formatCreatedAt(cred.createdDate)}</BaseText>
+                            <BaseText variant={TextVariant.S}> Créé {formatCreatedAt(cred.createdDate)}</BaseText>
                           </VStack>
 
                           <BoxIcon
@@ -212,7 +212,7 @@ export const Settings = () => {
                           </HStack>
 
                           <BaseText variant={TextVariant.S}>
-                            {t('PROFILE.SECURITY.SESSION_START')} : {UTILS.formatCreatedAt(session.start)}
+                            {t('PROFILE.SECURITY.SESSION_START')} : {formatCreatedAt(session.start)}
                           </BaseText>
                         </VStack>
                         {userSessions?.sessions?.length > 1 && (

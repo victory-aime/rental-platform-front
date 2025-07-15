@@ -1,5 +1,5 @@
 import { TYPES } from 'rental-platform-shared'
-import { BaseApi } from '../../../api'
+import { BaseApi } from 'rise-core-frontend'
 
 /**
  * CarsServices provides methods to manage cars.

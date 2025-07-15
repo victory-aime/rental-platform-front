@@ -8,10 +8,10 @@ import { useId, useState } from 'react'
 import { PiCalendarThin } from 'react-icons/pi'
 import { BoxIcon } from '../boxIcon'
 import { IoIosClose } from 'react-icons/io'
-import { UTILS } from 'rental-platform-shared'
 import { FormDatePickerFieldProps } from './interface/input'
 import { BaseText } from '../base-text'
 import { useTranslation } from 'react-i18next'
+import { COMMON_FORMAT_DATE } from 'rise-core-frontend'
 
 export const FormDatePicker = ({ name, label, mode, placeholder = '', isReadOnly, isDisabled, required }: FormDatePickerFieldProps) => {
   const id = useId()
@@ -47,16 +47,16 @@ export const FormDatePicker = ({ name, label, mode, placeholder = '', isReadOnly
     if (!value) return ''
 
     if (mode === 'single' && value instanceof Date) {
-      return format(value, UTILS.COMMON_FORMAT_DATE)
+      return format(value, COMMON_FORMAT_DATE)
     }
 
     if (mode === 'range') {
       const { from, to } = value as DateRange
       if (!from) return ''
       if (!to || from.getTime() === to.getTime()) {
-        return `Du ${format(from, UTILS.COMMON_FORMAT_DATE)}`
+        return `Du ${format(from, COMMON_FORMAT_DATE)}`
       }
-      return `Du ${format(from, UTILS.COMMON_FORMAT_DATE)} au ${format(to, UTILS.COMMON_FORMAT_DATE)}`
+      return `Du ${format(from, COMMON_FORMAT_DATE)} au ${format(to, COMMON_FORMAT_DATE)}`
     }
 
     return ''

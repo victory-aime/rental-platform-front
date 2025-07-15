@@ -13,14 +13,14 @@ import { VariablesColors } from '_theme/variables'
 import { PostLoginChallenge } from '../../challenge-handler/otp/PostLoginChallenge'
 import { useAuth } from '_hooks/useAuth'
 import { useCachedUser } from '_hooks/useCachedUser'
-import { TYPES } from 'rental-platform-shared'
+import { ZUSTAND } from 'rise-core-frontend'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { t } = useTranslation()
   const getPreferredLanguage = localStorage.getItem(StorageKey.LANGUAGE)
   const { logout } = useAuth()
   const [openSelectLanguage, setOpenSelectLanguage] = useState<boolean>(false)
-  const store = TYPES.ZUSTAND.useZustandCacheStore()
+  const store = ZUSTAND.useZustandCacheStore()
   const cachedUser = useCachedUser()
 
   const { isLoading } = CommonModule.UserModule.userInfoQueries({
