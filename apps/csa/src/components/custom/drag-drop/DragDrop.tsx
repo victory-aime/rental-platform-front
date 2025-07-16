@@ -26,8 +26,8 @@ import { BaseText, TextVariant } from '../base-text'
 import { VariablesColors } from '_theme/variables'
 import { useTranslation } from 'react-i18next'
 import { useFileUploadErrors } from './useFileUploadErrors'
-import { HomeIcon } from '_assets/svg'
 import { CustomSkeletonLoader } from '../custom-skeleton'
+import { CiUser } from 'react-icons/ci'
 
 const FileImageList = ({ getFilesUploaded, initialImageUrls, t }: { getFilesUploaded: (files: File[]) => void; initialImageUrls?: string[]; t: any }) => {
   const fileUpload = useFileUploadContext()
@@ -150,7 +150,7 @@ const SimpleFileUpload = ({
             name={name}
             cursor="pointer"
             colorPalette={(previewUrl || avatarImage) && !isImageDeleted ? 'green' : 'none'}
-            icon={<HomeIcon />}
+            icon={<CiUser />}
             src={!isImageDeleted ? previewUrl || (avatarImage?.trim() ? avatarImage : undefined) : undefined}
             css={{
               outlineWidth: '2px',
