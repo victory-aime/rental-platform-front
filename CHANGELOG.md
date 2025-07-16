@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/victory-aime/rental-platform-front/compare/v1.1.0...v1.1.1) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 update app and fix prepare release tag ([da39f19](https://github.com/victory-aime/rental-platform-front/commit/da39f19b093c1ef84567fd96fa62dfe8586f8f00))
+
 # [1.1.0](https://github.com/victory-aime/rental-platform-front/compare/v1.0.0...v1.1.0) (2025-07-14)
 
 ### Bug Fixes
